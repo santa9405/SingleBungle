@@ -20,8 +20,8 @@
 
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
       <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-      <property name="username" value="spring"/>
-      <property name="password" value="spring"/>
+      <property name="username" value="single"/>
+      <property name="password" value="single"/>
       <!-- defaultAutoCommit: 풀에서 생성 된 연결의 기본 자동 커밋 상태입니다. 설정하지 않으면 setAutoCommit 메서드가 호출되지 않습니다. -->
       <property name="defaultAutoCommit" value="false"/>
 
