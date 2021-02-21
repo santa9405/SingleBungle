@@ -7,10 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>가지가지 - 자유게시판 메인 페이지
-<%-- 	<c:choose>
-		<c:when test="${pInfo.boardType == 1}">자유게시판</c:when>
-		<c:when test="${pInfo.boardType == 2}">정보게시판</c:when>
-	</c:choose> --%>
 </title>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -20,7 +16,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-
 .board-category, .ml-auto { margin: 20px; }
 
 .boardName { margin-right: 40px; }
@@ -39,7 +34,6 @@
 }
 
 /* 페이징바 */
-
 .flex {
 	-webkit-box-flex: 1;
 	-ms-flex: 1 1 auto;
@@ -80,15 +74,8 @@
 	border: none;
 	border-radius: 50px;
 }
-
-/* */
-.board-category:after { 
-	content: ""; 
-	dispaly: table; 
-	clear: both;
-}
-
 </style>
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
