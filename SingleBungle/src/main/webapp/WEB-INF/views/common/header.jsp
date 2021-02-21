@@ -49,6 +49,11 @@
 	
 	<a class="nav-link" href="${contextPath}/market/list">사고팔고 목록 조회</a>
 	<a class="nav-link" href="${contextPath}/market/view">사고팔고 상세 조회</a>
+
+
+	<a class="nav-link" href="${contextPath}/review/list">후기게시판 목록 조회</a>
+	<a class="nav-link" href="${contextPath}/review/view">후기게시판 상세 조회</a>
+	
     
    	<!-- Bootstrap core JS-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
