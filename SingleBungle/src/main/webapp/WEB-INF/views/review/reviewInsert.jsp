@@ -81,7 +81,7 @@ select:focus {
 
 
 
-				<div class="text-center">
+				<div class="text-center" style="margin-bottom:10px;">
 					<button type="submit" class="btn btn-success">등록</button>
 					<a class="btn btn-success" href="${sessionScope.returnListURL}">취소</a>
 				</div>

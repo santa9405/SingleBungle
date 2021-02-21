@@ -113,11 +113,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="boardInfo" id="writer">
-					<img class="image" src="/Image/profile.png" /> 달마고
+					<img class="image" src="${contextPath}/resources/images/profile.png" /> 달마고
 				</div>
 				<div class="boardInfo" id="createDt" style="color: gray">2021.02.07</div>
 				<div class="infoArea float-right">
-					<img class="image" src="/Image/view.png"> 0 <span>
+					<img class="image" src="${contextPath}/resources/images/view.png"> 0 <span>
 						<button type="button" id="likeBtn">
 							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
 						</button>
@@ -164,7 +164,7 @@
 			<div class="col-md-4">
 				<div class="bg-white rounded shadow-sm">
 					<div class="embed-responsive embed-responsive-4by3">
-						<img src="/Image/발받침대.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
 					</div>
 					<div class="p-4">
 						<h5>
@@ -172,15 +172,15 @@
 						</h5>
 						<div class="infoArea float-right">
 							<div class="viewArea">
-								<img class="icon" src="#" /> 0
+								<img class="icon" src="${contextPath}/resources/images/view.png" /> 0
 							</div>
 							<div class="replyArea">
-								<img class="icon" src="#" /> 0
+								<img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
 							</div>
 						</div>
 						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
 							<p class="small mb-0">
-								<i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">달마고</span>
+								<span class="font-weight-bold price">달마고</span>
 							</p>
 							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
 						</div>
@@ -190,7 +190,7 @@
 			<div class="col-md-4">
 				<div class="bg-white rounded shadow-sm">
 					<div class="embed-responsive embed-responsive-4by3">
-						<img src="/Image/발받침대.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
 					</div>
 					<div class="p-4">
 						<h5>
@@ -198,15 +198,15 @@
 						</h5>
 						<div class="infoArea float-right">
 							<div class="viewArea">
-								<img class="icon" src="#" /> 0
+								<img class="icon" src="${contextPath}/resources/images/view.png" /> 0
 							</div>
 							<div class="replyArea">
-								<img class="icon" src="#" /> 0
+								<img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
 							</div>
 						</div>
 						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
 							<p class="small mb-0">
-								<i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">달마고</span>
+								<span class="font-weight-bold price">달마고</span>
 							</p>
 							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
 						</div>
@@ -216,7 +216,7 @@
 			<div class="col-md-4">
 				<div class="bg-white rounded shadow-sm">
 					<div class="embed-responsive embed-responsive-4by3">
-						<img src="/Image/발받침대.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
 					</div>
 					<div class="p-4">
 						<h5>
@@ -224,15 +224,15 @@
 						</h5>
 						<div class="infoArea float-right">
 							<div class="viewArea">
-								<img class="icon" src="#" /> 0
+								<img class="icon" src="${contextPath}/resources/images/view.png" /> 0
 							</div>
 							<div class="replyArea">
-								<img class="icon" src="#" /> 0
+								<img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
 							</div>
 						</div>
 						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
 							<p class="small mb-0">
-								<i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">달마고</span>
+								<span class="font-weight-bold price">달마고</span>
 							</p>
 							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
 						</div>
