@@ -14,77 +14,128 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-	#replyContentArea { width: 94.8%; }
+/* 댓글 */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #d2d2dc;
+}
 
-	#replyContentArea > textarea {
-	  resize: none;
-	  width: 100%;
-	}
+.media img {
+    width: 30px;
+    height: 30px;
+}
 
-	#replyListArea {
-		list-style-type: none;
-	}
-
-	.replyBtnArea1 > a, .replyBtnArea2 > a { color : black; }
+.reReply{
+    clear: both;
+}
 </style>
 
 </head>
 <body>
 
-	<!-- 댓글 출력 부분 -->
-	<div class="replyList mt-5 pt-2">
-		<ul id="replyListArea">
-			
-			<!-- 로그인 x 또는 댓글 작성자가 아닌 회원의 화면 -->
-			<li class="reply-row">
-				<div>
-					작성자 2021.01.11 10:30
+	<!-- 댓글 -->
+	<div class="row textArea" style="margin-top: 15px;">
+		<div class="col-md-12">
+			<h7>댓글</h7>
+			<div class="row">
+				<div class="col-md-12">
+
+					<!-- 1개의 댓글 -->
+					<div class="media mt-2">
+						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
+						<div class="media-body">
+							<div class="row">
+								<div class="col-8 d-flex">
+									<h5>솔쨩</h5>
+									<span style="color: gray; font-size: 14px;">- 15:00</span>
+								</div>
+								<div class="col-4">
+									<div class="reply float-right">
+										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
+									</div>
+								</div>
+							</div>
+							<div class="replyText">영수증 첨부해주세요.</div>
+							<div class="float-right" style="font-size: 13px;">
+								<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
+							</div>
+
+							<div class="media mt-3 reReply">
+								<div class="pr-3">
+									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
+								</div>
+								<div class="media-body">
+									<div class="row">
+										<div class="col-12 d-flex">
+											<h6>달마고</h6>
+											<span style="color: gray; font-size: 14px;"> - 15:30</span>
+										</div>
+									</div>
+									<div class="replyText">지금 올렸어요</div>
+								</div>
+							</div>
+							<div class="media mt-3">
+								<div class="pr-3">
+									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
+								</div>
+								<div class="media-body">
+									<div class="row">
+										<div class="col-12 d-flex">
+											<h6>솔쨩</h6>
+											<span style="color: gray; font-size: 14px;">- 15:31</span>
+										</div>
+									</div>
+									<div class="replyText">이미 신고했습니다.</div>
+									<div class="float-right" style="font-size: 13px;">
+										<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<!-- 댓글 1개 끝나면 밑줄 -->
+
+					<div class="media mt-2">
+						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
+						<div class="media-body">
+							<div class="row">
+								<div class="col-8 d-flex">
+									<h5>크리스탈</h5>
+									<span style="color: gray; font-size: 14px;">- 16:00</span>
+								</div>
+								<div class="col-4">
+									<div class="reply float-right">
+										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
+									</div>
+								</div>
+							</div>
+							<div class="replyText">?</div>
+						</div>
+					</div>
+					<hr>
 				</div>
-				
-                <div class="replyBtnArea1 float-right">
-                <a href="#" id="replyReply">댓글</a>
-                <a href="#" id="reportReply">신고</a>
-                </div>
-
-				<p class="rContent">댓글 내용1</p>
-
-			</li>
-
-			<!-- 로그인한 회원이 댓글 작성자인 경우 -->
-			<li class="reply-row">
-				<div>
-					작성자 2021년 01월 11일 10:30
-				</div>
-
-                <div class="replyBtnArea2 float-right">
-                    <a href="#" id="replyReply">댓글</a>
-					<a href="#" id="updateReply">수정</a>
-					<a href="#" id="deleteReply">삭제</a>
-				</div>
-
-				<p class="rContent">댓글 내용2</p>
-
-			</li>
-	
-		</ul>
+			</div>
+		</div>
 	</div>
-
-
-    <div id="reply-area">
-        <!-- 댓글 작성 부분 -->
-        <div class="replyWrite">
-            <table align="center">
-                <tr>
-                    <td id="replyContentArea">
-                        <textArea rows="2" id="replyContent"></textArea>
-                    </td>
-                    <td id="replyBtnArea">
-                        <button type="button" class="btn btn-secondary btn-success" id="addReply" style="width: 100px; height: 53px; display: inline-block; margin-bottom: 5px;">댓글등록</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+	<!-- 댓글 END -->
+	<!-- 댓글 작성 -->
+	<div class="bg-light p-2">
+		<div class="d-flex flex-row align-items-start">
+			<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="40">
+			<textarea class="form-control ml-1 shadow-none textarea"></textarea>
+		</div>
+		<div class="mt-2 text-right">
+			<button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button>
+			<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
+		</div>
+	</div>
 
 </body>
 </html>
