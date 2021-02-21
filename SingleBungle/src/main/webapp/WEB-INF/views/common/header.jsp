@@ -36,6 +36,16 @@
 	<a class="nav-link" href="${contextPath}/findFriend/insert">친구찾기 게시글 작성</a>
 	<a class="nav-link" href="${contextPath}/findFriend/list">친구찾기 목록 조회</a>
 	<a class="nav-link" href="${contextPath}/findFriend/view">친구찾기 상세 조회</a>
+	
+	<a class="nav-link" href="${contextPath}/board/insert">자유게시판 게시글 작성</a>
+	<a class="nav-link" href="${contextPath}/board/list">자유게시판 목록 조회</a>
+	<a class="nav-link" href="${contextPath}/board/view">자유게시판 상세 조회</a>
+	<a class="nav-link" href="${contextPath}/board/update">자유게시판 게시글 수정</a>
+	
+	<a class="nav-link" href="${contextPath}/cafe/insert">맛집게시판 게시글 작성</a>
+	<a class="nav-link" href="${contextPath}/cafe/list">맛집게시판 목록 조회</a>
+	<a class="nav-link" href="${contextPath}/cafe/view">맛집게시판 상세 조회</a>
+	<a class="nav-link" href="${contextPath}/cafe/update">맛집게시판 게시글 수정</a>
     
    	<!-- Bootstrap core JS-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
