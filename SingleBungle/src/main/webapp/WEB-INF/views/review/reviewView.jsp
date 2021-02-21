@@ -4,7 +4,44 @@
 <head>
 <meta charset="UTF-8">
 <title>후기 등록하기</title>
+<style>
+        .boardInfo{
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .image{
+            width:30px;
+            height:30px;
+        }
+
+        
+
+        .viewArea{
+        display: inline-block;
+        font-size: 11px;
+        width: 75px;
+        text-align: right;
+        }
+
+        #likeBtn {
+            border: 0px solid #ddd;
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        .likeCnt {
+            color: #6c757d;
+        }
+        
+        .like {
+            background-image: url('${contextPath}/resources/img/like2.png');
+            background-repeat: no-repeat;
+        }
+</style>
+
 </head>
+
+
 <body>
 	<jsp:include page="../common/header.jsp"/>
 
@@ -50,7 +87,7 @@
 		</div>
 
 		<!-- 댓글(페이지 연결하기) -->
-		<jsp:include page="ReviewReply.jsp"></jsp:include>
+		<jsp:include page="reviewReply.jsp"></jsp:include>
 
 
 		<!-- 버튼 -->
