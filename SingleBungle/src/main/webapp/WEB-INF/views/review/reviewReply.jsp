@@ -53,7 +53,7 @@
 				<div class="col-md-12">
 					<!-- 1개의 댓글 -->
 					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="/Image/profile.png" />
+						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
 						<div class="media-body">
 							<div class="row">
 								<div class="col-8 d-flex">
@@ -62,7 +62,7 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
+										<a href="#"><span> 답글</span></a> <a href="#"><span> 신고</span></a>
 									</div>
 								</div>
 							</div>
@@ -73,7 +73,7 @@
 
 							<div class="media mt-3 reReply">
 								<div class="pr-3">
-									<img class="rounded-circle" src="/Image/profile.png" />
+									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
 								</div>
 								<div class="media-body">
 									<div class="row">
@@ -87,7 +87,7 @@
 							</div>
 							<div class="media mt-3">
 								<div class="pr-3">
-									<img class="rounded-circle" src="/Image/profile.png" />
+									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
 								</div>
 								<div class="media-body">
 									<div class="row">
@@ -98,7 +98,8 @@
 									</div>
 									<div class="replyText">이미 신고했습니다.</div>
 									<div class="float-right" style="font-size: 13px;">
-										<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
+										<a class="replyUpdate"> 수정 </a> 
+										<a class="replyDelete"> 삭제 </a>
 									</div>
 								</div>
 							</div>
@@ -108,7 +109,7 @@
 					<!-- 댓글 1개 끝나면 밑줄 -->
 
 					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="/Image/profile.png" />
+						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
 						<div class="media-body">
 							<div class="row">
 								<div class="col-8 d-flex">
@@ -117,7 +118,8 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
+										<a href="#"><span>답글</span></a> 
+										<a href="#"><span>신고</span></a>
 									</div>
 								</div>
 							</div>
@@ -128,7 +130,7 @@
 					<!-- 댓글 작성창 -->
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
-							<img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="35">
 							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
