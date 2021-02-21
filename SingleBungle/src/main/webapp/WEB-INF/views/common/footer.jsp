@@ -14,7 +14,7 @@
 <body>
 	<!-- Footer -->
 	<div class="py-5 footer">
-	  <div class="container">
+	  <div class="footerContainer">
 	  	<div class="row">
 		    <div class="col-md-12 text-center">Copyright &copy; KH Information Educational Institute A-Class</div>
 	  	</div>
