@@ -29,6 +29,11 @@ public class ReviewController {
 		return "review/reviewView";
 	}
 	
+	@RequestMapping("insert")
+	public String reviewInsert() {
+		return "review/reviewInsert";
+	}
+	
 
 	
 
