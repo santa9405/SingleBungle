@@ -34,8 +34,30 @@
                             <option value="20">영화</option>
                             <option value="30">일상</option>
                             <option value="40">경제</option>
-                            <option value="50">반려동물</option>
-                            <option value="60">요리레시피</option>
+                            <option value="50">밥친구</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="input-group-addon mr-3 insert-label">지역</label>
+                        <select   class="form-select" id="category" name="categoryName" style="width: 150px; height: 30px;">
+                            <option value="10">서울특별시</option>
+                            <option value="20">부산광역시</option>
+                            <option value="30">대구광역시</option>
+                            <option value="40">인천광역시</option>
+                            <option value="50">광주광역시</option>
+                            <option value="60">대전광역시</option>
+                            <option value="70">울산광역시</option>
+                            <option value="80">세종특별자치시</option>
+                            <option value="90">경기도</option>
+                            <option value="100">강원도</option>
+                            <option value="110">충청북도</option>
+                            <option value="120">충청남도</option>
+                            <option value="130">전라북도</option>
+                            <option value="140">전라북도</option>
+                            <option value="150">경상북도</option>
+                            <option value="160">경상남도</option>
+                            <option value="170">제주도</option>
                         </select>
                     </div>
 
