@@ -53,6 +53,7 @@
 
 	<a class="nav-link" href="${contextPath}/review/list">후기게시판 목록 조회</a>
 	<a class="nav-link" href="${contextPath}/review/view">후기게시판 상세 조회</a>
+	<a class="nav-link" href="${contextPath}/review/insert">후기게시판 게시글 등록</a>
 	
     
    	<!-- Bootstrap core JS-->

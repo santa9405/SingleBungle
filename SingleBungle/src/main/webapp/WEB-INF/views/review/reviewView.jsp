@@ -5,45 +5,94 @@
 <meta charset="UTF-8">
 <title>후기 등록하기</title>
 <style>
-        .boardInfo{
-            display: inline-block;
-            margin-right: 15px;
-        }
+	.boardInfo {
+		display: inline-block;
+		margin-right: 15px;
+	}
+	
+	.image {
+		width: 30px;
+		height: 30px;
+	}
+	
+	.viewArea {
+		display: inline-block;
+		font-size: 11px;
+		width: 75px;
+		text-align: right;
+	}
+	
+	#likeBtn {
+		border: 0px solid #ddd;
+		background-color: rgba(255, 255, 255, 0);
+	}
+	
+	.likeCnt {
+		color: #6c757d;
+	}
+	
+	.like {
+		background-image: url('${contextPath}/resources/img/like2.png');
+		background-repeat: no-repeat;
+	}
 
-        .image{
-            width:30px;
-            height:30px;
-        }
+   /* TOP3 출력 */
+       body {
+       background: #f4f4f4;
+     }
 
-        
+     .boardName {
+       margin-right: 40px;
+     }
 
-        .viewArea{
-        display: inline-block;
-        font-size: 11px;
-        width: 75px;
-        text-align: right;
-        }
+     .card-img-top{
+       height: 15rem;
+     }
 
-        #likeBtn {
-            border: 0px solid #ddd;
-            background-color: rgba(255, 255, 255, 0);
-        }
+     .categoryArea, .arrayArea{
+       display: inline-block;
+     }
 
-        .likeCnt {
-            color: #6c757d;
-        }
-        
-        .like {
-            background-image: url('${contextPath}/resources/img/like2.png');
-            background-repeat: no-repeat;
-        }
+     .category, .array{
+       text-decoration: none;
+       color: black;
+       line-height : 54px;
+       margin-right:5px;
+     }
+
+
+     /* 제목 */
+     .text-dark{
+       display:block;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+
+       font-weight: bold;
+     }
+
+
+     /* 좋아요/댓글 */
+     .viewArea,.replyArea{
+       display: inline-block;
+       font-size: 11px;
+       margin-right:5px;
+     }
+
+     .nickNameArea{
+       clear: both;
+     }
+
+     .icon {
+       width: 13px;
+     }
 </style>
 
 </head>
 
 
 <body>
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/header.jsp" />
 
 
 	<div class="container">
@@ -108,9 +157,100 @@
 				<button type="button" class="btn btn-success">목록으로</button>
 			</div>
 		</div>
+
+		<h7>후기게시판 인기 게시글</h7>
+		<hr>
+		<div class="row" style="margin-bottom: 25px;">
+			<div class="col-md-4">
+				<div class="bg-white rounded shadow-sm">
+					<div class="embed-responsive embed-responsive-4by3">
+						<img src="/Image/발받침대.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+					</div>
+					<div class="p-4">
+						<h5>
+							<a href="#" class="text-dark">발받침대 구매 후기</a>
+						</h5>
+						<div class="infoArea float-right">
+							<div class="viewArea">
+								<img class="icon" src="#" /> 0
+							</div>
+							<div class="replyArea">
+								<img class="icon" src="#" /> 0
+							</div>
+						</div>
+						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+							<p class="small mb-0">
+								<i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">달마고</span>
+							</p>
+							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="bg-white rounded shadow-sm">
+					<div class="embed-responsive embed-responsive-4by3">
+						<img src="/Image/발받침대.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+					</div>
+					<div class="p-4">
+						<h5>
+							<a href="#" class="text-dark">발받침대 구매 후기</a>
+						</h5>
+						<div class="infoArea float-right">
+							<div class="viewArea">
+								<img class="icon" src="#" /> 0
+							</div>
+							<div class="replyArea">
+								<img class="icon" src="#" /> 0
+							</div>
+						</div>
+						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+							<p class="small mb-0">
+								<i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">달마고</span>
+							</p>
+							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="bg-white rounded shadow-sm">
+					<div class="embed-responsive embed-responsive-4by3">
+						<img src="/Image/발받침대.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+					</div>
+					<div class="p-4">
+						<h5>
+							<a href="#" class="text-dark">발받침대 구매 후기</a>
+						</h5>
+						<div class="infoArea float-right">
+							<div class="viewArea">
+								<img class="icon" src="#" /> 0
+							</div>
+							<div class="replyArea">
+								<img class="icon" src="#" /> 0
+							</div>
+						</div>
+						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+							<p class="small mb-0">
+								<i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">달마고</span>
+							</p>
+							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
 	</div>
 
-<jsp:include page="../common/footer.jsp" />
+
+
+
+
+	<jsp:include page="../common/footer.jsp" />
 
 
 </body>
