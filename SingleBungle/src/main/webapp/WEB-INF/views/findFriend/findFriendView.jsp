@@ -96,6 +96,11 @@
 	.textarea {
 	    resize: none;
 	}
+	
+	.media img {
+		width : 30px;
+		height : 30px;
+	}
 </style>
 </head>
 <body>
@@ -147,24 +152,101 @@
 				
 				<hr>
 				
-				<div class="d-flex justify-content-center row">
-        <div class="col-md-12">
-            <div class="d-flex flex-column comment-section">
-                <div class="bg-white p-2">
-                    <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-                        <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">닉네임</span><span class="date text-black-50">작성일</span></div>
+				<!-- 댓글 -->
+        <div class="row textArea" style="margin-top:15px;">
+            <div class="col-md-12">
+                <h7>댓글</h7>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!-- 1개의 댓글 -->
+                        <div class="media mt-2"> 
+                            <img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-8 d-flex">
+                                        <h5>솔쨩</h5> <span style="color: gray; font-size: 14px;">- 15:00</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="reply float-right"> 
+                                            <a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> 
+                                            <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a> 
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="replyText">
+                                    영수증 첨부해주세요. 
+                                </div>
+                                <div class="float-right" style="font-size:13px;">
+                                    <a class="replyUpdate"> 수정 </a>
+                                    <a class="replyDelete"> 삭제 </a>
+                                </div>
+
+                                <div class="media mt-3 reReply"> 
+                                    <div class="pr-3" ><img class="rounded-circle"  src="${contextPath}/resources/images/profile.png" /></div>
+                                    <div class="media-body" >
+                                        <div class="row">
+                                            <div class="col-12 d-flex">
+                                                <h6>달마고</h6> <span style="color: gray; font-size: 14px;"> - 15:30</span>
+                                            </div>
+                                        </div> 
+                                        <div class="replyText">
+                                            지금 올렸어요
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media mt-3" > 
+                                    <div class="pr-3" ><img class="rounded-circle"  src="${contextPath}/resources/images/profile.png" /></div>
+                                    <div class="media-body">
+                                        <div class="row">
+                                            <div class="col-12 d-flex">
+                                                <h6>솔쨩</h6> <span style="color: gray; font-size: 14px;">- 15:31</span>
+                                            </div>
+                                        </div> 
+                                        <div class="replyText">
+                                            이미 신고했습니다.
+                                        </div>
+                                        <div class="float-right" style="font-size:13px;">
+                                            <a class="replyUpdate"> 수정 </a>
+                                            <a class="replyDelete"> 삭제 </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- 댓글 1개 끝나면 밑줄 -->
+
+                        <div class="media mt-2"> 
+                            <img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-8 d-flex">
+                                        <h5>크리스탈</h5> <span style="color: gray; font-size: 14px;">- 16:00</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="reply float-right"> 
+                                            <a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> 
+                                            <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a> 
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="replyText">
+                                    ?
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
-                    <div class="mt-2">
-                        <p class="comment-text">댓글 내용</p>
-                    </div>
-                </div>
-                <div class="bg-light p-2">
-                    <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
-                    <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- 댓글 END -->
+        
+        <div class="bg-light p-2">
+                    <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
+                    <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                </div>
 				</div>
 
 				<div>
