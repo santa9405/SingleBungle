@@ -19,6 +19,7 @@ public class BoardController {
 	private String swalTitle = null;
 	private String swalText = null;
 
+	// 게시글 목록 조회 Controller
 	@RequestMapping("list")
 	public String boardList() {
 		return "board/boardList";

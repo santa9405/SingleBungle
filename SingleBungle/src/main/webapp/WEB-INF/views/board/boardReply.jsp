@@ -16,23 +16,36 @@
 <style>
 /* 댓글 */
 .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid #d2d2dc;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   min-width: 0;
+   word-wrap: break-word;
+   background-color: #fff;
+   background-clip: border-box;
+   border: 1px solid #d2d2dc;
 }
 
 .media img {
-    width: 30px;
-    height: 30px;
+   width: 30px;
+   height: 30px;
 }
 
-.reReply{
-    clear: both;
+.reReply {
+   clear: both;
+}
+
+/*  댓글 작성 */
+.createReply {
+   height: 150px;
+   background-color: honeydew;
+}
+
+.textArea {
+   width: 100%;
+   height: 110px;
+   resize: none;
+   padding: 10px;
 }
 </style>
 
@@ -40,12 +53,10 @@
 <body>
 
 	<!-- 댓글 -->
-	<div class="row textArea" style="margin-top: 15px;">
+	<div class="row bg-light" style="margin-top: 15px;">
 		<div class="col-md-12">
-			<h7>댓글</h7>
 			<div class="row">
 				<div class="col-md-12">
-
 					<!-- 1개의 댓글 -->
 					<div class="media mt-2">
 						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
@@ -120,22 +131,22 @@
 						</div>
 					</div>
 					<hr>
+					<!-- 댓글 작성창 -->
+					<div class="p-2">
+						<div class="d-flex flex-row align-items-start">
+							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="40">
+							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
+						</div>
+						<div class="mt-2 text-right">
+							<button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button>
+							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 댓글 END -->
-	<!-- 댓글 작성 -->
-	<div class="bg-light p-2">
-		<div class="d-flex flex-row align-items-start">
-			<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="40">
-			<textarea class="form-control ml-1 shadow-none textarea"></textarea>
-		</div>
-		<div class="mt-2 text-right">
-			<button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button>
-			<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
-		</div>
-	</div>
 
 </body>
 </html>
