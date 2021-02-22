@@ -26,4 +26,9 @@ public class MarketController {
 	public String marketView() {
 		return "market/marketView";
 	}
+	
+	@RequestMapping("insert")
+	public String marketInsert() {
+		return "market/marketInsert"; 
+	}
 }
