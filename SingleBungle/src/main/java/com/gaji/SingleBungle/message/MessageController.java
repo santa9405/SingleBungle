@@ -1,4 +1,4 @@
-package com.gaji.SingleBungle.board.controller;
+package com.gaji.SingleBungle.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +9,8 @@ import com.gaji.SingleBungle.board.model.service.BoardService;
 
 @Controller
 /*@SessionAttributes({"loginMember"})*/
-@RequestMapping("/board/*")
-public class BoardController {
+@RequestMapping("/message/*")
+public class MessageController {
 	
 	@Autowired
 	private BoardService service;
@@ -19,26 +19,16 @@ public class BoardController {
 	private String swalTitle = null;
 	private String swalText = null;
 
-	// 게시글 목록 조회 Controller
-	@RequestMapping("list")
-	public String boardList() {
-		return "board/boardList";
+	@RequestMapping("message")
+	public String message() {
+		return "message/message";
 	}
 	
-	@RequestMapping("view")
-	public String boardView() {
-		return "board/boardView";
-	}
+
 	
-	@RequestMapping("insert")
-	public String boardInsert() {
-		return "board/boardInsert";
-	}
+
 	
-	@RequestMapping("update")
-	public String boardUpdate() {
-		return "board/boardUpdate";
-	}
+
 	
 
 }

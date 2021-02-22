@@ -68,25 +68,39 @@
 	
 	
 	.itemTitle{
-		margin-bottom: 20px;
+		margin-bottom: 35px;
 	}
 	
 	.itemPrice{
 		margin-right: 30px; 
 	}
 	
-	.likeImg{
-    margin-right: 5px;
+	.smallImages{
+    margin-right: 8px;
 	}
 	
-	.likeCnt, .verticalBar{
+	.cnt, .verticalBar{
     line-height: 1;
+    margin-bottom : 40px;
 	}
 	 
 	.verticalBar{
 		margin : 0 5px 0 5px;
 		color: #d6d6d6;
 	}
+	
+	.itemInfoList{
+		clear:both; 
+		margin-bottom: 30px;
+	}
+	
+	.itemInfoList ul {
+		padding-left: 20px;
+	}
+	
+
+   
+
 </style>
 </head>
 <body>
@@ -162,7 +176,7 @@
 				<div class="col-md-6">
 					<div> <h3>[카테고리]</h3> </div>
 					<div> <h3 class="itemTitle">오래 쓴 mcm 장지갑 팝니다gddfsgfdgfdgfgfsfsgsd.</h3> </div>
-					<div> <h2 class="itemPrice float-left">60,000원</h2> 
+					<div> <h1 class="itemPrice float-left">60,000원</h1> 
 						<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">예약중으로 변경</button></div>
 						<div class="badge badge-info px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">거래완료로 변경</button></div>					
 						<hr> 
@@ -170,22 +184,79 @@
 					
 					
 						<div>
-						 <img class="float-left likeImg" width="20" height="20" src="${contextPath}/resources/images/like1.png"> 
-						 <h5 class="likeCnt float-left">100</h5>
+						 <img class="float-left likeImg smallImages" width="20" height="20" src="${contextPath}/resources/images/like1.png"> 
+						 <h5 class="likeCnt float-left cnt">100</h5>
 							<h5 class="verticalBar float-left"> | </h5>
 						 </div> 
 						 
 							<div>
-						 <img class="float-left readCntImg" width="20" height="20" src="${contextPath}/resources/images/view.png"> 
-						 <h5 class="readCnt">100</h5> 
+						 <img class="float-left readCntImg smallImages" width="20" height="20" src="${contextPath}/resources/images/view.png"> 
+						 <h5 class="readCnt float-left cnt">100</h5> 
+						 <h5 class="verticalBar float-left"> | </h5>
+						 </div>
+						  
+						<div>
+						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
+						 <h5 class="clock float-left cnt">5시간 전</h5> 
 						 </div> 
+						 
+						 
+						<div class="float-right">
+						 <img class=" sirenImg float-left smallImages" width="20" height="20" src="${contextPath}/resources/images/siren.png"> 
+						 <h5 class="siren  float-left cnt">신고하기</h5> 
+						 </div> 
+						 
+			
 					
-				
-				
-				
-				
-				
+						<div class="itemInfoList">
+							<ul >
+								<li class="sellerManor ">
+									매너온도 <span>35.7℃</span>
+								</li>
+								
+								<li class="sellerLocation ">
+									거래지역 <span>경기도 호평동</span>
+								</li>
+								
+								<li class="sellerManor ">
+									배송비 <span>배송비 별도</span>
+								</li>
+							</ul>
+						</div>
+						
+ 						<div>
+						<%-- 	<span class="likeArea largeBtn">
+								<button type="button" id="likeBtn">
+									<img src="${contextPath}/resources/images/like1.png" width="18" height="18" id="heart"> <span class="likeCnt">100</span>
+								</button>
+							</span>
+							
+							<span class="postMessageArea largeBtn">
+								<button type="button" id="psBtn">
+									<img src="${contextPath}/resources/images/message.png" width="18" height="18" id="message"> <span class="messageText">쪽지</span>
+								</button>
+							</span> --%>
+							
+							<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+								<img src="${contextPath}/resources/images/like1.png" width="18" height="18" id="heart">
+								<span class="likeCnt">100</span>
+							</a>
+							
+							<a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+								<img src="${contextPath}/resources/images/message.png" width="18" height="18" id="message"> 
+								<span class="messageText">쪽지</span>
+							</a>
+						</div>
 				</div> 
+				
+		</div>
+		
+		<hr>
+		
+		<div class="row">
+			<div class="boardContent">
+			 내 용 
+			</div>
 		</div>
 		
 		
