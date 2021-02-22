@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사고팔고 - 상세 조회</title>
 <link rel='stylesheet' href='https://sachinchoolur.github.io/lightslider/dist/css/lightslider.css'>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
@@ -66,7 +66,6 @@
 		margin-top : 10px;
 	}
 	
-	
 	.itemTitle{
 		margin-bottom: 35px;
 	}
@@ -114,43 +113,42 @@
 	    min-height: 400px;
    }
 	 
-	
-	   /* TOP3 출력 */
-       body {
-       background: #f4f4f4;
-     }
+   /* TOP3 출력 */
+      body {
+      background: #f4f4f4;
+    }
 
-     .boardName {
-       margin-right: 40px;
-     }
+    .boardName {
+      margin-right: 40px;
+    }
 
-     .card-img-top{
-       height: 15rem;
-     }
+    .card-img-top{
+      height: 15rem;
+    }
 
-     .categoryArea, .arrayArea{
-       display: inline-block;
-     }
+    .categoryArea, .arrayArea{
+      display: inline-block;
+    }
 
-     .category, .array{
-       text-decoration: none;
-       color: black;
-       line-height : 54px;
-       margin-right:5px;
-     }
-     
-     .viewArea,.replyArea{
-       display: inline-block;
-       font-size: 11px;
-       margin-right:5px;
-     }
+    .category, .array{
+      text-decoration: none;
+      color: black;
+      line-height : 54px;
+      margin-right:5px;
+    }
+    
+    .viewArea,.replyArea{
+      display: inline-block;
+      font-size: 11px;
+      margin-right:5px;
+    }
 
-     .nickNameArea{
-       clear: both;
-     }
-     .icon {
-       width: 13px;
-     }
+    .nickNameArea{
+      clear: both;
+    }
+    .icon {
+      width: 13px;
+    }
      
      	/* 좋아요 */
 	#likeBtn {
@@ -158,12 +156,10 @@
     background-color: rgba(255, 255, 255, 0);
   }
 
-   
   .like {
     background-image: url('${contextPath}/resources/img/like2.png');
     background-repeat: no-repeat;
   }
-  
   
    .text-dark {
   display:block;
@@ -183,6 +179,7 @@
   .itemInfoList label{
   	width: 95px;
   }
+  
 </style>
 </head>
 <body>
@@ -204,14 +201,14 @@
 
             <div class="listTest float-right">
               <a class="category" href="#">최신순</a>|
-              <a class="category" href="#">좋아요순</a>
+              <a class="category" href="#">좋아요순</a>|
+              <a class="category" href="#">저가순</a>|
+              <a class="category" href="#">고가순</a>
             </div>
           </div>
         </div>
         <hr>
       </div>
-      
-      
       <!-- End -->
       
 
@@ -303,12 +300,16 @@
 										<label>매너온도</label> <span>35.7℃</span>
 								</li>
 								
-								<li class="sellerLocation ">
-									<label>거래지역</label> <span>경기도 호평동</span>
+								<li class="itemStatus">
+									<label>상태</label> <span>중고</span>
 								</li>
 								
-								<li class="sellerManor ">
+								<li class="itemDelivery">
 									<label>배송비</label> <span>배송비 별도</span>
+								</li>
+								
+								<li class="sellerLocation ">
+									<label>거래지역</label> <span>경기도 호평동</span>
 								</li>
 							</ul>
 						</div>
