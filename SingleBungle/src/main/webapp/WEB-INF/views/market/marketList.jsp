@@ -50,6 +50,10 @@
   white-space: nowrap;
 }
 
+	.boardTitleBorder{
+    border-bottom: gray 1px solid;
+	}
+
 
 	
 	/* 좋아요 */
@@ -118,6 +122,8 @@
       border: none;
       border-radius: 50px;
     }
+    
+    
   </style>
 
 </head>
@@ -128,8 +134,8 @@
 
       <!-- 게시판 이름/카테고리 -->
       <div class="row py-5">
-        <div class="col-lg-12 mx-auto">
-          <div class="text-black shadow-sm rounded banner">
+        <div class="col-lg-12 mx-auto boardTitleBorder">
+          <div class="text-black rounded banner">
             <h1 class="boardName float-left">사고팔고</h1>
             <a class="category" href="#">전체</a> |
             <a class="category" href="#">팝니다</a> |
@@ -389,11 +395,6 @@
         </div>
       </div>
 
-
-      <div class="test" style="height: 500px;">
-
-        fd
-      </div>
 
 
 
