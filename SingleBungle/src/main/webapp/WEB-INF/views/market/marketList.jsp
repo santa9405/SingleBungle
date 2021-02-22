@@ -42,6 +42,13 @@
       text-decoration: none;
       color: white;
     }
+    
+    .text-dark {
+  display:block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 
 	
@@ -164,144 +171,185 @@
 
 							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">
-                    60,000원</span></p>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
                 <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
-
-        <!-- Gallery item -->
+        
+                <!-- Gallery item -->
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm" style="position: relative;">
+          <div class="bg-white rounded shadow-sm">
             <div class="embed-responsive embed-responsive-4by3" >
-              <img src="목.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item">
             </div>
             <div class="p-4">
               <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
               <div class="categoryDetail float-left row_2">
                 <p class="small text-muted mb-0">전자기기</p>
               </div>
-              <div class="likeArea float-right row_2">
-                <img class="likeImg" src="#" /> 0
-              </div>
+              
+              
+              
+            <!-- 좋아요 버튼 -->
+							<span class="float-right">
+								<button type="button" id="likeBtn">
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+								</button>
+							</span>
 
-              <div
+
+							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">￦
-                    60,000</span></p>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
                 <div class="badge badge-danger px-3 rounded-pill font-weight-normal">예약중</div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
-
-        <!-- Gallery item -->
+        
+        
+        
+                <!-- Gallery item -->
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
           <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3">
-              <img src="목.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+            <div class="embed-responsive embed-responsive-4by3" >
+              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item">
             </div>
             <div class="p-4">
               <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
               <div class="categoryDetail float-left row_2">
                 <p class="small text-muted mb-0">전자기기</p>
               </div>
-              <div class="likeArea float-right row_2">
-                <img class="likeImg" src="#" /> 0
-              </div>
+              
+              
+              
+            <!-- 좋아요 버튼 -->
+							<span class="float-right">
+								<button type="button" id="likeBtn">
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+								</button>
+							</span>
 
-              <div
+
+							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">￦
-                    60,000</span></p>
-                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">예약중</div>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
+                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
-
-        <!-- Gallery item -->
+        
+        
+                <!-- Gallery item -->
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
           <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3">
-              <img src="목.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+            <div class="embed-responsive embed-responsive-4by3" >
+              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" >
             </div>
             <div class="p-4">
               <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
               <div class="categoryDetail float-left row_2">
                 <p class="small text-muted mb-0">전자기기</p>
               </div>
-              <div class="likeArea float-right row_2">
-                <img class="likeImg" src="#" /> 0
-              </div>
+              
+              
+              
+            <!-- 좋아요 버튼 -->
+							<span class="float-right">
+								<button type="button" id="likeBtn">
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+								</button>
+							</span>
 
-              <div
+
+							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">￦
-                    60,000</span></p>
-                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">예약중</div>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
+                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
-
-        <!-- Gallery item -->
+        
+        
+                <!-- Gallery item -->
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
           <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3">
-              <img src="목.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+            <div class="embed-responsive embed-responsive-4by3" >
+              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" >
             </div>
             <div class="p-4">
               <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
               <div class="categoryDetail float-left row_2">
                 <p class="small text-muted mb-0">전자기기</p>
               </div>
-              <div class="likeArea float-right row_2">
-                <img class="likeImg" src="#" /> 0
-              </div>
+              
+              
+              
+            <!-- 좋아요 버튼 -->
+							<span class="float-right">
+								<button type="button" id="likeBtn">
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+								</button>
+							</span>
 
-              <div
+
+							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">￦
-                    60,000</span></p>
-                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">예약중</div>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
+                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
-
-        <!-- Gallery item -->
+        
+        
+                <!-- Gallery item -->
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
           <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3">
-              <img src="목.png" alt="" class="img-fluid card-img-top embed-responsive-item">
+            <div class="embed-responsive embed-responsive-4by3" >
+              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item">
             </div>
             <div class="p-4">
               <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
               <div class="categoryDetail float-left row_2">
                 <p class="small text-muted mb-0">전자기기</p>
               </div>
-              <div class="likeArea float-right row_2">
-                <img class="likeImg" src="#" /> 0
-              </div>
+              
+              
+              
+            <!-- 좋아요 버튼 -->
+							<span class="float-right">
+								<button type="button" id="likeBtn">
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+								</button>
+							</span>
 
-              <div
+
+							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold price">￦
-                    60,000</span></p>
-                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">예약중</div>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
+                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
+        
+
+
+
+
+
+
 
 
 
