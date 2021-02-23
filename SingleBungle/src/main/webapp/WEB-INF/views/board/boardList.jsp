@@ -16,16 +16,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-.board-category, .ml-auto { margin: 20px; }
-
 .boardName { margin-right: 40px; }
 
-.category, .category:hover, .array, .array:hover {
-	text-decoration: none;
+.category {
 	color: black;
 	line-height : 54px;
 }
 
+.category:hover {
+	text-decoration: none;
+	color: rgb(214, 156, 30);
+}
+   
 /* 검색창 */
 .search { 
 	text-align: center; 
@@ -61,7 +63,7 @@
 	border-radius: 0.25rem;
 }
 
-.page-link { color: black; }
+.page-item > a, .page-item > a:hover { color: black; }
 
 .pagination.pagination-rounded-flat .page-item { margin: 0 .25rem; }
 
@@ -82,37 +84,43 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-              <div class="d-flex">
-                <div class="board-category">
-                  <h1 class="boardName float-left">자유게시판</h1> 
-                  <a class="category" href="#">전체</a> | 
-                  <a class="category" href="#">여행</a> | 
-                  <a class="category" href="#">영화</a> | 
-                  <a class="category" href="#">일상</a> | 
-                  <a class="category" href="#">경제</a> | 
-                  <a class="category" href="#">반려동물</a> | 
-                  <a class="category" href="#">요리레시피</a>
-                </div>
-                <div class="ml-auto">
-                  <a class="array" href="#">최신순</a> | 
-                  <a class="array" href="#">좋아요순</a>
-                </div>
-              </div>
+				      <!-- 게시판 이름/카테고리 -->
+				      <div class="row py-5">
+				        <div class="col-lg-12 mx-auto">
+				          <div class="text-black banner">
+				            <h1 class="boardName float-left">자유게시판</h1>
+				                  <a class="category" href="#">전체</a> | 
+				                  <a class="category" href="#">여행</a> | 
+				                  <a class="category" href="#">영화</a> | 
+				                  <a class="category" href="#">일상</a> | 
+				                  <a class="category" href="#">경제</a> | 
+				                  <a class="category" href="#">반려동물</a> | 
+				                  <a class="category" href="#">요리레시피</a>
+				
+				            <div class="listTest float-right">
+				              <a class="category" href="#">최신순</a> |
+				              <a class="category" href="#">좋아요순</a>
+				            </div>
+				            <hr>
+				          </div>
+				        </div>
+				      </div>
+				      <!-- End -->
 
                 <table class="table table-striped table-sm">
                     <thead>
                       <tr>
-                        <th scope="col">글번호</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">작성자</th>
-                        <th scope="col">작성일</th>
-                        <th scope="col">조회수</th>
-                        <th scope="col">♡</th>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                        <th>♡</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <th scope="row">1</th>
+                        <th>1</th>
                         <td>제목1</td>
                         <td>작성자1</td>
                         <td>2020.02.19</td>
@@ -120,7 +128,7 @@
                         <td>10</td>
                       </tr>
                       <tr>
-                        <th scope="row">2</th>
+                        <th>2</th>
                         <td>제목2</td>
                         <td>작성자2</td>
                         <td>2020.02.19</td>
@@ -128,7 +136,7 @@
                         <td>10</td>
                       </tr>
                       <tr>
-                        <th scope="row">3</th>
+                        <th>3</th>
                         <td>제목3</td>
                         <td>작성자3</td>
                         <td>2020.02.19</td>

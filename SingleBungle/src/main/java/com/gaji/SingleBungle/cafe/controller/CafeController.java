@@ -26,18 +26,28 @@ public class CafeController {
 	}
 	
 	@RequestMapping("view")
-	public String CafeView() {
+	public String cafeView() {
 		return "cafe/cafeView";
 	}
 	
 	@RequestMapping("insert")
-	public String CafeInsert() {
+	public String cafeInsert() {
 		return "cafe/cafeInsert";
 	}
 	
 	@RequestMapping("update")
-	public String CafeUpdate() {
+	public String cafeUpdate() {
 		return "cafe/cafeUpdate";
+	}
+	
+	@RequestMapping("report")
+	public String cafeReport() {
+		return "cafe/cafeReport";
+	}
+	
+	@RequestMapping("replyReport")
+	public String replyReport() {
+		return "cafe/cafeReplyReport";
 	}
 	
 

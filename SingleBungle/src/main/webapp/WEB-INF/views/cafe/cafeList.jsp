@@ -15,10 +15,14 @@
 
 .boardName { margin-right: 40px; }
 
-.category, .category:hover, .array, .array:hover {
-   text-decoration: none;
-   color: black;
-   line-height : 54px;
+.category {
+	color: black;
+	line-height : 54px;
+}
+
+.category:hover {
+	text-decoration: none;
+	color: rgb(214, 156, 30);
 }
 
 .text-dark {
@@ -74,7 +78,7 @@
     border-radius: 0.25rem;
 }
 
-.page-link { color: black; }
+.page-item > a, .page-item > a:hover { color: black; }
 
 .pagination.pagination-rounded-flat .page-item { margin: 0 .25rem; }
 
@@ -97,36 +101,32 @@
 	<jsp:include page="../common/header.jsp"/>
   <div class="container">
     <div class="px-lg-5">
-    
-        <!-- 게시판 이름/카테고리 -->
-        <div class="row py-5">
-          <div class="col-lg-12">
-            <div class="d-flex">
-              <div class="food-category">
-                <h1 class="boardName float-left">맛집게시판</h1>
-                <a class="category" href="#">전체</a> |
-                <a class="category" href="#">혼밥식당</a> |
-                <a class="category" href="#">맛집추천</a> |
-                <a class="category" href="#">카페</a>
-              </div>
-              <div class="ml-auto">
-                <a class="array" href="#">최신순</a> |
-                <a class="array" href="#">좋아요순</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-        <!-- End -->
+	      <!-- 게시판 이름/카테고리 -->
+	      <div class="row py-5">
+	        <div class="col-lg-12 mx-auto">
+	          <div class="text-black banner">
+	            <h1 class="boardName float-left">맛집게시판</h1>
+	                  <a class="category" href="#">전체</a> | 
+	                  <a class="category" href="#">혼밥식당</a> | 
+	                  <a class="category" href="#">맛집추천</a> | 
+	                  <a class="category" href="#">카페</a>
+	
+	            <div class="listTest float-right">
+	              <a class="category" href="#">최신순</a> |
+	              <a class="category" href="#">좋아요순</a>
+	            </div>
+	            <hr>
+	          </div>
+	        </div>
+	      </div>
+	      <!-- End -->
     
         <div class="row">
           <!-- Gallery item -->
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm">
 	            <div class="embed-responsive embed-responsive-4by3">
-	              <img  src="https://res.cloudinary.com/mhmd/image/upload/v1556294929/matthew-hamilton-351641-unsplash_zmvozs.jpg" alt="" class="img-fluid card-img-top embed-responsive-item">
+	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	              <h5> <a href="#" class="text-dark">연남동 분위기 좋은 카페 추천합니다.</a></h5>
@@ -139,8 +139,8 @@
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><img class="icon" src="${contextPath}/resources/images/profile.png"/> <span class="font-weight-bold price">달마고</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">카페</div>
+	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
+	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">카페</div>
 	              </div>
 	            </div>
 	          </div>
@@ -151,7 +151,7 @@
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm">
 	            <div class="embed-responsive embed-responsive-4by3">
-	              <img  src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/cody-davis-253928-unsplash_vfcdcl.jpg" alt="" class="img-fluid card-img-top embed-responsive-item">
+	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	              <h5> <a href="#" class="text-dark">라멘 좋아하는데 여긴 안가봤다?</a></h5>
@@ -164,8 +164,8 @@
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><img class="icon" src="${contextPath}/resources/images/profile.png"/> <span class="font-weight-bold price">달마고</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">맛집추천</div>
+	                <p class="small mb-0"><span class="font-weight-bold price">달마고</span></p>
+	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">맛집추천</div>
 	              </div>
 	            </div>
 	          </div>
@@ -176,7 +176,7 @@
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm">
 	            <div class="embed-responsive embed-responsive-4by3">
-	              <img  src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/nicole-honeywill-546848-unsplash_ymprvp.jpg" alt="" class="img-fluid card-img-top embed-responsive-item">
+	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	              <h5> <a href="#" class="text-dark">홍대 혼술집 추천해요</a></h5>
@@ -189,8 +189,8 @@
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><img class="icon" src="${contextPath}/resources/images/profile.png"/> <span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">혼밥식당</div>
+	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
+	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgba(68, 152, 221, 0.699);">혼밥식당</div>
 	              </div>
 	            </div>
 	          </div>
@@ -201,7 +201,7 @@
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm">
 	            <div class="embed-responsive embed-responsive-4by3">
-	              <img  src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/dose-juice-1184444-unsplash_bmbutn.jpg" alt="" class="img-fluid card-img-top embed-responsive-item">
+	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	              <h5> <a href="#" class="text-dark">연남동 존맛집 여기 먹다가 죽을뻔</a></h5>
@@ -214,8 +214,8 @@
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><img class="icon" src="${contextPath}/resources/images/profile.png"/> <span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">맛집추천</div>
+	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
+	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">맛집추천</div>
 	              </div>
 	            </div>
 	          </div>
@@ -226,7 +226,7 @@
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm">
 	            <div class="embed-responsive embed-responsive-4by3">
-	              <img  src="https://res.cloudinary.com/mhmd/image/upload/v1556294926/cody-davis-253925-unsplash_hsetv7.jpg" alt="" class="img-fluid card-img-top embed-responsive-item">
+	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	              <h5> <a href="#" class="text-dark">혼자 먹기 딱 좋은 곳</a></h5>
@@ -239,8 +239,8 @@
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><img class="icon" src="${contextPath}/resources/images/profile.png"/> <span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">혼밥식당</div>
+	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
+	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgba(68, 152, 221, 0.699);">혼밥식당</div>
 	              </div>
 	            </div>
 	          </div>
@@ -251,7 +251,7 @@
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm">
 	            <div class="embed-responsive embed-responsive-4by3">
-	              <img  src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg" alt="" class="img-fluid card-img-top embed-responsive-item">
+	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	              <h5> <a href="#" class="text-dark">여기 진짜 맛있는데 외않가?</a></h5>
@@ -264,8 +264,8 @@
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><img class="icon" src="${contextPath}/resources/images/profile.png"/> <span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">맛집추천</div>
+	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
+	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">맛집추천</div>
 	              </div>
 	            </div>
 	          </div>

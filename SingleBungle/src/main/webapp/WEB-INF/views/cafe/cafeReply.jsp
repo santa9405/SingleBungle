@@ -68,7 +68,7 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
+										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a class="replyReport" href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
 									</div>
 								</div>
 							</div>
@@ -123,7 +123,7 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
+										<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a class="replyReport" href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
 									</div>
 								</div>
 							</div>
@@ -147,6 +147,10 @@
 		</div>
 	</div>
 	<!-- 댓글 END -->
-
+	<script>
+   $(".replyReport").on("click", function(){
+       window.open('${contextPath}/cafe/replyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+	 });
+	</script>
 </body>
 </html>
