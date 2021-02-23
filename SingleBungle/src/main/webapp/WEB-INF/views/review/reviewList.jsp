@@ -6,12 +6,14 @@
 <title>후기게시판</title>
 
 <style>
-body {
-	background: #f4f4f4;
-}
+
 
 .boardName {
 	margin-right: 40px;
+}
+
+.boardTitleBorder{
+ border-bottom: gray 1px solid;
 }
 
 .card-img-top {
@@ -76,9 +78,7 @@ body {
 	border-radius: 0.25rem
 }
 
-.page-link {
-	color: black
-}
+.page-item > a, .page-item > a:hover { color: black; }
 
 .pagination.pagination-rounded-flat .page-item {
 	margin: 0 .25rem
@@ -109,8 +109,8 @@ body {
 
 		<!-- 게시판 이름/카테고리 -->
 		<div class="row py-5">
-			<div class="col-lg-12 mx-auto">
-				<div class="text-black shadow-sm rounded banner">
+			<div class="col-lg-12 mx-auto boardTitleBorder">
+				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
 						<a class="category" href="#">전체</a> 

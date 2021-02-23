@@ -106,7 +106,6 @@
 	}
 
 
-
     /* 모달창 여는 버튼 */
 	.trigger-btn {
 		display: inline-block;
@@ -123,7 +122,6 @@
     .messageText:focus{
         outline: none;
     }
-
 </style>
 
 </head>
@@ -131,11 +129,11 @@
 
 <div class="text-center">
 	<!-- Button HTML (to Trigger Modal) -->
-	<a href="#myModal" class="trigger-btn" data-toggle="modal">쪽지</a>
+	<a href="#sendMessage" class="trigger-btn" data-toggle="modal">쪽지 보내기</a>
 </div>
 
 <!-- Modal HTML -->
-<div id="myModal" class="modal fade">
+<div id="sendMessage" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -153,7 +151,33 @@
 			</div>
 		</div>
 	</div>
-</div>    
+</div>     
+
+
+<div class="text-center">
+	<!-- Button HTML (to Trigger Modal) -->
+	<a href="#readMessage" class="trigger-btn" data-toggle="modal">쪽지 읽기</a>
+</div>
+
+<!-- Modal HTML -->
+<div id="readMessage" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">mail_outline</i>
+				</div>				
+				<h5 class="modal-title">보낸사람 :</h5>	
+			</div>
+			<div class="modal-body">
+				<div class="messageArea" style="border: 1px solid black;height: 150px;"></div>
+			</div>
+			<div class="modal-footer" >
+                <div class="col"><button type="submit" class="btn btn-success btn-block" data-dismiss="modal"><span class="plan">답장</span></button></div>
+                <div class="col"><button type="button" class="btn btn-reset btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

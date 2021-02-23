@@ -56,6 +56,7 @@
 	<a class="nav-link" href="${contextPath}/review/view">후기게시판 상세 조회</a>
 	<a class="nav-link" href="${contextPath}/review/insert">후기게시판 게시글 등록</a>
 	<a class="nav-link" href="${contextPath}/message/message">쪽지테스트(임시)</a>
+	<a class="nav-link" href="${contextPath}/message/messageBox">쪽지함(임시)</a>
 	
     
    	<!-- Bootstrap core JS-->
