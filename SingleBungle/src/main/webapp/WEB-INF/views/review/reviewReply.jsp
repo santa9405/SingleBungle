@@ -134,9 +134,28 @@
 							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button>
-							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
+							<button class="btn btn-primary btn-sm shadow-none" type="button">등록</button>
+							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
+								<!-- 페이징 -->
+							<div class="page-content page-container" id="page-content">
+								<div class="padding">
+									<div class="row container d-flex justify-content-center">
+										<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+											<nav>
+												<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+													<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
+													<li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
+													<li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
+													<li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
+													<li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
+													<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
 					</div>
 				</div>
 			</div>

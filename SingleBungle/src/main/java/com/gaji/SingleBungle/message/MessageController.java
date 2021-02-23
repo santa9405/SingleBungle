@@ -24,6 +24,11 @@ public class MessageController {
 		return "message/message";
 	}
 	
+	@RequestMapping("messageBox")
+	public String messageBox() {
+		return "message/messageBox";
+	}
+	
 
 	
 
