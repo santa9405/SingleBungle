@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글</title>
+<title>친구찾기 게시판 상세조회</title>
 <style>
 #board-area {
 	margin-bottom: 100px;
@@ -56,7 +56,7 @@
 		!important;
 }
 
-.ctgr, .titleArea>span, .apply {
+.ctgr, .titleArea>span, .chat, .apply {
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
@@ -113,11 +113,7 @@ body {
 
 .cursor {
 	cursor: pointer;
-}
-
-.textarea {
-	resize: none;
-}
+} 
 
 .media img {
 	width: 30px;
@@ -131,7 +127,11 @@ body {
 
 		<div>
 			<div>
-				<span class="float-left ctgr"><h4>맛집</h4></span> <span class="float-left"><h4>여</h4></span> <span class="float-left"><h4>마카오도우라오 훠궈 먹으러 가요</h4></span>
+				<h2 style="margin-top: 5px;">
+					<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">맛집</div>
+					<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">여</div>
+					마카오도우라오 훠궈 먹으러 가요
+				</h2>
 			</div>
 
 			<hr class="hr">
@@ -153,7 +153,7 @@ body {
 			<br>
 
 			<div class="titleArea">
-				<button type="button" class="btn btn-primary float-right">신고</button>
+				<button type="button" class="btn btn-primary float-right report">신고</button>
 				<button type="button" class="btn btn-primary float-right apply">참여신청</button>
 				<!-- chat button -->
 				<button type="button" class="btn btn-primary float-right chat">모집인원 1/4</button>
@@ -166,101 +166,7 @@ body {
 
 			<hr>
 
-			<!-- 댓글 -->
-			<div class="row bg-light" style="margin-top: 15px;">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-12">
-							<!-- 1개의 댓글 -->
-							<div class="media mt-2">
-								<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-								<div class="media-body">
-									<div class="row">
-										<div class="col-8 d-flex">
-											<h5>솔쨩</h5>
-											<span style="color: gray; font-size: 14px;">- 15:00</span>
-										</div>
-										<div class="col-4">
-											<div class="reply float-right">
-												<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
-											</div>
-										</div>
-									</div>
-									<div class="replyText">영수증 첨부해주세요.</div>
-									<div class="float-right" style="font-size: 13px;">
-										<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
-									</div>
-
-									<div class="media mt-3 reReply">
-										<div class="pr-3">
-											<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-										</div>
-										<div class="media-body">
-											<div class="row">
-												<div class="col-12 d-flex">
-													<h6>달마고</h6>
-													<span style="color: gray; font-size: 14px;"> - 15:30</span>
-												</div>
-											</div>
-											<div class="replyText">지금 올렸어요</div>
-										</div>
-									</div>
-									<div class="media mt-3">
-										<div class="pr-3">
-											<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-										</div>
-										<div class="media-body">
-											<div class="row">
-												<div class="col-12 d-flex">
-													<h6>솔쨩</h6>
-													<span style="color: gray; font-size: 14px;">- 15:31</span>
-												</div>
-											</div>
-											<div class="replyText">이미 신고했습니다.</div>
-											<div class="float-right" style="font-size: 13px;">
-												<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<!-- 댓글 1개 끝나면 밑줄 -->
-
-							<div class="media mt-2">
-								<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-								<div class="media-body">
-									<div class="row">
-										<div class="col-8 d-flex">
-											<h5>크리스탈</h5>
-											<span style="color: gray; font-size: 14px;">- 16:00</span>
-										</div>
-										<div class="col-4">
-											<div class="reply float-right">
-												<a href="#"><span><i class="fa fa-reply"></i> 답글</span></a> <a href="#"><span><i class="fa fa-reply"></i> 신고</span></a>
-											</div>
-										</div>
-									</div>
-									<div class="replyText">?</div>
-								</div>
-							</div>
-							<hr>
-							<!-- 댓글 작성창 -->
-							<div class="p-2">
-								<div class="d-flex flex-row align-items-start">
-									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="40">
-									<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
-								</div>
-								<div class="mt-2 text-right">
-									<button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button>
-									<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 댓글 END -->
+			<jsp:include page="reply.jsp" />
 
 			<div>
 				<div class="text-center">
@@ -285,6 +191,11 @@ body {
 	<jsp:include page="../common/footer.jsp" />
 
 	<script>
+		// 게시글 신고창 열기
+		$(".report").on("click", function(){
+				window.open('${contextPath}/findFriendReport/reportForm', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		});
+	
 		// 채팅창 열기
 		$(".chat").on("click", function(){
 				window.open('${contextPath}/findFriendChat/chatView', "popup", "width=600, height=700, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
