@@ -40,5 +40,15 @@ public class BoardController {
 		return "board/boardUpdate";
 	}
 	
+	@RequestMapping("report")
+	public String boardReport() {
+		return "board/boardReport";
+	}
+	
+	@RequestMapping("replyReport")
+	public String replyReport() {
+		return "board/boardReplyReport";
+	}
+	
 
 }
