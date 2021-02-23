@@ -17,21 +17,19 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<h4>게시글 등록</h4>
-
 				<form action="insertAction" method="post">
 
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 insert-label">제목</label>
+						<label class="input-group-addon col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-11">
 							<input type="text" class="form-control" id="title" name="boardTitle" size="100%" required>
 						</div>
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 insert-label">카테고리</label>
+						<label class="input-group-addon col-sm-1 col-form-label">카테고리</label>
 						<div class="col-sm-4">
-							<select class="form-select" id="category" name="categoryName" style="width: 150px; height: 30px;" required>
+							<select class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
 								<option value="10">맛집</option>
 								<option value="20">문화생활</option>
 								<option value="30">동네친구</option>
@@ -40,11 +38,11 @@
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 insert-label">지역</label>
+						<label class="input-group-addon col-sm-1 col-form-label">지역</label>
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<select class="form-select" id="category" name="categoryName" style="width: 150px; height: 30px;" required>
+									<select class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
 										<option value="10">서울특별시</option>
 										<option value="20">부산광역시</option>
 										<option value="30">대구광역시</option>
@@ -65,7 +63,7 @@
 									</select>
 								</div>
 
-								<label class="input-group-addon col-sm-1 insert-label">모임장소</label>
+								<label class="input-group-addon col-sm-1 col-form-label">모임장소</label>
 								<div class="col-md-7">
 									<input type="text" class="form-control" id="title" name="boardTitle" required>
 								</div>
@@ -74,31 +72,32 @@
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 insert-label ">모임날짜</label>
+						<label class="input-group-addon col-sm-1 col-form-label">모임날짜</label>
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<input type="date" class="form-control" id="title" name="boardTitle" style="width: 200px; height: 30px;" required>
+									<input type="date" class="form-control" id="title" name="boardTitle" style="width: 170px; height: 40px;" required>
 								</div>
-								<label class="input-group-addon col-sm-1 insert-label">모임시간</label>
+								<label class="input-group-addon col-sm-1 col-form-label">모임시간</label>
 								<div class="col-md-4">
-									<select class="form-select" id="category" name="categoryName" style="width: 150px; height: 30px;" required>
-										<option value="30">06:00 ~ 07:00</option>
-										<option value="30">07:00 ~ 08:00</option>
-										<option value="30">08:00 ~ 09:00</option>
-										<option value="30">09:00 ~ 10:00</option>
-										<option value="30">10:00 ~ 11:00</option>
-										<option value="30">11:00 ~ 12:00</option>
-										<option value="30">12:00 ~ 13:00</option>
-										<option value="30">13:00 ~ 14:00</option>
-										<option value="30">14:00 ~ 15:00</option>
-										<option value="30">15:00 ~ 16:00</option>
-										<option value="30">16:00 ~ 17:00</option>
-										<option value="30">17:00 ~ 18:00</option>
-										<option value="30">18:00 ~ 19:00</option>
-										<option value="30">19:00 ~ 20:00</option>
-										<option value="30">20:00 ~ 21:00</option>
-										<option value="30">21:00 ~ 22:00</option>
+									<select class="form-control div smal" id="category" name="categoryName" style="width: 80px; height: 40px;" required>
+										<option value="10">6시</option>
+										<option value="20">7시</option>
+										<option value="30">8시</option>
+										<option value="40">9시</option>
+										<option value="50">10시</option>
+										<option value="60">11시</option>
+										<option value="70">12시</option>
+										<option value="80">13시</option>
+										<option value="90">14시</option>
+										<option value="100">15시</option>
+										<option value="110">16시</option>
+										<option value="120">17시</option>
+										<option value="130">18시</option>
+										<option value="140">19시</option>
+										<option value="150">20시</option>
+										<option value="160">21시</option>
+										<option value="170">미정</option>
 									</select>
 								</div>
 							</div>
@@ -106,11 +105,11 @@
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 insert-label">모집인원</label>
+						<label class="input-group-addon col-sm-1 col-form-label">모집인원</label>
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-sm-4">
-									<select class="form-select" id="category" name="categoryName" style="width: 50px; height: 30px;" required>
+									<select class="form-control div smal" id="category" name="categoryName" style="width: 80px; height: 40px;" required>
 										<option value="10">2</option>
 										<option value="20">3</option>
 										<option value="30">4</option>
@@ -120,18 +119,19 @@
 										<option value="70">8</option>
 									</select>
 								</div>
-								<label class="input-group-addon col-sm-1 insert-label">성별</label>
-								<div class="col-sm-4">
-									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="placeOp" id="online" value="N"> <label class="form-check-label" for="online">여자</label>
-									</div>
-									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="placeOp" id="offline" value="F"> <label class="form-check-label" for="offline">남자</label>
-									</div>
-									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="placeOp" id="offline" value="F"> <label class="form-check-label" for="offline">무관</label>
-									</div>
-								</div>
+								<label class="input-group-addon col-sm-1 col-form-label">성별</label>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="placeOp" id="online" value="N">
+												<label class="form-check-label" for="online">여자</label>
+										</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="placeOp" id="offline" value="F">
+												<label class="form-check-label" for="offline">남자</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="placeOp" id="offline" value="F">
+												<label class="form-check-label" for="offline">무관</label>
+											</div>
 							</div>
 						</div>
 					</div>

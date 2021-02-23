@@ -12,87 +12,372 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
-.swal-button,
-.swal-button:active {
-   background: #5f0081;
-   box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(143,114,165,.29);
+body{
+    background:#eee;
+}
+.row.row-broken {
+    padding-bottom: 0;
+}
+.col-inside-lg {
+    padding: 20px;
+}
+.chat {
+    /* height: calc(100vh - 180px); */
+}
+.decor-default {
+    background-color: #ffffff;
 }
 
-.swal-button:not([disabled]):hover {
-   background: #5f0081;
-   box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(143,114,165,.29);
+.chat .avatar {
+    width: 40px;
+    height: 40px;
+    position: absolute;
 }
-#wrapper {
-	width: 100%;
-	height: 700px;
+.chat .avatar img {
+    display: block;
+    border-radius: 20px;
+    height: 100%;
 }
-#submit {
-	float:right;
+.chat .avatar .status.off {
+    border: 1px solid #5a5a5a;
+    background: #ffffff;
 }
-.form {
-	margin-top: 30px;
+.chat .avatar .status.online {
+    background: #4caf50;
 }
-.navbar {
-	padding-left: 0;
-	border-bottom: thick solid black;
+.chat .avatar .status.busy {
+    background: #ffc107;
 }
-.navbar-brand {
-	margin-top:35px;
-	font-size: 30px;
+.chat .avatar .status.offline {
+    background: #ed4e6e;
 }
-@font-face {
-    font-family: 'paybooc-Medium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+.chat-users .user .status {
+    bottom: 0;
+    left: 28px;
 }
-* {
-	font-family: 'paybooc-Medium';
+.chat .avatar .status {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    position: absolute;
+}
+.chat-users .user .name {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.chat-users .user .mood {
+    font: 200 14px/20px "Raleway", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*****************CHAT BODY *******************/
+.chat-body h6 {
+    font-size: 20px;
+    margin: 0 0 20px;
+}
+.chat-body .answer.left {
+    padding: 0 0 0 58px;
+    text-align: left;
+    float: left;
+}
+.chat-body .answer {
+    position: relative;
+    max-width: 600px;
+    overflow: hidden;
+    clear: both;
+}
+.chat-body .answer.left .avatar {
+    left: 0;
+}
+.chat-body .answer .avatar {
+    bottom: 36px;
+}
+.chat .avatar {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+.chat .avatar img {
+    display: block;
+    border-radius: 20px;
+    height: 100%;
+}
+.chat-body .answer .name {
+    font-size: 14px;
+    line-height: 36px;
+}
+.chat-body .answer.left .avatar .status {
+    right: 4px;
+}
+.chat-body .answer .avatar .status {
+    bottom: 0;
+}
+.chat-body .answer.left .text {
+    background: #ebebeb;
+    color: #333333;
+    border-radius: 8px 8px 8px 0;
+}
+.chat-body .answer .text {
+    padding: 12px;
+    font-size: 16px;
+    line-height: 26px;
+    position: relative;
+}
+.chat-body .answer.left .text:before {
+    left: -30px;
+    border-right-color: #ebebeb;
+    border-right-width: 12px;
+}
+.chat-body .answer .text:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    border: 18px solid transparent;
+    border-bottom-width: 0;
+}
+.chat-body .answer.left .time {
+    padding-left: 12px;
+    color: #333333;
+}
+.chat-body .answer .time {
+    font-size: 16px;
+    line-height: 36px;
+    position: relative;
+    padding-bottom: 1px;
+}
+/*RIGHT*/
+.chat-body .answer.right {
+    padding: 0 58px 0 0;
+    text-align: right;
+    float: right;
+}
+
+.chat-body .answer.right .avatar {
+    right: 0;
+}
+.chat-body .answer.right .avatar .status {
+    left: 4px;
+}
+.chat-body .answer.right .text {
+    background: burlywood;
+    color: #ffffff;
+    border-radius: 8px 8px 0 8px;
+}
+.chat-body .answer.right .text:before {
+    right: -30px;
+    border-left-color: burlywood;
+    border-left-width: 12px;
+}
+.chat-body .answer.right .time {
+    padding-right: 12px;
+    color: #333333;
+}
+
+/**************ADD FORM ***************/
+.chat-body .answer-add {
+    clear: both;
+    position: relative;
+    margin: 20px -20px -20px;
+    padding: 20px;
+    background: burlywood;
+}
+.chat-body .answer-add input {
+    border: none;
+    background: none;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 0;
+    color: #ffffff;
+}
+.chat input {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+.chat-body .answer-add .answer-btn-1 {
+    background: url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-40.png") 50% 50% no-repeat;
+    right: 56px;
+}
+.chat-body .answer-add .answer-btn {
+    display: block;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 50%;
+    margin-top: -18px;
+}
+.chat-body .answer-add .answer-btn-2 {
+    background: url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-41.png") 50% 50% no-repeat;
+    right: 20px;
+}
+.chat input::-webkit-input-placeholder {
+   color: #fff;
+}
+
+.chat input:-moz-placeholder { /* Firefox 18- */
+   color: #fff;  
+}
+
+.chat input::-moz-placeholder {  /* Firefox 19+ */
+   color: #fff;  
+}
+
+.chat input:-ms-input-placeholder {  
+   color: #fff;  
+}
+.chat input {
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 </style>
 </head>
 <body>
-<div id="wrapper">
-	<div class="container">
-	<nav class="navbar navbar-light">
-  <span class="navbar-brand mb-0">${memberName} 님에게 쪽지 보내기</span>
-	</nav>
-		<form action="${contextPath}/message/insert" method="post" onsubmit="return boardValidate();">
-		<div class="form">
-		  <div class="form-group">
-		    <label for="exampleFormControlInput1">받는사람</label>
-		    <input class="form-control" id="receiveMember" name="email" value="${email}">
-		  </div>
-		  <div class="form-group">
-		    <label for="exampleFormControlTextarea1">내용</label>
-		    <textarea class="form-control" id="content" name="content" rows="12"></textarea>
-		  </div>
-		  <button type="button" class="btn btn-secondary" id="messageListbtn">뒤로가기</button>
-		  <button type="submit" class="btn btn-outline-dark" id="submit">보내기</button>
-		</div>
-		</form>
-	</div>
-</div>  
 
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.6.8-fix/jquery.nicescroll.min.js"></script>
+<div class="container">
+<div class="content container-fluid bootstrap snippets bootdey">
+      <div class="row row-broken">
+        <div class="col-sm-9 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
+          <div class="col-inside-lg decor-default">
+            <div class="chat-body">
+              <h6>참여인원</h6>
+              <div class="answer left">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status offline"></div>
+                </div>
+                <div class="name">며네</div>
+                <div class="text">
+                  	몇 시에 만나요?
+                </div>
+                <div class="time">5분전</div>
+              </div>
+              <div class="answer right">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status offline"></div>
+                </div>
+                <div class="name">달마고</div>
+                <div class="text">
+               			 저녁 어때요?
+                </div>
+                <div class="time">5분전</div>
+              </div>
+              <div class="answer left">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status online"></div>
+                </div>
+                <div class="name">크리스탈</div>
+                <div class="text">
+                  ...
+                </div>
+                <div class="time">5분전</div>
+              </div>
+              <div class="answer right">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status busy"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  It is a long established fact that a reader will be. Thanks Mate!
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer right">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status off"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  It is a long established fact that a reader will be. Thanks Mate!
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer left">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status offline"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer right">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status offline"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer left">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status online"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  ...
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer right">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status busy"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  It is a long established fact that a reader will be. Thanks Mate!
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer right">
+                <div class="avatar">
+                  <img src="${contextPath}/resources/images/profile.png" alt="User name">
+                  <div class="status off"></div>
+                </div>
+                <div class="name">Alexander Herthic</div>
+                <div class="text">
+                  It is a long established fact that a reader will be. Thanks Mate!
+                </div>
+                <div class="time">5 min ago</div>
+              </div>
+              <div class="answer-add">
+                <input placeholder="Write a message">
+                <span class="answer-btn answer-btn-1"></span>
+                <span class="answer-btn answer-btn-2"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
 
 <script>
-function boardValidate() {
-	if ($("#receiveMember").val().trim().length == 0) {
-		swal("받는사람을 입력해 주세요.");
-		$("#receiveMember").focus();
-		return false;
-	}
 
-	if ($("#content").val().trim().length == 0) {
-		swal("내용을 입력해 주세요.");
-		$("#content").focus();
-		return false;
-	}
-}
-$("#messageListbtn").on("click", function() {
-	path = "${contextPath}/message/rmessageList";
-	location.href = path;
-});
+$(function(){
+    $(".chat").niceScroll();
+}) 
 
 </script>
 </body>

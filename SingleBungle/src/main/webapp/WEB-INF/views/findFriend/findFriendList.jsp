@@ -66,7 +66,7 @@
 		border-radius: 0.25rem;
 	}
 	
-	.page-link { color: black; }
+	.page-item > a, .page-item > a:hover { color: black; }
 	
 	.pagination.pagination-rounded-flat .page-item { margin: 0 .25rem; }
 	
@@ -125,7 +125,7 @@
 				<!-- 게시판 이름/카테고리 -->
       <div class="row py-5">
         <div class="col-lg-12 mx-auto">
-          <div class="text-black shadow-sm banner">
+          <div class="text-black banner">
             <h1 class="boardName float-left">친구찾기</h1>
             <a class="category" href="#">전체</a> |
             <a class="category" href="#">맛집</a> |
@@ -136,6 +136,7 @@
               <a class="category" href="#">최신순</a> |
               <a class="category" href="#">좋아요순</a>
             </div>
+            <hr>
           </div>
         </div>
       </div>
@@ -149,7 +150,7 @@
                      <th>지역</th>
                      <th>카테고리</th>
                      <th>제목</th>
-                     <th>모집인원</th>
+                     <th>성별</th>
                      <th>모집인원</th>
                      <th>닉네임</th>
                      <th>조회수</th>
@@ -245,9 +246,7 @@
 	
 	<script>	
 	
-		// 게시글 삭제
-		
-		
 	</script>
+	
 </body>
 </html>
