@@ -50,6 +50,8 @@
 	<a class="nav-link" href="${contextPath}/market/list" style="color:orange;">사고팔고 목록 조회</a>
 	<a class="nav-link" href="${contextPath}/market/view" style="color:orange;">사고팔고 상세 조회</a>
 	<a class="nav-link" href="${contextPath}/market/insert" style="color:orange;">사고팔고 판매글 작성</a>
+	<a class="nav-link" href="${contextPath}/market/mypage" style="color:orange;">사고팔고 마이페이지</a>
+	<a class="nav-link" href="${contextPath}/market/modal" style="color:orange;">사고팔고 모달</a>
 
 
 	<a class="nav-link" href="${contextPath}/review/list">후기게시판 목록 조회</a>
@@ -57,6 +59,27 @@
 	<a class="nav-link" href="${contextPath}/review/insert">후기게시판 게시글 등록</a>
 	<a class="nav-link" href="${contextPath}/message/message">쪽지테스트(임시)</a>
 	<a class="nav-link" href="${contextPath}/message/messageBox">쪽지함(임시)</a>
+	
+	
+	<a class="nav-link" href="${contextPath}/admin/adminMypage">관리자마이페이지</a>
+	<a class="nav-link" href="${contextPath}/admin/boardManage">게시글 관리</a>
+	<a class="nav-link" href="${contextPath}/admin/boardReport">신고 게시글관리</a>
+	<a class="nav-link" href="${contextPath}/admin/levelList">회원 등급 관리</a>
+	<a class="nav-link" href="${contextPath}/admin/memberList">회원 관리</a>
+	<a class="nav-link" href="${contextPath}/admin/replyManage">댓글관리</a>
+	<a class="nav-link" href="${contextPath}/admin/replyReport">신고댓글관리</a>
+	
+	<a class="nav-link" href="${contextPath}/notice/eventList">이벤트 게시판</a>
+	<a class="nav-link" href="${contextPath}/notice/eventView">이벤트 게시글 조회</a>
+	<a class="nav-link" href="${contextPath}/notice/faqInsert">자주묻는 질문 작성</a>
+	<a class="nav-link" href="${contextPath}/notice/faqView">자주묻는 질문</a>
+	<a class="nav-link" href="${contextPath}/notice/inquiryInsert">1:1 문의 작성</a>
+	<a class="nav-link" href="${contextPath}/notice/inquiryList">1:1 문의 목록</a>
+	<a class="nav-link" href="${contextPath}/notice/inquiryView">1:1 문의 상세조회</a>
+	<a class="nav-link" href="${contextPath}/notice/noticeInsert">공지사항 작성</a>
+	<a class="nav-link" href="${contextPath}/notice/noticeList">공지사항 게시판</a>
+	<a class="nav-link" href="${contextPath}/notice/noticeView">공지사항 게시글 조회</a>
+	
 	
     
    	<!-- Bootstrap core JS-->
