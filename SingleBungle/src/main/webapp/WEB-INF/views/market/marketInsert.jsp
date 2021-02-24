@@ -125,6 +125,9 @@
  
  .titleInput{
  	width: 100%;
+ 	padding : 0px 1rem;
+ 	border : 1px solid rgb(195, 194, 204);
+ 	height : 3rem;
  }
  
  .titleCnt{
@@ -136,10 +139,10 @@
  /* 취소 버튼  */
  #cancelBtn{
  	position : absolute;
- 	right : 26%;
+ 	right : 27%;
  	background-position: center center;
  	background-repeat: no-repeat;
- 	background-size : 20px 20px;
+ 	background-size : 22px 22px;
  	width : 2rem;
  	height: 2rem;
  	background-image: url("${contextPath}/resources/images/cancel.png");
@@ -151,10 +154,37 @@
  .errorMsg{
  	color : #e67d10;
  	font-size : 14px;
+ 	display: block;
  }
  
  
- /* 카테고리 selectBox */
+ #locationInput{
+ 	width : 100%; 
+ 	margin-top : 1rem;
+ 	background : rgb(244, 244, 250);
+ 	height : 3rem;
+ 	padding : 0px 1rem;
+ 	border : 1px solid rgb(195, 194, 204);
+ }
+
+	.custom-control-label{
+		width: 80px;
+		margin-top: 10px;
+	}
+	
+	#itemPrice{
+		height : 3rem;
+		padding : 0px 1rem;
+		border : 1px solid rgb(195, 194, 204);
+	}
+	
+	.itemInfoText{
+		padding: 1rem;
+		resize: none;
+		line-height: 1.35;
+		border : 1px solid rgb(195, 194, 204);		
+		width: 100%;
+	}
 
 
 
@@ -201,6 +231,7 @@
 					<h2>기본정보  <span id="requiredText">*필수정보</span> </h2> 
 				
 					
+					<form action="#" method="POST">
 					<ul class="insertForm">
 					
 					<!-- 이미지 -->
@@ -244,6 +275,7 @@
 						</li>
 						
 						
+						<!-- 카테고리 -->
 						<li class="formRow row">
 							<div class="formList">
 								<span>카테고리<span class="star">*</span></span>
@@ -254,15 +286,85 @@
 									<option value="야">야</option>
 									<option value="되냐?">되나?</option>
 								</select>
-
 							</div>
-										
+						</li>
+						
+						<!-- 거래지역 -->
+						<li class="formRow row">
+							<div class="formList">
+								<span>거래지역<span class="star">*</span></span>
+							</div>
+							
+							<div class="formContent titleFlex">
+								<div class="locationBtnArea mb-20">
+									<button type="button" id="currLocation" class="LBtn btn btn-info">내 위치</button>
+									<button type="button" id="currLocation" class="LBtn btn btn-primary">주소 검색</button>
+								</div>
+								<input type="text" readonly placeholder="선호 거래 지역을 검색해주세요." id="locationInput" class="location">
+							</div>
+						</li>
+						
+						<!-- 상태 -->
+						<li class="formRow row">
+							<div class="formList">
+								<span>상태<span class="star">*</span></span>
+							</div>
+
+							<div class="formContent">
+								<div class="itemStatusArea">
+									<input type="radio" name="itemStatus" value="U" class="itemRdio status" id="usedStatus"> <label for="usedStatus">중고</label>
+									<input type="radio" name="itemStatus" value="N" class="itemRdio status" id="newStatus"> <label for="newStatus">새상품</label>
+								</div>
+							</div>
+						</li>
+						
+						<!-- 가격 -->
+						<li class="formRow row">
+							<div class="formList">
+								<span>가격<span class="star">*</span></span>
+							</div>
+
+							<div class="formContent">
+								<div class="priceArea">
+									<input type="text" name="itemPrice" id="itemPrice" class="priceInput" placeholder="숫자만 입력해주세요."> 원
+										<span class="errorMsg" id="priceMsg">미친놈아!</span>
+									<input type="radio" name="delivery" value="F" class="itemRdio" id="including"> <label for="including">택배비 포함</label>
+									<input type="radio" name="delivery" value="N" class="itemRdio" id="noincluding"> <label for="noincluding">택배비 미포함</label>
+								</div>
+							</div>
 						</li>
 						
 						
+						<!-- 설명 -->
+						<li class="formRow row">
+							<div class="formList">
+								<span>설명<span class="star">*</span></span>
+							</div>
+							
+							<div class="formContent titleFlex">
+								<textarea rows="6" placeholder="상품 설명을 입력해주세요." class="itemInfoText"></textarea>
+								<span class="errorMsg" id="infoTextMsg" style="display: contents;">미친놈아!</span>
+									<div class="titleCnt float-right">
+									<span id="currCnt">10</span>
+									<span id="maxCnt">/ 2000</span>
+								</div>
+							</div>
+						</li>
 						
-						
+					<!-- 수량 -->
+						<li class="formRow row">
+							<div class="formList">
+								<span>수량<span class="star">*</span></span>
+							</div>
+
+							<div class="formContent">
+								<div class="priceArea">
+									<input type="number" name="itemPrice" id="itemPrice" class="priceInput" value="1"> 개
+								</div>
+							</div>
+						</li>
 					</ul>
+					</form>
 					
 
 
