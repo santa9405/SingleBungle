@@ -18,16 +18,16 @@
       margin-right: 40px;
     }
 
-    .category {
-      text-decoration: none;
-      color: black;
-      line-height: 54px;
-    }
-
-    .category:hover{
-      text-decoration: none;
-      color: rgb(214, 156, 30);
-    }
+		.category {
+		  text-decoration: none;
+		  color: black;
+		  line-height: 54px;
+		}
+		
+		.category:hover{
+		  text-decoration: none;
+		  color: rgb(214, 156, 30);
+		}
 
 
     .priceArea {
@@ -44,16 +44,11 @@
     }
     
     .text-dark {
-  display:block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-	.boardTitleBorder{
-    border-bottom: gray 1px solid;
-	}
-
+		  display:block;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
+		  white-space: nowrap;
+		}
 
 	
 	/* 좋아요 */
@@ -69,6 +64,18 @@
   .like {
     background-image: url('${contextPath}/resources/img/like2.png');
     background-repeat: no-repeat;
+  }
+  
+  .searchArea {
+  	margin : auto;
+  }
+  
+  #searchBtn{
+  	background: burlywood;
+  }
+  
+  #searchInput, #searchBtn {
+  	border : 1px solid burlywood;
   }
 
     /*  페이징바 css */
@@ -120,9 +127,12 @@
 
     .pagination.pagination-rounded-flat .page-item .page-link {
       border: none;
-      border-radius: 50px;
+      border-radius: 50px;x
     }
     
+     .banner span {
+				color : #c1c0c1a1;
+			}
     
   </style>
 
@@ -130,25 +140,35 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
   <div class="container">
+  
     <div class="px-lg-5">
-
-      <!-- 게시판 이름/카테고리 -->
-      <div class="row py-5">
-        <div class="col-lg-12 mx-auto boardTitleBorder">
-          <div class="text-black rounded banner">
-            <h1 class="boardName float-left">사고팔고</h1>
-            <a class="category" href="#">전체</a> |
-            <a class="category" href="#">팝니다</a> |
-            <a class="category" href="#">삽니다</a>
-
-            <div class="listTest float-right">
-              <a class="category" href="#">최신순</a> |
-              <a class="category" href="#">좋아요순</a>
+				
+				<form action="#" method="GET">
+          <div class="input-group mb-4 col-md-8 searchArea">
+            <input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control">
+            <div class="input-group-append">
+              <button id="searchBtn" type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
             </div>
+          </div>
+        </form>
+				
+				
+      <!-- 게시판 이름/카테고리 -->
+      <div class="row py-5 no-gutters">
+        <div class="col-lg-12 mx-auto">
+          <div class="text-black banner">
+								<h1 class="boardName float-left">사고팔고</h1>
+								<a class="category" href="#">전체</a> <span> |</span> <a class="category" href="#">팝니다</a> <span> |</span> <a class="category" href="#">삽니다</a>
+
+								<div class="listTest float-right">
+									<a class="category" href="#">최신순</a> <span> |</span> <a class="category" href="#">좋아요순</a> <span> |</span> <a class="category" href="#">저가순</a> <span> |</span> <a class="category" href="#">고가순</a>
+								</div>
+        <hr>
           </div>
         </div>
       </div>
       <!-- End -->
+      
 
 
       <div class="row">

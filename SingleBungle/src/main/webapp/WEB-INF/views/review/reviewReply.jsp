@@ -62,7 +62,7 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span> 답글</span></a> <a href="#"><span> 신고</span></a>
+										<a href="#"><span> 답글</span></a> <a href="#"></a>
 									</div>
 								</div>
 							</div>
@@ -119,7 +119,6 @@
 								<div class="col-4">
 									<div class="reply float-right">
 										<a href="#"><span>답글</span></a> 
-										<a href="#"><span>신고</span></a>
 									</div>
 								</div>
 							</div>
