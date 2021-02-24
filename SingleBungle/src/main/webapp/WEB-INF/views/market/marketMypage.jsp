@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 마이페이지</title>
+<title>사고팔고 마이페이지</title> 
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
