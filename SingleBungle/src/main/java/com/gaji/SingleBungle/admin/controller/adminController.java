@@ -45,4 +45,5 @@ public class adminController {
 	public String replyReportView() {
 		return "admin/replyReport";
 	}
+	
 }

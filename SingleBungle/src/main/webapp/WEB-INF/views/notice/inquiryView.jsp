@@ -26,7 +26,7 @@
             #bTitle{
                 font-size: 30px;
             }
-
+ 
             .boardArea{
                 margin-top: 30px;
             }

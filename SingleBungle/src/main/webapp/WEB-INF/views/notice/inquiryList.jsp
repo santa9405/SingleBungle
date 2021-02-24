@@ -25,7 +25,7 @@
      -ms-flex: 1 1 auto;
      flex: 1 1 auto
  }
-
+ 
         @media (max-width:991.98px) {
             .padding {
                 padding: 1.5rem

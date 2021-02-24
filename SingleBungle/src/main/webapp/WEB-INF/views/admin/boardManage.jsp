@@ -115,7 +115,7 @@
             checkbox.checked = selectAll.checked;
             })
         }
-        </script>
+        </script> 
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>

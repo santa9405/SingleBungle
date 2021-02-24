@@ -25,7 +25,7 @@
    background-clip: border-box;
    border: 1px solid #d2d2dc;
 }
-
+ 
 .media img {
    width: 30px;
    height: 30px;

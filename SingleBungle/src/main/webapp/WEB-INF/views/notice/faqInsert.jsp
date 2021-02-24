@@ -25,7 +25,7 @@
         form{
             margin-top: 50px;
         }
-
+ 
     </style>
 <body>
 <jsp:include page="../common/header.jsp"/>

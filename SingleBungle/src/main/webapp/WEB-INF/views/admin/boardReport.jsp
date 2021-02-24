@@ -117,7 +117,7 @@
             const selectReply = document.getElementsByName('ck');
             selectReply.forEach((checkbox) => {
             checkbox.checked = selectAll.checked;
-            })
+            }) 
         }
         </script>
 </head>

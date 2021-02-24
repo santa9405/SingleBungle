@@ -22,7 +22,7 @@
    color: black;
    line-height : 54px;
 }
-
+ 
 .likeImg {
   width: 10px;
 }
