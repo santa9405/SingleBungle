@@ -9,15 +9,33 @@
    
 
             <div class="col-sm-3 mt-5" id="sideMenu">
-                <h3 id="sideTitle">Side Menu</h3>
-                <ul class="list-group list-group-flush" id="sideText">
-                    <li class="list-group-item list-group-item-action"><a href="#">회원 관리</a></li>
-                    <li class="list-group-item list-group-item-action"><a href="#">등업 관리</a></li>
-                    <li class="list-group-item list-group-item-action"><a href="#">게시글 관리</a></li>
-                    <li class="list-group-item list-group-item-action"><a href="#">댓글 관리</a></li>
-                    <li class="list-group-item list-group-item-action"><a href="#">신고 게시글</a></li>
-                    <li class="list-group-item list-group-item-action"><a href="#">신고 댓글 </a></li>
-                </ul>
-			</div>
+            
+                    <!-- Vertical Menu-->
+                    <nav class="nav flex-column bg-white shadow-sm font-italic rounded p-3">
+                      <a href="${contextPath}/admin/adminMypage" class="nav-link px-4 rounded-pill" id="myPage">
+                                       내가 쓴 글 / 댓글
+                                    </a>
+                      <a href="${contextPath}/admin/memberList" class="nav-link px-4 rounded-pill" id="memberList">
+                                       회원관리
+                                    </a>
+                      <a href="${contextPath}/admin/levelList" class="nav-link px-4 rounded-pill" id="levelList">
+                                        등업관리
+                                    </a>
+                      <a href="${contextPath}/admin/boardManage" class="nav-link px-4 rounded-pill" id="boardManage">
+                                        게시글관리
+                                    </a>
+                      <a href="${contextPath}/admin/replyManage" class="nav-link px-4 rounded-pill" id="replyManage">
+                                        댓글관리
+                                     
+                                    </a>
+                      <a href="${contextPath}/admin/boardReport" class="nav-link px-4 rounded-pill" id="boardReport">
+                                        신고게시글
+                                    </a>
+                      <a href="${contextPath}/admin/replyReport" class="nav-link px-4 rounded-pill" id="replyReport">
+                                        신고댓글
+                                    </a>
 
+                    </nav>
+                    <!-- End -->  
+                  </div>
  
