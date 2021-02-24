@@ -60,6 +60,27 @@
 	<a class="nav-link" href="${contextPath}/message/message">쪽지테스트(임시)</a>
 	<a class="nav-link" href="${contextPath}/message/messageBox">쪽지함(임시)</a>
 	
+	
+	<a class="nav-link" href="${contextPath}/admin/adminMypage">관리자마이페이지</a>
+	<a class="nav-link" href="${contextPath}/admin/boardManage">게시글 관리</a>
+	<a class="nav-link" href="${contextPath}/admin/boardReport">신고 게시글관리</a>
+	<a class="nav-link" href="${contextPath}/admin/levelList">회원 등급 관리</a>
+	<a class="nav-link" href="${contextPath}/admin/memberList">회원 관리</a>
+	<a class="nav-link" href="${contextPath}/admin/replyManage">댓글관리</a>
+	<a class="nav-link" href="${contextPath}/admin/replyReport">신고댓글관리</a>
+	
+	<a class="nav-link" href="${contextPath}/notice/eventList">이벤트 게시판</a>
+	<a class="nav-link" href="${contextPath}/notice/eventView">이벤트 게시글 조회</a>
+	<a class="nav-link" href="${contextPath}/notice/faqInsert">자주묻는 질문 작성</a>
+	<a class="nav-link" href="${contextPath}/notice/faqView">자주묻는 질문</a>
+	<a class="nav-link" href="${contextPath}/notice/inquiryInsert">1:1 문의 작성</a>
+	<a class="nav-link" href="${contextPath}/notice/inquiryList">1:1 문의 목록</a>
+	<a class="nav-link" href="${contextPath}/notice/inquiryView">1:1 문의 상세조회</a>
+	<a class="nav-link" href="${contextPath}/notice/noticeInsert">공지사항 작성</a>
+	<a class="nav-link" href="${contextPath}/notice/noticeList">공지사항 게시판</a>
+	<a class="nav-link" href="${contextPath}/notice/noticeView">공지사항 게시글 조회</a>
+	
+	
     
    	<!-- Bootstrap core JS-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
