@@ -31,4 +31,14 @@ public class MarketController {
 	public String marketInsert() {
 		return "market/marketInsert"; 
 	}
+	
+	@RequestMapping("mypage")
+	public String marketMypage() {
+		return "market/marketMypage";
+	}
+	
+	@RequestMapping("modal")
+	public String marketModal() {
+		return "market/marketModal";
+	}
 }
