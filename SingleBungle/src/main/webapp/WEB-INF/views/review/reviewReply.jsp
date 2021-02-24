@@ -62,7 +62,8 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span> 답글</span></a> <a href="#">신고</a>
+										<button>답글</button> 
+										<button class="report">신고</button>
 									</div>
 								</div>
 							</div>
@@ -118,8 +119,8 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span>답글</span></a> 
-										<a href="#"><span>신고</span></a> 
+										<button>답글</button> 
+										<button class="report">신고</button>
 									</div>
 								</div>
 							</div>
@@ -162,6 +163,12 @@
 		</div>
 	</div>
 	<!-- 댓글 END -->
-
+	
+<script>
+	/* 댓글 신고 */
+		$(".replyReport").on("click", function(){
+				window.open('${contextPath}/reviewReport/replyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		});
+	</script>
 </body>
 </html>

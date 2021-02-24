@@ -21,13 +21,6 @@
 }
 
 /* 셀렉트 박스 */
-select {
-	border: none;
-}
-
-select:focus {
-	outline: none;
-}
 
 /* 제목 입력 */
 .titleArea {
@@ -39,6 +32,7 @@ select:focus {
 .titleArea:focus {
 	outline: none;
 }
+
 </style>
 </head>
 <body>
@@ -61,7 +55,7 @@ select:focus {
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-4">
-						<select id="category" name="categoryName">
+						<select class="form-control div small" id="category" name="categoryName" style="width:150px;">
 							<option value="10">가구</option>
 							<option value="20">생활용품</option>
 							<option value="30">전자기기</option>

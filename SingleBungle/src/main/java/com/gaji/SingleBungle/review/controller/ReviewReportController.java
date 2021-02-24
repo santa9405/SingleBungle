@@ -9,8 +9,8 @@ import com.gaji.SingleBungle.board.model.service.BoardService;
 
 @Controller
 /*@SessionAttributes({"loginMember"})*/
-@RequestMapping("/review/*")
-public class ReviewController {
+@RequestMapping("/reviewReport/*")
+public class ReviewReportController {
 	
 	@Autowired
 	private BoardService service;
@@ -19,20 +19,16 @@ public class ReviewController {
 	private String swalTitle = null;
 	private String swalText = null;
 
-	@RequestMapping("list")
-	public String reviewList() {
-		return "review/reviewList";
+	@RequestMapping("report")
+	public String report() {
+		return "review/reviewReport";
 	}
 	
-	@RequestMapping("view")
-	public String reviewView() {
-		return "review/reviewView";
+	@RequestMapping("replyReport")
+	public String replyReport() {
+		return "review/reviewReplyReport";
 	}
 	
-	@RequestMapping("insert")
-	public String reviewInsert() {
-		return "review/reviewInsert";
-	}
 	
 	
 	
