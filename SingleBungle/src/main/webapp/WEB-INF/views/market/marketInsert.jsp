@@ -282,7 +282,7 @@
 							</div>			
 							
 							<div class="formContent">
-								<select id="Select1" class="selectpicker" style="height: 30px">
+								<select id="Select1" class="form-control div large" style="height: 30px">
 									<option value="야">야</option>
 									<option value="되냐?">되나?</option>
 								</select>
@@ -311,9 +311,9 @@
 							</div>
 
 							<div class="formContent">
-								<div class="itemStatusArea">
-									<input type="radio" name="itemStatus" value="U" class="itemRdio status" id="usedStatus"> <label for="usedStatus">중고</label>
-									<input type="radio" name="itemStatus" value="N" class="itemRdio status" id="newStatus"> <label for="newStatus">새상품</label>
+								<div class="itemStatusArea form-check">
+									<input type="radio" name="itemStatus" value="U" class="itemRdio form-check-input" id="usedStatus"> <label for="usedStatus">중고</label>
+									<input type="radio" name="itemStatus" value="N" class="itemRdio form-check-input" id="newStatus"> <label for="newStatus">새상품</label>
 								</div>
 							</div>
 						</li>
