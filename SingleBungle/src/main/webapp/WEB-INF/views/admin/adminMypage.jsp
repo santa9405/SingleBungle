@@ -72,6 +72,10 @@
             margin-top: 30px;
         }
 
+        span{
+            margin-top: 100px;
+        }
+
         #sideMenu{
             margin-top: 50px !important;
             position: relative;
@@ -83,15 +87,33 @@
         }
 
 
+
+        .nav-link {
+  color: #555;
+}
+
+.nav-link:hover {
+  background: #f5f5f5;
+}
+
+
+
+
         </style>
 
 </head>
 <body>
-    <jsp:include page="../common/header.jsp"/>
-	
-     <div class="container">
+    
+     <div class="container mt-5 pt-5">
         <div class="row">
-   			 <jsp:include page="sideMenu.jsp" />
+           <jsp:include page="sideMenu.jsp" />
+
+
+            
+                  
+            
+
+
 
             <div class="col-sm-9">
                 
@@ -201,279 +223,16 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- --------------------------------------------------------- -->
-                <div class="myReply">
-                    <span><h4>내가 쓴 댓글</h4></span>
-
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>게시판</th>
-                            <th>댓글 남긴 게시글</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>사고팔고</td>
-                            <td class="boardTitle">어쩌구입니다....</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>자유게시판</td>
-                            <td class="boardTitle">댓글입니다</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>후기게시판</td>
-                            <td class="boardTitle">댓글 운영... </td>
-                            <td>2021-02-20</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="myReply">
-                    <span><h4>내가 쓴 댓글</h4></span>
-
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>게시판</th>
-                            <th>댓글 남긴 게시글</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>사고팔고</td>
-                            <td class="boardTitle">어쩌구입니다....</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>자유게시판</td>
-                            <td class="boardTitle">댓글입니다</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>후기게시판</td>
-                            <td class="boardTitle">댓글 운영... </td>
-                            <td>2021-02-20</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="myReply">
-                    <span><h4>내가 쓴 댓글</h4></span>
-
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>게시판</th>
-                            <th>댓글 남긴 게시글</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>사고팔고</td>
-                            <td class="boardTitle">어쩌구입니다....</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>자유게시판</td>
-                            <td class="boardTitle">댓글입니다</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>후기게시판</td>
-                            <td class="boardTitle">댓글 운영... </td>
-                            <td>2021-02-20</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="myReply">
-                    <span><h4>내가 쓴 댓글</h4></span>
-
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>게시판</th>
-                            <th>댓글 남긴 게시글</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>사고팔고</td>
-                            <td class="boardTitle">어쩌구입니다....</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>자유게시판</td>
-                            <td class="boardTitle">댓글입니다</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>후기게시판</td>
-                            <td class="boardTitle">댓글 운영... </td>
-                            <td>2021-02-20</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="myReply">
-                    <span><h4>내가 쓴 댓글</h4></span>
-
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>게시판</th>
-                            <th>댓글 남긴 게시글</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>사고팔고</td>
-                            <td class="boardTitle">어쩌구입니다....</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>자유게시판</td>
-                            <td class="boardTitle">댓글입니다</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>후기게시판</td>
-                            <td class="boardTitle">댓글 운영... </td>
-                            <td>2021-02-20</td>
-                        </tr>
-
-                    </tbody>
-                </table>
- 
-                
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
             
            
         </div>
     </div>
-           
-    <jsp:include page="../common/footer.jsp"/>
 </body>
-<script>
-
+ <script>
+    $(function(){
+			$("#myPage").attr('class','nav-link px-4 active bg-primary text-white shadow-sm rounded-pill');
+	});
 </script>
 
 </html>

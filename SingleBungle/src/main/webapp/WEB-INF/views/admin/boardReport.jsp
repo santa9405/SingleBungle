@@ -231,5 +231,11 @@
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+     <script>
+    $(function(){
+			$("#boardReport").attr('class','nav-link px-4 active bg-primary text-white shadow-sm rounded-pill');
+	});
+</script>
 </body>
 </html>
