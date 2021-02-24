@@ -14,9 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-    body {
-		font-family: 'Varela Round', sans-serif;
-	}
+
 	.modal-confirm {		
 		color: #636363;
 		width: 400px;
@@ -131,6 +129,7 @@
 	<!-- Button HTML (to Trigger Modal) -->
 	<a href="#sendMessage" class="trigger-btn" data-toggle="modal">쪽지 보내기</a>
 </div>
+
 
 <!-- Modal HTML -->
 <div id="sendMessage" class="modal fade">

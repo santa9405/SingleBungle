@@ -5,7 +5,10 @@
 <meta charset="UTF-8">
 <title>후기 등록하기</title>
 
-<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+
+<link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
 <style>
 	.boardInfo {
 		display: inline-block;
@@ -127,7 +130,6 @@
 	border: none;
 	border-radius: 50px;
 }
-     
 
 </style>
 
@@ -143,8 +145,8 @@
 			<div class="col-md-12">
 				<h8> 후기게시판 </h8>
 				<div class="float-right">
-					<button>목록</button>
-					<button>신고</button>
+					<button type="button" class="btn btn-primary ml-2 report">목록</button>
+					<button type="button" class="btn btn-primary ml-2 report">신고</button>
 				</div>
 				<h2 style="margin-top: 5px;">
 					<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">생활용품</div>
@@ -290,9 +292,6 @@
 			</div>
 		</div>
 
-
-
-
 	</div>
 
 
@@ -300,6 +299,21 @@
 
 
 	<jsp:include page="../common/footer.jsp" />
+	
+	
+	<script>
+	// 게시글 신고창 열기
+	$(".report").on("click", function(){
+			window.open('${contextPath}/reviewReport/report', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+	});
+	
+
+
+	
+	
+
+	</script>
+
 
 
 </body>
