@@ -97,9 +97,6 @@
 		padding-left: 20px;
 	}
 	
-	.boardTitleBorder{
-    border-bottom: gray 1px solid;
-	}
 	
 	#report{
 		padding : 0 8px 0 8px;
@@ -134,7 +131,7 @@
       text-decoration: none;
       color: black;
       line-height : 54px;
-      margin-right:5px;
+      /*margin-right:5px;*/
     }
     
     .viewArea,.replyArea{
@@ -180,6 +177,22 @@
   	width: 95px;
   }
   
+  .searchArea {
+  	margin : auto;
+  }
+  
+  #searchBtn{
+  	background: burlywood;
+  }
+  
+  #searchInput, #searchBtn {
+  	border : 1px solid burlywood;
+  }
+  
+   .banner span {
+ 			color : #c1c0c1a1;
+ 		}
+  
 </style>
 </head>
 <body>
@@ -189,27 +202,37 @@
       <!-- 게시판 이름/카테고리 -->
       <div class="row py-5 no-gutters">
 							<div class="col-md-12">
-							<button type="button" class="btn btn-success float-right">목록</button>
-		</div>
-        <div class="col-lg-12 mx-auto boardTitleBorder">
-        	      
-          <div class="text-black rounded banner">
-            <h1 class="boardName float-left">사고팔고</h1>
-            <a class="category" href="#">전체</a>|
-            <a class="category" href="#">팝니다</a>|
-            <a class="category" href="#">삽니다</a>
-
-            <div class="listTest float-right">
-              <a class="category" href="#">최신순</a>|
-              <a class="category" href="#">좋아요순</a>|
-              <a class="category" href="#">저가순</a>|
-              <a class="category" href="#">고가순</a>
+							
+			<form action="#" method="GET">
+          <div class="input-group mb-4 col-md-8 searchArea">
+            <input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control">
+            <div class="input-group-append">
+              <button id="searchBtn" type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
             </div>
           </div>
-        </div>
+        </form>
+      
+							
+							
+							
+			<button type="button" class="btn btn-success float-right">목록</button>
+		</div>
+        <div class="col-lg-12 mx-auto">
+        	      
+          <div class="text-black  banner">
+								<h1 class="boardName float-left">사고팔고</h1>
+								<a class="category" href="#">전체</a> <span>|</span> <a class="category" href="#">팝니다</a> <span>|</span> <a class="category" href="#">삽니다</a>
+
+								<div class="listTest float-right">
+									<a class="category" href="#">최신순</a> <span>|</span> <a class="category" href="#">좋아요순</a> <span>|</span> <a class="category" href="#">저가순</a> <span>|</span> <a class="category" href="#">고가순</a>
+								</div>
         <hr>
+          </div>
+        </div>
       </div>
       <!-- End -->
+      
+
       
 
 

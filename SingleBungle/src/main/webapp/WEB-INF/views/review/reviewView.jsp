@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>후기 등록하기</title>
+
+<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
 <style>
 	.boardInfo {
 		display: inline-block;
