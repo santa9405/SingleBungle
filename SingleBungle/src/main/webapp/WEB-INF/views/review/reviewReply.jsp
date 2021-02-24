@@ -62,7 +62,7 @@
 								</div>
 								<div class="col-4">
 									<div class="reply float-right">
-										<a href="#"><span> 답글</span></a> <a href="#"></a>
+										<a href="#"><span> 답글</span></a> <a href="#">신고</a>
 									</div>
 								</div>
 							</div>
@@ -98,8 +98,8 @@
 									</div>
 									<div class="replyText">이미 신고했습니다.</div>
 									<div class="float-right" style="font-size: 13px;">
-										<a class="replyUpdate"> 수정 </a> 
-										<a class="replyDelete"> 삭제 </a>
+										<a class="replyUpdate" href="#"> 수정 </a> 
+										<a class="replyDelete" href="#"> 삭제 </a>
 									</div>
 								</div>
 							</div>
@@ -119,6 +119,7 @@
 								<div class="col-4">
 									<div class="reply float-right">
 										<a href="#"><span>답글</span></a> 
+										<a href="#"><span>신고</span></a> 
 									</div>
 								</div>
 							</div>
