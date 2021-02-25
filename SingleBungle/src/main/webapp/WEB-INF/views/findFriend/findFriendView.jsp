@@ -61,6 +61,11 @@
 	margin-bottom: 10px;
 }
 
+.image {
+	width: 30px;
+	height: 30px;
+}
+
 .personnel {
 	line-height: 35px;
 }
@@ -103,17 +108,13 @@ body {
 	box-shadow: none;
 }
 
-.name {
-	
-}
-
 .cursor:hover {
 	color: blue;
 }
 
 .cursor {
 	cursor: pointer;
-} 
+}
 
 .media img {
 	width: 30px;
@@ -136,18 +137,42 @@ body {
 
 			<hr class="hr">
 
-			<div class="titleArea">
-				<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>크리스탈</span> <span>조회 : 100</span> <span>2021.02.21 12:05</span> <span>
-					<button type="button" id="likeBtn">
-						<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-					</button>
-				</span>
+			<div class="titleArea row mb-3 form-row">
+				<div class="col-md-2">
+					<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>크리스탈</span>
+				</div>
+
+				<div class="col-md-8">
+					<div class="boardInfo" id="createDt" style="color: gray">2021.02.24 12:05</div>
+				</div>
+
+				<div class="col-md-2">
+					<div class="float-right">
+
+						<img class="image" src="${contextPath}/resources/images/view.png"> 0
+						<button type="button" id="likeBtn">
+							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+						</button>
+					</div>
+				</div>
 			</div>
 
-			<br>
+			<div class="titleArea row mb-3 form-row">
+				<div class="col-md-2">
+					<span>지역 : 서울</span>
+				</div>
 
-			<div class="titleArea">
-				<span>지역 : 서울</span> <span>모임장소 : 을지로입구 마카오도우라오</span> <span>모임날짜 : 2021.02.27</span> <span>모임시간 : 미정</span>
+				<div class="col-md-4">
+					<span>모임장소 : 을지로입구 마카오도우라오</span>
+				</div>
+
+				<div class="col-md-2">
+					<span>모임날짜 : 2021.02.27</span>
+				</div>
+
+				<div class="col-md-2">
+					<span>모임시간 : 미정</span>
+				</div>
 			</div>
 
 			<br>
@@ -157,7 +182,7 @@ body {
 				<button type="button" class="btn btn-primary float-right apply">참여신청</button>
 				<!-- chat button -->
 				<button type="button" class="btn btn-primary float-right chat">모집인원 1/4</button>
-								
+
 			</div>
 			<hr class="hr">
 
@@ -192,16 +217,29 @@ body {
 
 	<script>
 		// 게시글 신고창 열기
-		$(".report").on("click", function(){
-				window.open('${contextPath}/findFriendReport/reportForm', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-		});
-	
+		$(".report")
+				.on(
+						"click",
+						function() {
+							window
+									.open(
+											'${contextPath}/findFriendReport/reportForm',
+											"popup",
+											"width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+						});
+
 		// 채팅창 열기
-		$(".chat").on("click", function(){
-				window.open('${contextPath}/findFriendChat/chatView', "popup", "width=600, height=700, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-		});
-		
+		$(".chat")
+				.on(
+						"click",
+						function() {
+							window
+									.open(
+											'${contextPath}/findFriendChat/chatView',
+											"popup",
+											"width=600, height=700, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+						});
 	</script>
-	
+
 </body>
 </html>

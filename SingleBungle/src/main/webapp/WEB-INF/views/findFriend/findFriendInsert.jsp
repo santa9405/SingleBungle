@@ -20,14 +20,14 @@
 				<form action="insertAction" method="post">
 
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 col-form-label">제목</label>
+						<label for="title" class="input-group-addon col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-11">
 							<input type="text" class="form-control" id="title" name="boardTitle" size="100%" required>
 						</div>
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 col-form-label">카테고리</label>
+						<label for="category" class="input-group-addon col-sm-1 col-form-label">카테고리</label>
 						<div class="col-sm-4">
 							<select class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
 								<option value="10">맛집</option>
@@ -38,11 +38,11 @@
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 col-form-label">지역</label>
+						<label for="rocation1" class="input-group-addon col-sm-1 col-form-label">지역</label>
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<select class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
+									<select class="form-control div small" id="rocation1" name="categoryName" style="width: 150px; height: 40px;" required>
 										<option value="10">서울특별시</option>
 										<option value="20">부산광역시</option>
 										<option value="30">대구광역시</option>
@@ -63,24 +63,24 @@
 									</select>
 								</div>
 
-								<label class="input-group-addon col-sm-1 col-form-label">모임장소</label>
+								<label for="rocation2" class="input-group-addon col-sm-1 col-form-label">모임장소</label>
 								<div class="col-md-7">
-									<input type="text" class="form-control" id="title" name="boardTitle" required>
+									<input type="text" class="form-control" id="rocation2" name="boardTitle" required>
 								</div>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 col-form-label">모임날짜</label>
+						<label for="meetingDate" class="input-group-addon col-sm-1 col-form-label">모임날짜</label>
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<input type="date" class="form-control" id="title" name="boardTitle" style="width: 170px; height: 40px;" required>
+									<input type="date" class="form-control" id="meetingDate" name="boardTitle" style="width: 170px; height: 40px;" required>
 								</div>
-								<label class="input-group-addon col-sm-1 col-form-label">모임시간</label>
+								<label for="meetingTime" class="input-group-addon col-sm-1 col-form-label">모임시간</label>
 								<div class="col-md-4">
-									<select class="form-control div smal" id="category" name="categoryName" style="width: 80px; height: 40px;" required>
+									<select class="form-control div smal" id="meetingTime" name="categoryName" style="width: 80px; height: 40px;" required>
 										<option value="10">6시</option>
 										<option value="20">7시</option>
 										<option value="30">8시</option>
@@ -105,11 +105,11 @@
 					</div>
 					<hr>
 					<div class="form-group row">
-						<label class="input-group-addon col-sm-1 col-form-label">모집인원</label>
+						<label for="capacity" class="input-group-addon col-sm-1 col-form-label">모집인원</label>
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-sm-4">
-									<select class="form-control div smal" id="category" name="categoryName" style="width: 80px; height: 40px;" required>
+									<select class="form-control div smal" id="capacity" name="categoryName" style="width: 80px; height: 40px;" required>
 										<option value="10">2</option>
 										<option value="20">3</option>
 										<option value="30">4</option>
@@ -119,17 +119,17 @@
 										<option value="70">8</option>
 									</select>
 								</div>
-								<label class="input-group-addon col-sm-1 col-form-label">성별</label>
+								<label for="gender" class="input-group-addon col-sm-1 col-form-label">성별</label>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="placeOp" id="online" value="N">
+											<input class="form-check-input" type="radio" name="female" id="gender" value="N">
 												<label class="form-check-label" for="online">여자</label>
 										</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="placeOp" id="offline" value="F">
+												<input class="form-check-input" type="radio" name="male" id="gender" value="F">
 												<label class="form-check-label" for="offline">남자</label>
 											</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="placeOp" id="offline" value="F">
+												<input class="form-check-input" type="radio" name="irrelevant" id="gender" value="F">
 												<label class="form-check-label" for="offline">무관</label>
 											</div>
 							</div>
@@ -140,7 +140,7 @@
 						<div>
 							<label for="content">내용</label>
 						</div>
-						<textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required></textarea>
+						<textarea class="form-control" id="content" name="boardContent" rows="10" style="resize: none;" required></textarea>
 					</div>
 					<div class="text-center">
 						<button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
