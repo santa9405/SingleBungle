@@ -214,15 +214,14 @@
                         <div class="card-header" id="headingFour">
                             <h2 class="mb-0">
                                 <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    <i class="fa fa-chevron-circle-down"></i> 강사를.... 죽이고,.. 싶습니다..
+                                    <i class="fa fa-chevron-circle-down"></i> 힘듭니다...
                                 </a>                               
                             </h2>
                         </div>
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                             <div class="card-body">
-                                저도 죽이고 십네요,,,,<br>
-                                방법 알아내시면,,,<br>
-                                제가 1빠입니다ㅡㅡ
+                                요즘 한창 힘든 시기죠...<br>
+                  당신은 혼자가 아닙니다. 옆에 있는 좋은 사람들과 함께 시간을 보내보세요~
                             </div>
                         </div>
                     </div>
