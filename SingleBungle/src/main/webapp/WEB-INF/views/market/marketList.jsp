@@ -7,7 +7,7 @@
 <title>사고팔고 - 메인</title>
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+ 
 
   <style>
     body {
