@@ -8,10 +8,18 @@
 <title>친구찾기 게시판 글작성</title>
 <style>
 </style>
+
+<!-- summernote 사용 시 필요한 css 파일 추가 -->
+<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-<body>
+	
+	<!-- summernote 사용 시 필요한 js 파일 추가 -->
+	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
 
 	<div class="container">
 		<div class="row">
@@ -140,7 +148,7 @@
 						<div>
 							<label for="content">내용</label>
 						</div>
-						<textarea class="form-control" id="content" name="boardContent" rows="10" style="resize: none;" required></textarea>
+						<textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required></textarea>
 					</div>
 					<div class="text-center">
 						<button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
@@ -152,7 +160,6 @@
 		</div>
 	</div>
 
-</body>
 <jsp:include page="../common/footer.jsp" />
 
 <script>
