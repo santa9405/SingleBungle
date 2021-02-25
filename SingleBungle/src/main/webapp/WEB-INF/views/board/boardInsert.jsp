@@ -20,9 +20,20 @@
 	    line-height: 40px;
 	}
 </style>
+
+<!-- summernote 사용 시 필요한 css 파일 추가 -->
+<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+
 </head>
 <body>
 		<jsp:include page="../common/header.jsp"/>
+		
+		<!-- summernote 사용 시 필요한 js 파일 추가 -->
+		<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+		<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+		<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+		
+		
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -40,7 +51,7 @@
                     <div class="form-group row">
                         <label class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
-	                        <select	class="form-select" id="category" name="categoryName" style="width: 160px; height: 37px;" required>
+	                        <select	class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
 	                            <option value="10">여행</option>
 	                            <option value="20">영화</option>
 	                            <option value="30">일상</option>
@@ -58,7 +69,7 @@
                         <textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-secondary mb-3 btn-success">등록</button>
+                        <button type="submit" class="btn btn-secondary mb-3 btn-success">등록</button>
                         <button type="button" class="btn btn-secondary mb-3">취소</button>
                     </div>
                 </form>
@@ -67,5 +78,10 @@
         </div>
     </div>
 		<jsp:include page="../common/footer.jsp"/>
+		
+		<script>
+		
+		</script>
+		
 </body>
 </html>

@@ -93,9 +93,6 @@
 }
 </style>
 
-<!-- summernote 사용 시 필요한 css 파일 추가 -->
-<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
-
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -273,8 +270,15 @@
           <!-- End -->
     
       </div>
+      
+            <%-- 로그인이 되어있는 경우 + 회원등급 2이상('S') --%>
+<%-- 				<c:if test="${!empty loginMember }">
+									
+						</c:if> --%>
 
       <div class="text-right"><button type="button" class="btn btn-success">글쓰기</button></div>
+      
+      <!--------------------------------- pagination  ---------------------------------->
       
       <nav>
         <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
@@ -287,6 +291,7 @@
         </ul>
       </nav>
 
+			<!-- 검색창 -->
       <div class="search">
         <form action="#" method="GET">
         <select name="sk" id="searchOption" style="width:100px; height:36px; display:inline-block;">
