@@ -22,14 +22,14 @@
 	<div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
      <form method="POST" action="reportAction" class="needs-validation" name="report">
      <div class="form-group row">
-      <label for="recipient-name" class="col-sm-3 col-form-label">신고 제목</label>
+      <label for="title" class="col-sm-3 col-form-label">신고 제목</label>
        <div class="col-sm-9">
-      	 	<input type="text" class="form-control" id="recipient-name" name="reportTitle" placeholder="신고 제목을 입력해 주세요." required>
+      	 	<input type="text" class="form-control" id="title" name="reportTitle" placeholder="신고 제목을 입력해 주세요." required>
     		</div>
      </div>
 
          <div class="form-group row">
-             <label class="input-group-addon col-sm-3 insert-label">신고 사유</label>
+             <label for="category" class="input-group-addon col-sm-3 insert-label">신고 사유</label>
              <div class="col-sm-9">
              <select   class="form-control div small" id="category" name="categoryName" required>
                  <option value="10">욕설, 비방, 차별, 혐오</option>
@@ -47,7 +47,7 @@
          <div class="form-group row">
              <label for="content" class="col-sm-3 col-form-label">신고 내용</label>
              <div class="col-sm-9">
-             <textarea class="form-control" id="summernote" name="boardContent"
+             <textarea class="form-control" id="content" name="boardContent"
                  rows="10" style="resize: none;" required></textarea>
              </div>
          </div>
