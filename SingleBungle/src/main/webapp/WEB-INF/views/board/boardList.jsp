@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가지가지 - 자유게시판 메인 페이지
-</title>
+<title>가지가지 - 자유게시판 메인 페이지</title>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -111,41 +110,57 @@
                     <thead>
                       <tr>
                         <th>글번호</th>
+                        <th>카테고리</th>
                         <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
+                        <th>닉네임</th>
                         <th>조회수</th>
+                        <th>작성일</th>
                         <th>♡</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th>1</th>
-                        <td>제목1</td>
-                        <td>작성자1</td>
-                        <td>2020.02.19</td>
-                        <td>100</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <th>2</th>
-                        <td>제목2</td>
-                        <td>작성자2</td>
-                        <td>2020.02.19</td>
-                        <td>100</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <th>3</th>
-                        <td>제목3</td>
-                        <td>작성자3</td>
-                        <td>2020.02.19</td>
-                        <td>100</td>
-                        <td>10</td>
-                      </tr>
-                    </tbody>
+											<c:if test="${empty bList }">
+												<tr>
+													<td colspan="7" style="text-align : center;">존재하는 게시글이 없습니다.</td>
+												</tr>
+											</c:if>
+											<c:if test="${!empty bList }">
+												<c:forEach var="board" items="${bList}" varStatus="vs">
+						
+													<tr>
+														<td>${board.boardNo}</td>
+														<td>${board.categoryCode}</td>
+														<td>${board.boardTitle}</td>
+														<td>${board.nickname}</td>
+														<td>${board.readCount}</td>
+														<td>
+															<%-- 날짜 출력 모양 지정 --%>
+															<fmt:formatDate var="createDate" value="${board.boardCreateDate}" pattern="yyyy-MM-dd"/>
+															<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd"/> 
+															<c:choose>
+																<c:when test="${createDate != now}">
+																	${createDate}
+																</c:when>
+																<c:otherwise>
+																	<fmt:formatDate value="${board.boardCreateDate}" pattern="HH:mm"/>
+																</c:otherwise>
+															</c:choose>
+														</td>
+														<td>${board.boardLike}</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+										</tbody>
                   </table>
+                  <%-- 로그인이 되어있는 경우 --%>
+<%-- 									<c:if test="${!empty loginMember }">
+									
+									</c:if> --%>
+									
                   <div class="text-right"><button type="button" class="btn btn-success">글쓰기</button></div>
+                  
+                  <!--------------------------------- pagination  ---------------------------------->
+                  
                   <nav>
                     <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
                       <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
@@ -156,6 +171,8 @@
                       <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
                     </ul>
                   </nav>
+                  
+                  <!-- 검색창 -->
                   <div class="search">
                     <form action="#" method="GET">
                     <select name="sk" id="searchOption" style="width:100px; height:36px; display:inline-block;">
@@ -172,5 +189,11 @@
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+    <script>
+    // 게시글 상세보기 기능
+    
+    
+    </script>
 </body>
 </html>

@@ -51,6 +51,12 @@
 
 .icon { width: 13px; }
 
+.viewArea,.replyArea{
+  display: inline-block;
+  font-size: 11px;
+  margin-right:5px;
+}
+
 </style>
 
 </head>

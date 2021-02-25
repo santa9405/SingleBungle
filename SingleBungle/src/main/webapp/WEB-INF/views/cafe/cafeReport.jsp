@@ -31,7 +31,7 @@
          <div class="form-group row">
              <label class="input-group-addon col-sm-3 insert-label">신고 사유</label>
              <div class="col-sm-9">
-             <select   class="form-control div small" id="category" name="categoryName" required>
+             <select class="form-control div small" id="category" name="categoryName" required>
                  <option value="10">욕설, 비방, 차별, 혐오</option>
                  <option value="20">홍보, 영리목적</option>
                  <option value="30">불법 정보</option>
