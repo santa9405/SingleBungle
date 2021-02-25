@@ -43,13 +43,13 @@
                 <form action="insertAction" method="post">
 
                     <div class="form-group row">
-                        <label class="input-group-addon col-sm-1 insert-label">제목</label>
+                        <label for="title" class="input-group-addon col-sm-1 insert-label">제목</label>
                         <div class="col-sm-11">
                         	<input type="text" class="form-control" id="title" name="boardTitle" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="input-group-addon col-sm-1 insert-label">카테고리</label>
+                        <label for="category" class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
 	                        <select	class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
 	                            <option value="10">여행</option>
@@ -66,7 +66,7 @@
 												<div>
 													<label for="content">내용</label>
 												</div>
-                        <textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required></textarea>
+                        <textarea class="form-control" id="content" name="boardContent" rows="10" style="resize: none;" required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-success">등록</button>
