@@ -5,23 +5,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Spring Project</title>
-<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
-<style>
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
+<title>SingleBungle</title>
 
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
-}
+
+     <!-- 부트스트랩 사용을 위한 css 추가 -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+ <!-- 부트스트랩 사용을 위한 라이브러리 추가 -->
+ <!-- 제이쿼리가 항상 먼저여야함 -->
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+     crossorigin="anonymous"></script>
+     
+     
+<style>
+   #freeBoard{
+      height: 300px;
+   }
+   #findFriend{
+      height: 170px;
+
+   }
+
+   #market{
+      height : 500px;
+   }
+
+   #foodBoard, #review{
+      height : 350px;
+   }
+
+
+   .images{
+      width:40px;
+      height: 40px;
+   }
+
+
+         /* 제목 */
+         .text-dark{
+        display:block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+      }
+
 </style>
 <!-- Custom styles for this template -->
 <link href="resources/css/carousel.css" rel="stylesheet">
@@ -32,85 +63,343 @@
 
 	<main role="main">
 
-		<!-- carousel 부트스트랩 -->
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			</ol>
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-					<rect width="100%" height="100%" fill="#eee" /></svg>
-					<div class="container">
-						<div class="carousel-caption text-left">
-							<h1>Spring Framework 수업용 페이지 입니다.</h1><br><br>
+	    <div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <!-- 이벤트 배너 -->
+         <div class="carousel slide" id="carousel-32703" >
+            <ol class="carousel-indicators">
+               <li data-slide-to="0" data-target="#carousel-32703" class="active">
+               </li>
+               <li data-slide-to="1" data-target="#carousel-32703">
+               </li>
+               <li data-slide-to="2" data-target="#carousel-32703">
+               </li>
+            </ol>
+            <div class="carousel-inner" style="height: 200px; margin-top: 10px;">
+               <div class="carousel-item active" >
+                  <img class="d-block w-100"  src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+                  <div class="carousel-caption">
+                     <h4>
+                        First Thumbnail label
+                     </h4>
+                     <p>
+                        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                     </p>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <img class="d-block w-100"  src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
+                  <div class="carousel-caption">
+                     <h4>
+                        Second Thumbnail label
+                     </h4>
+                     <p>
+                        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                     </p>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <img class="d-block w-100"  src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
+                  <div class="carousel-caption">
+                     <h4>
+                        Third Thumbnail label
+                     </h4>
+                     <p>
+                        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                     </p>
+                  </div>
+               </div>
+            </div> 
+            <a class="carousel-control-prev" href="#carousel-32703" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-32703" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+         </div>
 
-							<h5>
-								Spring, Mybatis, Maven, Bootstrap등의 다양한 프레임워크를 이용해서<br> Spring MVC 형태로 개발 중입니다.
-							</h5>
-							<a class="btn btn-lg btn-success" href="#" role="button">View details</a>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- 이전/다음 화살표 -->
-			<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span>
-			</a>
-		</div>
+         <div class="row py-2">
+            <div class="col-md-7 ">
+                <!-- 자유게시판 -->
+               <div class="row">
+                  <div class="col-md-12">
+                     <h7>자유게시판</h7>
+                     <div class="wrapper" id="freeBoard">
+
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td rowspan="3" style="width:50px;"><img class="images" src="/Image/발받침대.png"/></td>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">자유</div></td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <h7> <a href="#" class="text-dark">어쩌구 저쩌구</a></h7>
+                              </td>
+                           </tr>
+                        </table>
+
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td rowspan="3" style="width:50px;"><img class="images" src="/Image/arrow.png"/></td>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">자유</div></td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <h7> <a href="#" class="text-dark">어쩌구 저쩌구</a></h7>
+                              </td>
+                           </tr>
+                        </table>
+
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td rowspan="3" style="width:50px;"><img class="images" src="/Image/수납장.png"/></td>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">자유</div></td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <h7> <a href="#" class="text-dark">어쩌구 저쩌구</a></h7>
+                              </td>
+                           </tr>
+                        </table>
+
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td rowspan="3" style="width:50px;"><img class="images" src="/Image/arrow.png"/></td>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">자유</div></td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <h7> <a href="#" class="text-dark">어쩌구 저쩌구</a></h7>
+                              </td>
+                           </tr>
+                        </table>
+
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td rowspan="3" style="width:50px;"><img class="images" src="/Image/arrow.png"/></td>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">자유</div></td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <h7> <a href="#" class="text-dark">발받침대 구매 후기</a></h7>
+                              </td>
+                           </tr>
+                        </table>
+
+                     </div>
+
+                  </div>
+               </div>
+               <!-- 친구찾기 -->
+               <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-12" >
+                     <h7>친구찾기</h7>
+
+                     <div class="wrapper p-1" id="findFriend">
+                       
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;margin-right: 5px;">동네친구</div></td>
+                              <td><h7> <a href="#" class="text-dark">신설동 동네친구 구해요</a></h7></td>
+                           </tr>
+                        </table>
 
 
-		<!-- Marketing messaging and featurettes
-  ================================================== -->
-		<!-- Wrap the rest of the page in another container to center all the content. -->
-		<hr>
-		<div class="container marketing">
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;margin-right: 5px;">동네친구</div></td>
+                              <td><h7> <a href="#" class="text-dark">신설동 동네친구 구해요</a></h7></td>
+                           </tr>
+                        </table>
 
-			<!-- Three columns of text below the carousel -->
-			<div class="row">
-				<div class="col-lg-4">
-					<h3>자유게시판 조회수 Top5</h3>
-					<table align="center">
-						<thead>
-							<th>글번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>조회수</th>
-						</thead>
+                          <table style="margin: 5px;">
+                           <tr>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;margin-right: 5px;">동네친구</div></td>
+                              <td><h7> <a href="#" class="text-dark">신설동 동네친구 구해요</a></h7></td>
+                           </tr>
+                        </table>
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;margin-right: 5px;">동네친구</div></td>
+                              <td><h7> <a href="#" class="text-dark">신설동 동네친구 구해요</a></h7></td>
+                           </tr>
+                        </table>
+                        <table style="margin: 5px;">
+                           <tr>
+                              <td><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;margin-right: 5px;">동네친구</div></td>
+                              <td><h7> <a href="#" class="text-dark">신설동 동네친구 구해요</a></h7></td>
+                           </tr>
+                        </table>
 
-						<tbody id="freeBoard-topViews">
+                     </div>
+                  </div>
+               </div>
+            </div>
 
-						</tbody>
-					</table>
-				</div>
-				
-				<div class="col-lg-4">
-					<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-					<title>Placeholder</title><rect width="100%" height="100%" fill="#777" />
-					<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-					<h2>Heading</h2>
-					<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-					<p>
-						<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-					</p>
-				</div>
-				
-				<div class="col-lg-4">
-					<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#777" />
-					<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-					<h2>Heading</h2>
-					<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-					<p>
-						<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-					</p>
-				</div>
-				<!-- /.col-lg-4 -->
-			</div>
-		</div>
-		<!-- /.row -->
+            <!-- 사고팔고 -->
+            <div class="col-md-5 " >
+               <h7>사고팔고</h7>
+
+               <div class="row" id="market">
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4" style="margin-top: 5px;" >
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">10,000</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">10,000</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">10,000</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">10,000</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">10,000</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">10,000</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- 맛집게시판 -->
+         <div class="row">
+            <div class="col-md-12" id="foodBoard">
+               <h7>맛집게시판</h7>
+               <div class="row">
+               <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                  <div class="bg-white">
+                     <div class="embed-responsive embed-responsive-4by3">
+                        <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                     </div>
+                     <div class="p-2">
+                        <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">맛집</div>
+                        <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                  <div class="bg-white">
+                     <div class="embed-responsive embed-responsive-4by3">
+                        <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                     </div>
+                     <div class="p-2">
+                        <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">혼밥</div>
+                        <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                  <div class="bg-white">
+                     <div class="embed-responsive embed-responsive-4by3">
+                        <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                     </div>
+                     <div class="p-2">
+                        <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">맛집</div>
+                        <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                     </div>
+                  </div>
+               </div>
+            </div> 
+
+            </div>
+         </div>
+
+
+         <!-- 내돈내산 -->
+         <div class="row py-3">
+            <div class="col-md-12" id="review">
+               <h7>내돈내산</h7>
+
+               <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">가구</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">생활용품</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4"  style="margin-top: 5px;">
+                     <div class="bg-white">
+                        <div class="embed-responsive embed-responsive-4by3">
+                           <img  src="/Image/발받침대.png"  class="img-fluid card-img-top embed-responsive-item">
+                        </div>
+                        <div class="p-2">
+                           <div class="badge badge-danger rounded-pill font-weight-normal float-right" style="background-color: rgb(135, 222, 150);">기타</div>
+                           <div style="clear: both;"> <a href="#" class="text-dark">MCM 장지갑</a></div>
+                        </div>
+                     </div>
+                  </div>
+               </div> 
+               
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
 	</main>
 
 	<script>
