@@ -15,7 +15,7 @@ public class FindFriendChatController {
 	
 	@RequestMapping("chatView")
 	public String chatView() {
-		return "findFriendChat/chat";
+		return "findFriend/chat";
 	}
 
 }

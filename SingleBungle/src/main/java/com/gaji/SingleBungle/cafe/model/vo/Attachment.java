@@ -1,12 +1,11 @@
-package com.gaji.SingleBungle.board.model.vo;
+package com.gaji.SingleBungle.cafe.model.vo;
 
 public class Attachment {
 	
 	private int fileNo; 		// 이미지번호
 	private String filePath;	// 파일경로
 	private String fileName;	// 파일이름
-	private int boardNo;		// 게시글번호
-	
+	private int cafeNo;			// 게시글번호
 	
 	public Attachment() {
 	}
@@ -35,18 +34,18 @@ public class Attachment {
 		this.fileName = fileName;
 	}
 
-	public int getBoardNo() {
-		return boardNo;
+	public int getCafeNo() {
+		return cafeNo;
 	}
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public void setCafeNo(int cafeNo) {
+		this.cafeNo = cafeNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Attachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", boardNo="
-				+ boardNo + "]";
+		return "Attachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", cafeNo="
+				+ cafeNo + "]";
 	}
 
 	
