@@ -23,46 +23,46 @@ public class CafeController {
 
 	
 	
-	// 게시글 목록 조회 Controller
+	// 寃뚯떆湲� 紐⑸줉 議고쉶 Controller
 	@RequestMapping("list")
 	public String CafeList() {
 		return "cafe/cafeList";
 	}
 	
-	// 게시글 상세조회 Controller
+	// 寃뚯떆湲� �긽�꽭議고쉶 Controller
 	@RequestMapping("view")
 	public String cafeView() {
 		return "cafe/cafeView";
 	}
 	
-	// 게시글 등록 화면 전환용 Controller
+	// 寃뚯떆湲� �벑濡� �솕硫� �쟾�솚�슜 Controller
 	@RequestMapping("insert")
 	public String cafeInsert() {
 		return "cafe/cafeInsert";
 	}
 	
-	// 게시글 등록 Controller
+	// 寃뚯떆湲� �벑濡� Controller
 	@RequestMapping("insertAction")
 	public String insertAction() {
 		return null;
 	}
 	
-	// 게시글 수정 화면 전환용 Controller
+	// 寃뚯떆湲� �닔�젙 �솕硫� �쟾�솚�슜 Controller
 	@RequestMapping("update")
 	public String cafeUpdate() {
 		return "cafe/cafeUpdate";
 	}
 	
-	// 게시글 수정 Controller
+	// 寃뚯떆湲� �닔�젙 Controller
 	@RequestMapping("updateAction")
 	public String updateAction() {
 		return null;
 	}
 	
 	// summernote -----------------------------
-	// summernote에 업로드된 이미지 저장 Controller
+	// summernote�뿉 �뾽濡쒕뱶�맂 �씠誘몄� ���옣 Controller
 	
-	@ResponseBody // 응답 시 값 자체를 돌려보냄
+	@ResponseBody // �쓳�떟 �떆 媛� �옄泥대�� �룎�젮蹂대깂
 	@RequestMapping("insertImage")
 	public String insertImage() {
 		return null;
@@ -77,17 +77,17 @@ public class CafeController {
 	
 	
 	
-	// 신고 페이지 연결
-	@RequestMapping("report")
-	public String cafeReport() {
-		return "cafe/cafeReport";
-	}
-	
-	// 댓글 신고 페이지 연결
-	@RequestMapping("replyReport")
-	public String replyReport() {
-		return "cafe/cafeReplyReport";
-	}
+//	// �떊怨� �럹�씠吏� �뿰寃�
+//	@RequestMapping("report")
+//	public String cafeReport() {
+//		return "cafe/cafeReport";
+//	}
+//	
+//	// �뙎湲� �떊怨� �럹�씠吏� �뿰寃�
+//	@RequestMapping("replyReport")
+//	public String replyReport() {
+//		return "cafe/cafeReplyReport";
+//	}
 	
 
 }
