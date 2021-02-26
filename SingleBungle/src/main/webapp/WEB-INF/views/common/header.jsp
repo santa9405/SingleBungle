@@ -80,6 +80,17 @@
 	<a class="nav-link" href="${contextPath}/notice/noticeList">공지사항 게시판</a>
 	<a class="nav-link" href="${contextPath}/notice/noticeView">공지사항 게시글 조회</a>
 	
+	<a class="nav-link" href="${contextPath}/member/login">로그인</a>
+	<a class="nav-link" href="${contextPath}/member/signUp">회원가입</a>
+	<a class="nav-link" href="${contextPath}/member/mypage">마이페이지</a>
+	<a class="nav-link" href="${contextPath}/member/mypageFindId1">아이디찾기1</a>
+	<a class="nav-link" href="${contextPath}/member/mypageFindId2">아이디찾기2</a>
+	<a class="nav-link" href="${contextPath}/member/mypageFindPw1">비밀번호찾기1</a>
+	<a class="nav-link" href="${contextPath}/member/mypageFindPw2">비밀번호찾기2</a>
+	<a class="nav-link" href="${contextPath}/member/mypageFindPw3">비밀번호찾기3</a>
+	<a class="nav-link" href="${contextPath}/member/mypageInfoUpdate">내 정보 수정</a>
+	<a class="nav-link" href="${contextPath}/member/mypagePwUpdate">비밀번호 수정</a>
+	
 	
     
    	<!-- Bootstrap core JS-->
