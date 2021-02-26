@@ -9,14 +9,14 @@
   </settings>
   
   <typeAliases>
-  	<typeAlias type="com.gaji.SingleBungle.findFriend.vo.FindFriend" alias="Friend" />
+  	<!-- <typeAlias type="com.gaji.SingleBungle.findFriend.vo.FindFriend" alias="Friend" /> -->
   </typeAliases>
   
   <mappers>
-  	<mapper resource="/mappers/friend-mapper.xml" />
+  	<!-- <mapper resource="/mappers/friend-mapper.xml" />
   	<mapper resource="/mappers/board-mapper.xml" />
   	<mapper resource="/mappers/cafe-mapper.xml" />
-  	<mapper resource="/mappers/market-mapper.xml" />
+  	<mapper resource="/mappers/market-mapper.xml" /> -->
 
   </mappers>
 </configuration>
