@@ -72,9 +72,9 @@
 										<hr>
                     <div class="form-group">
                         <div>
-                            <label for="content">내용</label>
+                            <label for="summernote">내용</label>
                         </div>
-                        <textarea class="form-control" id="content" name="cafeContent" rows="10" style="resize: none;" required></textarea>
+                        <textarea class="form-control" id="summernote" name="cafeContent" rows="10" style="resize: none;" required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-success">등록</button>

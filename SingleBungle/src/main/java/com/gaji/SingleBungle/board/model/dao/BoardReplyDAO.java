@@ -1,11 +1,11 @@
-package com.gaji.SingleBungle.cafe.model.dao;
+package com.gaji.SingleBungle.board.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CafeDAO {
+public class BoardReplyDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
