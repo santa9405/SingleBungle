@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CafeDAO {
+public class CafeReplyDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;

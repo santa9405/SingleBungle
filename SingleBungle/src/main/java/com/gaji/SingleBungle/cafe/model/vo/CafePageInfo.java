@@ -1,9 +1,9 @@
-package com.gaji.SingleBungle.board.model.vo;
+package com.gaji.SingleBungle.cafe.model.vo;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class PageInfo {
+public class CafePageInfo {
 	private int currentPage; 	// 현재 페이지 번호를 표시할 변수
 	private int listCount; 		// 전체 게시글 수
 	private int limit = 10; 	// 한 페이지에 보여질 게시글 수
@@ -13,35 +13,36 @@ public class PageInfo {
 	private int startPage;	 	// 페이징바 시작 페이지 번호
 	private int endPage; 	 	// 페이징바 끝 페이지 번호
 	
-	private int boardCategory; 		// 게시글 타입
+	private int cafeCategory; 	// 게시글 타입
 	
-	public PageInfo() {}
+	public CafePageInfo() {
+	}
 	
-	public PageInfo(int currentPage, int listCount, int boardCategory) {
+	public CafePageInfo(int currentPage, int listCount, int cafeCategory) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
-		this.boardCategory = boardCategory;
+		this.cafeCategory = cafeCategory;
 		
 		// 값을 입력 받은 후 계산 진행
 		makePageInfo();
 	}
 	
 
-	public int getBoardCategory() {
-		return boardCategory;
+	public int getcafeCategory() {
+		return cafeCategory;
 	}
 
-	public void setBoardCategory(int boardCategory) {
-		this.boardCategory = boardCategory;
+	public void setcafeCategory(int cafeCategory) {
+		this.cafeCategory = cafeCategory;
 	}
 
-	public PageInfo(int currentPage, int listCount, int limit, int pagingBarSize, int boardCategory) {
+	public CafePageInfo(int currentPage, int listCount, int limit, int pagingBarSize, int cafeCategory) {
 		super();
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		this.limit = limit;
 		this.pageSize = pagingBarSize;
-		this.boardCategory = boardCategory;
+		this.cafeCategory = cafeCategory;
 		
 		makePageInfo();
 	}
@@ -102,7 +103,7 @@ public class PageInfo {
 	public String toString() {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit
 				+ ", pageSize=" + pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage
-				+ ", endPage=" + endPage + ", boardCategory=" + boardCategory + "]";
+				+ ", endPage=" + endPage + ", cafeCategory=" + cafeCategory + "]";
 	}
 
 	// 페이징 처리에 필요한 값을 계산하는 메소드.
@@ -134,5 +135,5 @@ public class PageInfo {
 			endPage = maxPage;
 		}
 	}
-	
+
 }
