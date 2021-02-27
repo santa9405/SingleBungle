@@ -122,7 +122,7 @@
 
 	<div class="container my-5">
 	
-				<!-- 게시판 이름/카테고리 -->
+			<!-- 게시판 이름/카테고리 -->
       <div class="row py-5">
         <div class="col-lg-12 mx-auto">
           <div class="text-black banner">
@@ -150,10 +150,8 @@
                      <th>지역</th>
                      <th>카테고리</th>
                      <th>제목</th>
-                     <th>성별</th>
                      <th>모집인원</th>
                      <th>닉네임</th>
-                     <th>조회수</th>
                      <th>작성일</th>
                   </tr>
                </thead>
@@ -161,53 +159,41 @@
                <%-- 게시글 목록 출력 --%>
                <tbody>
                   <c:choose>
-                     <c:when test="${empty iList}">
+                     <c:when test="${empty fList}">
                         <tr>
-                           <td colspan="9">작성된 글이 없습니다.</td>
+                           <td colspan="7">작성된 글이 없습니다.</td>
                         </tr>
                      </c:when>
                      
                      <c:otherwise> <%-- 조회된 게시글 목록이 있을 때 --%>
-                        <c:forEach var="instr" items="${iList}">
+                        <c:forEach var="friend" items="${fList}">
                            <tr>
-                           	  <%-- 강사 번호 --%>
-                              <td>${instr.enrollmentNo}</td>
-                           	  <%-- 강사 번호 --%>
-                              <td>${instr.instr}</td>
-                              <%-- 이름 --%>
-                              <td>${instr.instrName}</td>
-                              
+                           	  <%-- 게시글 번호 --%>
+                              <td>${friend.friendNo}</td>
+                           	  <%-- 지역 --%>
+                              <td>${friend.location1}</td>
                               <%-- 카테고리 --%>
                               <td>
-                              
                               <c:choose>
-                              	<c:when test="${instr.ctgrCd == 10}">
-                              		외국어
+                              	<c:when test="${friend.categoryCd == 10}">
+                              		맛집
                               	</c:when>
-                              	<c:when test="${instr.ctgrCd == 20}">
-                              		스포츠
+                              	<c:when test="${friend.categoryCd == 20}">
+                              		문화생활
                               	</c:when>
-                              	<c:when test="${instr.ctgrCd == 30}">
-                              		사진/영상
-                              	</c:when>
-                              	<c:when test="${instr.ctgrCd == 40}">
-                              		공예
-                              	</c:when>
-                              	<c:when test="${instr.ctgrCd == 50}">
-                              		요리
-                              	</c:when>
-                              	<c:when test="${instr.ctgrCd == 60}">
-                              		미술
-                              	</c:when>
-                              	<c:when test="${instr.ctgrCd == 70}">
-                              		음악
+                              	<c:when test="${friend.categoryCd == 30}">
+                              		동네친구
                               	</c:when>
                               </c:choose>
-                              
                               </td>
-                              
-                              <%-- 승인 여부 --%>
-                              <td>${instr.permitFl}</td>
+                              <%-- 제목 --%>
+                              <td>${friend.friendTitle}</td>
+                              <%-- 모집인원 --%>
+                              <td>${friend.capacity}</td>
+                              <%-- 닉네임 --%>
+                              <td>${friend.nickname}</td>
+                              <%-- 작성일 --%>
+                              <td>${friend.createDt}</td>
                            </tr>
                         </c:forEach>
                      </c:otherwise>
