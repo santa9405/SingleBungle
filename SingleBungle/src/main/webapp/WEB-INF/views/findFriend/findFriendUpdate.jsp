@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<form action="insertAction" method="post">
+				<form action="updateAction" method="post">
 
 					<div class="form-group row">
 						<label for="title" class="input-group-addon col-sm-1 col-form-label">제목</label>
@@ -151,7 +151,7 @@
 						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required></textarea>
 					</div>
 					<div class="text-center">
-						<button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
+						<button type="button" class="btn btn-secondary mb-3 btn-warning">수정</button>
 						<button type="button" class="btn btn-secondary mb-3">취소</button>
 					</div>
 				</form>

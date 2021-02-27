@@ -346,10 +346,10 @@ body {
 
 							<div class="answer-add">
 								<div class="">
-									<input placeholder="Write a message">
+									<input id="inputChatting" placeholder="Write a message">
 								</div>
 								<div align="right">
-									<button type="button" class="btn btn-light">전송</button>
+									<button id="send" class="btn btn-light">전송</button>
 								</div>
 							</div>
 
@@ -359,8 +359,95 @@ body {
 			</div>
 		</div>
 	</div>
+	
+	<!--------------------------------------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ---------------------------------------------->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>	
 
 	<script>
+		// ------------------------------------ WebSocket ------------------------------------
+		
+		var chattingSock; // SockJS를 이용한 WebSoket객체 저장 변수 선언
+		
+		// 로그인이 되어 있을때만
+		// 서버측 /chat 이라는 주소로 통신을 할 수 있는 WebSocket
+		<c:if test="${!empty loginMember}">
+			chattingSock = new SockJS("${contextPath}/chat");
+		</c:if>
+		
+		// 로그인한 회원이 채팅 입력 후 보내기 버튼을 클릭한 경우 채팅 내용이 서버로 전달됨
+		// (전달할 내용 : 입력한 채팅 + 로그인한 회원의 아이디)
+	
+		var memberId = "${loginMember.memberId}";
+		
+		$("#inputChatting").keyup(function(){
+			if(e.keyCode == 13){
+				if(e.shiftKey == false){
+					$("#send").click();
+				}
+			}
+		});
+		
+		$("#send").on("click", function(){
+			
+			if(memberId ==""){
+				alert("로그인 후 이용해주세요");
+			}else{
+				
+				var chat = $("#inputChatting").val();
+				
+				if(chat.trim().length == 0){
+					alert("채팅을 입력해 주세요.");
+				}else{
+					
+					var obj = {};
+					obj.memberId = memberId;
+					obj.chat = chat;
+					
+					// 작성자와 채팅 내용이 담긴 obj 객체를 JSON 형태로 변환하여 웹소켓 핸들러로 보내기
+					chattingSock.send( JSON.stringify(obj) );
+					
+					$("#inputChatting").val("");
+					
+				}
+				
+			}
+			
+		});
+		
+		// WebSocket 객체 chattingSock이 서버로부터 받은 메세지가 있을 경우 수행되는 콜백 함수
+		chattingSock.onmessage = function(event){
+			
+			var obj = JSON.parse(event.data);
+			
+			var answerRight = $("<div>").addClass("answer right");
+			
+			var answerLeft = $("<div>").addClass("answer Left");
+			
+			var avatar = $("<div>").addClass("avatar");
+			
+			var image = $("imag").attr("src", "${contextPath}/resources/images/profile.png")
+									.attr("alt", "User name");
+			
+			avatar.append(image);
+			
+			var writer = obj.memberName;
+			var chat = obj.chat.replace(/\n/g, "<br>");
+			var time = obj.createDt;
+			
+			var name = $("<div>").addClass("name").text(writer);
+			var text = $("<div>").addClass("text").text(chat);
+			var time = $("<div>").addClass("time").text(time);
+			
+			if(obj.memberId == memberId){
+				answerRight.append(avater).append(name).append(text).append(time);
+			}else{
+				answerLeft.append(avater).append(name).append(text).append(time);
+			}
+			
+			// 채팅 입력 시 스크롤을 가장 아래로 내리기
+			$(".chat-body").scrollTop($(".chat-body")[0].scrollHeight);
+			
+		};
 		
 	</script>
 </body>
