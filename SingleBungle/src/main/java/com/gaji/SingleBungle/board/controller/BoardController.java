@@ -3,16 +3,21 @@ package com.gaji.SingleBungle.board.controller;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.board.model.vo.Board;
+import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 
 @Controller
@@ -48,9 +53,41 @@ public class BoardController {
 	}
 	
 	// 게시글 상세조회 Controller
-	@RequestMapping("view")
-	public String boardView() {
-		return "board/boardView";
+	@RequestMapping("1/{boardNo}")
+	public String boardView(@PathVariable("boardNo") int boardNo, Model model,
+			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		
+		// 게시글 상세조회 Service 호출
+		Board board = service.selectBoard(boardNo);
+		
+		String url = null;
+		
+		if (board != null) { // 상세 조회 성공 시
+
+			// 상세조회 성공한 게시물의 이미지 목록을 조회하는 Service 호출
+			List<BoardAttachment> attachmentList = service.selectAttachmentList(boardNo);
+
+			// 조회된 이미지 목록이 있을 경우
+			if (attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
+
+			model.addAttribute("board", board);
+			url = "board/boardView";
+
+		} else {
+			// 이전 요청 주소가 없는 경우
+			if (referer == null) {
+				url = "redirect:../list/" + 1;
+			} else { // 이전 요청 주소가 있는 경우
+				url = "redirect:" + referer;
+			}
+
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+		}
+
+		return url;
 	}
 	
 	// 게시글 등록 화면 전환용 Controller
