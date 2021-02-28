@@ -1,5 +1,8 @@
 package com.gaji.SingleBungle.review.model.service;
 
+import java.util.List;
+
+import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
 public interface ReviewService {
@@ -9,5 +12,13 @@ public interface ReviewService {
 	 * @return pInfo
 	 */
 	ReviewPageInfo getPageInfo(int cp);
+	
+	
+
+	/** 게시글 목록 조회 Service
+	 * @param pInfo
+	 * @return rList
+	 */
+	List<Review> selectList(ReviewPageInfo pInfo);
 
 }
