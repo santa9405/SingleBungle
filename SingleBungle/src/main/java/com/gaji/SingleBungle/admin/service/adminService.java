@@ -14,4 +14,8 @@ public interface adminService {
 
 	List<AAttachment> selectThumbnailList(List<ABoard> eventList);
 
+	ABoard selectBoard(int boardNo, int type);
+
+	List<AAttachment> selectAttachmentList(int boardNo);
+
 }

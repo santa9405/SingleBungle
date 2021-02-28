@@ -33,4 +33,16 @@ public class adminDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("adminMapper.selectThumbnailList", eventList);
 	}
+
+	public ABoard selectBoard(ABoard temp) {
+		return sqlSession.selectOne("adminMapper.selectBoard", temp);
+	}
+
+	public int increaseReadCount(int boardNo) {
+		return sqlSession.update("adminMapper.increaseReadCount",boardNo);
+	}
+
+	public List<AAttachment> selectAttachmentList(int boardNo) {
+		return sqlSession.selectList("adminMapper.selectAttachmentList", boardNo);
+	}
 }

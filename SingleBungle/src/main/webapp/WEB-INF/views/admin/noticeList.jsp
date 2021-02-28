@@ -103,6 +103,10 @@
         .table {
             margin-top: 100px;
         }
+        
+        .table td:hover {
+			cursor: pointer;
+		}
 
     </style>
 
@@ -123,7 +127,7 @@
                 </div>
                     
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
                             <th>글번호</th>
@@ -226,6 +230,22 @@
         </div>
     </div>
 <jsp:include page="../common/footer.jsp"/>
+
+<script>
+//게시글 상세보기 기능 (jquery를 통해 작업)
+	$("#list-table td").on("click",function(){
+			var boardNo = $(this).parent().children().eq(0).text();
+			// 게시글 목록 : /spring/board/list/1
+			// 게시글 상세조회 요청 주소 조합 -> spring/board/1/글번호  (list 빠짐)
+			// 절대경로
+			// var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo; 
+		  // 상대경로
+		  var boardViewURL = "${contextPath}/admin/"+boardNo;
+			
+			location.href = boardViewURL; // 요청 전달
+	
+	});
+</script>
 </body>
 
 </html>
