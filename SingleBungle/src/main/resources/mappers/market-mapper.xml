@@ -24,6 +24,7 @@
 		<result property="address" column="ADDRESS" />
 		<result property="categoryNm" column="CATEGORY_NM" />
 		<result property="likes" column="LIKES" />
+		<result property="rating" column="RATING" />
 		
 	</resultMap>
 	
@@ -42,7 +43,7 @@
 	</select>
 	
 
-	<!-- 게시글 목록 조회 DAO -->
+	<!-- 게시글 목록 조회 -->
 	<select id="selectList" parameterType="_int" resultMap="market_rm">
 		SELECT MARKET_NO, MARKET_TITLE, CATEGORY_NM,  PRICE, TRANSACTION_STATUS, TRANSACTION_CATEGORY
 		,LIKES
@@ -51,6 +52,18 @@
 		ORDER BY MARKET_NO DESC
 	</select>
 	 
-
+	 <!-- 상세조회  -->
+	 <select id="selectMarket" resultMap="market_rm" parameterType="Market">
+	 		SELECT * FROM V_MARKET
+	 		WHERE MARKET_FL = 'N'
+	 		AND MARKET_NO = #{marketNo}
+	 </select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseReadCount" parameterType="_int">
+		UPDATE MARKET SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE MARKET_NO = #{marketNo}
+	</update>
 
 </mapper>

@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.market.model.dao.MarketDAO;
 import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
@@ -28,6 +30,28 @@ public class MarketServiceImpl implements MarketService {
 	@Override
 	public List<Market> selectList(MarketPageInfo mpInfo) {
 		return dao.selectList(mpInfo);
+	}
+
+	
+	// 상세 조회 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Market selectMarket(int marketNo) {
+		
+		Market temp = new Market();
+		temp.setMarketNo(marketNo);
+		
+		Market market = dao.selectMarket(temp);
+		
+		if(market != null) {
+			int result = dao.increaseReadCount(marketNo);
+			
+			if(result > 0) {
+				market.setReadCount(market.getReadCount() + 1);
+			}
+		}
+		
+		return market;
 	}
 
 }

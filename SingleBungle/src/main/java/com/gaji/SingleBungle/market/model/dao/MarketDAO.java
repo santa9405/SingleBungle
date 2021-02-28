@@ -35,4 +35,22 @@ public class MarketDAO {
 		return sqlSession.selectList("marketMapper.selectList", mpInfo, rowBounds);
 	}
 
+
+	/** 상세조회 DAO
+	 * @param temp
+	 * @return market
+	 */
+	public Market selectMarket(Market temp) {
+		return sqlSession.selectOne("marketMapper.selectMarket", temp);
+	}
+
+
+	/** 조회수 증가 DAO
+	 * @param marketNo
+	 * @return
+	 */
+	public int increaseReadCount(int marketNo) {
+		return sqlSession.update("marketMapper.increaseReadCount", marketNo);
+	}
+
 }

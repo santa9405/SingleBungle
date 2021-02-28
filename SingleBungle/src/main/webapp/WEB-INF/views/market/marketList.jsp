@@ -138,6 +138,9 @@
 				color : #c1c0c1a1;
 			}
     
+    .marketNo{
+    	cursor: pointer;
+    }
   </style>
 
 </head>
@@ -175,7 +178,7 @@
       
 
 
-      <div class="row">
+      <div class="row itemArea">
         <!-- Gallery item -->
         <c:if test="${empty mList}">
         	존재하는 게시글이 없습니다!
@@ -183,15 +186,15 @@
         <c:if test="${!empty mList}"> 
         <c:forEach var="market" items="${mList}" varStatus="vs">
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm">
-          <span style='display: none;'>${market.marketNo}</span> 
+          <div class="bg-white rounded shadow-sm no">
+          <span style='visibility: hidden;'>${market.marketNo}</span> 
             <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" 
+             <img src="${contextPath}/resources/images/testImg.gif" class="img-fluid card-img-top embed-responsive-item marketNo" 
               <c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>
               >
             </div> 
             <div class="p-4">
-              <h5> <a href="#" class="text-dark">${market.marketTitle}</a></h5>
+              <h5> <a class="text-dark marketNo">${market.marketTitle}</a></h5>
               <div class="categoryDetail float-left row_2">
              		<p class="small text-muted mb-0">
              				<c:if test="${market.transactionCategory == 1}">삽니다</c:if>
@@ -212,7 +215,7 @@
 
 							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
+                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">${market.price} 원</span></p> 
              	<c:if test="${market.transactionStatus == 1}">
                 <div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #deb887;">
 								거래중
@@ -290,13 +293,17 @@
         </div>
       </div>
 
-
-
-
     </div>
-
-
   </div>
 <jsp:include page="../common/footer.jsp"/>
+
+<script>
+$(".marketNo").on("click", function(){
+	var marketNo = $(this).closest('.no').children().eq(0).text();
+	console.log(marketNo);
+	var marketViewURL = "${contextPath}/market/"+marketNo;
+	location.href = marketViewURL; 
+});
+</script>
 </body>
 </html>

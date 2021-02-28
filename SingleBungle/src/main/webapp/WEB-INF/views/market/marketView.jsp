@@ -280,10 +280,10 @@
 				
 				
 				<div class="col-md-6">
-					<div> <h3>[카테고리]</h3> </div> 
-					<div> <h3 class="itemTitle">오래 쓴 mcm 장지갑 팝니다gddfsgfdgfdgfgfsfsgsd.</h3> </div>
-					<div> <h1 class="itemPrice float-left">60,000원</h1> 
-					
+					<div> <h3>[${market.categoryNm}]</h3> </div> 
+					<div> <h3 class="itemTitle">${market.marketTitle}</h3> </div>
+					<div> <h1 class="itemPrice float-left">${market.price} 원</h1> 
+						
 						<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">예약중으로 변경</button></div>
 						<div class="badge badge-info px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">거래완료로 변경</button></div>					
 						<hr> 
@@ -292,19 +292,19 @@
 					
 						<div>
 						 <img class="float-left likeImg smallImages" width="20" height="20" src="${contextPath}/resources/images/like1.png"> 
-						 <h5 class="likeCnt float-left cnt">100</h5>
+						 <h5 class="likeCnt float-left cnt">${market.likes}</h5>
 							<h5 class="verticalBar float-left"> | </h5>
 						 </div> 
 						 
 							<div>
 						 <img class="float-left readCntImg smallImages" width="20" height="20" src="${contextPath}/resources/images/view.png"> 
-						 <h5 class="readCnt float-left cnt">100</h5> 
+						 <h5 class="readCnt float-left cnt">${market.readCount}</h5> 
 						 <h5 class="verticalBar float-left"> | </h5>
 						 </div>
 						  
 						<div>
 						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
-						 <h5 class="clock float-left cnt">5시간 전</h5> 
+						 <h5 class="clock float-left cnt">${market.createDt}</h5> 
 						 </div> 
 						 
 						
@@ -320,15 +320,23 @@
 						<div class="itemInfoList">
 							<ul >
 								<li class="sellerManor ">
-										<label>매너온도</label> <span>35.7℃</span>
+										<label>매너온도</label> <span>${market.rating}℃</span>
 								</li>
 								
 								<li class="itemStatus">
-									<label>상태</label> <span>중고</span>
+									<label>상태</label> 
+									<span>
+										<c:if test="${market.status == 'U'}">중고</c:if>
+										<c:if test="${market.status == 'N'}">새상품</c:if>
+									</span>
 								</li>
 								
 								<li class="itemDelivery">
-									<label>배송비</label> <span>배송비 별도</span>
+									<label>배송비</label> 
+									<span>
+										<c:if test="${market.deliveryCharge == 'F'}">배송비 포함</c:if>
+										<c:if test="${market.deliveryCharge == 'N'}">배송비 별도</c:if>
+									</span>
 								</li>
 								
 								<li class="sellerLocation ">
@@ -368,7 +376,7 @@
 		<!-- 게시글 내용 -->
 		<div class="row">
 			<div class="col-md-12 contentArea">
-				어쩌구저쩌구 <br> 글내용<br> 써머노트로 작성<br> 글<br> 사진<br>
+				${market.marketContent}
 			</div>
 		</div>
 
