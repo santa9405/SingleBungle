@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,10 +112,15 @@ body {
 
 
 
-
+	<c:if test="${empty eventList }">
+		<tr>
+			<td colspan="6">존재하는 게시글이 없습니다.
+		</tr>
+	</c:if>
         <!-- End -->
     
         <div class="row">
+        <c:if test="${!empty eventList }">
           <!-- Gallery item -->
           <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
             <div class="bg-white rounded shadow-sm"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294929/matthew-hamilton-351641-unsplash_zmvozs.jpg" alt="" class="img-fluid card-img-top">
@@ -125,96 +131,15 @@ body {
                 </div>
                 <div class="categoryDetail">
                   <p class="small text-muted mb-0">조회수 : 0</p>
-                </div>
-                  
-
-                
-                
-                
+                </div>    
               </div>
             </div>
           </div>
           <!-- End -->
+    </c:if>
+          
     
-          <!-- Gallery item -->
-          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/cody-davis-253928-unsplash_vfcdcl.jpg" alt="" class="img-fluid card-img-top">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">Blorange</a></h5>
-                <div class="categoryDetail">
-                    <p class="small text-muted mb-0">2021-02-20</p>
-                </div>
-                <div class="categoryDetail">
-                  <p class="small text-muted mb-0">조회수 : 0</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/nicole-honeywill-546848-unsplash_ymprvp.jpg" alt="" class="img-fluid card-img-top">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">And She Realized</a></h5>
-                <div class="categoryDetail">
-                    <p class="small text-muted mb-0">2021-02-20</p>
-                </div>
-                <div class="categoryDetail">
-                  <p class="small text-muted mb-0">조회수 : 0</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/dose-juice-1184444-unsplash_bmbutn.jpg" alt="" class="img-fluid card-img-top">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>
-                <div class="categoryDetail">
-                    <p class="small text-muted mb-0">2021-02-20</p>
-                </div>
-                <div class="categoryDetail">
-                  <p class="small text-muted mb-0">조회수 : 0</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294926/cody-davis-253925-unsplash_hsetv7.jpg" alt="" class="img-fluid card-img-top">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">Pineapple</a></h5>
-                <div class="categoryDetail">
-                    <p class="small text-muted mb-0">2021-02-20</p>
-                </div>
-                <div class="categoryDetail">
-                  <p class="small text-muted mb-0">조회수 : 0</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg" alt="" class="img-fluid card-img-top">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                <div class="categoryDetail">
-                    <p class="small text-muted mb-0">2021-02-20</p>
-                </div>
-                <div class="categoryDetail">
-                  <p class="small text-muted mb-0">조회수 : 0</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
+          
     
       </div>
       
