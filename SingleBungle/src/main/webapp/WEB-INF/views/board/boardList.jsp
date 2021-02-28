@@ -26,6 +26,10 @@
 	text-decoration: none;
 	color: rgb(214, 156, 30);
 }
+
+#list-table > tbody > tr:hover {
+	cursor: pointer;
+}
    
 /* 검색창 */
 .search { 
@@ -106,7 +110,7 @@
 				      </div>
 				      <!-- End -->
 
-                <table class="table table-striped table-sm">
+                <table class="table table-hover table-sm" id="list-table">
                     <thead>
                       <tr>
                         <th>글번호</th>
@@ -162,24 +166,30 @@
                   <!--------------------------------- pagination  ---------------------------------->
 
 									<div class="padding">
-										<c:set var="firstPage" value="?cp=1" />
-										<c:set var="lastPage" value="?cp=${bpInfo.maxPage}" />
+										<%-- 주소 조합 작업 --%>
+										<c:url var="pageUrl" value="${bpInfo.boardType}?"/>
+									
+										<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+										<c:set var="firstPage" value="${pageUrl}cp=1" />
+										<c:set var="lastPage" value="${pageUrl}cp=${bpInfo.maxPage}" />
 					
 										<fmt:parseNumber var="c1" value="${(bpInfo.currentPage - 1) / 10 }" integerOnly="true" />
 										<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
-										<c:set var="prevPage" value="?cp=${prev}" />
+										<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
 					
 					
 										<fmt:parseNumber var="c2" value="${(bpInfo.currentPage + 9) / 10 }" integerOnly="true" />
 										<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-										<c:set var="nextPage" value="?cp=${next}" />
+										<c:set var="nextPage" value="${pageUrl}cp=${next}" />
 					
 										<div class="container d-flex justify-content-center">
 											<div class="col-md-4 col-sm-6 grid-margin stretch-card">
 												<nav>
 													<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 														<c:if test="${bpInfo.currentPage > bpInfo.pageSize}">
+															<!-- 첫 페이지로 이동(<<) -->
 															<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+															<!-- 이전 페이지로 이동 (<) -->
 															<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
 														</c:if>
 														
@@ -191,13 +201,16 @@
 																</c:when>
 					
 																<c:otherwise>
-																	<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+																	<li class="page-item"><a class="page-link" href="${pageUrl}cp=${page}" data-abc="true">${page}</a></li>
 																</c:otherwise>
 															</c:choose>
 														</c:forEach>
-					
+														
+														<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
 														<c:if test="${next <= bpInfo.maxPage}">
+															<!-- 다음 페이지로 이동 (>) -->
 															<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+															<!-- 마지막 페이지로 이동(>>) -->
 															<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
 														</c:if>
 													</ul>
@@ -238,8 +251,27 @@
     <jsp:include page="../common/footer.jsp"/>
     
     <script>
-    // 게시글 상세보기 기능
-    
+		// 게시글 상세보기 기능 (jquery를 통해 작업)
+		
+		$("#list-table td").on("click", function(){
+			var boardNo = $(this).parent().children().eq(0).text();
+										// td			tr				td			첫번째(게시글번호)
+										
+			// 게시글 상세조회 요청 주소 조합
+			// 게시글 목록 : 	/spring/board/list/1
+			// 상세조회 :		/spring/board/1/500
+			
+			// 절대경로
+			// var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo;
+												//			/spring		/board/					1					/500
+												
+			// 상대경로
+			var boardViewURL = "../${bpInfo.boardType}/"+boardNo;
+			
+			
+			location.href = boardViewURL;
+			
+		});
     
     </script>
 </body>

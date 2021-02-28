@@ -87,18 +87,29 @@
 
             <div class="col-md-4">
                 <h3 class="login-heading mb-4 text-center">로고,,ㄱ-</h3>
-                <form>
+                <form action="loginAction" method="post" class="form-signin">
                     <div class="form-label-group">
-                        <input type="id" id="inputId" class="form-control" placeholder="아이디" required autofocus>
+                        <input type="text" id="memberId" name="memberId" class="form-control" placeholder="아이디"
+                        value="${cookie.saveId.value}" required autofocus>
+                        <!-- 아이디 저장을 누르면, 쿠키 얻어오기 -->
+                        
+                        <label for="memberId">ID</label>
                     </div>
 
                     <div class="form-label-group">
-                        <input type="password" id="inputPw" class="form-control" placeholder="비밀번호" required>
+                        <input type="password" id="memberPwd" class="form-control" placeholder="비밀번호" required>
+                        <label for="memberPwd">Password</label>
                     </div>
 
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">아이디 저장</label>
+                        <label class="custom-control-label" for="customCheck1"
+                        
+                        <c:if test="${!empty cookie.saveId.value}"> checked </c:if>
+						<%-- 아이디저장 체크박스에 체크를 하면 저장을 하겠다... --%>
+                        
+                        >아이디 저장
+                        </label>
                     </div>
                     <button class="btn btn-primary btn-block btn-login text-uppercase mb-2"
                         type="submit">로그인</button>
