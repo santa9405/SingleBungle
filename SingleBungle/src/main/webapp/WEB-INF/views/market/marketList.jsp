@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,17 +176,28 @@
 
 
       <div class="row">
-
         <!-- Gallery item -->
+        <c:if test="${empty mList}">
+        	존재하는 게시글이 없습니다!
+        </c:if>
+        <c:if test="${!empty mList}"> 
+        <c:forEach var="market" items="${mList}" varStatus="vs">
         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
           <div class="bg-white rounded shadow-sm">
+          <span style='display: none;'>${market.marketNo}</span> 
             <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" style="opacity: 0.5;">
-            </div>
+              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" 
+              <c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>
+              >
+            </div> 
             <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
+              <h5> <a href="#" class="text-dark">${market.marketTitle}</a></h5>
               <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
+             		<p class="small text-muted mb-0">
+             				<c:if test="${market.transactionCategory == 1}">삽니다</c:if>
+             				<c:if test="${market.transactionCategory == 2}">팝니다</c:if>
+             		</p>
+                <p class="small text-muted mb-0">${market.categoryNm}</p>
               </div>
               
               
@@ -190,7 +205,7 @@
             <!-- 좋아요 버튼 -->
 							<span class="float-right">
 								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${market.likes}</span>
 								</button>
 							</span>
 
@@ -198,207 +213,67 @@
 							<div
                 class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
                 <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
+             	<c:if test="${market.transactionStatus == 1}">
+                <div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #deb887;">
+								거래중
+								</div>
+								</c:if>
+							<c:if test="${market.transactionStatus == 2}">
+								<div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #e01515ad;">
+								예약중 
+								</div>
+								</c:if>
+							<c:if test="${market.transactionStatus == 3}">
+								<div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #3596ead6;">
+								거래완료 
+								</div>
+								</c:if>
+								
+								</div>
               </div>
             </div>
           </div>
-        </div>
+        </c:forEach>
+        </c:if>
         <!-- End -->
         
-                <!-- Gallery item -->
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item">
-            </div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">예약중</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
-        
-        
-        
-                <!-- Gallery item -->
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item">
-            </div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
-        
-        
-                <!-- Gallery item -->
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" >
-            </div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
-        
-        
-                <!-- Gallery item -->
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item" >
-            </div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
-        
-        
-                <!-- Gallery item -->
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm">
-            <div class="embed-responsive embed-responsive-4by3" >
-              <img src="${contextPath}/resources/images/testImg.gif" alt="" class="img-fluid card-img-top embed-responsive-item">
-            </div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
-        
-
-
-
-
-
-
-
-
-
       </div>
 
       
       <button type="button" class="btn btn-info float-right"><a href="#" class="writeBtn">글쓰기</a></button>
 
 
-      <nav>
-        <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-          <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-        </ul>
-      </nav>
+			<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+				<c:if test="${mpInfo.currentPage > mpInfo.pageSize}">
+					<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+					<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+				</c:if>
 
 
-      
-      <div class="row">
+				<!-- 페이지 목록 -->
+				<c:forEach var="page" begin="${mpInfo.startPage}" end="${mpInfo.endPage}">
+					<c:choose>
+						<c:when test="${mpInfo.currentPage == page }">
+							<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+						</c:when>
+
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+
+
+				<c:if test="${next <= mpInfo.maxPage}">
+					<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+					<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+				</c:if>
+			</ul>
+			</nav>
+
+
+			<div class="row">
         <div class="col-md-12">
           <div class="search">
             <form action="#" method="GET">

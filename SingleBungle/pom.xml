@@ -15,7 +15,7 @@
 		<org.aspectj-version>1.9.4</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
-	
+	 
 	<!-- 외부 저장소 추가 태그 -->
 	<repositories>
 		<repository>
