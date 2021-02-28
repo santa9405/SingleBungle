@@ -129,20 +129,20 @@
 						
 													<tr>
 														<td>${board.boardNo}</td>
-														<td>${board.categoryCode}</td>
+														<td>${board.categoryName}</td>
 														<td>${board.boardTitle}</td>
 														<td>${board.nickname}</td>
 														<td>${board.readCount}</td>
 														<td>
 															<%-- 날짜 출력 모양 지정 --%>
-															<fmt:formatDate var="createDate" value="${board.boardCreateDate}" pattern="yyyy-MM-dd"/>
+															<fmt:formatDate var="createDate" value="${board.createDate}" pattern="yyyy-MM-dd"/>
 															<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd"/> 
 															<c:choose>
 																<c:when test="${createDate != now}">
 																	${createDate}
 																</c:when>
 																<c:otherwise>
-																	<fmt:formatDate value="${board.boardCreateDate}" pattern="HH:mm"/>
+																	<fmt:formatDate value="${board.createDate}" pattern="HH:mm"/>
 																</c:otherwise>
 															</c:choose>
 														</td>
