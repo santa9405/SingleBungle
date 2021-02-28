@@ -75,6 +75,10 @@
             border-radius: 50px
         }
 
+		.col-md-4 {
+            flex: none !important;
+            max-width: none !important;
+        } 
 
 
         tr > th, tr > td {
@@ -179,10 +183,11 @@
                             <div class="col-md-4 col-sm-6 grid-margin stretch-card">
                                         <nav>
                                             <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                            	<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-                                                	<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+                                            	
+	                                            <c:if test="${pInfo.currentPage > pInfo.pageSize}">
+	                                                <li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
                                                 	<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
-                                            	</c:if>
+	                                            </c:if>
                                             	
                                             	
                         <!-- 페이지 목록 -->
@@ -198,9 +203,10 @@
 													</c:choose>
 												</c:forEach>
 												
+												
 												<c:if test="${next <= pInfo.maxPage}">
 													<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
-													 <li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+													<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
 												</c:if>
                                             </ul>
                                         </nav>
@@ -240,7 +246,7 @@
 			// 절대경로
 			// var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo; 
 		  // 상대경로
-		  var boardViewURL = "${contextPath}/admin/"+boardNo;
+		  var boardViewURL = "${contextPath}/admin/notice/"+boardNo;
 			
 			location.href = boardViewURL; // 요청 전달
 	
