@@ -11,8 +11,8 @@
   <typeAliases>
   	<!-- <typeAlias type="com.gaji.SingleBungle.findFriend.vo.FindFriend" alias="Friend" /> 
   			 -->
-  	<typeAlias type="com.gaji.SingleBungle.review.vo.Review" alias ="Review"/>
-  	<typeAlias type="com.gaji.SingleBungle.review.vo.ReviewAttachment" alias ="ReviewAttachment"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.model.vo.Review" alias ="Review"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewAttachment" alias ="ReviewAttachment"/>
   			 
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.ABoard" alias="ABoard" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
