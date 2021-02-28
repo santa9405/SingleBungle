@@ -25,6 +25,14 @@
 	color: rgb(214, 156, 30);
 }
 
+#img-list:hover, .cafeTitle:hover {
+	cursor: pointer;
+}
+
+#cafeNo {
+	display: none;
+}
+
 .text-dark {
   display:block;
   overflow: hidden;
@@ -36,7 +44,7 @@
 .viewArea,.replyArea{
   display: inline-block;
   font-size: 11px;
-  margin-right:5px;
+  margin-right: 5px;
 }
 
 .nickNameArea{ clear: both; }
@@ -126,13 +134,14 @@
 					<c:if test="${!empty cList }">
 						<c:forEach var="cafe" items="${cList}" varStatus="vs">
 							<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-								<div class="bg-white rounded shadow-sm">
-									<div class="embed-responsive embed-responsive-4by3">
+								<div class="bg-white rounded shadow-sm cafe-list">
+									<div class="embed-responsive embed-responsive-4by3" id="img-list">
 										<img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
 									</div>
 									<div class="p-4">
+										<span id="cafeNo">${cafe.cafeNo}</span>
 										<h5>
-											<a href="#" class="text-dark">${cafe.cafeTitle}</a>
+											<a class="text-dark cafeTitle">${cafe.cafeTitle}</a>
 										</h5>
 										<div class="infoArea float-right">
 											<div class="viewArea">
@@ -191,5 +200,22 @@
     </div>
   </div>
   <jsp:include page="../common/footer.jsp"/>
+  
+  <script>
+	// 게시글 상세보기 기능 (jquery를 통해 작업)
+	
+	$(".cafe-list").on("click", function(){
+		var cafeNo = $(this).children(".p-4").children().eq(0).text();
+									
+		// 상대경로
+		var cafeViewURL = "${contextPath}/cafe/"+cafeNo;
+		
+		// console.log(cafeNo);
+		
+		location.href = cafeViewURL;
+		
+	});
+	
+  </script>
 </body>
 </html>

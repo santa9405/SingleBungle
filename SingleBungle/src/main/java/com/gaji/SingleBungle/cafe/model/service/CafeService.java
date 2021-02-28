@@ -26,4 +26,18 @@ public interface CafeService {
 	 */
 //	public abstract List<CafeAttachment> selectThumbnailList(List<Cafe> cList);
 
+	
+	/** 게시글 상세 조회 Service
+	 * @param cafeNo
+	 * @return cafe
+	 */
+	public abstract Cafe selectCafe(int cafeNo);
+
+	/** 게시글에 포함된 이미지 목록 조회 Service
+	 * @param cafeNo
+	 * @return attachmentList
+	 */
+	public abstract List<CafeAttachment> selectAttachmentList(int cafeNo);
+	
+	
 }

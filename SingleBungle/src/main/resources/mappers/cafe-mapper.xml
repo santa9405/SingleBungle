@@ -35,7 +35,7 @@
 	
 	<!-- 게시글 목록 조회 -->
 	<select id="selectList" parameterType="_int" resultMap="cafe_rm">
-	SELECT CAFE_TITLE, READ_COUNT, NICKNAME, CATEGORY_NM
+	SELECT CAFE_TITLE, READ_COUNT, NICKNAME, CATEGORY_NM, CAFE_NO
 	FROM V_CAFE
 	WHERE STATUS = 'N'
 	ORDER BY CAFE_NO DESC
@@ -49,7 +49,27 @@
 		#{cafe.cafeNo}
 	</foreach> -->
 	
+	<!-- 게시글 상세 조회 -->
+	<select id="selectCafe" parameterType="Cafe" resultMap="cafe_rm">
+		SELECT CATEGORY_NM, CAFE_TITLE, NICKNAME, CREATE_DT, 
+					 CAFE_CONTENT, READ_COUNT, CAFE_NO
+		FROM V_CAFE
+		WHERE STATUS = 'N'
+		AND CAFE_NO = #{cafeNo}
+	</select>
 	
+	<!-- 게시글에 포함된 이미지 목록 조회 -->
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachment_rm">
+		SELECT * FROM CAFE_FILE
+		WHERE CAFE_NO = #{cafeNo}
+	</select>
+	
+	<!-- 게시글 조회 수 증가 -->
+	<update id="increaseReadCount" parameterType="_int">
+		UPDATE CAFE SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE CAFE_NO = #{cafeNo}
+	</update>
 	
 	
 </mapper>

@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.cafe.model.service.CafeService;
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
@@ -58,9 +61,38 @@ public class CafeController {
 	}
 	
 	// 게시글 상세조회 Controller
-	@RequestMapping("view")
-	public String cafeView() {
-		return "cafe/cafeView";
+	@RequestMapping("{cafeNo}")
+	public String cafeView(@PathVariable("cafeNo") int cafeNo, Model model,
+			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		
+		// 게시글 상세조회 Service 호출
+		Cafe cafe = service.selectCafe(cafeNo);
+		
+		String url = null;
+		
+		if (cafe != null) {
+			
+			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
+			
+			if (attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
+			
+			model.addAttribute("cafe", cafe);
+			url = "cafe/cafeView";
+		} else {
+			
+			if (referer == null) {
+				url = "redirect:../list/";
+			} else {
+				url = "redirect:" + referer;
+			}
+
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+		}
+		
+		return url;
 	}
 	
 	// 게시글 등록 화면 전환용 Controller
