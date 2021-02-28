@@ -16,8 +16,19 @@ public class Cafe {
 	private int memberNo; // 회원번호
 	private String nickname; // 회원닉네임
 	private String memberGrade; // 회원등급코드
+	private String categoryName; // 카테고리명
 	
 	public Cafe() {
+	}
+	
+	
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public int getCafeNo() {
@@ -116,12 +127,16 @@ public class Cafe {
 		this.memberGrade = memberGrade;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Cafe [cafeNo=" + cafeNo + ", cafeTitle=" + cafeTitle + ", cafeContent=" + cafeContent + ", cafeName="
 				+ cafeName + ", createDate=" + createDate + ", status=" + status + ", readCount=" + readCount
 				+ ", likeCount=" + likeCount + ", categoryCode=" + categoryCode + ", memberNo=" + memberNo
-				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + "]";
+				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + ", categoryName=" + categoryName + "]";
 	}
+
+
 
 }

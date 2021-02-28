@@ -21,15 +21,6 @@ public class Board {
 	public Board() {
 	}
 
-	
-	public String getcategoryName() {
-		return categoryName;
-	}
-
-	public void setcategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -126,6 +117,13 @@ public class Board {
 		this.memberGrade = memberGrade;
 	}
 
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
 	@Override
 	public String toString() {
@@ -136,7 +134,7 @@ public class Board {
 	}
 
 	
-
 	
+
 
 }

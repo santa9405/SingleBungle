@@ -181,7 +181,7 @@
                                             	</c:if>
                                             	
                                             	
-                                            	<!-- 페이지 목록 -->
+                        <!-- 페이지 목록 -->
 												<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
 													<c:choose>
 														<c:when test="${pInfo.currentPage == page }">
