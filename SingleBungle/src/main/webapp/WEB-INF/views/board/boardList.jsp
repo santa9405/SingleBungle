@@ -146,7 +146,7 @@
 																</c:otherwise>
 															</c:choose>
 														</td>
-														<td>${board.boardLike}</td>
+														<td>좋아요수(보류)</td>
 													</tr>
 												</c:forEach>
 											</c:if>

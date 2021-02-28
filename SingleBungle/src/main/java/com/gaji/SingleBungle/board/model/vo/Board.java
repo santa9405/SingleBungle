@@ -16,18 +16,18 @@ public class Board {
 	private int memberNo; 			// 회원번호
 	private String nickname; 		// 회원닉네임
 	private String memberGrade; 	// 회원등급코드
-	private String boardName;		// 카테고리명
+	private String categoryName;	// 카테고리명
 	
 	public Board() {
 	}
 
 	
-	public String getBoardName() {
-		return boardName;
+	public String getcategoryName() {
+		return categoryName;
 	}
 
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
+	public void setcategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public int getBoardNo() {
@@ -132,7 +132,7 @@ public class Board {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", createDate=" + createDate + ", status=" + status + ", readCount=" + readCount + ", likeCount="
 				+ likeCount + ", boardCode=" + boardCode + ", categoryCode=" + categoryCode + ", memberNo=" + memberNo
-				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + ", boardName=" + boardName + "]";
+				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + ", categoryName=" + categoryName + "]";
 	}
 
 	
