@@ -22,30 +22,16 @@ public class Market {
 	private String address;
 	private String categoryNm;
 	
+	private int likes;
+	
 	public Market() {}
 
-	public Market(int marketNo, String marketTitle, String marketContent, Timestamp createDt, int readCount,
-			String marketFl, int price, String status, String deliveryCharge, int memNo, int categoryCd,
-			int transactionCategory, int transactionStatus, String nickname, String certifiedFl, String address,
-			String categoryNm) {
-		super();
-		this.marketNo = marketNo;
-		this.marketTitle = marketTitle;
-		this.marketContent = marketContent;
-		this.createDt = createDt;
-		this.readCount = readCount;
-		this.marketFl = marketFl;
-		this.price = price;
-		this.status = status;
-		this.deliveryCharge = deliveryCharge;
-		this.memNo = memNo;
-		this.categoryCd = categoryCd;
-		this.transactionCategory = transactionCategory;
-		this.transactionStatus = transactionStatus;
-		this.nickname = nickname;
-		this.certifiedFl = certifiedFl;
-		this.address = address;
-		this.categoryNm = categoryNm;
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 
 	public int getMarketNo() {
@@ -184,6 +170,7 @@ public class Market {
 		this.categoryNm = categoryNm;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Market [marketNo=" + marketNo + ", marketTitle=" + marketTitle + ", marketContent=" + marketContent
@@ -191,6 +178,9 @@ public class Market {
 				+ ", status=" + status + ", deliveryCharge=" + deliveryCharge + ", memNo=" + memNo + ", categoryCd="
 				+ categoryCd + ", transactionCategory=" + transactionCategory + ", transactionStatus="
 				+ transactionStatus + ", nickname=" + nickname + ", certifiedFl=" + certifiedFl + ", address=" + address
-				+ ", categoryNm=" + categoryNm + "]";
+				+ ", categoryNm=" + categoryNm + ", likes=" + likes + "]";
 	}
+
+	
+	
 }
