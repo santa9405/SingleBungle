@@ -35,7 +35,8 @@ public class ReviewController {
 		//게시글 목록 조회
 		List<Review> rList = service.selectList(pInfo);
 		
-		
+		model.addAttribute("rList", rList);
+		model.addAttribute("pInfo",pInfo);
 		
 		return "review/reviewList";
 	}
