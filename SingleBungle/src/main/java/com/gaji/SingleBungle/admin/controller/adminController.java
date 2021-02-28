@@ -150,7 +150,7 @@ public class adminController {
 	
 	
 	
-	@RequestMapping("{boardNo}")
+	@RequestMapping("notice/{boardNo}")
 	public String noticeView(@PathVariable("boardNo") int boardNo,
 			Model model, @RequestHeader(value="referer",required=false) String referer,
 			RedirectAttributes ra) {
