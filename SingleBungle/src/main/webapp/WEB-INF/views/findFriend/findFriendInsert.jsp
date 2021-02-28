@@ -38,9 +38,9 @@
 						<label for="category" class="input-group-addon col-sm-1 col-form-label">카테고리</label>
 						<div class="col-sm-4">
 							<select class="form-control div small" id="category" name="categoryCd" style="width: 150px; height: 40px;" required>
-								<option value="10">맛집</option>
-								<option value="20">문화생활</option>
-								<option value="30">동네친구</option>
+								<option value="1">맛집</option>
+								<option value="2">문화생활</option>
+								<option value="3">동네친구</option>
 							</select>
 						</div>
 					</div>
@@ -51,23 +51,23 @@
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
 									<select class="form-control div small" id="rocation1" name="rocation1" style="width: 150px; height: 40px;" required>
-										<option value="10">서울특별시</option>
-										<option value="20">부산광역시</option>
-										<option value="30">대구광역시</option>
-										<option value="40">인천광역시</option>
-										<option value="50">광주광역시</option>
-										<option value="60">대전광역시</option>
-										<option value="70">울산광역시</option>
-										<option value="80">세종특별자치시</option>
-										<option value="90">경기도</option>
-										<option value="100">강원도</option>
-										<option value="110">충청북도</option>
-										<option value="120">충청남도</option>
-										<option value="130">전라북도</option>
-										<option value="140">전라북도</option>
-										<option value="150">경상북도</option>
-										<option value="160">경상남도</option>
-										<option value="170">제주도</option>
+										<option value="서울특별시">서울특별시</option>
+										<option value="부산광역시">부산광역시</option>
+										<option value="대구광역시">대구광역시</option>
+										<option value="인천광역시">인천광역시</option>
+										<option value="광주광역시">광주광역시</option>
+										<option value="대전광역시">대전광역시</option>
+										<option value="울산광역시">울산광역시</option>
+										<option value="세종특별자치시">세종특별자치시</option>
+										<option value="경기도">경기도</option>
+										<option value="강원도">강원도</option>
+										<option value="충청북도">충청북도</option>
+										<option value="충청남도">충청남도</option>
+										<option value="전라북도">전라북도</option>
+										<option value="전라남도">전라남도</option>
+										<option value="경상북도">경상북도</option>
+										<option value="경상남도">경상남도</option>
+										<option value="제주도">제주도</option>
 									</select>
 								</div>
 
@@ -89,23 +89,23 @@
 								<label for="meetingTime" class="input-group-addon col-sm-1 col-form-label">모임시간</label>
 								<div class="col-md-4">
 									<select class="form-control div smal" id="meetingTime" name="meetingTime" style="width: 80px; height: 40px;" required>
-										<option value="10">6시</option>
-										<option value="20">7시</option>
-										<option value="30">8시</option>
-										<option value="40">9시</option>
-										<option value="50">10시</option>
-										<option value="60">11시</option>
-										<option value="70">12시</option>
-										<option value="80">13시</option>
-										<option value="90">14시</option>
-										<option value="100">15시</option>
-										<option value="110">16시</option>
-										<option value="120">17시</option>
-										<option value="130">18시</option>
-										<option value="140">19시</option>
-										<option value="150">20시</option>
-										<option value="160">21시</option>
-										<option value="170">미정</option>
+										<option value="6시">6시</option>
+										<option value="7시">7시</option>
+										<option value="8시">8시</option>
+										<option value="9시">9시</option>
+										<option value="10시">10시</option>
+										<option value="11시">11시</option>
+										<option value="12시">12시</option>
+										<option value="13시">13시</option>
+										<option value="14시">14시</option>
+										<option value="15시">15시</option>
+										<option value="16시">16시</option>
+										<option value="17시">17시</option>
+										<option value="18시">18시</option>
+										<option value="19시">19시</option>
+										<option value="20시">20시</option>
+										<option value="21시">21시</option>
+										<option value="미정">미정</option>
 									</select>
 								</div>
 							</div>
@@ -118,13 +118,13 @@
 							<div class="row mb-3 form-row">
 								<div class="col-sm-4">
 									<select class="form-control div smal" id="capacity" name="capacity" style="width: 80px; height: 40px;" required>
-										<option value="10">2</option>
-										<option value="20">3</option>
-										<option value="30">4</option>
-										<option value="40">5</option>
-										<option value="50">6</option>
-										<option value="60">7</option>
-										<option value="70">8</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
 									</select>
 								</div>
 								<label for="gender" class="input-group-addon col-sm-1 col-form-label">성별</label>
@@ -146,7 +146,7 @@
 					<hr>
 					<div class="form-group">
 						<div>
-							<label for="content">내용</label>
+							<label for="summernote">내용</label>
 						</div>
 						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required></textarea>
 					</div>
