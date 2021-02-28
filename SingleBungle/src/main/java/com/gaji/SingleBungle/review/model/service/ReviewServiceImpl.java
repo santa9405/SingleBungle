@@ -2,6 +2,7 @@ package com.gaji.SingleBungle.review.model.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gaji.SingleBungle.review.model.dao.ReviewDAO;
@@ -11,7 +12,7 @@ import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 @Service
 public class ReviewServiceImpl implements ReviewService   {
 
-	
+	@Autowired
 	private ReviewDAO dao;
 	
 	// 전제 게시글 수 조회 Service 구현
