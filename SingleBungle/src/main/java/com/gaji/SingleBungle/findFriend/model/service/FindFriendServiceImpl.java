@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 import com.gaji.SingleBungle.findFriend.model.dao.FindFriendDAO;
-import com.gaji.SingleBungle.findFriend.model.vo.Attachment;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
 
@@ -32,10 +32,18 @@ public class FindFriendServiceImpl implements FindFriendService {
 		
 		return new FindFriendPageInfo(cp, listCount);
 	}
+	
+	// 게시글 목록 조회 Service 구현
+	@Override
+	public List<FindFriend> selectList(FindFriendPageInfo pInfo) {
+		return dao.selectList(pInfo);
+	}
+
+
 
 	// summernote 업로드 이미지 저장 Service 구현
 	@Override
-	public Attachment inserImage(MultipartFile uploadFile, String savePath) {
+	public FindFriendAttachment inserImage(MultipartFile uploadFile, String savePath) {
 
 		// 파일명 변경
 		String fileName = rename(uploadFile.getOriginalFilename());
@@ -44,7 +52,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 		String filePath = "/resources/infoImages/";
 
 		// 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
-		Attachment at = new Attachment();
+		FindFriendAttachment at = new FindFriendAttachment();
 		at.setFileName(fileName);
 		at.setFilePath(filePath);
 
@@ -95,7 +103,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 			if (result > 0) {
 
 				// 이미지 정보를 Attachment객체에 저장 후 List에 추가
-				List<Attachment> uploadImages = new ArrayList<Attachment>();
+				List<FindFriendAttachment> uploadImages = new ArrayList<FindFriendAttachment>();
 
 				// DB에 저장할 웹상 접근 주소(filePath)
 				String filePath = "/resources/infoImages";
@@ -118,7 +126,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 					fileName = src.substring(src.lastIndexOf("/") + 1); // 업로드된 파일명만 잘라서 별도로 저장.
 
 					// Attachment 객체를 이용하여 DB에 파일 정보를 저장
-					Attachment at = new Attachment(filePath, fileName, nextBoardNo);
+					FindFriendAttachment at = new FindFriendAttachment(filePath, fileName, nextBoardNo);
 					uploadImages.add(at);
 
 				}
@@ -143,7 +151,5 @@ public class FindFriendServiceImpl implements FindFriendService {
 
 		return result;
 	}
-
-	
 
 }
