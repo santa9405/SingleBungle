@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>사고팔고 한줄평 남기기</title>
 
-  <!--  Meta  -->
-  <meta charset="UTF-8" />
-  <title>Smooth navigation</title>
 
   <!--  Styles  -->
   <link rel="stylesheet" href="styles/index.processed.css">
