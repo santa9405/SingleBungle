@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // 전체 요청이 필터를 거치게 함
-@WebFilter(urlPatterns = {"/*"})
+@WebFilter(/*urlPatterns = {"/*"}*/)
 public class LoginFilter implements Filter {
 	
     public LoginFilter() {}
