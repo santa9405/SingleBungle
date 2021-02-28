@@ -74,21 +74,21 @@
 
                 <div id="board-area">
                     <!-- 카테고리 -->
-                    <h2><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">카페</div>
+                    <h2><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">${cafe.categoryName}</div>
 
                     <!-- 제목 -->
-                    	연남동 분위기 좋은 카페 추천합니다. </h2>
+                    ${cafe.cafeTitle}</h2>
                     <hr>
                 </div>
 
 								<div class="row">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" src="${contextPath}/resources/images/profile.png" /> 유자차
+											<img class="image" src="${contextPath}/resources/images/profile.png" /> ${cafe.nickname}
 										</div>
-										<div class="boardInfo" id="createDt" style="color: gray">2021.02.23</div>
+										<div class="boardInfo" id="createDt" style="color: gray">${cafe.createDate}</div>
 										<div class="infoArea float-right">
-											<img class="image" src="${contextPath}/resources/images/view.png"> 0 <span>
+											<img class="image" src="${contextPath}/resources/images/view.png"> ${cafe.readCount} <span>
 												<button type="button" id="likeBtn">
 													<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">10</span>
 												</button>
@@ -98,11 +98,29 @@
 								</div>
 								
                 <div class="board-content">
-                    <br>
-                    내용 웅앵웅앵웅<br>
-                    웅애웅애웅<br>
-                    <br>
-                    <br>
+<%--                 	<!-- 이미지 부분 -->
+									<c:if test="${!empty attachmentList}">
+					
+										<div class="carousel slide m-3" id="carousel-325626">
+					
+											<div class="carousel-inner boardImgArea">
+					
+												<c:forEach var="at" items="${attachmentList}" varStatus="vs">
+													<c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}" />
+					
+													<div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
+														<img class="d-block w-100 boardImg" src="${src}" />
+														<input type="hidden" value="${at.fileNo}">
+													</div>
+												</c:forEach>
+											</div> --%>
+                
+                	<!-- Content -->
+                	<%-- JSTL을 이용한 개행문자 처리 --%>
+				
+									<% pageContext.setAttribute("newLine", "\n"); %>
+									${fn:replace(cafe.cafeContent , newLine, "<br>")}
+                
                 </div>
 				
 								<hr>

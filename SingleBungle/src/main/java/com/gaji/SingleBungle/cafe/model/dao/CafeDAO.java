@@ -38,7 +38,6 @@ public class CafeDAO {
 		return sqlSession.selectList("cafeMapper.selectList", cpInfo, rowBounds);
 	}
 
-
 	/** 썸네일 목록 조회 DAO
 	 * @param cList
 	 * @return thList
@@ -46,5 +45,33 @@ public class CafeDAO {
 //	public List<CafeAttachment> selectThumbnailList(List<Cafe> cList) {
 //		return sqlSession.selectList("cafeMapper.selectThumbnailList", cList);
 //	}
+
+	/** 게시글 상세조회 DAO
+	 * @param temp
+	 * @return cafe
+	 */
+	public Cafe selectCafe(Cafe temp) {
+		return sqlSession.selectOne("cafeMapper.selectCafe", temp);
+	}
+
+
+	/** 게시글 조회수 증가 DAO
+	 * @param cafeNo
+	 * @return result
+	 */
+	public int increaseReadCount(int cafeNo) {
+		return sqlSession.update("cafeMapper.increaseReadCount", cafeNo);
+	}
+
+
+	/** 게시글에 포함된 이미지 목록 조회 DAO
+	 * @param cafeNo
+	 * @return attachmentList
+	 */
+	public List<CafeAttachment> selectAttachmentList(int cafeNo) {
+		return sqlSession.selectList("cafeMapper.selectAttachmentList", cafeNo);
+	}
+
+
 
 }
