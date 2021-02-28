@@ -32,5 +32,43 @@
          <result property="friendNo" column="FRIEND_NO"/>
    </resultMap>   -->
    
+   <!-- 카테고리 별 게시글 수 조회 -->
+   <select id="getListCount" parameterType="_int">
+   		SELECT COUNT(*) FROM V_FRIEND
+   		WHERE BOARD_STATUS = 'Y'
+   </select>
+   
+   
+   
+   <!-- 다음 게시글 번호 조회 -->
+   <select id="selectNextBoardNo" resultType="_int">
+   		SELECT SEQ_FNO.NEXTVAL FROM DUAL
+   </select>
+   
+   <!-- 게시글 삽입 -->
+   <insert id="insertBoard" parameterType="friend_rm">
+   		INSERT INTO FRIEND VALUES
+   		(#{friendNo}, #{friendTitle}, #{friendContent}, 
+   		 #{location1}, #{location2}, #{meetingDate}, #{meetingTime},
+   		 #{gender}, #{capacity}, DEFAULT, DEFAULT, DEFAULT,
+   		 #{categoryCd}, #{memNo})
+   </insert>
+   
+   <!-- 파일 정보 삽입(List 이용) -->
+   <insert id="insertAttachmentList" parameterType="list">
+   		INSERT INTO FRIEND_FILE
+   		SELECT SEQ_FNO.NEXTVAL, A. FROM (
+   		
+   		<foreach collection="list" item="item" separator="UNION ALL">
+   				SELECT #{item.filePath} FILE_PATH,
+   							 #{item.fileName} FILE_NAME,
+   							 #{item.friendNo} FRIEND_NO
+   				FROM DUAL
+   		</foreach>
+   		)A
+   </insert>
+   
+   
+   
 
 </mapper>
