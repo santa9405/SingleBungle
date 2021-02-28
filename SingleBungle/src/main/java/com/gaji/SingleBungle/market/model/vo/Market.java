@@ -8,36 +8,43 @@ public class Market {
 	private String marketTitle;
 	private String marketContent;
 	private Timestamp createDt;
+	private int readCount;
+	private String marketFl;
 	private int price;
-	private String location;
-	private String location2;
 	private String status;
 	private String deliveryCharge;
 	private int memNo;
-	private String nickname;
 	private int categoryCd;
 	private int transactionCategory;
+	private int transactionStatus;
+	private String nickname;
+	private String certifiedFl;
+	private String address;
 	private String categoryNm;
 	
 	public Market() {}
 
-	public Market(int marketNo, String marketTitle, String marketContent, Timestamp createDt, int price,
-			String location, String location2, String status, String deliveryCharge, int memNo, String nickname,
-			int categoryCd, int transactionCategory, String categoryNm) {
+	public Market(int marketNo, String marketTitle, String marketContent, Timestamp createDt, int readCount,
+			String marketFl, int price, String status, String deliveryCharge, int memNo, int categoryCd,
+			int transactionCategory, int transactionStatus, String nickname, String certifiedFl, String address,
+			String categoryNm) {
 		super();
 		this.marketNo = marketNo;
 		this.marketTitle = marketTitle;
 		this.marketContent = marketContent;
 		this.createDt = createDt;
+		this.readCount = readCount;
+		this.marketFl = marketFl;
 		this.price = price;
-		this.location = location;
-		this.location2 = location2;
 		this.status = status;
 		this.deliveryCharge = deliveryCharge;
 		this.memNo = memNo;
-		this.nickname = nickname;
 		this.categoryCd = categoryCd;
 		this.transactionCategory = transactionCategory;
+		this.transactionStatus = transactionStatus;
+		this.nickname = nickname;
+		this.certifiedFl = certifiedFl;
+		this.address = address;
 		this.categoryNm = categoryNm;
 	}
 
@@ -73,28 +80,28 @@ public class Market {
 		this.createDt = createDt;
 	}
 
+	public int getReadCount() {
+		return readCount;
+	}
+
+	public void setReadCount(int readCount) {
+		this.readCount = readCount;
+	}
+
+	public String getMarketFl() {
+		return marketFl;
+	}
+
+	public void setMarketFl(String marketFl) {
+		this.marketFl = marketFl;
+	}
+
 	public int getPrice() {
 		return price;
 	}
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getLocation2() {
-		return location2;
-	}
-
-	public void setLocation2(String location2) {
-		this.location2 = location2;
 	}
 
 	public String getStatus() {
@@ -121,14 +128,6 @@ public class Market {
 		this.memNo = memNo;
 	}
 
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
 	public int getCategoryCd() {
 		return categoryCd;
 	}
@@ -145,6 +144,38 @@ public class Market {
 		this.transactionCategory = transactionCategory;
 	}
 
+	public int getTransactionStatus() {
+		return transactionStatus;
+	}
+
+	public void setTransactionStatus(int transactionStatus) {
+		this.transactionStatus = transactionStatus;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getCertifiedFl() {
+		return certifiedFl;
+	}
+
+	public void setCertifiedFl(String certifiedFl) {
+		this.certifiedFl = certifiedFl;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getCategoryNm() {
 		return categoryNm;
 	}
@@ -156,11 +187,10 @@ public class Market {
 	@Override
 	public String toString() {
 		return "Market [marketNo=" + marketNo + ", marketTitle=" + marketTitle + ", marketContent=" + marketContent
-				+ ", createDt=" + createDt + ", price=" + price + ", location=" + location + ", location2=" + location2
-				+ ", status=" + status + ", deliveryCharge=" + deliveryCharge + ", memNo=" + memNo + ", nickname="
-				+ nickname + ", categoryCd=" + categoryCd + ", transactionCategory=" + transactionCategory
+				+ ", createDt=" + createDt + ", readCount=" + readCount + ", marketFl=" + marketFl + ", price=" + price
+				+ ", status=" + status + ", deliveryCharge=" + deliveryCharge + ", memNo=" + memNo + ", categoryCd="
+				+ categoryCd + ", transactionCategory=" + transactionCategory + ", transactionStatus="
+				+ transactionStatus + ", nickname=" + nickname + ", certifiedFl=" + certifiedFl + ", address=" + address
 				+ ", categoryNm=" + categoryNm + "]";
 	}
-	
-	
 }
