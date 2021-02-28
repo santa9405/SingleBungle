@@ -18,7 +18,12 @@
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
   	
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.Board" alias="Board" />
+  	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardAttachment" alias="BoardAttachment" />
+  	
+  	
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.Cafe" alias="Cafe" />
+  	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeAttachment" alias="CafeAttachment" />
+  	
   	
   </typeAliases>
   
