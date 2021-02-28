@@ -1,15 +1,15 @@
 package com.gaji.SingleBungle.findFriend.model.vo;
 
-public class Attachment {
+public class FindFriendAttachment {
 	
 	private int fileNo;			// 파일 번호
 	private String filePath;	// 파일 경로
 	private String fileName;	// 파일 이름
 	private int friendNo;		// 게시글 번호
 	
-	public Attachment() { }
+	public FindFriendAttachment() { }
 
-	public Attachment(String filePath, String fileName, int friendNo) {
+	public FindFriendAttachment(String filePath, String fileName, int friendNo) {
 		super();
 		this.filePath = filePath;
 		this.fileName = fileName;

@@ -2,12 +2,14 @@ package com.gaji.SingleBungle.findFriend.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gaji.SingleBungle.findFriend.model.vo.Attachment;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
 
 @Repository
 public class FindFriendDAO {
@@ -41,8 +43,17 @@ public class FindFriendDAO {
 	 * @param uploadImages
 	 * @return
 	 */
-	public int insertAttachmentList(List<Attachment> uploadImages) {
+	public int insertAttachmentList(List<FindFriendAttachment> uploadImages) {
 		return sqlSession.insert("friendMapper.insertAttachmentList", uploadImages);
+	}
+
+	public List<FindFriend> selectList(FindFriendPageInfo pInfo) {
+		
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("friendMapper.selectList", rowBounds);
 	}
 
 }

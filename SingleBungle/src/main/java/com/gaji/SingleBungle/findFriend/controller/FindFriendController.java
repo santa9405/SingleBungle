@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
-import com.gaji.SingleBungle.findFriend.model.vo.Attachment;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
 import com.google.gson.Gson;
@@ -45,7 +45,7 @@ public class FindFriendController {
 		FindFriendPageInfo pInfo = service.getPageInfo(cp);
 		
 		// 2) 게시글 목록 조회
-		//List<FindFriend> fList = service.selectList(pInfo);
+		List<FindFriend> fList = service.selectList(pInfo);
 		
 		return "findFriend/findFriendList";
 	}
@@ -70,7 +70,7 @@ public class FindFriendController {
 		
 		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
 		
-		Attachment at = service.inserImage(uploadFile, savePath);
+		FindFriendAttachment at = service.inserImage(uploadFile, savePath);
 		
 		return new Gson().toJson(at);
 		
