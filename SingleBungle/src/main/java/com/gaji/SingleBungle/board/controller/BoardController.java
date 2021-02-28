@@ -1,12 +1,19 @@
 package com.gaji.SingleBungle.board.controller;
 
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gaji.SingleBungle.board.model.service.BoardService;
+import com.gaji.SingleBungle.board.model.vo.Board;
+import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 
 @Controller
 /*@SessionAttributes({"loginMember"})*/
@@ -23,8 +30,20 @@ public class BoardController {
 	
 
 	// 게시글 목록 조회 Controller
-	@RequestMapping("list")
-	public String boardList() {
+	@RequestMapping("list/1")
+	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		
+		// 1) 페이징 처리를 위한 객체 PageInfo 생성
+		BoardPageInfo bpInfo = service.getPageInfo(cp);
+
+		// 2) 게시글 목록 조회
+		List<Board> bList = service.selectList(bpInfo);
+
+		
+		// 게시글 목록, 페이징 처리 정보를 request scope로 세팅 후 forward 진행
+		model.addAttribute("bList", bList);
+		model.addAttribute("bpInfo", bpInfo);
+		
 		return "board/boardList";
 	}
 	
