@@ -18,10 +18,9 @@ public class CafePageInfo {
 	public CafePageInfo() {
 	}
 	
-	public CafePageInfo(int currentPage, int listCount, int cafeCategory) {
+	public CafePageInfo(int currentPage, int listCount) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
-		this.cafeCategory = cafeCategory;
 		
 		// 값을 입력 받은 후 계산 진행
 		makePageInfo();

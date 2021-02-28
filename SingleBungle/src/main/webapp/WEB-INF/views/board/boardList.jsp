@@ -160,8 +160,55 @@
                   <div class="text-right"><button type="button" class="btn btn-success">글쓰기</button></div>
                   
                   <!--------------------------------- pagination  ---------------------------------->
-                  
-                  <nav>
+
+									<div class="padding">
+										<c:set var="firstPage" value="?cp=1" />
+										<c:set var="lastPage" value="?cp=${bpInfo.maxPage}" />
+					
+										<fmt:parseNumber var="c1" value="${(bpInfo.currentPage - 1) / 10 }" integerOnly="true" />
+										<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+										<c:set var="prevPage" value="?cp=${prev}" />
+					
+					
+										<fmt:parseNumber var="c2" value="${(bpInfo.currentPage + 9) / 10 }" integerOnly="true" />
+										<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+										<c:set var="nextPage" value="?cp=${next}" />
+					
+										<div class="container d-flex justify-content-center">
+											<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+												<nav>
+													<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+														<c:if test="${bpInfo.currentPage > bpInfo.pageSize}">
+															<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+															<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+														</c:if>
+														
+														<!-- 페이지 목록 -->
+														<c:forEach var="page" begin="${bpInfo.startPage}" end="${bpInfo.endPage}">
+															<c:choose>
+																<c:when test="${bpInfo.currentPage == page }">
+																	<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+																</c:when>
+					
+																<c:otherwise>
+																	<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+					
+														<c:if test="${next <= bpInfo.maxPage}">
+															<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+															<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+														</c:if>
+													</ul>
+												</nav>
+					
+											</div>
+										</div>
+									</div>
+
+
+				<!--        <nav>
                     <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
                       <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
                       <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
@@ -170,7 +217,7 @@
                       <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
                       <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
                     </ul>
-                  </nav>
+                  </nav> -->
                   
                   <!-- 검색창 -->
                   <div class="search">

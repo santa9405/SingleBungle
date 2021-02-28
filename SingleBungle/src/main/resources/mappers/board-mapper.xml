@@ -13,8 +13,10 @@
 		<result property="status" column="STATUS" />
 		<result property="readCount" column="READ_COUNT" />
 		<result property="boardCode" column="BOARD_CD" />
-		<result property="categoryCode" column="COTEGORY_CD" />
+		<result property="categoryCode" column="CATEGORY_CD" />
 		<result property="memberNo" column="MEM_NO" />
+		<result property="categoryName" column="CATEGORY_NM" />
+		<result property="nickname" column="NICKNAME" />
 	</resultMap>
 	
 	<resultMap type="BoardAttachment" id="attachment_rm">

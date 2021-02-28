@@ -4,28 +4,52 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafeMapper">
 
-<!-- 	<resultMap type="Cafe" id="cafe_rm">
+ 	<resultMap type="Cafe" id="cafe_rm">
 		<id property="cafeNo" column="CAFE_NO" />
 
 		<result property="cafeTitle" column="CAFE_TITLE" />
 		<result property="cafeContent" column="CAFE_CONTENT" />
-		<result property="memberNo" column="MEM_NO" />
-		<result property="readCount" column="READ_COUNT" />
-		<result property="categoryCode" column="CATEGORY_CD" />
 		<result property="createDate" column="CREATE_DT" />
 		<result property="status" column="STATUS" />
+		<result property="readCount" column="READ_COUNT" />
 		<result property="cafeName" column="CAFE_NAME" />
+		<result property="memberNo" column="MEM_NO" />
+		<result property="categoryCode" column="CATEGORY_CD" />
+		<result property="categoryName" column="CATEGORY_NM" />
+		<result property="nickname" column="NICKNAME" />
 	</resultMap>
 	
-	<resultMap type="Attachment" id="attachment_rm">
+	<resultMap type="CafeAttachment" id="attachment_rm">
 		<id property="fileNo" column="FILE_NO" />
 		
 		<result property="filePath" column="FILE_PATH" />
 		<result property="fileName" column="FILE_NAME" />
-		<result property="fileLevel" column="FILE_LEVEL" />
-		<result property="parentBoardNo" column="PARENT_BOARD_NO" />
-	</resultMap> -->
+		<result property="cafeNo" column="CAFE_NO" />
+	</resultMap>
 
-   
-
+  <!-- 특정 게시판 전체 게시글 수 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM V_CAFE
+		WHERE STATUS = 'N'
+	</select>
+	
+	<!-- 게시글 목록 조회 -->
+	<select id="selectList" parameterType="_int" resultMap="cafe_rm">
+	SELECT CAFE_TITLE, READ_COUNT, NICKNAME, CATEGORY_NM
+	FROM V_CAFE
+	WHERE STATUS = 'N'
+	ORDER BY CAFE_NO DESC
+	</select>
+	
+	<!-- 썸네일 목록 조회 -->
+<!-- 	SELECT * FROM CAFE_FILE
+	WHERE FILE_LEVEL = 0
+	AND CAFE_NO IN 
+	<foreach collection="list" item="cafe" open="(" close=")" separator=",">
+		#{cafe.cafeNo}
+	</foreach> -->
+	
+	
+	
+	
 </mapper>

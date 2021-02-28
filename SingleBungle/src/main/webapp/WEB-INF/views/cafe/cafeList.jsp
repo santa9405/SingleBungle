@@ -120,154 +120,37 @@
     
         <div class="row">
           <!-- Gallery item -->
-	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	          <div class="bg-white rounded shadow-sm">
-	            <div class="embed-responsive embed-responsive-4by3">
-	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
-	            </div>
-	            <div class="p-4">
-	              <h5> <a href="#" class="text-dark">연남동 분위기 좋은 카페 추천합니다.</a></h5>
-	              <div class="infoArea float-right">
-	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> 0
-	                </div>
-	                <div class="replyArea">
-	                  <img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-	                </div>
-	              </div>
-	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">카페</div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	          <div class="bg-white rounded shadow-sm">
-	            <div class="embed-responsive embed-responsive-4by3">
-	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
-	            </div>
-	            <div class="p-4">
-	              <h5> <a href="#" class="text-dark">라멘 좋아하는데 여긴 안가봤다?</a></h5>
-	              <div class="infoArea float-right">
-	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> 0
-	                </div>
-	                <div class="replyArea">
-	                  <img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-	                </div>
-	              </div>
-	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">달마고</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">맛집추천</div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	          <div class="bg-white rounded shadow-sm">
-	            <div class="embed-responsive embed-responsive-4by3">
-	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
-	            </div>
-	            <div class="p-4">
-	              <h5> <a href="#" class="text-dark">홍대 혼술집 추천해요</a></h5>
-	              <div class="infoArea float-right">
-	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> 0
-	                </div>
-	                <div class="replyArea">
-	                  <img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-	                </div>
-	              </div>
-	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgba(68, 152, 221, 0.699);">혼밥식당</div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	          <div class="bg-white rounded shadow-sm">
-	            <div class="embed-responsive embed-responsive-4by3">
-	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
-	            </div>
-	            <div class="p-4">
-	              <h5> <a href="#" class="text-dark">연남동 존맛집 여기 먹다가 죽을뻔</a></h5>
-	              <div class="infoArea float-right">
-	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> 0
-	                </div>
-	                <div class="replyArea">
-	                  <img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-	                </div>
-	              </div>
-	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">맛집추천</div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	          <div class="bg-white rounded shadow-sm">
-	            <div class="embed-responsive embed-responsive-4by3">
-	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
-	            </div>
-	            <div class="p-4">
-	              <h5> <a href="#" class="text-dark">혼자 먹기 딱 좋은 곳</a></h5>
-	              <div class="infoArea float-right">
-	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> 0
-	                </div>
-	                <div class="replyArea">
-	                  <img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-	                </div>
-	              </div>
-	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgba(68, 152, 221, 0.699);">혼밥식당</div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-          <!-- End -->
-    
-          <!-- Gallery item -->
-	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	          <div class="bg-white rounded shadow-sm">
-	            <div class="embed-responsive embed-responsive-4by3">
-	              <img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
-	            </div>
-	            <div class="p-4">
-	              <h5> <a href="#" class="text-dark">여기 진짜 맛있는데 외않가?</a></h5>
-	              <div class="infoArea float-right">
-	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> 0
-	                </div>
-	                <div class="replyArea">
-	                  <img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-	                </div>
-	              </div>
-	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">유자차</span></p>
-	                <div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">맛집추천</div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-          <!-- End -->
+         	<c:if test="${empty cList }">
+         		존재하는 게시글이 없습니다.
+         	</c:if>
+					<c:if test="${!empty cList }">
+						<c:forEach var="cafe" items="${cList}" varStatus="vs">
+							<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+								<div class="bg-white rounded shadow-sm">
+									<div class="embed-responsive embed-responsive-4by3">
+										<img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
+									</div>
+									<div class="p-4">
+										<h5>
+											<a href="#" class="text-dark">${cafe.cafeTitle}</a>
+										</h5>
+										<div class="infoArea float-right">
+											<div class="viewArea">
+												<img class="icon" src="${contextPath}/resources/images/view.png" /> ${cafe.readCount}
+											</div>
+										</div>
+										<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+											<p class="small mb-0">
+												<span class="font-weight-bold price">${cafe.nickname}</span>
+											</p>
+											<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">${cafe.categoryName}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+				<!-- End -->
     
       </div>
       
