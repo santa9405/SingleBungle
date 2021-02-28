@@ -20,7 +20,7 @@ public class ReviewServiceImpl implements ReviewService   {
 		
 		int listCount = dao.getListCount();
 		
-		return new ReviewPageInfo(cp,listCount);
+		return new ReviewPageInfo(cp,listCount,2);
 	}
 
 	
