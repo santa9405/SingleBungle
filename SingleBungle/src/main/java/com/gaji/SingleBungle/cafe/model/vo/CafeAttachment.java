@@ -5,7 +5,7 @@ public class CafeAttachment {
 	private int fileNo; 		// 이미지번호
 	private String filePath;	// 파일경로
 	private String fileName;	// 파일이름
-	private int cafeNo;		// 게시글번호
+	private int cafeNo;			// 게시글번호
 	
 	public CafeAttachment() {
 	}

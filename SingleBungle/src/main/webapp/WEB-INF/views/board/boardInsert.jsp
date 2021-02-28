@@ -52,12 +52,12 @@
                         <label for="category" class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
 	                        <select	class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
-	                            <option value="10">여행</option>
-	                            <option value="20">영화</option>
-	                            <option value="30">일상</option>
-	                            <option value="40">경제</option>
-	                            <option value="50">반려동물</option>
-	                            <option value="60">요리레시피</option>
+	                            <option value="11">여행</option>
+	                            <option value="12">영화</option>
+	                            <option value="13">일상</option>
+	                            <option value="14">경제</option>
+	                            <option value="15">반려동물</option>
+	                            <option value="16">요리레시피</option>
 	                        </select>
                         </div>
                     </div>

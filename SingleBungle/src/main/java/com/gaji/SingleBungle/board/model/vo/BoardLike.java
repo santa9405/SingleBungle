@@ -1,10 +1,10 @@
 package com.gaji.SingleBungle.board.model.vo;
 
-public class Like {
+public class BoardLike {
 	private int memberNo; 	// 회원번호
 	private int boardNo; 	// 게시글번호
 	
-	public Like() {
+	public BoardLike() {
 	}
 
 	public int getMemberNo() {

@@ -16,8 +16,18 @@ public class Board {
 	private int memberNo; 			// 회원번호
 	private String nickname; 		// 회원닉네임
 	private String memberGrade; 	// 회원등급코드
+	private String boardName;		// 카테고리명
 	
 	public Board() {
+	}
+
+	
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
 	}
 
 	public int getBoardNo() {
@@ -116,14 +126,17 @@ public class Board {
 		this.memberGrade = memberGrade;
 	}
 
-	
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", createDate=" + createDate + ", status=" + status + ", readCount=" + readCount + ", likeCount="
 				+ likeCount + ", boardCode=" + boardCode + ", categoryCode=" + categoryCode + ", memberNo=" + memberNo
-				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + "]";
+				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + ", boardName=" + boardName + "]";
 	}
+
+	
+
 	
 
 }
