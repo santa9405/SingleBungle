@@ -54,11 +54,11 @@
 	<a class="nav-link" href="${contextPath}/market/modal" style="color:orange;">사고팔고 모달</a>
 
 
-	<a class="nav-link" href="${contextPath}/review/list">후기게시판 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/review/view">후기게시판 상세 조회</a>
-	<a class="nav-link" href="${contextPath}/review/insert">후기게시판 게시글 등록</a>
-	<a class="nav-link" href="${contextPath}/message/message">쪽지테스트(임시)</a>
-	<a class="nav-link" href="${contextPath}/message/messageBox">쪽지함(임시)</a>
+	<a class="nav-link" href="${contextPath}/review/list/2" style="color:blue;">후기게시판 목록 조회</a>
+	<a class="nav-link" href="${contextPath}/review/view" style="color:blue;">후기게시판 상세 조회</a>
+	<a class="nav-link" href="${contextPath}/review/insert" style="color:blue;">후기게시판 게시글 등록</a>
+	<a class="nav-link" href="${contextPath}/message/message" style="color:blue;">쪽지테스트(임시)</a>
+	<a class="nav-link" href="${contextPath}/message/messageBox" style="color:blue;">쪽지함(임시)</a>
 	
 	
 	<a class="nav-link" href="${contextPath}/admin/adminMypage">관리자마이페이지</a>
