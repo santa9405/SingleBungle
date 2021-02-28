@@ -19,4 +19,10 @@ public interface MarketService {
 	 */
 	List<Market> selectList(MarketPageInfo mpInfo);
 
+	/** 상세조회 Service
+	 * @param marketNo
+	 * @return market
+	 */
+	Market selectMarket(int marketNo);
+
 }

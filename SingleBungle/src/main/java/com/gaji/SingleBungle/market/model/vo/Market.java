@@ -23,8 +23,22 @@ public class Market {
 	private String categoryNm;
 	
 	private int likes;
+	private int rating;
+	
 	
 	public Market() {}
+
+	
+	
+	public int getRating() {
+		return rating;
+	}
+
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
 
 	public int getLikes() {
 		return likes;
@@ -171,6 +185,7 @@ public class Market {
 	}
 
 
+
 	@Override
 	public String toString() {
 		return "Market [marketNo=" + marketNo + ", marketTitle=" + marketTitle + ", marketContent=" + marketContent
@@ -178,9 +193,7 @@ public class Market {
 				+ ", status=" + status + ", deliveryCharge=" + deliveryCharge + ", memNo=" + memNo + ", categoryCd="
 				+ categoryCd + ", transactionCategory=" + transactionCategory + ", transactionStatus="
 				+ transactionStatus + ", nickname=" + nickname + ", certifiedFl=" + certifiedFl + ", address=" + address
-				+ ", categoryNm=" + categoryNm + ", likes=" + likes + "]";
+				+ ", categoryNm=" + categoryNm + ", likes=" + likes + ", rating=" + rating + "]";
 	}
 
-	
-	
 }
