@@ -18,22 +18,17 @@ public class adminServiceImpl implements adminService{
 
 	@Override
 	public APageInfo getPageInfo(int cp, int type) {
-		
-		
 		int listCount = dao.getListCount(type);
-		
-		return new APageInfo(cp, listCount, 4);
+		return new APageInfo(cp, listCount, type);
 	}
 
 	@Override
 	public List<ABoard> selectList(APageInfo pInfo, int type) {
-		
 		return dao.selectList(pInfo);
 	}
 
 	@Override
 	public List<AAttachment> selectThumbnailList(List<ABoard> eventList) {
-		
 		return dao.selectThumbnailList(eventList);
 	}
 

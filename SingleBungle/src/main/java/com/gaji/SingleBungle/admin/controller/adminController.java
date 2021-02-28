@@ -24,7 +24,7 @@ public class adminController {
 	private String swalTitle = null;
 	private String swalText = null;
 
-	// 게시�? 목록 조회 Controller
+	// 寃뚯떆占�? 紐⑸줉 議고쉶 Controller
 	@RequestMapping("adminMypage")
 	public String adminMypage() {
 		return "admin/adminMypage";
@@ -71,7 +71,7 @@ public class adminController {
 		APageInfo pInfo = service.getPageInfo(cp,type);
 		List<ABoard> eventList = service.selectList(pInfo, type);
 		
-		if (eventList != null && !eventList.isEmpty()) { // 게시글 목록 조회 성공 시
+		if (eventList != null && !eventList.isEmpty()) { // 寃뚯떆湲� 紐⑸줉 議고쉶 �꽦怨� �떆
 			List<AAttachment> thumbnailList = service.selectThumbnailList(eventList);
 
 			if (thumbnailList != null) {
@@ -83,52 +83,73 @@ public class adminController {
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pInfo", pInfo);
 		
-		return "notice/eventList";
+		return "admin/eventList";
 	}
 	
 	@RequestMapping("eventView")
 	public String eventView() {
-		return "notice/eventView";
+		return "admin/eventView";
 	}
 	
 	@RequestMapping("faqInsert")
 	public String faqInsert() {
-		return "notice/faqInsert";
+		return "admin/faqInsert";
 	}
 	
 	@RequestMapping("faqView")
 	public String faqView() {
-		return "notice/faqView";
+		return "admin/faqView";
 	}
 	
 	@RequestMapping("inquiryInsert")
 	public String inquiryInsert() {
-		return "notice/inquiryInsert";
+		return "admin/inquiryInsert";
 	}
 	
 	@RequestMapping("inquiryList")
 	public String inquiryListView() {
-		return "notice/inquiryList";
+		return "admin/inquiryList";
 	}
 	
 	@RequestMapping("inquiryView")
 	public String inquiryView() {
-		return "notice/inquiryView";
+		return "admin/inquiryView";
 	}
 	
 	@RequestMapping("noticeInsert")
 	public String noticeInsert() {
-		return "notice/noticeInsert";
+		return "admin/noticeInsert";
 	}
 	
 	@RequestMapping("noticeList")
-	public String noticeListView() {
-		return "notice/noticeList";
+	public String noticeListView(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model) {
+		
+		int type=3;
+		APageInfo pInfo = service.getPageInfo(cp,type);
+		List<ABoard> noticeList = service.selectList(pInfo, type);
+		
+		if (noticeList != null && !noticeList.isEmpty()) { // 寃뚯떆湲� 紐⑸줉 議고쉶 �꽦怨� �떆
+			List<AAttachment> thumbnailList = service.selectThumbnailList(noticeList);
+
+			if (thumbnailList != null) {
+				model.addAttribute("thList", thumbnailList);
+			}
+
+		}
+		
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("pInfo", pInfo);
+		
+		System.out.println(pInfo);
+		
+		return "admin/noticeList";
 	}
+	
+	
 	
 	@RequestMapping("noticeView")
 	public String noticeView() {
-		return "notice/noticeView";
+		return "admin/noticeView";
 	}
 	
 }

@@ -1,12 +1,13 @@
 package com.gaji.SingleBungle.admin.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ABoard {
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;
-	private Timestamp boardCreateDate;
+	private Date boardCreateDate;
 	private String boardStatus;
 	private int readCount;
 	private int boardCode;
@@ -15,7 +16,7 @@ public class ABoard {
 	
 	public ABoard() {}
 
-	public ABoard(int boardNo, String boardTitle, String boardContent, Timestamp boardCreateDate, String boardStatus,
+	public ABoard(int boardNo, String boardTitle, String boardContent, Date boardCreateDate, String boardStatus,
 			int readCount, int boardCode, int categoryCode, int memberNo) {
 		super();
 		this.boardNo = boardNo;
@@ -53,11 +54,11 @@ public class ABoard {
 		this.boardContent = boardContent;
 	}
 
-	public Timestamp getBoardCreateDate() {
+	public Date getBoardCreateDate() {
 		return boardCreateDate;
 	}
 
-	public void setBoardCreateDate(Timestamp boardCreateDate) {
+	public void setBoardCreateDate(Date boardCreateDate) {
 		this.boardCreateDate = boardCreateDate;
 	}
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,47 +134,79 @@
                     </thead>
 
                     <tbody>
+                   <c:if test="${empty noticeList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+                   </c:if>
+                  <c:if test="${!empty noticeList }">
+                  	<c:forEach var="board" items="${noticeList}" varStatus="vs">
                         <tr>
-                            <td>1</td>
-                            <td class="boardTitle">싱글벙글 이용수칙입니다.</td>
-                            <td>0</td>
-                            <td>2021-02-20</td>
+                            <td>${board.boardNo}</td>
+                            <td class="boardTitle">${board.boardTitle}</td>
+                            <td>${board.readCount}</td>
+                            <td><fmt:formatDate var="createDate" value="${board.boardCreateDate }" pattern="yyyy-MM-dd"/>
+                            ${board.boardCreateDate }</td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td class="boardTitle">싱글벙글 이용수칙입니다.</td>
-                            <td>0</td>
-                            <td>2021-02-20</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td class="boardTitle">싱글벙글 이용수칙입니다.</td>
-                            <td>0</td>
-                            <td>2021-02-20</td>
-                        </tr>
-
+                      
+                      </c:forEach>
+				</c:if>
                     </tbody>
                 </table>
 
                 <a class="btn btn-success float-right" href="#">글쓰기</a>
 
                     <div class="padding">
+                    <c:set var="firstPage" value="?cp=1"/>
+					<c:set var="lastPage" value="?cp=${pInfo.maxPage}"/>
+					
+					<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+					<c:set var="prevPage" value="?cp=${prev}" />
+					
+					
+					<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+					<c:set var="nextPage" value="?cp=${next}" />
+				
+					
+					
                         <div class="container d-flex justify-content-center">
                             <div class="col-md-4 col-sm-6 grid-margin stretch-card">
                                         <nav>
                                             <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
+                                            	<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+                                                	<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+                                                	<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+                                            	</c:if>
+                                            	
+                                            	
+                                            	<!-- 페이지 목록 -->
+												<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+													<c:choose>
+														<c:when test="${pInfo.currentPage == page }">
+															<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+														</c:when>
+													
+														<c:otherwise>
+															<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												
+												<c:if test="${next <= pInfo.maxPage}">
+													<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+													 <li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+												</c:if>
                                             </ul>
                                         </nav>
 
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    
 
 
                     <div>
