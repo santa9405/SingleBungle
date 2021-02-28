@@ -38,7 +38,7 @@ public class ReviewDAO {
 		
 		RowBounds rowBounds = new RowBounds(offset , pInfo.getLimit());
 		
-		return sqlSession.selectList("reviewMapper.selectList", rowBounds);
+		return sqlSession.selectList("reviewMapper.selectList", pInfo, rowBounds);
 	}
 	
 

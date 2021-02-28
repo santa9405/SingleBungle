@@ -6,14 +6,12 @@
 <title>후기게시판</title>
 
 <style>
-
-
 .boardName {
 	margin-right: 40px;
 }
 
-.boardTitleBorder{
- border-bottom: gray 1px solid;
+.boardTitleBorder {
+	border-bottom: gray 1px solid;
 }
 
 .card-img-top {
@@ -78,7 +76,9 @@
 	border-radius: 0.25rem
 }
 
-.page-item > a, .page-item > a:hover { color: black; }
+.page-item>a, .page-item>a:hover {
+	color: black;
+}
 
 .pagination.pagination-rounded-flat .page-item {
 	margin: 0 .25rem
@@ -113,196 +113,62 @@
 				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
-						<a class="category" href="#">전체</a> 
-						<a class="category" href="#">가구</a> 
-						<a class="category" href="#">생활용품</a> 
-						<a class="category" href="#">전자기기</a> 
-						<a class="category" href="#">기타</a>
+						<a class="category" href="#">전체</a> <a class="category" href="#">가구</a> <a class="category" href="#">생활용품</a> <a class="category" href="#">전자기기</a> <a class="category" href="#">기타</a>
 					</div>
 					<div class="arrayArea float-right">
-						<a class="array" herf="#">최신순</a>
-						<img class="icon" src="${contextPath}/resources/images/arrow.png" /> 
-						<a class="array" herf="#">좋아요순</a>
-						<img class="icon" src="${contextPath}/resources/images/arrow.png" />
+						<a class="array" herf="#">최신순</a> <img class="icon" src="${contextPath}/resources/images/arrow.png" /> <a class="array" herf="#">좋아요순</a> <img class="icon" src="${contextPath}/resources/images/arrow.png" />
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- End -->
 
+
+
+
+
+
 		<div class="row">
-			<!-- Gallery item -->
-			<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
-					</div>
-					<div class="p-4">
-						<h5>
-							<a href="#" class="text-dark">발받침대 구매 후기</a>
-						</h5>
-						<div class="infoArea float-right">
-							<div class="viewArea">
-								<img class="icon" src="${contextPath}/resources/images/view.png" /> 0
-							</div>
-							<div class="replyArea">
-								<img class="icon" src="${contextPath}/resources/images/reply.png" /> 0
-							</div>
-						</div>
-						<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-							<p class="small mb-0">
-								<span class="font-weight-bold price">달마고</span>
-							</p>
-							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">생활용품</div>
-						</div>
-					</div>
+			<c:if test="${empty rList }">
+				<div class="col-lg-12">
+					<h5 style="text-aline: center;">존재하는 게시글이 없습니다.</h5>
 				</div>
-			</div>
-			<!-- End -->
+			</c:if>
 
-			<!-- Gallery item -->
-			<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
-					</div>
-					<div class="p-4">
-						<h5>
-							<a href="#" class="text-dark">깔끔하고 이쁜 선반장</a>
-						</h5>
-						<div class="infoArea float-right">
-							<div class="viewArea">
-								<img class="icon" src="${contextPath}/resources/images/view.png" /> 700
-							</div>
-							<div class="replyArea">
-								<img class="icon" src="${contextPath}/resources/images/reply.png" /> 50
-							</div>
+			<c:if test="${!empty rList }">
+				<c:forEach var="review" items="${rList}" varStatus="vs">
+				<!-- Gallery item -->
+				<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+					<div class="bg-white rounded shadow-sm">
+					 
+					  <!-- 썸네일 영역 -->
+						<div class="embed-responsive embed-responsive-4by3">
+							<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
 						</div>
-						<div class="nickNameArea d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-							<p class="small mb-0">
-								<span class="font-weight-bold price">달마고</span>
-							</p>
-							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">가구</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End -->
+					
+						<div class="p-4">
+							<h5>
+								<a href="#" class="text-dark">${review.boardTitle }</a>
+							</h5>
+							<div class="infoArea float-right">
+								<div class="viewArea">
+									<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
+								</div>
 
-			<!-- Gallery item -->
-			<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
-					</div>
-					<div class="p-4">
-						<h5>
-							<a href="#" class="text-dark">에어팟 후기임다</a>
-						</h5>
-						<div class="infoArea float-right">
-							<div class="viewArea">
-								<img class="icon" src="/Image/view.png" /> 100,000
 							</div>
-							<div class="replyArea">
-								<img class="icon" src="/Image/reply.png" /> 100,000
+							<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+								<p class="small mb-0">
+									<span class="font-weight-bold price">${review.nickName }</span>
+								</p>
+								<div class="badge badge-danger px-3 rounded-pill font-weight-normal" 
+								style="background-color: rgb(135, 222, 150);">
+								${review.categoryName}</div>
 							</div>
-						</div>
-						<div class="nickNameArea d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-							<p class="small mb-0">
-								<span class="font-weight-bold price">달마고</span>
-							</p>
-							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgba(68, 152, 221, 0.699);">전자기기</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- End -->
-
-			<!-- Gallery item -->
-			<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
-					</div>
-					<div class="p-4">
-						<h5>
-							<a href="#" class="text-dark">발받침대 구매 후기</a>
-						</h5>
-						<div class="infoArea float-right">
-							<div class="viewArea">
-								<img class="icon" src="/Image/view.png" /> 100,000
-							</div>
-							<div class="replyArea">
-								<img class="icon" src="/Image/reply.png" /> 100,000
-							</div>
-						</div>
-						<div class="nickNameArea d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-							<p class="small mb-0">
-								<span class="font-weight-bold price">달마고</span>
-							</p>
-							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(245, 91, 125);">기타</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End -->
-
-			<!-- Gallery item -->
-			<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
-					</div>
-					<div class="p-4">
-						<h5>
-							<a href="#" class="text-dark">발받침대 구매 후기</a>
-						</h5>
-						<div class="infoArea float-right">
-							<div class="viewArea">
-								<img class="icon" src="/Image/view.png" /> 100,000
-							</div>
-							<div class="replyArea">
-								<img class="icon" src="/Image/reply.png" /> 100,000
-							</div>
-						</div>
-						<div class="nickNameArea d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-							<p class="small mb-0">
-								<span class="font-weight-bold price">달마고</span>
-							</p>
-							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">생활용품</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End -->
-
-			<!-- Gallery item -->
-			<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
-					</div>
-					<div class="p-4">
-						<h5>
-							<a href="#" class="text-dark">발받침대 구매 후기</a>
-						</h5>
-						<div class="infoArea float-right">
-							<div class="viewArea">
-								<img class="icon" src="/Image/view.png" /> 100,000
-							</div>
-							<div class="replyArea">
-								<img class="icon" src="/Image/reply.png" /> 100,000
-							</div>
-						</div>
-						<div class="nickNameArea d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-							<p class="small mb-0">
-								<span class="font-weight-bold price">달마고</span>
-							</p>
-							<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">생활용품</div>
-						</div>
-					</div>
-				</div>
-			</div>
+				</c:forEach>
+			</c:if>
 			<!-- End -->
 		</div>
 

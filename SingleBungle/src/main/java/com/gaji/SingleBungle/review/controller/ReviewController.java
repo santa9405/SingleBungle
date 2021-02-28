@@ -35,11 +35,18 @@ public class ReviewController {
 		//게시글 목록 조회
 		List<Review> rList = service.selectList(pInfo);
 		
+		
+		/* 썸네일 출력 */
+		
+		
 		model.addAttribute("rList", rList);
 		model.addAttribute("pInfo",pInfo);
 		
 		return "review/reviewList";
 	}
+	
+	
+	
 	
 	@RequestMapping("view")
 	public String reviewView() {
