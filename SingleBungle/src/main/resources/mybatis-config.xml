@@ -26,6 +26,9 @@
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeAttachment" alias="CafeAttachment" />
   	
   	
+  	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />
+  	
+  	
   </typeAliases>
   
   <mappers>
@@ -38,6 +41,8 @@
   	<mapper resource="/mappers/review-mapper.xml"/>
   	
   	<mapper resource="/mappers/admin-mapper.xml" />
+  	
+  	<mapper resource="/mappers/member-mapper.xml" />
 
   </mappers>
 </configuration>
