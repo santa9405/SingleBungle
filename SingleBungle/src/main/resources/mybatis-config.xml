@@ -10,8 +10,9 @@
   
   <typeAliases>
   	<!-- <typeAlias type="com.gaji.SingleBungle.findFriend.vo.FindFriend" alias="Friend" /> 
-  			 <typeAlias type="com.gaji.SingleBungle.review.vo.Review" alias ="Review"/>
   			 -->
+  	<typeAlias type="com.gaji.SingleBungle.review.vo.Review" alias ="Review"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.vo.ReviewAttachment" alias ="ReviewAttachment"/>
   			 
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.ABoard" alias="ABoard" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
@@ -25,8 +26,10 @@
   	<!-- <mapper resource="/mappers/friend-mapper.xml" /> -->
   	<mapper resource="/mappers/board-mapper.xml" />
   	<mapper resource="/mappers/cafe-mapper.xml" />
-<!--   	<mapper resource="/mappers/market-mapper.xml" /> 
-  	<mapper resource="/mappers/review-mapper.xml"/> -->
+<!--   	<mapper resource="/mappers/market-mapper.xml" />  -->
+
+
+  	<mapper resource="/mappers/review-mapper.xml"/>
   	
   	<mapper resource="/mappers/admin-mapper.xml" />
 

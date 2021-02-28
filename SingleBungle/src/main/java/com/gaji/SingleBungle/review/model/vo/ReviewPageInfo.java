@@ -18,10 +18,9 @@ public class ReviewPageInfo {
 	
 	public ReviewPageInfo() {}
 	
-	public ReviewPageInfo(int currentPage, int listCount, int boardType) {
+	public ReviewPageInfo(int currentPage, int listCount) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
-		this.boardType = boardType;
 		
 		// 값을 입력 받은 후 계산 진행
 		makePageInfo();
