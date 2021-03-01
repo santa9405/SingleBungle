@@ -141,7 +141,7 @@
 							<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 								<div class="bg-white rounded shadow-sm cafe-list">
 									<div class="embed-responsive embed-responsive-4by3" id="img-list">
-										<img src="${contextPath}/resources/images/cafeTestImg.jpg" class="img-fluid card-img-top embed-responsive-item">
+										<img src="${contextPath}/resources/images/cafeTestImg.png" class="img-fluid card-img-top embed-responsive-item">
 									</div>
 									<div class="p-4">
 										<span id="cafeNo">${cafe.cafeNo}</span>

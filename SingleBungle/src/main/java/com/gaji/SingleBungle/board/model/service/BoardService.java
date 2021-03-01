@@ -38,7 +38,13 @@ public interface BoardService {
 	 * @return attachmentList
 	 */
 	public abstract List<BoardAttachment> selectAttachmentList(int boardNo);
-
+	
+	/** summernote 업로드 이미지 저장 Service
+	 * @param uploadFile
+	 * @param savePath
+	 * @return at
+	 */
+	public abstract BoardAttachment inserImage(MultipartFile uploadFile, String savePath);
 
 	/** 게시글 삽입 (+ 파일 업로드) Service
 	 * @param map
@@ -71,12 +77,7 @@ public interface BoardService {
 	public abstract List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo);
 
 
-	/** summernote 업로드 이미지 저장 Service
-	 * @param uploadFile
-	 * @param savePath
-	 * @return at
-	 */
-	public abstract BoardAttachment inserImage(MultipartFile uploadFile, String savePath);
+
 	
 	
 

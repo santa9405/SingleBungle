@@ -11,6 +11,13 @@ public class BoardAttachment {
 	public BoardAttachment() {
 	}
 	
+	public BoardAttachment(String filePath, String fileName, int parentBoardNo) {
+		super();
+		this.filePath = filePath;
+		this.fileName = fileName;
+		this.parentBoardNo = parentBoardNo;
+	}
+
 	public BoardAttachment(int fileNo, String filePath, String fileName, int parentBoardNo) {
 		super();
 		this.fileNo = fileNo;
