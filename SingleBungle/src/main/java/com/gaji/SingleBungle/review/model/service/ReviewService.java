@@ -21,4 +21,12 @@ public interface ReviewService {
 	 */
 	List<Review> selectList(ReviewPageInfo pInfo);
 
+
+
+	/** 게시글 상세 조회
+	 * @param boardNo
+	 * @return review
+	 */
+	Review selectReview(int boardNo);
+
 }

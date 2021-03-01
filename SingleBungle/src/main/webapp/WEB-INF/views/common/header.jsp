@@ -79,7 +79,6 @@
 
 
 	<a class="nav-link" href="${contextPath}/review/list" style="color:green;">후기게시판 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/review/view" style="color:green;">후기게시판 상세 조회</a>
 	<a class="nav-link" href="${contextPath}/message/message" style="color:green;">쪽지테스트(임시)</a>
 	<a class="nav-link" href="${contextPath}/message/messageBox" style="color:green;">쪽지함(임시)</a>
 	

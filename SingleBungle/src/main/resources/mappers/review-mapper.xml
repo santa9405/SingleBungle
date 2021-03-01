@@ -13,8 +13,8 @@
 		<result property="status" column="STATUS" />
 		<result property="readCount" column="READ_COUNT" />
 		<result property="boardCode" column="BOARD_CD" />
-		<result property="categoryCode" column="COTEGORY_CD" />
-		<result property="categoryName" column="COTEGORY_NM" />
+		<result property="categoryCode" column="CATEGORY_CD" />
+		<result property="categoryName" column="CATEGORY_NM" />
 		<result property="memberNo" column="MEM_NO" />
 		<result property="nickName" column="NICKNAME" />
 	</resultMap>
@@ -46,6 +46,22 @@
     ORDER BY BOARD_NO DESC
 	</select>
 
+   
+   <!-- 상세조회  -->
+  <select id="selectReview"  parameterType="_int" resultMap="review_rm">
+  	SELECT BOARD_TITLE, BOARD_CONTENT, CREATE_DT,READ_COUNT, CATEGORY_CD, CATEGORY_NM, NICKNAME, LIKE_COUNT
+  	FROM V_BOARD
+  	WHERE STATUS = 'N'
+  	AND BOARD_NO = #{boardNo}
+  	AND BOARD_CD = '2'
+  </select>
+  
+  <!-- 조회수증가  -->
+  <select id="increaseReadCount" parameterType="_int">
+		UPDATE BOARD SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+  </select>
    
 
 </mapper>
