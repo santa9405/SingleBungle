@@ -21,7 +21,7 @@
     
     
 
-	<!-- summernote 사용 시 필요한 css 파일 추가  -->
+   <!-- summernote 사용 시 필요한 css 파일 추가  -->
     <link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
         
     <style>
@@ -29,21 +29,21 @@
             margin-top: 50px;
         }
         
-		
-		.note-editor{
-			width : 100% !important;
-		} 
-		
-		
-	</style>
+      
+      .note-editor{
+         width : 100% !important;
+      } 
+      
+      
+   </style>
     </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
 
-	<!-- summernote 사용 시 필요한 js 파일 추가  -->
-	<script src="${contextPath }/resources/summernote/js/summernote-lite.js"></script> <!-- 이 코드가 있어야 섬머노트 사용 가능  -->
-	<script src="${contextPath }/resources/summernote/js/summernote-ko-KR.js"></script> <!-- 한글 패치  -->
-	<script src="${contextPath }/resources/summernote/js/mySummernote.js"></script> <!-- 개인이 만든 js  -->
+   <!-- summernote 사용 시 필요한 js 파일 추가  -->
+   <script src="${contextPath }/resources/summernote/js/summernote-lite.js"></script> <!-- 이 코드가 있어야 섬머노트 사용 가능  -->
+   <script src="${contextPath }/resources/summernote/js/summernote-ko-KR.js"></script> <!-- 한글 패치  -->
+   <script src="${contextPath }/resources/summernote/js/mySummernote.js"></script> <!-- 개인이 만든 js  -->
 
     <div class="container">
         <div class="row">
