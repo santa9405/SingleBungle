@@ -56,9 +56,33 @@ public class ReviewDAO {
 
 
 
+	/** 조회수 증가 DAO
+	 * @param boardNo
+	 * @return result
+	 */
 	public int increaseReadCount(int boardNo) {
 		
 		return sqlSession.update("reviewMapper.increaseReadCount", boardNo);
+	}
+
+
+
+
+	/** 조회수 상위 3 게시글
+	 * @return list
+	 */
+	public List<Review> reviewListTop3() {
+		return sqlSession.selectList("reviewMapper.reviewListTop3");
+	}
+
+
+
+	
+	/** 게시글 번호 얻어오기
+	 * @return boardNo
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("reviewMapper.selectNextNo");
 	}
 	
 

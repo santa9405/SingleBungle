@@ -62,6 +62,25 @@
 		READ_COUNT = READ_COUNT + 1
 		WHERE BOARD_NO = #{boardNo}
   </select>
+
+  <!-- 조회수 상위3 게시글  -->
+  <select id="reviewListTop3" resultMap="review_rm">
+  	SELECT * FROM 
+				     (SELECT ROWNUM RNUM, R.* FROM  
+				          (SELECT * FROM V_BOARD 
+				              WHERE STATUS='N' 
+                              AND BOARD_CD = '2'
+				              ORDER BY READ_COUNT DESC) R) 
+            WHERE RNUM BETWEEN 1 AND 3
+				ORDER BY READ_COUNT DESC
+  </select>
    
+   
+   
+   
+   <!-- 게시글 번호 얻어오기  -->
+   <select id="selectNextNo" resultType="_int">
+   	 SELECT SEQ_BNO.NEXTVAL FROM DUAL
+   </select>
 
 </mapper>
