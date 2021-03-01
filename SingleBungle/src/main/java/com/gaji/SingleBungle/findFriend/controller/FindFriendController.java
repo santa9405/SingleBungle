@@ -86,7 +86,7 @@ public class FindFriendController {
 	}
 	
 	// 친구찾기 상세 조회 Controller
-	@RequestMapping("view")
+	@RequestMapping("{friendNo}")
 	public String friendView() {
 		return "findFriend/findFriendView";
 	}
