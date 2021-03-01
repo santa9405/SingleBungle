@@ -44,6 +44,7 @@ function sendFile(file, editor){
 
             // 자바스크립트를 이용한 contextPath 얻어오는 방법
             var contextPath = location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+            console.log(contextPath);
             // localhost:8080/spring/board/2/insert
 
             // 저장된 이미지를 summernote 에디터에 반영(삽입)

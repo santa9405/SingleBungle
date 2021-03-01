@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +23,7 @@ import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.member.model.vo.Member;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -146,20 +148,14 @@ public class adminController {
 			// map을 이용하여 필요한 데이터 모두 담기
 			Map<String,Object> map = new HashMap<String,Object>();
 			map.put("boardTitle", board.getBoardTitle());
-			map.put("boardContent", board.getBoardContent());
-			map.put("categoryCode",board.getCategoryCode()); // name 은 categoryName 이지만 value는 코드로 되어있다.
-			
-			//System.out.println(board);
-			//map.put("boardType",type);
-			
-			
-	
+			map.put("boardContent", board.getBoardContent()); // name 은 categoryName 이지만 value는 코드로 되어있다.
+
 			String savePath = null;
 			
 			savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
 			
-			// System.out.println(savePath);
-					
+			System.out.println(images);
+			
 			// 게시글 map, 이미지 images, 저장경로 savePath
 			// 게시글 삽입 Service 호출
 			int result = service.insertNotice(map, images, savePath);
@@ -170,7 +166,7 @@ public class adminController {
 			if(result>0) {
 				swalIcon= "success";
 				swalTitle= "게시글 등록 성공";
-				url = "redirect:"+result;
+				url = "redirect:notice/"+result;
 				
 				// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
 				request.getSession().setAttribute("returnListURL", "../");
@@ -208,7 +204,6 @@ public class adminController {
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pInfo", pInfo);
 		
-		System.out.println(pInfo);
 		
 		return "admin/noticeList";
 	}
@@ -220,7 +215,6 @@ public class adminController {
 			Model model, @RequestHeader(value="referer",required=false) String referer,
 			RedirectAttributes ra) {
 		
-		System.out.println(boardNo);
 		
 		int type=3;
 		ABoard board = service.selectBoard(boardNo,type);
@@ -251,5 +245,31 @@ public class adminController {
 				return url;
 
 	}
+	
+	
+	
+	// summernote에 업로드된 이미지 저장 Controller
+		@ResponseBody
+		@RequestMapping("insertImage")
+		public String insertImage(HttpServletRequest request, 
+								  @RequestParam("uploadFile") MultipartFile uploadFile) {
+			// 실제 파일 경로(파일을 어디에 저장할지) 지정할 때 사용 -> HttpServletRequest request
+			// 비동기로 파일 저장 == 저장하려는 이미지 얻어옴  
+			// ->@RequestParam("uploadFile") MultipartFile uploadFile (uploadFile->파일자체를 담고있음 )
+			
+			
+			// 서버에 파일(이미지)를 저장할 폴더 경로 얻어오기
+			String savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
+			
+			AAttachment at = service.insertImage(uploadFile,savePath);
+			// 어느 위치에, 어떤 파일을 저장하겠다는 service 수행
+			
+			System.out.println(at);
+			
+			// java에서 js로 객체 전달할 때 JSON을 사용한다.
+			// 문자열이지만 자바스크립트 객체 모양 "{}"을 하고있다.
+			// gson을 사용함.
+			return new Gson().toJson(at);
+		}
 	
 }

@@ -23,4 +23,6 @@ public interface adminService {
 
 	int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath);
 
+	AAttachment insertImage(MultipartFile uploadFile, String savePath);
+
 }

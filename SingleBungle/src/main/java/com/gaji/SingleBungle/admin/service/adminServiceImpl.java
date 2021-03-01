@@ -70,6 +70,7 @@ public class adminServiceImpl implements adminService{
 		return dao.selectAttachmentList(boardNo);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath) {
 		int result =0; // 최종 결과 저장 변수 선언
@@ -165,6 +166,7 @@ public class adminServiceImpl implements adminService{
 				if(!uploadImages.isEmpty()) {
 					// 파일 정보 삽입 DAO 호출
 					result = dao.insertAttachmentList(uploadImages);
+					System.out.println("result : " + result);
 					// result == 삽입된 행의 개수
 					
 					if(result == uploadImages.size()) {
@@ -233,6 +235,33 @@ public class adminServiceImpl implements adminService{
 			String ext = originFileName.substring(originFileName.lastIndexOf("."));
 			
 			return date + str + ext;
+		}
+
+		@Override
+		public AAttachment insertImage(MultipartFile uploadFile, String savePath) {
+			// 중복을 방지하기 위해, 파일명 변경해 줌
+			String fileName = rename(uploadFile.getOriginalFilename());
+
+			// 웹 상 접근 주소
+			String filePath = "/resources/adminImages";
+			
+			// 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
+			AAttachment at = new AAttachment();
+			at.setFilePath(filePath);
+			at.setFileName(fileName);
+			
+			// 서버에 파일 저장(transferTo())
+			
+			try {
+				uploadFile.transferTo(new File(savePath + "/" + fileName));
+				// savePath : ~~~~/infoImages   fileName = 20210217~~.png
+			}catch(Exception e) {
+				e.printStackTrace();
+				
+				throw new InsertAttachmentFailException("summernote 파일 업로드 실패");
+			}
+			
+			return at;
 		}
 
 

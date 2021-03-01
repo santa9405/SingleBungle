@@ -111,6 +111,11 @@
         .table td:hover {
 			cursor: pointer;
 		}
+		
+		.boardTitle>img {
+			width: 50px;
+			height: 50px;
+		}
 
     </style>
 
@@ -151,7 +156,14 @@
                   	<c:forEach var="board" items="${noticeList}" varStatus="vs">
                         <tr>
                             <td>${board.boardNo}</td>
-                            <td class="boardTitle">${board.boardTitle}</td>
+                            <td class="boardTitle">
+                            	<c:forEach items="${thList }" var="th">
+										<c:if test="${th.parentBoardNo == board.boardNo }">
+												<img src="${contextPath }${th.filePath}/${th.fileName}">
+										</c:if>
+								  </c:forEach>
+                            	${board.boardTitle}
+                            </td>
                             <td>${board.readCount}</td>
                             <td><fmt:formatDate var="createDate" value="${board.boardCreateDate }" pattern="yyyy-MM-dd"/>
                             ${board.boardCreateDate }</td>
