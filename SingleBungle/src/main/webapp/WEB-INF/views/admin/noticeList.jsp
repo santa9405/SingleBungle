@@ -162,7 +162,7 @@
                     </tbody>
                 </table>
 
-                <a class="btn btn-success float-right" href="#">글쓰기</a>
+                <a class="btn btn-success float-right" href="../admin/noticeInsert">글쓰기</a>
 
                     <div class="padding">
                     <c:set var="firstPage" value="?cp=1"/>
