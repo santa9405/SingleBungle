@@ -95,9 +95,23 @@
    </select>
    
    <!-- 게시글 상세 조회 -->
-   <!-- <select id="selectBoard" parameterType="Friend" resultType="friend_rm">
-   		SELECT FRIEND_NO, FRIEND_TITLE, FRIEND_CONTENT, NICKNAME, 
-   </select> -->
+   <select id="selectBoard" parameterType="Friend" resultMap="friend_rm">
+   		SELECT * FROM V_FBOARD
+   		WHERE BOARD_STATUS = 'N'
+   		AND FRIEND_NO = #{friendNo}
+   </select>
+   
+   <!-- 게시글 조회 수 증가 -->
+   <update id="increaseReadCount" parameterType="_int">
+   		UPDATE FRIEND SET
+   		READ_COUNT = READ_COUNT + 1
+   		WHERE FRIEND_NO = #{friendNo}
+   </update>
+   
+   <select id="selectAttachmentList" parameterType="_int" resultMap="fAttachment_rm">
+   		SELECT * FROM FRIEND_FILE
+   		WHERE FRIEND_NO = #{friendNo} 
+   </select>
    
    <!-- 다음 게시글 번호 조회 -->
    <select id="selectNextBoardNo" resultType="_int">

@@ -67,6 +67,23 @@ public class FindFriendDAO {
 	public FindFriend selectBoard(int friendNo) {
 		return sqlSession.selectOne("friendMapper.selectBoard", friendNo);
 	}
+	
+	
+	/** 게시글 조회 수 증가 DAO
+	 * @param friendNo
+	 * @return result
+	 */
+	public int increaseReadCount(int friendNo) {
+		return sqlSession.update("friendMapper.increaseReadCount", friendNo);
+	}
+	
+	/** 게시글에 포함된 이미지 목록 조회 DAO
+	 * @param friendNo
+	 * @return attachmentList
+	 */
+	public List<FindFriendAttachment> selectAttachmentList(int friendNo) {
+		return sqlSession.selectList("friendMapper.selectAttachmentList", friendNo);
+	}
 
 	/** 다음 게시글 번호 조회 DAO
 	 * @return nextBoardNo
