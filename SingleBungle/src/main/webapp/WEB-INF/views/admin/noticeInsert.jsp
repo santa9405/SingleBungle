@@ -18,17 +18,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
+    
+    
 
+	<!-- summernote 사용 시 필요한 css 파일 추가  -->
     <link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
         
     <style>
         form{
             margin-top: 50px;
         }
- 
-    </style>
+        
+		
+		.note-editor{
+			width : 100% !important;
+		} 
+		
+		
+	</style>
+    </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
+
+	<!-- summernote 사용 시 필요한 js 파일 추가  -->
+	<script src="${contextPath }/resources/summernote/js/summernote-lite.js"></script> <!-- 이 코드가 있어야 섬머노트 사용 가능  -->
+	<script src="${contextPath }/resources/summernote/js/summernote-ko-KR.js"></script> <!-- 한글 패치  -->
+	<script src="${contextPath }/resources/summernote/js/mySummernote.js"></script> <!-- 개인이 만든 js  -->
 
     <div class="container">
         <div class="row">
@@ -49,7 +64,7 @@
                             <label for="content">내용</label>
                         </div>
                         <textarea class="form-control" id="summernote" name="boardContent"
-                            rows="10" style="resize: none;" required></textarea>
+                              required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
@@ -60,5 +75,9 @@
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+    <script>
+
+    </script>
 </body>
 </html>
