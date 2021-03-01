@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +39,22 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public List<FindFriend> selectList(FindFriendPageInfo pInfo) {
 		return dao.selectList(pInfo);
 	}
+	
+	// 게시글 검색 목록 페이징처리 Service 구현
+	@Override
+	public FindFriendPageInfo getSearchPageInfo(Map<String, Object> map) {
+		
+		// 검색 게시글 수 조회
+		int listCount = dao.getSearchListCount(map);
+		
+		return new FindFriendPageInfo((int)map.get("cp"), listCount);
+	}
 
-
+	// 게시글 검색 목록 조회 Service 구현
+	@Override
+	public List<FindFriend> selectSearchList(Map<String, Object> map, FindFriendPageInfo pInfo) {
+		return dao.selectSearchList(map, pInfo);
+	}
 
 	// summernote 업로드 이미지 저장 Service 구현
 	@Override

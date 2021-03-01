@@ -44,8 +44,43 @@ public class FindFriendController {
 		// 1) 페이징 처리를 위한 객체 PageInfo 생성
 		FindFriendPageInfo pInfo = service.getPageInfo(cp);
 		
+//		System.out.println(pInfo);
+		
 		// 2) 게시글 목록 조회
 		List<FindFriend> fList = service.selectList(pInfo);
+		
+//		for(FindFriend f : fList) {
+//			System.out.println(f);
+//		}
+		
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("fList", fList);
+		
+		return "findFriend/findFriendList";
+	}
+	
+	// 친구찾기 검색 Controller
+	@RequestMapping("search")
+	public String friendSearch(@RequestParam("sk") String searchKey, 
+							   @RequestParam("sv") String searchValue, 
+							   @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+							   Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchKey", searchKey);
+		map.put("searchValue", searchValue);
+		map.put("cp", cp);
+		
+		// 1) 페이징 처리를 위한 객체 PageInfo 생성
+		FindFriendPageInfo pInfo = service.getSearchPageInfo(map);
+		
+		System.out.println(pInfo);
+		
+		// 2) 게시글 목록 조회
+		List<FindFriend> fList = service.selectSearchList(map, pInfo);
+		
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("fList", fList);
 		
 		return "findFriend/findFriendList";
 	}
