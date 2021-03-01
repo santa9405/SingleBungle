@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +32,10 @@
 	color: black;
 	line-height: 54px;
 	margin-right: 5px;
+}
+
+.viewdetail:hover {
+	cursor: pointer;
 }
 
 /* 제목 */
@@ -81,7 +90,7 @@
 }
 
 .pagination.pagination-rounded-flat .page-item {
-	margin: 0 .25rem
+	margin: 0 .1rem
 }
 
 .pagination-success .page-item.active .page-link {
@@ -93,9 +102,15 @@
 	border: none;
 	border-radius: 50px;
 }
+
+.pg {
+	flex: none !important;
+	max-width: none !important;
+}
+
 </style>
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- 부트스트랩 사용을 위한 css 추가 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
@@ -113,10 +128,15 @@
 				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
-						<a class="category" href="#">전체</a> <a class="category" href="#">가구</a> <a class="category" href="#">생활용품</a> <a class="category" href="#">전자기기</a> <a class="category" href="#">기타</a>
+						<a class="category" href="#">전체</a> 
+						<a class="category" href="#">가구</a> 
+						<a class="category" href="#">생활용품</a> 
+						<a class="category" href="#">전자기기</a> 
+						<a class="category" href="#">기타</a>
 					</div>
 					<div class="arrayArea float-right">
-						<a class="array" herf="#">최신순</a> <img class="icon" src="${contextPath}/resources/images/arrow.png" /> <a class="array" herf="#">좋아요순</a> <img class="icon" src="${contextPath}/resources/images/arrow.png" />
+						<a class="array" herf="#">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
+						</a> <a class="array" herf="#">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
 					</div>
 				</div>
 			</div>
@@ -137,36 +157,37 @@
 
 			<c:if test="${!empty rList }">
 				<c:forEach var="review" items="${rList}" varStatus="vs">
-				<!-- Gallery item -->
-				<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-					<div class="bg-white rounded shadow-sm">
-					 
-					  <!-- 썸네일 영역 -->
-						<div class="embed-responsive embed-responsive-4by3">
-							<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
-						</div>
-					
-						<div class="p-4">
-							<h5>
-								<a href="#" class="text-dark">${review.boardTitle }</a>
-							</h5>
-							<div class="infoArea float-right">
-								<div class="viewArea">
-									<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
-								</div>
 
+					<!-- Gallery item -->
+					<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+						<div class="bg-white rounded shadow-sm viewdetail">
+
+							<!-- 썸네일 영역 -->
+							<div class="embed-responsive embed-responsive-4by3">
+								<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
 							</div>
-							<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-								<p class="small mb-0">
-									<span class="font-weight-bold price">${review.nickName }</span>
-								</p>
-								<div class="badge badge-danger px-3 rounded-pill font-weight-normal" 
-								style="background-color: rgb(135, 222, 150);">
-								${review.categoryName}</div>
+
+							<div class="p-4">
+								<h5>
+									<a href="#" class="text-dark">${review.boardTitle }</a>
+								</h5>
+								<div class="infoArea float-right">
+									<div class="viewArea mb-2">
+										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
+									</div>
+
+								</div>
+								<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+									<p class="small mb-0">
+										<span class="font-weight-bold price">${review.nickName }</span>
+									</p>
+									<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">${review.categoryName}</div>
+								</div>
 							</div>
+							<span id="boardNo" style="visibility: hidden">${review.boardNo }</span>
 						</div>
 					</div>
-				</div>
+
 				</c:forEach>
 			</c:if>
 			<!-- End -->
@@ -175,9 +196,11 @@
 
 
 		<!-- 등록하기 버튼 -->
+
+		<!-- 로그인이 되어있고, 회원 2등급 이상일 경우 !=T -->
 		<div class="row">
 			<div class="col-lg-12 mx-auto">
-				<button type="button" class="btn btn-success float-right">등록하기</button>
+				<button type="button" class="btn btn-success float-right" id="insertBoard">등록하기</button>
 			</div>
 		</div>
 
@@ -187,15 +210,58 @@
 		<div class="page-content page-container" id="page-content">
 			<div class="padding">
 				<div class="row container d-flex justify-content-center">
-					<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+					<div class="col-md-4 col-sm-6 grid-margin stretch-card pg">
 						<nav>
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-								<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
-								<li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+
+								<!-- 화살표에 들어갈 주소를 변수로 생성  -->
+								<c:set var="firstPage" value="?cp=1" />
+								<c:set var="lastPage" value="?cp=${pInfo.maxPage }" />
+
+								<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
+								<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+								<c:set var="prevPage" value="?cp=${prev}" />
+
+
+								<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+								<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+								<c:set var="nextPage" value="?cp=${next}" />
+
+								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+									<li class="page-item"><!-- 첫 페이지로 이동(<<) -->
+										 <a class="page-link" href="${firstPage }">&laquo;&laquo;</a>
+									</li>
+
+									<li class="page-item"><!-- 이전 페이지로 이동 (<) -->
+										 <a class="page-link" href="${prevPage }">&laquo;</a>
+									</li>
+								</c:if>
+
+								<c:forEach var="page" begin="${pInfo.startPage }" end="${pInfo.endPage }">
+									<c:choose>
+										<c:when test="${pInfo.currentPage == page }">
+											<li class="page-item active">
+												<a class="page-link">${page}</a> <!-- 같은 페이지일때는 클릭이 안 된다.  -->
+											</li>
+										</c:when>
+										
+										<c:otherwise>
+											<li class="page-item">	
+												<a class="page-link" href="?cp=${page}">${page}</a>
+											</li>
+										</c:otherwise>
+										
+										
+										
+									</c:choose>
+								</c:forEach>
+
+
+								<c:if test="${next <=pInfo.maxPage }">
+									<li class="page-item"><a class="page-link" href="${nextPage }">&raquo;</a></li>
+
+									<li class="page-item"><a class="page-link" href="${lastPage }">&raquo;&raquo;</a></li>
+								</c:if>
 							</ul>
 						</nav>
 					</div>
@@ -213,7 +279,6 @@
 							<option value="title">제목</option>
 							<option value="writer">작성자</option>
 							<option value="titcont">제목+내용</option>
-							<option value="category">카테고리</option>
 						</select> <input type="text" name="sv" class="form-control " style="width: 25%; display: inline-block;">
 						<button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 					</form>
@@ -222,5 +287,53 @@
 		</div>
 
 		<jsp:include page="../common/footer.jsp" />
+
+	
+		<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+		<c:set var="returnListURL" value="${contextPath}/review/list?cp=${pInfo.currentPage}" scope="session"/>
+
+
+		<script>
+			// 상세조회
+			$(".viewdetail").on("click",function(){
+				var boardNo = $(this).children("span#boardNo").text();
+				
+				var boardViewURL = "../"+boardNo;
+				
+				location.href = boardViewURL;
+			});
+			
+			
+			
+			// 등록하기 버튼
+			$("#insertBoard").on("click",function(){
+				
+				location.href = "insert" ;
+				
+			});
+			
+			
+			
+			
+			// 검색내용 있을 경우 검색창에 해당 내용 저장
+			(function(){
+				var searchKey = "${param.sk}";
+				var searchValue = "${param.sv}";
+				
+				// 검색창 option 반복 접근
+				$("select[name=sk]>option").each(function(index,item){
+					
+					if($(item).val() == searchKey){
+						$(item).prop("selected", true);
+					}
+				});
+				
+				
+				// 검색어 입력창에 searchValue 값 출력
+				$("input[name=sv]").val(searchValue);
+				
+			})();
+			
+		</script>
 </body>
 </html>

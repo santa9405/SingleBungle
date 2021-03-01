@@ -25,7 +25,10 @@ public class ReviewController {
 	private String swalTitle = null;
 	private String swalText = null;
 
-	@RequestMapping("list/2")
+	
+	
+	// 목록 조회
+	@RequestMapping("list")
 	public String reviewList(@RequestParam(value="cp", required=false, defaultValue="1") int cp, Model model) {
 		
 		// 페이징 처리
