@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,12 +61,12 @@
                 <div class="boardArea">
                         <div class="row">
                             <div class="col-md-8">
-                                <span id="boardTitle">글제목</span>
+                                <span id="boardTitle">${board.boardTitle }</span>
                             </div>
                             <div class="col-md-4">
                                 <div id="boardInfo">
-                                    <span>2021-02-20</span><br>
-                                    <span>조회수 : 0</span>
+                                    <span>${board.boardCreateDate}</span><br>
+                                    <span>조회수 : ${board.readCount }</span>
                                 </div>
                             </div>
                         </div>
@@ -72,8 +74,20 @@
                 <hr>
 
                 <div id="boardContent">
-                    안녕하세용...<br>
-                    테스트 글입니다...<br>
+                   <%-- ${board.boardContent} --%>
+					<%-- JSTL을 이용한 개행문자 처리 --%>
+					<c:forEach var="at" items="${attachmentList}" varStatus="vs">
+			                    <c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}"/>
+			                    		
+				                <div <c:if test="${vs.index == 0}"> active</c:if>">
+				                    <img class="d-block w-100 boardImg" src="${src}" />
+				                    <input type="hidden" value="${at.fileNo}">
+				                </div>
+	                </c:forEach>
+					
+					
+					<% pageContext.setAttribute("newLine", "\n"); %>
+					${fn:replace(board.boardContent, newLine , "<br>") }
 
                 </div>
 
