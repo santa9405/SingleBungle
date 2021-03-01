@@ -55,6 +55,19 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public List<FindFriend> selectSearchList(Map<String, Object> map, FindFriendPageInfo pInfo) {
 		return dao.selectSearchList(map, pInfo);
 	}
+	
+	// 친구찾기 게시글 상세 조회 Service 구현
+	@Override
+	public FindFriend selectBoard(int friendNo) {
+		
+		// 1) 게시글 상세 조회
+		FindFriend findFriend = dao.selectBoard(friendNo);
+		
+		// 2) 상세 조회 성공 시 조회수 증가
+		
+		
+		return null;
+	}
 
 	// summernote 업로드 이미지 저장 Service 구현
 	@Override
