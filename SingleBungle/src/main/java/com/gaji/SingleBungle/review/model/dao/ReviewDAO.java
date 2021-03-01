@@ -40,6 +40,26 @@ public class ReviewDAO {
 		
 		return sqlSession.selectList("reviewMapper.selectList", pInfo, rowBounds);
 	}
+
+
+
+
+	/** 상세조회 DAO
+	 * @param boardNo
+	 * @return review
+	 */
+	public Review selectReview(int boardNo) {
+
+		return sqlSession.selectOne("reviewMapper.selectReview",boardNo);
+	}
+
+
+
+
+	public int increaseReadCount(int boardNo) {
+		
+		return sqlSession.update("reviewMapper.increaseReadCount", boardNo);
+	}
 	
 
 

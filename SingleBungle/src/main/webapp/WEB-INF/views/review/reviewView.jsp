@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -149,8 +154,14 @@
 					<button type="button" class="btn btn-primary ml-2 report">신고</button>
 				</div>
 				<h2 style="margin-top: 5px;">
-					<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">생활용품</div>
-					제목제목제목
+					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+                                <c:if test="${review.categoryCode == '21'}">background-color: burlywood;</c:if>
+                                <c:if test="${review.categoryCode == '22'}">background-color: #8dbe88;</c:if>
+                                <c:if test="${review.categoryCode == '23'}">background-color: #5d8eb6d5;</c:if>
+                                <c:if test="${review.categoryCode == '24'}">background-color: #d48a9a;</c:if> '>${review.categoryName }</div>   
+					   
+					   
+					${review.boardTitle }
 				</h2>
 			</div>
 		</div>
@@ -158,13 +169,30 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="boardInfo" id="writer">
-					<img class="image" src="${contextPath}/resources/images/profile.png" /> 달마고
+					<img class="image" src="${contextPath}/resources/images/profile.png" /> ${review.nickName }
 				</div>
-				<div class="boardInfo" id="createDt" style="color: gray">2021.02.07</div>
+				<div class="boardInfo" id="createDt" style="color: gray">
+				
+						<jsp:useBean id="now" class="java.util.Date"/>
+						<fmt:formatDate var="createDate" value="${review.createDate }" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate var="today" value="${now }" pattern="yyyy-MM-dd"/>
+						
+						
+						<c:choose>
+							<c:when test="${createDate != today }">
+								${createDate }
+							</c:when>
+							<c:otherwise>
+								<fmt:formatDate value="${review.createDate}" pattern="HH:mm"/>
+							</c:otherwise>						
+						
+						
+						</c:choose>
+				</div>
 				<div class="infoArea float-right">
-					<img class="image" src="${contextPath}/resources/images/view.png"> 0 <span>
+					<img class="image" src="${contextPath}/resources/images/view.png"> ${review.readCount } <span>
 						<button type="button" id="likeBtn">
-							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${review.likeCount}</span>
 						</button>
 					</span>
 				</div>
@@ -176,7 +204,7 @@
 		<!-- 게시글 내용 -->
 		<div class="row">
 			<div class="col-md-12 contentArea">
-				어쩌구저쩌구 <br> 글내용<br> 써머노트로 작성<br> 글<br> 사진<br>
+				${review.boardContent }
 			</div>
 		</div>
 
@@ -184,7 +212,7 @@
 		<jsp:include page="reviewReply.jsp"></jsp:include>
 
 
-		<!-- 버튼 -->
+				<!-- 버튼 -->
 		<div class="row float-right mt-3">
 			<div class="col-md-12">
 				<div class="row">
@@ -199,9 +227,17 @@
 		<!-- 목록버튼 -->
 		<div class="row  py-3" style="clear: both;">
 			<div class="col-md-12 text-center ">
-				<button type="button" class="btn btn-success">목록으로</button>
+				
+				<c:if test="${empty sessionScope.returnListURL }">
+					<c:set var="returnListURL" value="../" scope="session"/>
+				</c:if>
+				<button type="button" class="btn btn-success" id="returnBtn">목록으로</button>
+			
 			</div>
 		</div>
+		
+		
+
 
 
 
@@ -297,18 +333,24 @@
 
 
 
-
 	<jsp:include page="../common/footer.jsp" />
 	
 	
 	<script>
+
+	
 	// 게시글 신고창 열기
 	$(".report").on("click", function(){
 			window.open('${contextPath}/reviewReport/report', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	});
 	
 
-
+	// 목록으로 버튼
+	$("#returnBtn").on("click", function(){
+		
+		location.href = "${sessionScope.returnListURL}"
+		
+	});
 	
 	
 

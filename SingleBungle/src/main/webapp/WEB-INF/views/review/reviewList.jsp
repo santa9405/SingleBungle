@@ -181,7 +181,11 @@
 									<p class="small mb-0">
 										<span class="font-weight-bold price">${review.nickName }</span>
 									</p>
-									<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: rgb(135, 222, 150);">${review.categoryName}</div>
+										<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+                            <c:if test="${review.categoryCode == '21'}">background-color: burlywood;</c:if>
+                            <c:if test="${review.categoryCode == '22'}">background-color: #8dbe88;</c:if>
+                            <c:if test="${review.categoryCode == '23'}">background-color: #5d8eb6d5;</c:if>
+                            <c:if test="${review.categoryCode == '24'}">background-color: #d48a9a;</c:if> '>${review.categoryName }</div>  
 								</div>
 							</div>
 							<span id="boardNo" style="visibility: hidden">${review.boardNo }</span>
@@ -279,7 +283,7 @@
 							<option value="title">제목</option>
 							<option value="writer">작성자</option>
 							<option value="titcont">제목+내용</option>
-						</select> <input type="text" name="sv" class="form-control " style="width: 25%; display: inline-block;">
+						</select> <input type="text" name="sv" class="form-control "  autocomplete="off" style="width: 25%; display: inline-block;">
 						<button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 					</form>
 				</div>
@@ -298,7 +302,7 @@
 			$(".viewdetail").on("click",function(){
 				var boardNo = $(this).children("span#boardNo").text();
 				
-				var boardViewURL = "../"+boardNo;
+				var boardViewURL = "view/"+boardNo;
 				
 				location.href = boardViewURL;
 			});
@@ -327,7 +331,6 @@
 						$(item).prop("selected", true);
 					}
 				});
-				
 				
 				// 검색어 입력창에 searchValue 값 출력
 				$("input[name=sv]").val(searchValue);
