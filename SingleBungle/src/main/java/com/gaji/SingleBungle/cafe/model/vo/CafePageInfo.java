@@ -19,6 +19,7 @@ public class CafePageInfo {
 	}
 	
 	public CafePageInfo(int currentPage, int listCount) {
+		super();
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		

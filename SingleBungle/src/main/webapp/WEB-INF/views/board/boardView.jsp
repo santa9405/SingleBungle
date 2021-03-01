@@ -14,6 +14,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
+#boardNo {
+	display: none;
+}
+
 .boardInfo {
 	display: inline-block;
 	margin-right: 15px;
@@ -50,14 +54,21 @@
                 
                 <h8>자유게시판</h8>
 								<div class="float-right">
-									<button type="button" class="btn btn-secondary mb-3 btn-success">목록</button>
+									<button type="button" class="btn btn-secondary mb-3 btn-success insert-list">목록</button>
 									<button type="button" class="btn btn-secondary mb-3 btn-danger report">신고</button>
 								</div>
-								
+								<span id="boardNo">${board.boardNo}</span>
                 <div id="board-area">
                     <!-- 카테고리 -->
-                    <h2><div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">${board.categoryName}</div>
-
+                    <h2>
+                    <div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+                    <c:if test="${board.categoryCode == '11'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
+                    <c:if test="${board.categoryCode == '12'}">background-color: gray;</c:if>
+                    <c:if test="${board.categoryCode == '13'}">background-color: rgb(135, 222, 150);</c:if>
+                    <c:if test="${board.categoryCode == '14'}">background-color: navy;</c:if>
+                    <c:if test="${board.categoryCode == '15'}">background-color: rgb(245, 91, 125);</c:if>
+                    <c:if test="${board.categoryCode == '16'}">background-color: burlywood;</c:if>'>${board.categoryName}</div>
+                    
                     <!-- 제목 -->
                     	${board.boardTitle}</h2>
                     <hr>
@@ -72,7 +83,7 @@
 										<div class="infoArea float-right">
 											<img class="image" src="${contextPath}/resources/images/view.png"> ${board.readCount} <span>
 												<button type="button" id="likeBtn">
-													<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">10</span>
+													<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${board.likeCount}</span>
 												</button>
 											</span>
 										</div>
@@ -118,8 +129,12 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col-md-12">
-												<button type="button" class="btn btn-success">수정</button>
-												<button type="button" class="btn btn-danger">삭제</button>
+											
+												<!-- 로그인된 회원이 글 작성자인 경우 -->
+												<%-- <c:if test="${(loginMember != null) && (board.memberId == loginMember.memberId)}"> --%>
+												<button type="button" class="btn btn-success updateBtn">수정</button>
+												<button type="button" class="btn btn-danger deleteBtn">삭제</button>
+												<%-- </c:if> --%>
 											</div>
 										</div>
 									</div>
@@ -128,7 +143,7 @@
 								<!-- 목록버튼 -->
 								<div class="row  py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<button type="button" class="btn btn-success">목록으로</button>
+										<button type="button" class="btn btn-success insert-list">목록으로</button>
 									</div>
 								</div>
 
@@ -139,8 +154,26 @@
 	
 	<script>
    $(".report").on("click", function(){
-       window.open('${contextPath}/board/report', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+       window.open('${contextPath}/board/boardReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	 });
+   
+	// 목록버튼
+	$(".insert-list").on("click", function(){
+		location.href = "${sessionScope.returnListURL}";
+	});
+	
+	// 수정버튼
+	$(".updateBtn").on("click", function(){
+		location.href = "${contextPath}/board/${board.boardNo}/update";
+	});
+	
+	// 삭제버튼
+	$(".deleteBtn").on("click", function(){
+		if(confirm("삭제 하시겠습니까?")){
+	         location.href = "${contextPath}/board/${board.boardNo}/delete";
+	  }
+	});
+	
 	</script>
 </body>
 </html>

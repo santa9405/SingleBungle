@@ -203,7 +203,7 @@
 	<!-- 댓글 END -->
 	<script>
    $(".replyReport").on("click", function(){
-       window.open('${contextPath}/board/replyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+       window.open('${contextPath}/board/boardReplyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	 });
 	</script>
 </body>

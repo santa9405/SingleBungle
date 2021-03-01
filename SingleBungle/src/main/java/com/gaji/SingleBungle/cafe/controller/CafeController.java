@@ -1,26 +1,33 @@
 package com.gaji.SingleBungle.cafe.controller;
 
-import java.util.List;
+import java.util.HashMap;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.cafe.model.service.CafeService;
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
+import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Controller
-/*@SessionAttributes({"loginMember"})*/
+@SessionAttributes({"loginMember"})
 @RequestMapping("/cafe/*")
 public class CafeController {
 	
@@ -37,10 +44,8 @@ public class CafeController {
 	@RequestMapping("list")
 	public String CafeList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 		
-		// 1) 페이징 처리를 위한 객체 PageInfo 생성
 		CafePageInfo cpInfo = service.getPageInfo(cp);
 
-		// 2) 게시글 목록 조회
 		List<Cafe> cList = service.selectList(cpInfo);
 		
 		// 썸네일
@@ -52,7 +57,6 @@ public class CafeController {
 //			}
 //
 //		}
-
 		
 		model.addAttribute("cList", cList);
 		model.addAttribute("cpInfo", cpInfo);
@@ -60,17 +64,41 @@ public class CafeController {
 		return "cafe/cafeList";
 	}
 	
+	// 검색 Controller
+	@RequestMapping("search")
+	public String boardSearch(@RequestParam("sk") String searchKey,
+							  @RequestParam("sv") String searchValue,
+							  @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+							  Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchKey", searchKey);
+		map.put("searchValue", searchValue);
+		map.put("cp", cp);
+		
+		CafePageInfo cpInfo = service.getSearchPageInfo(map);
+		
+		List<Cafe> cList = service.selectSearchList(map, cpInfo);
+		
+		model.addAttribute("cpInfo", cpInfo);
+		model.addAttribute("cList", cList);
+		
+		return "cafe/cafeList";
+	}
+	
+	
 	// 게시글 상세조회 Controller
 	@RequestMapping("{cafeNo}")
 	public String cafeView(@PathVariable("cafeNo") int cafeNo, Model model,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 		
-		// 게시글 상세조회 Service 호출
 		Cafe cafe = service.selectCafe(cafeNo);
 		
 		String url = null;
 		
 		if (cafe != null) {
+			
+			List<Cafe> cafeList = service.cafeListTop3();
 			
 			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
 			
@@ -79,11 +107,12 @@ public class CafeController {
 			}
 			
 			model.addAttribute("cafe", cafe);
+			model.addAttribute("cafeList", cafeList);
 			url = "cafe/cafeView";
 		} else {
 			
 			if (referer == null) {
-				url = "redirect:../list/";
+				url = "redirect:../list";
 			} else {
 				url = "redirect:" + referer;
 			}
@@ -103,18 +132,52 @@ public class CafeController {
 	
 	// 게시글 등록 Controller
 	@RequestMapping("insertAction")
-	public String insertAction() {
-		return null;
+	public String insertAction(@ModelAttribute Cafe cafe, @ModelAttribute("loginMember") Member loginMember,
+			@RequestParam(value = "images", required = false) List<MultipartFile> images, HttpServletRequest request,
+			RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("cafeTitle", cafe.getCafeTitle());
+		map.put("cafeContent", cafe.getCafeContent());
+		map.put("categoryName", cafe.getCategoryCode());
+		map.put("cafeName", cafe.getCafeName());
+		
+		String savePath = null;
+		
+		savePath = request.getSession().getServletContext().getRealPath("resources/cafeImages");
+		
+		int result = service.insertCafe(map, images, savePath);
+		
+		String url = null;
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 등록 성공";
+			url = "redirect:" + result;
+			
+			// 목록 버튼 경로
+			request.getSession().setAttribute("returnListURL", "../list");
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 삽입 실패";
+			url = "redirect:insert";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
 	}
 	
 	// 게시글 수정 화면 전환용 Controller
-	@RequestMapping("update")
+	@RequestMapping("{cafeNo}/update")
 	public String cafeUpdate() {
 		return "cafe/cafeUpdate";
 	}
 	
 	// 게시글 수정 Controller
-	@RequestMapping("updateAction")
+	@RequestMapping("{cafeNo}/updateAction")
 	public String updateAction() {
 		return null;
 	}
@@ -128,6 +191,33 @@ public class CafeController {
 		return null;
 	}
 	
+	// 게시글 삭제 Controller
+	@RequestMapping("{cafeNo}/delete")
+	public String deleteCafe(@PathVariable("cafeNo") int cafeNo,
+							@ModelAttribute Cafe cafe,
+							HttpServletRequest request, RedirectAttributes ra) {
+		
+		cafe.setCafeNo(cafeNo);
+		
+		int result = service.deleteCafe(cafe);
+		
+		String url = null;
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 삭제 성공";
+			url = "redirect:../list";
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 삭제 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
 	
 	
 	
@@ -136,18 +226,17 @@ public class CafeController {
 	
 	
 	
+	// 신고 페이지 연결
+	@RequestMapping("cafeReport")
+	public String cafeReport() {
+		return "cafe/cafeReport";
+	}
 	
-//	// 신고 페이지 연결
-//	@RequestMapping("cafeReport")
-//	public String cafeReport() {
-//		return "cafe/cafeReport";
-//	}
-//	
-//	// 댓글 신고 페이지 연결
-//	@RequestMapping("cafeReplyReport")
-//	public String replyReport() {
-//		return "cafe/cafeReplyReport";
-//	}
+	// 댓글 신고 페이지 연결
+	@RequestMapping("cafeReplyReport")
+	public String replyReport() {
+		return "cafe/cafeReplyReport";
+	}
 	
 
 }

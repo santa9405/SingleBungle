@@ -19,6 +19,10 @@
 		width: 80px;
 		line-height: 40px;
 	}
+	
+	.note-editor{
+   	width : 100% !important;
+  } 
 </style>
 
 <!-- summernote 사용 시 필요한 css 파일 추가 -->
@@ -39,7 +43,7 @@
                 
                 <h4>맛집게시판 등록</h4>
 
-                <form action="insertAction" method="post">
+                <form action="insertAction" method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();">
 
                     <div class="form-group row">
                         <label for="title" class="input-group-addon col-sm-1 insert-label">제목</label>
@@ -78,7 +82,9 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-success">등록</button>
-                        <button type="button" class="btn btn-secondary mb-3">취소</button>
+                    </div>
+                    <div class="text-right">
+                    		<button type="button" class="btn btn-secondary mb-3 btn-success" id="insert-list">목록으로</button>
                     </div>
                 </form>
 
@@ -87,7 +93,27 @@
     </div>
     <jsp:include page="../common/footer.jsp"/>
     <script>
-    
+		// 유효성 검사
+		function validate() {
+			if ($("#title").val().trim().length == 0) {
+				alert("제목을 입력해 주세요.");
+				$("#title").focus();
+				return false;
+			}
+	
+			if ($("#summernote").val().trim().length == 0) {
+				alert("내용을 입력해 주세요.");
+				$("#summernote").focus();
+				return false;
+			}
+		}
+	
+		// 목록버튼
+		$("#insert-list").on("click", function(){
+			if(confirm("목록으로 돌아가시겠습니까?")){
+		         location.href = "${sessionScope.returnListURL}";
+		  }
+		});
     </script>
     
 </body>
