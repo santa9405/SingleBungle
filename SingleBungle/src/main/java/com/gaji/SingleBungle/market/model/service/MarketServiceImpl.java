@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.market.model.dao.MarketDAO;
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 
 @Service
@@ -50,8 +51,14 @@ public class MarketServiceImpl implements MarketService {
 				market.setReadCount(market.getReadCount() + 1);
 			}
 		}
-		
 		return market;
+	}
+
+	
+	// 좋아요 목록 조회 Service 구현
+	@Override
+	public List<MarketLike> selectLike(int memberNo) {
+		return dao.selectLike(memberNo); 
 	}
 
 }

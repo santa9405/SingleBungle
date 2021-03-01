@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 
 @Repository
@@ -51,6 +52,15 @@ public class MarketDAO {
 	 */
 	public int increaseReadCount(int marketNo) {
 		return sqlSession.update("marketMapper.increaseReadCount", marketNo);
+	}
+
+
+	/** 좋아요 목록 조회 DAO
+	 * @param memberNo
+	 * @return
+	 */
+	public List<MarketLike> selectLike(int memberNo) {
+		return sqlSession.selectList("marketMapper.selectLike", memberNo);
 	}
 
 }

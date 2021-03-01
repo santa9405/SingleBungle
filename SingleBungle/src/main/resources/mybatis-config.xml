@@ -32,7 +32,7 @@
   	
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.Market" alias="Market" />       
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketAttachment" alias="MarketAttachment" />
-  	
+  	<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketLike" alias="MarketLike" />
 
   </typeAliases>
   

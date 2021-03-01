@@ -21,7 +21,6 @@ public class Market {
 	private String certifiedFl;
 	private String address;
 	private String categoryNm;
-	
 	private int likes;
 	private int rating;
 	
