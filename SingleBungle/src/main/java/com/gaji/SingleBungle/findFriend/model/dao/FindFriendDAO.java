@@ -60,6 +60,13 @@ public class FindFriendDAO {
 		return sqlSession.selectList("friendMapper.selectSearchList", map, rowBounds);
 	}
 
+	/** 게시글 상세 조회 DAO
+	 * @param friendNo
+	 * @return findFriend
+	 */
+	public FindFriend selectBoard(int friendNo) {
+		return sqlSession.selectOne("friendMapper.selectBoard", friendNo);
+	}
 
 	/** 다음 게시글 번호 조회 DAO
 	 * @return nextBoardNo

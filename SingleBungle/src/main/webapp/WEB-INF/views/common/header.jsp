@@ -24,7 +24,7 @@
     <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
    	
-	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+		<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
   	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
    	<style>
@@ -32,6 +32,14 @@
    	</style>
 </head>
 <body id="page-top">
+
+	<c:if test="${!empty swalTitle}">
+		<script>
+			swal({icon : "${swalIcon}",
+				 title : "${swalTitle}",
+				 text : "${swalText}"});
+		</script>
+	</c:if>
 	
 	<%-- ---------------------- 로그인(임시) ---------------------- --%>
 	<c:choose>

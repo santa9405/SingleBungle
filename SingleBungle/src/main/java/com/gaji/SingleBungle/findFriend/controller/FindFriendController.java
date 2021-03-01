@@ -87,7 +87,12 @@ public class FindFriendController {
 	
 	// 친구찾기 상세 조회 Controller
 	@RequestMapping("{friendNo}")
-	public String friendView() {
+	public String friendView(@PathVariable("friendNo") int friendNo) {
+		
+		//System.out.println("friendNo : " + friendNo);
+		
+		FindFriend findFriend = service.selectBoard(friendNo);
+		
 		return "findFriend/findFriendView";
 	}
 	
