@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -87,13 +88,44 @@ public class FindFriendController {
 	
 	// 친구찾기 상세 조회 Controller
 	@RequestMapping("{friendNo}")
-	public String friendView(@PathVariable("friendNo") int friendNo) {
+	public String friendView(@PathVariable("friendNo") int friendNo, Model model,
+							 @RequestHeader(value = "referer", required = false) String referer,
+							 RedirectAttributes ra) {
 		
 		//System.out.println("friendNo : " + friendNo);
 		
+		// 상세 조회
 		FindFriend findFriend = service.selectBoard(friendNo);
 		
-		return "findFriend/findFriendView";
+		System.out.println(findFriend);
+		
+		String url = null;
+		
+		if(findFriend != null) { // 상세 조회 성공 시
+			
+			List<FindFriendAttachment> attachmentList = service.selectAttachmentList(friendNo);
+			
+			if(attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
+			
+			model.addAttribute("findFriend", findFriend);
+			url = "findFriend/findFriendView"; 
+			
+		}else {
+			
+			if(referer == null) { // 이전 요청 주소가 없는 경우
+				url = "redirect:../list";
+			}else { // 이전 요청 주소가 있는 경우
+				url = "redirect:" + referer;
+			}
+			
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+			
+		}
+		
+		return url;
 	}
 	
 	// 친구찾기 게시글 등록 화면 전환 Controller

@@ -64,10 +64,23 @@ public class FindFriendServiceImpl implements FindFriendService {
 		FindFriend findFriend = dao.selectBoard(friendNo);
 		
 		// 2) 상세 조회 성공 시 조회수 증가
+		if( findFriend != null ) {
+			int result = dao.increaseReadCount(friendNo);
+			
+			if(result > 0) {
+				findFriend.setReadCount(findFriend.getReadCount() + 1);
+			}
+		}
 		
-		
-		return null;
+		return findFriend;
 	}
+	
+	// 게시글에 포함된 이미지 목록 조회 Service 구현
+	@Override
+	public List<FindFriendAttachment> selectAttachmentList(int friendNo) {
+		return dao.selectAttachmentList(friendNo);
+	}
+
 
 	// summernote 업로드 이미지 저장 Service 구현
 	@Override

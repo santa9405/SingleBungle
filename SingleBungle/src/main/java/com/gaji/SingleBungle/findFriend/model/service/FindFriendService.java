@@ -41,6 +41,12 @@ public interface FindFriendService {
 	 * @return
 	 */
 	FindFriend selectBoard(int friendNo);
+	
+	/** 게시글에 포함된 이미지 목록 조회 Service
+	 * @param friendNo
+	 * @return attachmentList
+	 */
+	List<FindFriendAttachment> selectAttachmentList(int friendNo);
 
 	/** summernote 업로드 이미지 저장 Service
 	 * @param uploadFile
@@ -55,6 +61,8 @@ public interface FindFriendService {
 	 * @return int
 	 */
 	int insertBoard(FindFriend findFriend, String savePath);
+
+	
 
 	
 

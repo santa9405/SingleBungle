@@ -11,7 +11,7 @@ public class FindFriend {
 	private String location1;		// 지역
 	private String location2;		// 모임 장소
 	private Date meetingDate;		// 모임 날짜
-	private Timestamp meetingTime;  // 모임 시간
+	private String meetingTime;  // 모임 시간
 	private String gender;			// 성별
 	private int capacity;			// 모집인원
 	private Timestamp createDt;		// 작성일
@@ -25,7 +25,7 @@ public class FindFriend {
 	public FindFriend() { }
 
 	public FindFriend(int friendNo, String friendTitle, String friendContent, String location1, String location2,
-			Date meetingDate, Timestamp meetingTime, String gender, int capacity, Timestamp createDt, int readCount,
+			Date meetingDate, String meetingTime, String gender, int capacity, Timestamp createDt, int readCount,
 			String boardStatus, int categoryCd, int memNo, String nickname, String categoryNm) {
 		super();
 		this.friendNo = friendNo;
@@ -94,11 +94,11 @@ public class FindFriend {
 		this.meetingDate = meetingDate;
 	}
 
-	public Timestamp getMeetingTime() {
+	public String getMeetingTime() {
 		return meetingTime;
 	}
 
-	public void setMeetingTime(Timestamp meetingTime) {
+	public void setMeetingTime(String meetingTime) {
 		this.meetingTime = meetingTime;
 	}
 
