@@ -91,7 +91,7 @@
   	<insert id="insertBoard" parameterType="map">
   		INSERT INTO BOARD
   		VALUES(#{boardNo}, #{boardTitle}, #{boardContent},
-  					 DEFAULT, DEFAULT, DEFAULT, 3, 31, 4)
+  					 DEFAULT, DEFAULT, DEFAULT, #{boardCode}, #{categoryCode}, 4)
   	</insert>
   	
   	<!-- 파일 정보 삽입(List이용)  -->
