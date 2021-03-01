@@ -141,6 +141,11 @@
     .marketNo{
     	cursor: pointer;
     }
+    
+    .col-md-4 {
+            flex: none !important;
+            max-width: none !important;
+        } 
   </style>
 
 </head>
@@ -165,21 +170,26 @@
         <div class="col-lg-12 mx-auto">
           <div class="text-black banner">
 								<h1 class="boardName float-left">사고팔고</h1>
-								<a class="category" href="#">전체</a> <span> |</span> <a class="category" href="#">팝니다</a> <span> |</span> <a class="category" href="#">삽니다</a>
+								<a class="category cg" href="#">전체</a> <span> |</span> <a class="category cg" href="#">팝니다</a> <span> |</span> <a class="category cg" href="#">삽니다</a>
 
 								<div class="listTest float-right">
-									<a class="category" href="#">최신순</a> <span> |</span> <a class="category" href="#">좋아요순</a> <span> |</span> <a class="category" href="#">저가순</a> <span> |</span> <a class="category" href="#">고가순</a>
+									<a class="category sort" href="#">최신순</a> <span> |</span> <a class="category sort" href="#">좋아요순</a> <span> |</span> <a class="category sort" href="#">저가순</a> <span> |</span> <a class="category sort" href="#">고가순</a>
 								</div>
         <hr>
           </div>
         </div>
       </div>
       <!-- End -->
-      
-
-
+ 
       <div class="row itemArea">
         <!-- Gallery item -->
+             <c:if test="${!empty likeInfo}" >
+				<c:forEach var="likes" items="${likeInfo}">
+              	<p>${likes.marketNo}</p>
+         </c:forEach>
+</c:if>
+		<c:if test="${empty likeInfo}">씨발 왜 안나와
+		</c:if>
         <c:if test="${empty mList}">
         	존재하는 게시글이 없습니다!
         </c:if>
@@ -208,7 +218,7 @@
             <!-- 좋아요 버튼 -->
 							<span class="float-right">
 								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${market.likes}</span>
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart"> <span class="likeCnt">${market.likes}</span>
 								</button>
 							</span>
 
@@ -245,35 +255,56 @@
       
       <button type="button" class="btn btn-info float-right"><a href="#" class="writeBtn">글쓰기</a></button>
 
+			<div class="padding">
+				<c:set var="firstPage" value="?cp=1" />
+				<c:set var="lastPage" value="?cp=${mpInfo.maxPage}" />
 
-			<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-
-				<c:if test="${mpInfo.currentPage > mpInfo.pageSize}">
-					<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
-					<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
-				</c:if>
-
-
-				<!-- 페이지 목록 -->
-				<c:forEach var="page" begin="${mpInfo.startPage}" end="${mpInfo.endPage}">
-					<c:choose>
-						<c:when test="${mpInfo.currentPage == page }">
-							<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
-						</c:when>
-
-						<c:otherwise>
-							<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
+				<fmt:parseNumber var="c1" value="${(mpInfo.currentPage - 1) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+				<c:set var="prevPage" value="?cp=${prev}" />
 
 
-				<c:if test="${next <= mpInfo.maxPage}">
-					<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
-					<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
-				</c:if>
-			</ul>
-			</nav>
+				<fmt:parseNumber var="c2" value="${(mpInfo.currentPage + 9) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+				<c:set var="nextPage" value="?cp=${next}" />
+
+
+
+				<div class="container d-flex justify-content-center">
+					<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+						<nav>
+							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+								<c:if test="${mpInfo.currentPage > mpInfo.pageSize}">
+									<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+									<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+								</c:if>
+
+
+								<!-- 페이지 목록 -->
+								<c:forEach var="page" begin="${mpInfo.startPage}" end="${mpInfo.endPage}">
+									<c:choose>
+										<c:when test="${mpInfo.currentPage == page }">
+											<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+										</c:when>
+
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+
+								<c:if test="${next <= mpInfo.maxPage}">
+									<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+									<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+								</c:if>
+							</ul>
+						</nav>
+
+					</div>
+				</div>
+			</div>
 
 
 			<div class="row">
@@ -298,12 +329,41 @@
 <jsp:include page="../common/footer.jsp"/>
 
 <script>
-$(".marketNo").on("click", function(){
-	var marketNo = $(this).closest('.no').children().eq(0).text();
-	console.log(marketNo);
-	var marketViewURL = "${contextPath}/market/"+marketNo;
-	location.href = marketViewURL; 
-});
+	
+	var temp =[];
+  temp[0] = "";
+  temp[1] = "";
+  
+  var cg;
+  var sort;
+
+	$(".marketNo").on("click", function(){
+		var marketNo = $(this).closest('.no').children().eq(0).text();
+		console.log(marketNo);
+		var marketViewURL = "${contextPath}/market/"+marketNo;
+		location.href = marketViewURL; 
+	});
+
+
+/* 	$(".cg").on("click", function(){
+		cg ="";
+		cg = $(this).text();
+		temp[0] = cg;
+		console.log(cg);
+		console.log(temp);
+	});
+	
+	$(".sort").on("click", function(){
+		sort ="";
+		sort = $(this).text();
+		temp[1] = sort;
+		console.log(sort);
+		console.log(temp);
+	});
+ */
+
+ $()
+
 </script>
 </body>
 </html>

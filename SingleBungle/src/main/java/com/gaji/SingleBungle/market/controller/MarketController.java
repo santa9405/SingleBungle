@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,9 @@ import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.market.model.service.MarketService;
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
+import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -32,16 +35,43 @@ public class MarketController {
 	
 	@RequestMapping("list")
 	public String marketList(@RequestParam(value= "cp", required = false, defaultValue="1")  
-								int cp, Model model) {
+								int cp, Model model, @ModelAttribute("loginMember") Member loginMember,
+								RedirectAttributes ra) {
+		String url = null;		
 		
-		MarketPageInfo mpInfo = service.getPageInfo(cp);
+		if (loginMember != null) {
+			if (loginMember.getMemberGrade().charAt(0) != 'F') {
+				swalIcon = "error";
+				swalTitle = "사고팔고 게시판은 1등급부터 이용할 수 있습니다.";
+				url = "redirect:/";
+			} else {
+				MarketPageInfo mpInfo = service.getPageInfo(cp);
+
+				List<Market> mList = service.selectList(mpInfo);
+
+				List<MarketLike> likeInfo = service.selectLike(loginMember.getMemberNo());
+				System.out.println(likeInfo);
+
+				model.addAttribute("mpInfo", mpInfo);
+				model.addAttribute("mList", mList);
+				model.addAttribute("likeInfo", likeInfo);
+
+				url = "market/marketList";
+
+			}
+		} else {
+			
+			swalIcon = "error";
+			swalTitle = "로그인 후 이용해주세요.";
+			url = "redirect:/";
+		}
 		
-		List<Market> mList = service.selectList(mpInfo);
-		
-		model.addAttribute("mpInfo", mpInfo);
-		model.addAttribute("mList", mList);
-		return  "market/marketList";
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		return url;
 	}
+	
+	
 	
 	@RequestMapping("{marketNo}") 
 	public String marketView(@PathVariable int marketNo,
@@ -52,7 +82,7 @@ public class MarketController {
 		String url = null;
 		
 		if (market != null) {
-//			
+			
 //			List<CafeAttachment> attachmentList = service.selectAttachmentList(marketNo);
 //			
 //			if (attachmentList != null && !attachmentList.isEmpty()) {

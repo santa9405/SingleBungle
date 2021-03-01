@@ -3,6 +3,7 @@ package com.gaji.SingleBungle.market.model.service;
 import java.util.List;
 
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 
 public interface MarketService {
@@ -24,5 +25,11 @@ public interface MarketService {
 	 * @return market
 	 */
 	Market selectMarket(int marketNo);
+
+	/** 좋아요 목록 조회 Service
+	 * @param memberNo
+	 * @return
+	 */
+	List<MarketLike> selectLike(int memberNo);
 
 }

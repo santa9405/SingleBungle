@@ -7,21 +7,26 @@ public class MarketLike {
 	public MarketLike() {
 	}
 
+	
 	public int getMemberNo() {
 		return memberNo;
 	}
+
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 
-	public int getBoardNo() {
+
+	public int getMarketNo() {
 		return marketNo;
 	}
 
-	public void setBoardNo(int marketNo) {
+
+	public void setMarketNo(int marketNo) {
 		this.marketNo = marketNo;
 	}
+
 
 	@Override
 	public String toString() {
