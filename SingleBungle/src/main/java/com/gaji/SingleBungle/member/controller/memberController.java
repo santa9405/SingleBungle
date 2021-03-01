@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.member.model.service.MemberService;
@@ -18,6 +20,8 @@ import com.gaji.SingleBungle.member.model.vo.Member;
 @RequestMapping("/member/*")
 @SessionAttributes({"loginMember"}) // Model에 추가된 데이터 중 key 값이 해당 어노테이션에 적혀있는 값과 일치하는 데이터를 session scope로 이동.
 public class memberController {
+	
+	// sweet alert 메세지 전달용 변수 선언
 	private String swalIcon = null;
 	private String swalTitle = null;
 	private String swalText = null;
@@ -101,6 +105,13 @@ public class memberController {
 		return "redirect:" + url;
 	}
 	
+	// 로그아웃 Controller
+	@RequestMapping("logout")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		
+		return "redirect:/"; // 메인 화면으로 재요청
+	}
 	
 	// 회원가입
 	@RequestMapping("signUp")
@@ -151,6 +162,15 @@ public class memberController {
 	@RequestMapping("mypagePwUpdate")
 	public String mypagePwUpdate() {
 		return "member/mypagePwUpdate";
+	}
+	
+	@ExceptionHandler(Exception.class) // 모든 예외를 처리하겠다
+	public String etcException(Exception e, Model model) {
+		// 특정 예외를 제외한 나머지 예외 처리
+		
+		e.printStackTrace(); // 예외 내용 출력
+		model.addAttribute("errorMsg", "회원 관련 서비스 처리 중 오류 발생");
+		return "common/errorPage";
 	}
 
 }
