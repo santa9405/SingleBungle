@@ -33,13 +33,13 @@
 </head>
 <body id="page-top">
 
-	<c:if test="${!empty swalTitle}">
+	<%-- <c:if test="${!empty swalTitle}">
 		<script>
 			swal({icon : "${swalIcon}",
 				 title : "${swalTitle}",
 				 text : "${swalText}"});
 		</script>
-	</c:if>
+	</c:if> --%>
 	
 	<%-- ---------------------- 로그인(임시) ---------------------- --%>
 	<c:choose>
