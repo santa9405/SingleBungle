@@ -81,6 +81,7 @@ public class adminController {
 		
 		int type=4;
 		APageInfo pInfo = service.getPageInfo(cp,type);
+		pInfo.setLimit(6);
 		List<ABoard> eventList = service.selectList(pInfo, type);
 		
 		if (eventList != null && !eventList.isEmpty()) { // 寃뚯떆湲� 紐⑸줉 議고쉶 �꽦怨� �떆
@@ -98,10 +99,99 @@ public class adminController {
 		return "admin/eventList";
 	}
 	
-	@RequestMapping("eventView")
-	public String eventView() {
-		return "admin/eventView";
+	@RequestMapping("event/{boardNo}")
+	public String eventView(@PathVariable("boardNo") int boardNo,
+			Model model, @RequestHeader(value="referer",required=false) String referer,
+			RedirectAttributes ra) {
+		
+		
+		int type=4;
+		ABoard board = service.selectBoard(boardNo,type);
+		
+		String url = null;
+		
+		if(board!=null) {  //  상세 조회 성공 시
+					
+					// 상세 조회 성공한 게시물의 이미지 목록을 조회하는 Service 호출
+					List<AAttachment> attachmentList = service.selectAttachmentList(boardNo);
+					
+					if(attachmentList !=null & !attachmentList.isEmpty()) {
+						model.addAttribute("attachmentList",attachmentList);
+					}
+					
+					model.addAttribute("board",board);
+					url = "admin/eventView";
+				}else { 
+					
+					if(referer == null) {// 이전 요청 주소가 없는 경우(ex. 북마크나 , 주소창으로 바로 접근을 했을 때)
+						url="redirect:../";
+					}else {// 이전 요청 주소가 있는 경우(ex. 사이트에서 루트를 타고 정상적으로 접근 했을 때)
+						url = "redirect:" + referer;
+					}
+					ra.addFlashAttribute("swalIcon","error");
+					ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+				}
+				return url;
 	}
+	
+	
+	@RequestMapping("eventInsert")
+	public String eventInsert() {
+		return "admin/eventInsert";
+	}
+	
+	
+	// 게시글 등록Controller
+			@RequestMapping("eventInsertAction")
+			public String eventInsertAction(@ModelAttribute ABoard board, 
+									@ModelAttribute("loginMember") Member loginMember,
+									@RequestParam(value="images", required=false) List<MultipartFile> images,
+									HttpServletRequest request, RedirectAttributes ra) {
+									// @ModelAttribute Board board == categoryName,boardTitle, boardContent 가져옴
+									// @RequestParam(value="images", required=false) List<MultipartFile> images
+									// -> <input type="file" name="images"> 태그를 모두 얻어와 images라는  List에 매핑
+				
+				
+				// map을 이용하여 필요한 데이터 모두 담기
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("boardTitle", board.getBoardTitle());
+				map.put("boardContent", board.getBoardContent()); // name 은 categoryName 이지만 value는 코드로 되어있다.
+
+				String savePath = null;
+				
+				savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
+				
+				System.out.println(images);
+				
+				// 게시글 map, 이미지 images, 저장경로 savePath
+				// 게시글 삽입 Service 호출
+				int result = service.insertEvent(map, images, savePath);
+				
+				String url = null;
+				
+				// 게시글 삽입 결과에 따른 View 연결 처리
+				if(result>0) {
+					swalIcon= "success";
+					swalTitle= "게시글 등록 성공";
+					url = "redirect:event/"+result;
+					
+					// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
+					request.getSession().setAttribute("returnListURL", "../");
+					
+				}else {
+					swalIcon="error";
+					swalTitle = "게시글 등록 실패";
+					url = "redirect:noticeInsert";
+				}
+				
+				ra.addFlashAttribute("swalIcon",swalIcon);
+				ra.addFlashAttribute("swalTitle",swalTitle);
+				
+				return url;
+			}
+	
+	
+	
 	
 	@RequestMapping("faqInsert")
 	public String faqInsert() {
@@ -190,6 +280,7 @@ public class adminController {
 		
 		int type=3;
 		APageInfo pInfo = service.getPageInfo(cp,type);
+		pInfo.setLimit(10);
 		List<ABoard> noticeList = service.selectList(pInfo, type);
 		
 		if (noticeList != null && !noticeList.isEmpty()) { // 寃뚯떆湲� 紐⑸줉 議고쉶 �꽦怨� �떆
@@ -228,6 +319,7 @@ public class adminController {
 					
 					if(attachmentList !=null & !attachmentList.isEmpty()) {
 						model.addAttribute("attachmentList",attachmentList);
+						System.out.println("attahmentList : " + attachmentList);
 					}
 					
 					model.addAttribute("board",board);

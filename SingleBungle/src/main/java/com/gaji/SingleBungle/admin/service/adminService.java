@@ -25,4 +25,6 @@ public interface adminService {
 
 	AAttachment insertImage(MultipartFile uploadFile, String savePath);
 
+	int insertEvent(Map<String, Object> map, List<MultipartFile> images, String savePath);
+
 }

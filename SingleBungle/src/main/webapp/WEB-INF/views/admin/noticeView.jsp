@@ -76,14 +76,14 @@
                 <div id="boardContent">
                    <%-- ${board.boardContent} --%>
 					<%-- JSTL을 이용한 개행문자 처리 --%>
-					<c:forEach var="at" items="${attachmentList}" varStatus="vs">
+					<%-- <c:forEach var="at" items="${attachmentList}" varStatus="vs">
 			                    <c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}"/>
 			                    		
-				                <div <c:if test="${vs.index == 0}"> active</c:if>">
+				                <div>
 				                    <img class="d-block w-100 boardImg" src="${src}" />
 				                    <input type="hidden" value="${at.fileNo}">
 				                </div>
-	                </c:forEach>
+	                </c:forEach> --%>
 					
 					
 					<% pageContext.setAttribute("newLine", "\n"); %>
