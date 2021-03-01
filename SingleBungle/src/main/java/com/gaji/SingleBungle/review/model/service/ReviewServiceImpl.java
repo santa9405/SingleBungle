@@ -1,10 +1,12 @@
 package com.gaji.SingleBungle.review.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.review.model.dao.ReviewDAO;
 import com.gaji.SingleBungle.review.model.vo.Review;
@@ -50,6 +52,35 @@ public class ReviewServiceImpl implements ReviewService   {
 			}
 		}
 		return review;
+	}
+
+	
+	
+	
+	// 조회수 상위 3 게시글 조회
+	@Override
+	public List<Review> reviewListTop3() {
+		return dao.reviewListTop3();
+	}
+
+	
+	
+	
+	
+	// 게시글 등록
+	@Override
+	public int insertReview(Map<String, Object> map, List<MultipartFile> images, String savePath) {
+		int result = 0; //결과 저장
+		
+		// 게시글 번호 얻어오기
+		int boardNo = dao.selectNextNo();
+		
+		// 게시글 삽입
+		
+		
+		
+		
+		return 0;
 	}
 
 }

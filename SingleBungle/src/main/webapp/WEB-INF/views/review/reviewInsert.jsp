@@ -14,7 +14,7 @@
 <style>
 .container {
 	border: 1px solid;
-	padding: 19px 27px 30px;
+	padding: 19px 27px 15px;
 	box-sizing: border-box;
 	border-radius: 2px;
 	border-color: #efefef;
@@ -33,10 +33,9 @@
 	outline: none;
 }
 
-.note-editor{
-         width : 100% !important;
-      } 
-
+.note-editor {
+	width: 100% !important;
+}
 </style>
 </head>
 <body>
@@ -53,38 +52,63 @@
 
 
 
-	<div class="container">
-		<div class="row">
+	<div class="container" style="margin-bottom: 5px;">
+		<div class="row ">
 
 			<div class="col-md-12">
-				<div class="row">
-					<div class="col-md-4">
-						<select class="form-control div small" id="category" name="categoryName" style="width:150px;">
-							<option value="10">가구</option>
-							<option value="20">생활용품</option>
-							<option value="30">전자기기</option>
-							<option value="40">기타</option>
-						</select>
+				<form class="text-center" action="reviewInsert" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-4">
+								<select class="form-control div small" id="category" name="categoryName" style="width: 150px;">
+									<option value="10">가구</option>
+									<option value="20">생활용품</option>
+									<option value="30">전자기기</option>
+									<option value="40">기타</option>
+								</select>
+							</div>
+							<div class="col-md-12 py-2">
+								<input class="titleArea" placeholder="제목을 적어주세요." autocomplete="off"></input>
+								<hr>
+							</div>
+						</div>
+
+						<!-- 내용 -->
+						<div class="form-group">
+							<textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;"></textarea>
+						</div>
+
+
+						<div class="text-center" style="margin-bottom: 10px;">
+							<button type="submit" class="btn btn-success">등록</button>
+							<a class="btn btn-success" href="${sessionScope.returnListURL}">취소</a>
+						</div>
 					</div>
-					<div class="col-md-12 py-2">
-						<input class="titleArea" placeholder="제목을 적어주세요."></input>
-						<hr>
-					</div>
-				</div>
 
-				<!-- 내용 -->
-				<div class="form-group">
-					<textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;"></textarea>
-				</div>
-
-
-				<div class="text-center" style="margin-bottom:10px;">
-					<button type="submit" class="btn btn-success">등록</button>
-					<a class="btn btn-success" href="${sessionScope.returnListURL}">취소</a>
-				</div>
+				</form>
 			</div>
 		</div>
-</div>
-		<jsp:include page="../common/footer.jsp" />
+	</div>
+	<jsp:include page="../common/footer.jsp" />
+
+
+	<script>
+		// 유효성 검사
+		function validate(){
+			if($(".titleArea").val().trim().length ==0){
+				alert("제목을 입력해 주세요.");
+				$(".titleArea").focus();
+				return false;
+			}
+			
+			
+			if($("#summernote").val().trim().length ==0){
+				alert("내용을 입력해 주세요.");
+				$(".summernote").focus();
+				return false;
+			}
+		}
+		
+		</script>
 </body>
 </html>

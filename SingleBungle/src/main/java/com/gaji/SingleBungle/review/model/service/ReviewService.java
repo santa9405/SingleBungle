@@ -1,6 +1,9 @@
 package com.gaji.SingleBungle.review.model.service;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
@@ -28,5 +31,22 @@ public interface ReviewService {
 	 * @return review
 	 */
 	Review selectReview(int boardNo);
+
+
+	
+	/** 조회수 상위 3 게시글 조회
+	 * @return list
+	 */
+	List<Review> reviewListTop3();
+
+
+
+	/** 게시글 등록 _+ 파일 업로드 Service
+	 * @param map
+	 * @param images
+	 * @param savePath
+	 * @return result
+	 */
+	int insertReview(Map<String, Object> map, List<MultipartFile> images, String savePath);
 
 }
