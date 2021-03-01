@@ -1,20 +1,27 @@
 package com.gaji.SingleBungle.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.admin.service.adminService;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -123,6 +130,64 @@ public class adminController {
 	public String noticeInsert() {
 		return "admin/noticeInsert";
 	}
+	
+	
+	// 게시글 등록Controller
+		@RequestMapping("noticeInsertAction")
+		public String insertAction(@ModelAttribute ABoard board, 
+								@ModelAttribute("loginMember") Member loginMember,
+								@RequestParam(value="images", required=false) List<MultipartFile> images,
+								HttpServletRequest request, RedirectAttributes ra) {
+								// @ModelAttribute Board board == categoryName,boardTitle, boardContent 가져옴
+								// @RequestParam(value="images", required=false) List<MultipartFile> images
+								// -> <input type="file" name="images"> 태그를 모두 얻어와 images라는  List에 매핑
+			
+			
+			// map을 이용하여 필요한 데이터 모두 담기
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("boardTitle", board.getBoardTitle());
+			map.put("boardContent", board.getBoardContent());
+			map.put("categoryCode",board.getCategoryCode()); // name 은 categoryName 이지만 value는 코드로 되어있다.
+			
+			//System.out.println(board);
+			//map.put("boardType",type);
+			
+			
+	
+			String savePath = null;
+			
+			savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
+			
+			// System.out.println(savePath);
+					
+			// 게시글 map, 이미지 images, 저장경로 savePath
+			// 게시글 삽입 Service 호출
+			int result = service.insertNotice(map, images, savePath);
+			
+			String url = null;
+			
+			// 게시글 삽입 결과에 따른 View 연결 처리
+			if(result>0) {
+				swalIcon= "success";
+				swalTitle= "게시글 등록 성공";
+				url = "redirect:"+result;
+				
+				// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
+				request.getSession().setAttribute("returnListURL", "../");
+				
+			}else {
+				swalIcon="error";
+				swalTitle = "게시글 등록 실패";
+				url = "redirect:noticeInsert";
+			}
+			
+			ra.addFlashAttribute("swalIcon",swalIcon);
+			ra.addFlashAttribute("swalTitle",swalTitle);
+			
+			return url;
+		}
+	
+	
 	
 	@RequestMapping("noticeList")
 	public String noticeListView(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model) {
