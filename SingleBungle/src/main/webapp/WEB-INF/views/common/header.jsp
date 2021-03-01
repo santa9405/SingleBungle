@@ -32,7 +32,29 @@
    	</style>
 </head>
 <body id="page-top">
-
+	
+	<%-- ---------------------- 로그인(임시) ---------------------- --%>
+	<c:choose>
+		<%-- 로그인이 되어있지 않은 경우 --%>
+		<c:when test="${empty sessionScope.loginMember }">
+     		<a class="nav-link" href="${contextPath}/member/login">Login</a>
+		</c:when>
+		
+		<%-- 로그인이 되어있는 경우 --%>
+		<c:otherwise>
+			${loginMember.memberGrade} 등급
+			<br>
+			
+	      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberName}</a>
+	      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
+		</c:otherwise>
+	</c:choose>
+	
+	~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~
+	<br>
+	<%-- ---------------------- 로그인(임시) ---------------------- --%>
+	
+	
 	<a class="nav-link" href="${contextPath}/findFriend/insert">친구찾기 게시글 작성</a>
 	<a class="nav-link" href="${contextPath}/findFriend/list">친구찾기 목록 조회</a>
 	<a class="nav-link" href="${contextPath}/findFriend/view">친구찾기 상세 조회</a>
