@@ -38,11 +38,9 @@
 	<a class="nav-link" href="${contextPath}/findFriend/view">친구찾기 상세 조회</a>
 	
 	<a class="nav-link" href="${contextPath}/board/list/1" style="color:blue;">자유게시판 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/board/insert" style="color:blue;">자유게시판 게시글 작성</a>
 	<a class="nav-link" href="${contextPath}/board/update" style="color:blue;">자유게시판 게시글 수정</a>
 	
 	<a class="nav-link" href="${contextPath}/cafe/list" style="color:hotpink;">맛집게시판 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/cafe/insert" style="color:hotpink;">맛집게시판 게시글 작성</a>
 	<a class="nav-link" href="${contextPath}/cafe/update" style="color:hotpink;">맛집게시판 게시글 수정</a>
 	
 	<a class="nav-link" href="${contextPath}/market/list" style="color:orange;">사고팔고 목록 조회</a>
