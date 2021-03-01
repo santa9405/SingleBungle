@@ -23,7 +23,6 @@ public class FindFriendPageInfo {
 		this.listCount = listCount;
 		makePageInfo();
 	}
-	
 
 	public FindFriendPageInfo(int currentPage, int listCount, int limit, int pageSize) {
 		super();
@@ -103,11 +102,11 @@ public class FindFriendPageInfo {
 	// 페이징 처리에 필요한 값을 계산하는 메소드
 	private void makePageInfo() {
 		
-		maxPage = (int)Math.ceil(( (double)listCount / limit ));
+		maxPage = (int)Math.ceil(( (double)listCount / limit));
 		
 		startPage = (currentPage-1)/pageSize * pageSize + 1;
 		
-		endPage = startPage + pageSize + 1;
+		endPage = startPage + pageSize - 1;
 		
 		if(maxPage > endPage) {
 			endPage = startPage + pageSize - 1;

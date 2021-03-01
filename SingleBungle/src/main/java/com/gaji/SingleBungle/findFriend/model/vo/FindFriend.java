@@ -19,12 +19,14 @@ public class FindFriend {
 	private String boardStatus;		// 삭제 여부
 	private int categoryCd;			// 카테고리 코드
 	private int memNo;				// 회원 번호
+	private String nickname;		// 닉네임
+	private String categoryNm;		// 카테고리 이름
 	
 	public FindFriend() { }
 
 	public FindFriend(int friendNo, String friendTitle, String friendContent, String location1, String location2,
 			Date meetingDate, Timestamp meetingTime, String gender, int capacity, Timestamp createDt, int readCount,
-			String boardStatus, int categoryCd, int memNo) {
+			String boardStatus, int categoryCd, int memNo, String nickname, String categoryNm) {
 		super();
 		this.friendNo = friendNo;
 		this.friendTitle = friendTitle;
@@ -40,6 +42,8 @@ public class FindFriend {
 		this.boardStatus = boardStatus;
 		this.categoryCd = categoryCd;
 		this.memNo = memNo;
+		this.nickname = nickname;
+		this.categoryNm = categoryNm;
 	}
 
 	public int getFriendNo() {
@@ -154,13 +158,29 @@ public class FindFriend {
 		this.memNo = memNo;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getCategoryNm() {
+		return categoryNm;
+	}
+
+	public void setCategoryNm(String categoryNm) {
+		this.categoryNm = categoryNm;
+	}
+
 	@Override
 	public String toString() {
 		return "FindFriend [friendNo=" + friendNo + ", friendTitle=" + friendTitle + ", friendContent=" + friendContent
 				+ ", location1=" + location1 + ", location2=" + location2 + ", meetingDate=" + meetingDate
 				+ ", meetingTime=" + meetingTime + ", gender=" + gender + ", capacity=" + capacity + ", createDt="
 				+ createDt + ", readCount=" + readCount + ", boardStatus=" + boardStatus + ", categoryCd=" + categoryCd
-				+ ", memNo=" + memNo + "]";
+				+ ", memNo=" + memNo + ", nickname=" + nickname + ", categoryNm=" + categoryNm + "]";
 	}
-	
+
 }
