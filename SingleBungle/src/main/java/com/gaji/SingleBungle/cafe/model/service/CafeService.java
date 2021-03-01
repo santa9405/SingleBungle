@@ -1,6 +1,9 @@
 package com.gaji.SingleBungle.cafe.model.service;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
@@ -38,6 +41,38 @@ public interface CafeService {
 	 * @return attachmentList
 	 */
 	public abstract List<CafeAttachment> selectAttachmentList(int cafeNo);
+
+	/** 게시글 삽입 (+ 파일 업로드) Service
+	 * @param map
+	 * @param images
+	 * @param savePath
+	 * @return result
+	 */
+	public abstract int insertCafe(Map<String, Object> map, List<MultipartFile> images, String savePath);
+
+	/** 게시글 삭제 Service
+	 * @param cafe
+	 * @return result
+	 */
+	public abstract int deleteCafe(Cafe cafe);
+
+	/** 게시글 검색 목록 페이징 Service
+	 * @param map
+	 * @return cpInfo
+	 */
+	public abstract CafePageInfo getSearchPageInfo(Map<String, Object> map);
+ 
+	/** 게시글 검색 목록 조회 Service
+	 * @param map
+	 * @param cpInfo
+	 * @return cList
+	 */
+	public abstract List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo);
+
+	/** 조회수 상위 3 게시글 조회 Service
+	 * @return list
+	 */
+	public abstract List<Cafe> cafeListTop3();
 	
 	
 }

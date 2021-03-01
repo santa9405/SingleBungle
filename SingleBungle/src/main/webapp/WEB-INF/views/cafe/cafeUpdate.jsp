@@ -20,6 +20,10 @@
 		width: 80px;
 		line-height: 40px;
 	}
+	
+	.note-editor{
+     width : 100% !important;
+	} 
 </style>
 </head>
 <body>

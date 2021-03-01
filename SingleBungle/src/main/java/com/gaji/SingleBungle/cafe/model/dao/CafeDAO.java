@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.cafe.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -71,6 +72,63 @@ public class CafeDAO {
 	public List<CafeAttachment> selectAttachmentList(int cafeNo) {
 		return sqlSession.selectList("cafeMapper.selectAttachmentList", cafeNo);
 	}
+
+
+	/** 다음 게시글 번호 얻어오기 DAO
+	 * @return cafeNo
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("cafeMapper.selectNextNo");
+	}
+
+
+	/** 게시글 삽입 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertBoard(Map<String, Object> map) {
+		return sqlSession.insert("cafeMapper.insertBoard", map);
+	}
+
+
+	/** 게시글 삭제 DAO
+	 * @param cafe
+	 * @return result
+	 */
+	public int deleteCafe(Cafe cafe) {
+		return sqlSession.update("cafeMapper.deleteCafe", cafe);
+	}
+
+	/** 검색 게시글 수 조회 DAO
+	 * @param map
+	 * @return 
+	 */
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("cafeMapper.getSearchListCount", map);
+	}
+
+	/** 게시글 검색 목록 조회 DAO
+	 * @param map
+	 * @param bpInfo
+	 * @return cList
+	 */
+	public List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo) {
+		int offset = (cpInfo.getCurrentPage() -1) * cpInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, cpInfo.getLimit());
+		
+		return sqlSession.selectList("cafeMapper.selectSearchList", map, rowBounds);
+	}
+
+ 
+	/** 조회수 상위 3 게시글 조회 DAO
+	 * @return list
+	 */
+	public List<Cafe> cafeListTop3() {
+		return sqlSession.selectList("cafeMapper.cafeListTop3");
+	}
+	
+	
 
 
 

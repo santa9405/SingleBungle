@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -60,6 +61,52 @@ public class BoardDAO {
 	 */
 	public List<BoardAttachment> selectAttachmentList(int boardNo) {
 		return sqlSession.selectList("boardMapper.selectAttachmentList", boardNo);
+	}
+	
+	/** 다음 게시글 번호 얻어오기 DAO
+	 * @return boardNo
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("boardMapper.selectNextNo");
+	}
+
+	/** 게시글 삽입 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertBoard(Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertBoard", map);
+	}
+
+	
+	
+	/** 게시글 삭제 DAO
+	 * @param board
+	 * @return result
+	 */
+	public int deleteBoard(Board board) {
+		return sqlSession.update("boardMapper.deleteBoard", board);
+	}
+
+	/** 검색 게시글 수 조회 DAO
+	 * @param map
+	 * @return 
+	 */
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.getSearchListCount", map);
+	}
+
+	/** 게시글 검색 목록 조회 DAO
+	 * @param map
+	 * @param bpInfo
+	 * @return bList
+	 */
+	public List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo) {
+		int offset = (bpInfo.getCurrentPage() -1) * bpInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, bpInfo.getLimit());
+		
+		return sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
 	}
 	
 	

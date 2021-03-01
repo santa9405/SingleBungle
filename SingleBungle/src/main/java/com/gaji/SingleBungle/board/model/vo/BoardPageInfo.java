@@ -17,6 +17,17 @@ public class BoardPageInfo {
 	
 	public BoardPageInfo() {}
 	
+	
+	
+	public BoardPageInfo(int currentPage, int listCount) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		
+		// 값을 입력 받은 후 계산 진행
+		makePageInfo();
+	}
+
 	public BoardPageInfo(int currentPage, int listCount, int boardType) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;

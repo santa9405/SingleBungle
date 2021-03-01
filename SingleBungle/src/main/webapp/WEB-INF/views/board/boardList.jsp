@@ -39,6 +39,11 @@
 }
 
 /* 페이징바 */
+.col-md-4 {
+  flex: none !important;
+  max-width: none !important;
+}
+
 .flex {
 	-webkit-box-flex: 1;
 	-ms-flex: 1 1 auto;
@@ -133,7 +138,15 @@
 						
 													<tr>
 														<td>${board.boardNo}</td>
-														<td>${board.categoryName}</td>
+														<td>
+														<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+				                    <c:if test="${board.categoryCode == '11'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
+				                    <c:if test="${board.categoryCode == '12'}">background-color: gray;</c:if>
+				                    <c:if test="${board.categoryCode == '13'}">background-color: rgb(135, 222, 150);</c:if>
+				                    <c:if test="${board.categoryCode == '14'}">background-color: navy;</c:if>
+				                    <c:if test="${board.categoryCode == '15'}">background-color: rgb(245, 91, 125);</c:if>
+				                    <c:if test="${board.categoryCode == '16'}">background-color: burlywood;</c:if> '>${board.categoryName}</div>
+														</td>
 														<td>${board.boardTitle}</td>
 														<td>${board.nickname}</td>
 														<td>${board.readCount}</td>
@@ -150,37 +163,44 @@
 																</c:otherwise>
 															</c:choose>
 														</td>
-														<td>좋아요수(보류)</td>
+														<td>${board.likeCount}</td>
 													</tr>
 												</c:forEach>
 											</c:if>
 										</tbody>
                   </table>
-                  <%-- 로그인이 되어있는 경우 --%>
-<%-- 									<c:if test="${!empty loginMember }">
+									<%-- 로그인이 되어있는 경우 --%>
+									<%-- <c:if test="${!empty loginMember }"> --%>
+										<a class="btn btn-success float-right" href="${contextPath}/board/insert">글쓰기</a>
+									<%-- </c:if> --%>
 									
-									</c:if> --%>
-									
-                  <div class="text-right"><button type="button" class="btn btn-success">글쓰기</button></div>
-                  
                   <!--------------------------------- pagination  ---------------------------------->
+                  
+	                <c:choose>
+										<c:when test="${!empty param.sk && !empty param.sv}">
+											<c:url var="pageUrl" value="/search"/>
+											
+											<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
+										</c:when>
+										
+										<c:otherwise>
+											<c:url var="pageUrl" value="/list"/>
+										</c:otherwise>
+									</c:choose>
 
 									<div class="padding">
-										<%-- 주소 조합 작업 --%>
-										<c:url var="pageUrl" value="${bpInfo.boardType}?"/>
 									
-										<!-- 화살표에 들어갈 주소를 변수로 생성 -->
-										<c:set var="firstPage" value="${pageUrl}cp=1" />
-										<c:set var="lastPage" value="${pageUrl}cp=${bpInfo.maxPage}" />
+										<c:set var="firstPage" value="?cp=1${searchStr}" />
+										<c:set var="lastPage" value="?cp=${bpInfo.maxPage}${searchStr}" />
 					
 										<fmt:parseNumber var="c1" value="${(bpInfo.currentPage - 1) / 10 }" integerOnly="true" />
 										<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
-										<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+										<c:set var="prevPage" value="?cp=${prev}${searchStr}" />
 					
 					
 										<fmt:parseNumber var="c2" value="${(bpInfo.currentPage + 9) / 10 }" integerOnly="true" />
 										<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-										<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+										<c:set var="nextPage" value="?cp=${next}${searchStr}" />
 					
 										<div class="container d-flex justify-content-center">
 											<div class="col-md-4 col-sm-6 grid-margin stretch-card">
@@ -201,7 +221,7 @@
 																</c:when>
 					
 																<c:otherwise>
-																	<li class="page-item"><a class="page-link" href="${pageUrl}cp=${page}" data-abc="true">${page}</a></li>
+																	<li class="page-item"><a class="page-link" href="?cp=${page}${searchStr}" data-abc="true">${page}</a></li>
 																</c:otherwise>
 															</c:choose>
 														</c:forEach>
@@ -219,27 +239,16 @@
 											</div>
 										</div>
 									</div>
-
-
-				<!--        <nav>
-                    <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                      <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                      <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                      <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                    </ul>
-                  </nav> -->
+									
+									
                   
                   <!-- 검색창 -->
                   <div class="search">
-                    <form action="#" method="GET">
+                    <form action="${contextPath}/board/search" method="GET">
                     <select name="sk" id="searchOption" style="width:100px; height:36px; display:inline-block;">
                       <option value="title">제목</option>
                       <option value="writer">작성자</option>
                       <option value="titcont">제목+내용</option>
-                      <option value="category">카테고리</option>
                     </select>
                     <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
                     <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
@@ -250,29 +259,33 @@
     </div>
     <jsp:include page="../common/footer.jsp"/>
     
+    <%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
+		<c:set var="returnListURL" value="${contextPath}/board/list/?cp=${bpInfo.currentPage}" scope="session" />
+    
     <script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		
 		$("#list-table td").on("click", function(){
 			var boardNo = $(this).parent().children().eq(0).text();
-										// td			tr				td			첫번째(게시글번호)
-										
-			// 게시글 상세조회 요청 주소 조합
-			// 게시글 목록 : 	/spring/board/list/1
-			// 상세조회 :		/spring/board/1/500
-			
-			// 절대경로
-			// var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo;
-												//			/spring		/board/					1					/500
-												
-			// 상대경로
-			var boardViewURL = "../${bpInfo.boardType}/"+boardNo;
-			
+
+			var boardViewURL = "${contextPath}/board/" + boardNo;
 			
 			location.href = boardViewURL;
 			
 		});
-    
+		
+		// 검색 내용이 있을 경우 검색창에 해당 내용을 작성해두는 기능
+		(function(){
+			var searchKey = "${param.sk}";
+			var searchValue = "${param.sv}";
+			$("select[name=sk] > option").each(function(index, item){
+				if( $(item).val() == searchKey ){
+					$(item).prop("selected", true);
+				}
+			});
+			$("input[name=sv]").val(searchValue);
+		})();
+		
     </script>
 </body>
 </html>

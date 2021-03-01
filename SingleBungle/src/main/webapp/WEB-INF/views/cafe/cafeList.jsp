@@ -59,6 +59,11 @@
 }
 
 /* 페이징바 */
+.col-md-4 {
+  flex: none !important;
+  max-width: none !important;
+}
+
 .flex {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
@@ -105,7 +110,7 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
   <div class="container">
-    <div class="px-lg-5">
+   <!--  <div class="px-lg-5"> -->
 	      <!-- 게시판 이름/카테고리 -->
 	      <div class="row py-5">
 	        <div class="col-lg-12 mx-auto">
@@ -147,12 +152,18 @@
 											<div class="viewArea">
 												<img class="icon" src="${contextPath}/resources/images/view.png" /> ${cafe.readCount}
 											</div>
+											<div class="viewArea">
+												<img class="icon" src="${contextPath}/resources/images/like1.png" /> ${cafe.likeCount}
+											</div>
 										</div>
 										<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
 											<p class="small mb-0">
 												<span class="font-weight-bold price">${cafe.nickname}</span>
 											</p>
-											<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">${cafe.categoryName}</div>
+											<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+											<c:if test="${cafe.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
+                    	<c:if test="${cafe.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
+                    	<c:if test="${cafe.categoryCode == '3'}">background-color: burlywood;</c:if> '>${cafe.categoryName}</div>
 										</div>
 									</div>
 								</div>
@@ -163,43 +174,96 @@
     
       </div>
       
-            <%-- 로그인이 되어있는 경우 + 회원등급 2이상('S') --%>
-<%-- 				<c:if test="${!empty loginMember }">
-									
-						</c:if> --%>
-
-      <div class="text-right"><button type="button" class="btn btn-success">글쓰기</button></div>
+			<%-- 로그인이 되어있고 회원 2등급 이상일 경우 !=T--%>
+			<%-- <c:if test="${!empty loginMember }"> --%>
+				<a class="btn btn-success float-right" href="${contextPath}/cafe/insert">글쓰기</a>
+			<%-- </c:if> --%>
       
       <!--------------------------------- pagination  ---------------------------------->
       
-      <nav>
-        <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-          <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-        </ul>
-      </nav>
+	    <c:choose>
+				<c:when test="${!empty param.sk && !empty param.sv}">
+					<c:url var="pageUrl" value="/search"/>
+				
+					<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
+				</c:when>
+
+			<c:otherwise>
+				<c:url var="pageUrl" value="/list"/>
+			</c:otherwise>
+		</c:choose>
+      
+			<div class="padding">
+			
+				<c:set var="firstPage" value="?cp=1${searchStr}" />
+				<c:set var="lastPage" value="?cp=${cpInfo.maxPage}${searchStr}" />
+
+				<fmt:parseNumber var="c1" value="${(cpInfo.currentPage - 1) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+				<c:set var="prevPage" value="?cp=${prev}${searchStr}" />
+
+
+				<fmt:parseNumber var="c2" value="${(cpInfo.currentPage + 9) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+				<c:set var="nextPage" value="?cp=${next}${searchStr}" />
+
+				<div class="container d-flex justify-content-center">
+					<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+						<nav>
+							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+								<c:if test="${cpInfo.currentPage > cpInfo.pageSize}">
+									<!-- 첫 페이지로 이동(<<) -->
+									<li class="page-item"><a class="page-link" href="${firstPage}" data-abc="true">&laquo;</a></li>
+									<!-- 이전 페이지로 이동 (<) -->
+									<li class="page-item"><a class="page-link" href="${prevPage}" data-abc="true">&lt;</a></li>
+								</c:if>
+								
+								<!-- 페이지 목록 -->
+								<c:forEach var="page" begin="${cpInfo.startPage}" end="${cpInfo.endPage}">
+									<c:choose>
+										<c:when test="${cpInfo.currentPage == page }">
+											<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+										</c:when>
+
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" href="?cp=${page}${searchStr}" data-abc="true">${page}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								
+								<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
+								<c:if test="${next <= cpInfo.maxPage}">
+									<!-- 다음 페이지로 이동 (>) -->
+									<li class="page-item"><a class="page-link" href="${nextPage}" data-abc="true">&gt;</a></li>
+									<!-- 마지막 페이지로 이동(>>) -->
+									<li class="page-item"><a class="page-link" href="${lastPage}" data-abc="true">&raquo;</a></li>
+								</c:if>
+							</ul>
+						</nav>
+
+					</div>
+				</div>
+			</div>
 
 			<!-- 검색창 -->
       <div class="search">
-        <form action="#" method="GET">
+        <form action="${contextPath}/cafe/search" method="GET">
         <select name="sk" id="searchOption" style="width:100px; height:36px; display:inline-block;">
           <option value="title">제목</option>
           <option value="writer">작성자</option>
           <option value="titcont">제목+내용</option>
-          <option value="category">카테고리</option>
         </select>
         <input type="text" name="sv" class="form-control " style="width: 25%; display: inline-block;">
         <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
         </form>
       </div>
       
-    </div>
+ <!--    </div> -->
   </div>
   <jsp:include page="../common/footer.jsp"/>
+  
+	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
+	<c:set var="returnListURL" value="${contextPath}/cafe/list/?cp=${cpInfo.currentPage}" scope="session" />
   
   <script>
 	// 게시글 상세보기 기능 (jquery를 통해 작업)
@@ -208,7 +272,7 @@
 		var cafeNo = $(this).children(".p-4").children().eq(0).text();
 									
 		// 상대경로
-		var cafeViewURL = "${contextPath}/cafe/"+cafeNo;
+		var cafeViewURL = "${contextPath}/cafe/" + cafeNo;
 		
 		// console.log(cafeNo);
 		
