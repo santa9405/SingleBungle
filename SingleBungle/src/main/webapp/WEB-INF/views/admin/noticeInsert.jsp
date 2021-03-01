@@ -52,7 +52,7 @@
                 <h4>공지사항 작성</h4>
                 <hr>
 
-                <form action="insertAction" method="post">
+                <form action="noticeInsertAction" method="post" role="form" onsubmit="return validate();">
 
                     <div class="form-inline mb-2">
                         <label class="input-group-addon mr-3 insert-label">제목</label>
@@ -67,9 +67,9 @@
                               required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
-                        <button type="button" class="btn btn-secondary mb-3">취소</button>
-                    </div>
+                        <button type="submit" class="btn btn-secondary mb-3 btn-warning">등록</button>
+                        <a class="btn btn-success float-right" href="${sessionScope.returnListURL}">취소</a>
+                    </div> 
                 </form>
             </div>
         </div>
@@ -77,7 +77,20 @@
     <jsp:include page="../common/footer.jsp"/>
     
     <script>
+ // 유효성 검사
+	function validate() {
+		if ($("#title").val().trim().length == 0) {
+			alert("제목을 입력해 주세요.");
+			$("#title").focus();
+			return false;
+		}
 
+		if ($("#content").val().trim().length == 0) {
+			alert("내용을 입력해 주세요.");
+			$("#content").focus();
+			return false;
+		}
+	}
     </script>
 </body>
 </html>

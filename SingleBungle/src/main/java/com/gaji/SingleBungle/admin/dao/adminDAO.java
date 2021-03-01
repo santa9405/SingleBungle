@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -44,5 +45,17 @@ public class adminDAO {
 
 	public List<AAttachment> selectAttachmentList(int boardNo) {
 		return sqlSession.selectList("adminMapper.selectAttachmentList", boardNo);
+	}
+
+	public int selectNextNo() {
+		return sqlSession.selectOne("adminMapper.selectNextNo");
+	}
+
+	public int insertBoard(Map<String, Object> map) {
+		return sqlSession.insert("adminMapper.insertBoard",map);
+	}
+
+	public int insertAttachmentList(List<AAttachment> uploadImages) {
+		return sqlSession.insert("adminMapper.insertAttachmentList", uploadImages);
 	}
 }
