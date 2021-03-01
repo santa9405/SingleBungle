@@ -33,13 +33,13 @@
 </head>
 <body id="page-top">
 
-	<%-- <c:if test="${!empty swalTitle}">
+	<c:if test="${!empty swalTitle}">
 		<script>
 			swal({icon : "${swalIcon}",
 				 title : "${swalTitle}",
 				 text : "${swalText}"});
 		</script>
-	</c:if> --%>
+	</c:if>
 	
 	<%-- ---------------------- 로그인(임시) ---------------------- --%>
 	<c:choose>
@@ -66,7 +66,7 @@
 	<a class="nav-link" href="${contextPath}/findFriend/insert">친구찾기 게시글 작성</a>
 	<a class="nav-link" href="${contextPath}/findFriend/list">친구찾기 목록 조회</a>
 	
-	<a class="nav-link" href="${contextPath}/board/list/1" style="color:blue;">자유게시판 목록 조회</a>
+	<a class="nav-link" href="${contextPath}/board/list" style="color:blue;">자유게시판 목록 조회</a>
 	<a class="nav-link" href="${contextPath}/board/update" style="color:blue;">자유게시판 게시글 수정</a>
 	
 	<a class="nav-link" href="${contextPath}/cafe/list" style="color:hotpink;">맛집게시판 목록 조회</a>
