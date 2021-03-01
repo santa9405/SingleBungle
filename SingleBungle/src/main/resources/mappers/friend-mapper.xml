@@ -95,9 +95,9 @@
    </select>
    
    <!-- 게시글 상세 조회 -->
-   <select id="selectBoard" parameterType="Friend" resultType="friend_rm">
+   <!-- <select id="selectBoard" parameterType="Friend" resultType="friend_rm">
    		SELECT FRIEND_NO, FRIEND_TITLE, FRIEND_CONTENT, NICKNAME, 
-   </select>
+   </select> -->
    
    <!-- 다음 게시글 번호 조회 -->
    <select id="selectNextBoardNo" resultType="_int">
