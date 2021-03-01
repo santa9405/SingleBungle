@@ -224,7 +224,7 @@
 		<%-- --------------------------------------------- pagination --------------------------------------------- --%>
 		
 		<%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
-		<%-- <c:choose>
+		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
 				<c:url var="pageUrl" value="/search"/>
 				
@@ -235,7 +235,7 @@
 				<c:url var="pageUrl" value="/list"/>
 			</c:otherwise>
 		</c:choose>
-		 --%>
+		
 		 
 		<div class="padding">
 			<%-- 화살표에 들어갈 주소를 변수로 생성 --%>
