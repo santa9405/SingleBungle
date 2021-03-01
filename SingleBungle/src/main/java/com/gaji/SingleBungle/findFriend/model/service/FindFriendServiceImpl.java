@@ -179,6 +179,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 					
 					if(result == uploadImages.size()) {
 						result = nextBoardNo; // result에 nextBoardNo 저장
+						
 					}else { // 파일 정보를 DB에 삽입하는데 실패했을 때
 						throw new InsertAttachmentFailException("파일 정보 DB 삽입 실패");
 						

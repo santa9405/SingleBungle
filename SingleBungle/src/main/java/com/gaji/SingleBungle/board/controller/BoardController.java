@@ -143,7 +143,7 @@ public class BoardController {
 			url = "redirect:" + result;
 			
 			// 목록 버튼 경로
-			request.getSession().setAttribute("returnListURL", "../list/");
+			request.getSession().setAttribute("returnListURL", "../list");
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";

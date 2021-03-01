@@ -38,6 +38,28 @@ public class BoardDAO {
 		
 		return sqlSession.selectList("boardMapper.selectList", bpInfo, rowBounds);
 	}
+	
+	/** 검색 게시글 수 조회 DAO
+	 * @param map
+	 * @return 
+	 */
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.getSearchListCount", map);
+	}
+
+	/** 게시글 검색 목록 조회 DAO
+	 * @param map
+	 * @param bpInfo
+	 * @return bList
+	 */
+	public List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo) {
+		int offset = (bpInfo.getCurrentPage() -1) * bpInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, bpInfo.getLimit());
+		
+		return sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
+	}
+
 
 	/** 게시글 상세조회 DAO
 	 * @param temp
@@ -77,6 +99,14 @@ public class BoardDAO {
 	public int insertBoard(Map<String, Object> map) {
 		return sqlSession.insert("boardMapper.insertBoard", map);
 	}
+	
+	/** 파일 정보 삽입 DAO
+	 * @param uploadImages
+	 * @return
+	 */
+	public int insertAttachmentList(List<BoardAttachment> uploadImages) {
+		return sqlSession.insert("boardMapper.insertAttachmentList", uploadImages);
+	}
 
 	
 	
@@ -88,26 +118,6 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteBoard", board);
 	}
 
-	/** 검색 게시글 수 조회 DAO
-	 * @param map
-	 * @return 
-	 */
-	public int getSearchListCount(Map<String, Object> map) {
-		return sqlSession.selectOne("boardMapper.getSearchListCount", map);
-	}
-
-	/** 게시글 검색 목록 조회 DAO
-	 * @param map
-	 * @param bpInfo
-	 * @return bList
-	 */
-	public List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo) {
-		int offset = (bpInfo.getCurrentPage() -1) * bpInfo.getLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, bpInfo.getLimit());
-		
-		return sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
-	}
 	
 	
 
