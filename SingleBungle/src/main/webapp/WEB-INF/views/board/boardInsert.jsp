@@ -55,7 +55,7 @@
                     <div class="form-group row">
                         <label for="category" class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
-	                        <select	class="form-control div small" id="category" name="categoryName" style="width: 150px; height: 40px;" required>
+	                        <select	class="form-control div small" id="category" name="categoryCode" style="width: 150px; height: 40px;" required>
 	                            <option value="11">여행</option>
 	                            <option value="12">영화</option>
 	                            <option value="13">일상</option>
