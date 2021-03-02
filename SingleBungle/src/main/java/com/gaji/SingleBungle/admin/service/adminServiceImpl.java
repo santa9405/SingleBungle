@@ -407,6 +407,31 @@ public class adminServiceImpl implements adminService{
 			return dao.deleteBoard(boardNo);
 		}
 
+		@Override
+		public List<ABoard> selectFaqList(int type) {
+			return dao.selectFaqList(type);
+		}
+
+		
+		
+		@Override
+		public int insertFaqAction(Map<String, Object> map) {
+			int result =0; // 최종 결과 저장 변수 선언
+			
+			// 1) 게시글 번호 얻어오기 -> SEQ_BNO.NEXTVAL
+			int boardNo = dao.selectNextNo();
+			
+			// 2) 게시글 삽입
+			if(boardNo>0) { // 다음 게시글 번호를 얻어온 경우
+				map.put("boardNo", boardNo); // map에 boardNo 추가
+				map.put("boardCode", 5);
+
+				// 게시글 삽입 DAO 메소드 호출
+				result = dao.insertBoard(map);
+			}
+			return result;
+		}
+
 
 
 }

@@ -136,10 +136,9 @@ public class adminController {
 	}
 	
 	
-	@RequestMapping("eventInsert")
-	public String eventInsert() {
-		return "admin/eventInsert";
-	}
+	
+	
+	
 	
 	
 	// 게시글 등록Controller
@@ -199,10 +198,67 @@ public class adminController {
 		return "admin/faqInsert";
 	}
 	
+	
+	// 게시글 등록Controller
+	@RequestMapping("insertFaqAction")
+	public String insertFaqAction(@ModelAttribute ABoard board, 
+				@RequestParam(value="categoryCode") int categoryCode,
+							HttpServletRequest request, RedirectAttributes ra) {
+
+		System.out.println(categoryCode);
+		System.out.println(board);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("boardTitle", board.getBoardTitle());
+		map.put("boardContent", board.getBoardContent());
+		map.put("categoryCode", categoryCode);
+		
+		// 게시글 map, 이미지 images, 저장경로 savePath
+		// 게시글 삽입 Service 호출
+		int result = service.insertFaqAction(map);
+		
+		String url = null;
+		
+		// 게시글 삽입 결과에 따른 View 연결 처리
+		if(result>0) {
+			swalIcon= "success";
+			swalTitle= "게시글 등록 성공";
+			url = "redirect:faqView";
+			
+			// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
+			request.getSession().setAttribute("returnListURL", "../");
+			
+		}else {
+			swalIcon="error";
+			swalTitle = "게시글 등록 실패";
+			url = "redirect:noticeInsert";
+		}
+		
+		ra.addFlashAttribute("swalIcon",swalIcon);
+		ra.addFlashAttribute("swalTitle",swalTitle);
+
+		return url;
+	}
+
+
+	@RequestMapping("eventInsert")
+	public String eventInsert() {
+		return "admin/eventInsert";
+	}
+	
+	
 	@RequestMapping("faqView")
-	public String faqView() {
+	public String faqView(Model model) {
+		
+		int type=5;
+		List<ABoard> board = service.selectFaqList(type);
+
+		model.addAttribute("board", board);
+		
 		return "admin/faqView";
 	}
+	
+	
 	
 	@RequestMapping("inquiryInsert")
 	public String inquiryInsert() {
@@ -320,7 +376,6 @@ public class adminController {
 					
 					if(attachmentList !=null & !attachmentList.isEmpty()) {
 						model.addAttribute("attachmentList",attachmentList);
-						System.out.println("attahmentList : " + attachmentList);
 					}
 					
 					model.addAttribute("board",board);

@@ -29,4 +29,8 @@ public interface adminService {
 
 	int deleteBoard(int boardNo);
 
+	List<ABoard> selectFaqList(int type);
+
+	int insertFaqAction(Map<String, Object> map);
+
 }

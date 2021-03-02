@@ -62,4 +62,8 @@ public class adminDAO {
 	public int deleteBoard(int boardNo) {
 		return sqlSession.update("adminMapper.deleteBoard", boardNo);
 	}
+
+	public List<ABoard> selectFaqList(int type) {
+		return sqlSession.selectList("adminMapper.selectFaqList", type);
+	}
 }
