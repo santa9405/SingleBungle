@@ -56,7 +56,10 @@ public class adminDAO {
 	}
 
 	public int insertAttachmentList(List<AAttachment> uploadImages) {
-		System.out.println(uploadImages);
 		return sqlSession.insert("adminMapper.insertAttachmentList", uploadImages);
+	}
+
+	public int deleteBoard(int boardNo) {
+		return sqlSession.update("adminMapper.deleteBoard", boardNo);
 	}
 }

@@ -27,4 +27,6 @@ public interface adminService {
 
 	int insertEvent(Map<String, Object> map, List<MultipartFile> images, String savePath);
 
+	int deleteBoard(int boardNo);
+
 }

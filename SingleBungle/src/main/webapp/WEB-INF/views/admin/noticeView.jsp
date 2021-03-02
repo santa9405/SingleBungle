@@ -46,6 +46,9 @@
                 width: 100%;
             }
 
+			#boardNo{
+				display : none;
+			}
             
             
         </style>
@@ -61,6 +64,8 @@
                 <div class="boardArea">
                         <div class="row">
                             <div class="col-md-8">
+                            	<span id="boardNo">${board.boardNo}</span>
+                            	<span>${board.boardCode}</span>
                                 <span id="boardTitle">${board.boardTitle }</span>
                             </div>
                             <div class="col-md-4">
@@ -98,8 +103,8 @@
 						<a class="btn btn-success" href="#">목록으로</a>
 
 	                	<!-- 로그인된 회원이 글 작성자인 경우 -->
-							<!-- <a href="${updateUrl}" class="btn btn-success ml-1 mr-1">수정</a>
-							<button id="deleteBtn" class="btn btn-success">삭제</button>  -->
+							<a href="${updateUrl}" class="btn btn-success ml-1 mr-1">수정</a>
+							<a href="../delete?boardNo=${board.boardNo}" class="btn btn-success ml-1 mr-1">삭제</a>
 					</div>
 				</div>
             </div>
@@ -107,5 +112,9 @@
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+    <script>
+    
+    </script>
 </body>
 </html>
