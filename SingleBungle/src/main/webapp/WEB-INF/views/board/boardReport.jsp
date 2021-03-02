@@ -62,7 +62,49 @@
 </body>
 
    <script>   
-
+   var brdNo = "${boardNo}";
+   var memNo = "${memberId}";
+   var target = "${target}";
+   var reportContent = "";
+   var reportCategory;
+   $("#report-btn").on("click", function() {
+       reportCategory = $('input[name=reportCategory]:checked').val();
+       reportContent = $("#report-content").val().trim()
+       console.log(brdNo);
+       console.log(memNo);
+       console.log(target);
+       console.log(reportContent);
+       console.log(reportCategory);
+       if($(':radio[name="reportCategory"]:checked').length < 1){
+           alert('신고유형을 선택해주세요');                        
+           event.preventDefault();
+       } else if(window.confirm("보고 있는 게시글을 신고하시겠습니까?")){
+           $.ajax({
+   		url : "${contextPath}/boardReport.do",
+           data : {"reportCategory" : reportCategory ,
+                   "reportContent" : reportContent,
+                   "brdNo" : brdNo,
+                   "memNo" : memNo,
+                   "target" : target},
+   		type : "post",
+   		success : function(result) {    			
+   			if(result > 0) {
+                   swal({"icon" : "success" , "title" : "신고가 접수되었습니다."}).then(function(){ 
+                   	opener.parent.location.href = "${contextPath}/board/list.do?cp=1"; // 주소 메인으로 넘기기 
+                   	window.close(); 
+                   });
+                  
+   			} else {
+                   swal({"icon" : "error" , "title" : "신고 접수 실패."});
+               }		
+   		}, 
+   		error : function(request, status, error) {
+   	      alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+   		}
+   		
+   	});
+       }
+   });
    </script>
 </body>
 </html>

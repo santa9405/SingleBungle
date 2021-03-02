@@ -25,7 +25,7 @@
 	color: rgb(214, 156, 30);
 }
 
-#img-list:hover, .cafeTitle:hover {
+#img-list:hover, #img-list2:hover, .cafeTitle:hover {
 	cursor: pointer;
 }
 
@@ -130,51 +130,63 @@
 	        </div>
 	      </div>
 	      <!-- End -->
-    
-        <div class="row">
-          <!-- Gallery item -->
-         	<c:if test="${empty cList }">
+
+		<div class="row">
+			<!-- Gallery item -->
+			<c:if test="${empty cList }">
          		존재하는 게시글이 없습니다.
-         	</c:if>
-					<c:if test="${!empty cList }">
-						<c:forEach var="cafe" items="${cList}" varStatus="vs">
-							<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-								<div class="bg-white rounded shadow-sm cafe-list">
-									<div class="embed-responsive embed-responsive-4by3" id="img-list">
-										<img src="${contextPath}/resources/images/cafeTestImg.png" class="img-fluid card-img-top embed-responsive-item">
+      </c:if>
+			<c:if test="${!empty cList }">
+				<c:forEach var="cafe" items="${cList}" varStatus="vs">
+					<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+						<div class="bg-white rounded shadow-sm cafe-list">
+							<div class="embed-responsive embed-responsive-4by3">
+								<c:if test="${!empty thList }">
+									<c:set var="flag" value="true" />
+									<c:forEach items="${thList }" var="th">
+										<c:if test="${th.cafeNo == cafe.cafeNo }">
+											<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-fluid card-img-top embed-responsive-item" id="img-list">
+											<c:set var="flag" value="false" />
+										</c:if>
+									</c:forEach>
+									<c:if test="${flag == 'true'}">
+										<img src="${contextPath}/resources/images/cafeNoImg.png" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
+									</c:if>
+								</c:if>
+							</div>
+
+							<div class="p-4">
+								<span id="cafeNo">${cafe.cafeNo}</span>
+								<h5>
+									<a class="text-dark cafeTitle">${cafe.cafeTitle}</a>
+								</h5>
+								<div class="infoArea float-right">
+									<div class="viewArea">
+										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${cafe.readCount}
 									</div>
-									<div class="p-4">
-										<span id="cafeNo">${cafe.cafeNo}</span>
-										<h5>
-											<a class="text-dark cafeTitle">${cafe.cafeTitle}</a>
-										</h5>
-										<div class="infoArea float-right">
-											<div class="viewArea">
-												<img class="icon" src="${contextPath}/resources/images/view.png" /> ${cafe.readCount}
-											</div>
-											<div class="viewArea">
-												<img class="icon" src="${contextPath}/resources/images/like1.png" /> ${cafe.likeCount}
-											</div>
-										</div>
-										<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-											<p class="small mb-0">
-												<span class="font-weight-bold price">${cafe.nickname}</span>
-											</p>
-											<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+									<div class="viewArea">
+										<img class="icon" src="${contextPath}/resources/images/like1.png" /> ${cafe.likeCount}
+									</div>
+								</div>
+								<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+									<p class="small mb-0">
+										<span class="font-weight-bold price">${cafe.nickname}</span>
+									</p>
+									<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
 											<c:if test="${cafe.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
                     	<c:if test="${cafe.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
                     	<c:if test="${cafe.categoryCode == '3'}">background-color: burlywood;</c:if> '>${cafe.categoryName}</div>
-										</div>
-									</div>
 								</div>
 							</div>
-						</c:forEach>
-					</c:if>
-				<!-- End -->
-    
-      </div>
-      
-			<%-- 로그인이 되어있고 회원 2등급 이상일 경우 !=T--%>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+			<!-- End -->
+
+		</div>
+
+		<%-- 로그인이 되어있고 회원 2등급 이상일 경우 !=T--%>
 			<%-- <c:if test="${!empty loginMember }"> --%>
 				<a class="btn btn-success float-right" href="${contextPath}/cafe/insert">글쓰기</a>
 			<%-- </c:if> --%>

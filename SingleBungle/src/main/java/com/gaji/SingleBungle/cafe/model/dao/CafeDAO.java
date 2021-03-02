@@ -43,9 +43,9 @@ public class CafeDAO {
 	 * @param cList
 	 * @return thList
 	 */
-//	public List<CafeAttachment> selectThumbnailList(List<Cafe> cList) {
-//		return sqlSession.selectList("cafeMapper.selectThumbnailList", cList);
-//	}
+	public List<CafeAttachment> selectThumbnailList(List<Cafe> cList) {
+		return sqlSession.selectList("cafeMapper.selectThumbnailList", cList);
+	}
 
 	/** 게시글 상세조회 DAO
 	 * @param temp
@@ -127,6 +127,24 @@ public class CafeDAO {
 	public List<Cafe> cafeListTop3() {
 		return sqlSession.selectList("cafeMapper.cafeListTop3");
 	}
+
+
+	/** 파일 정보 삽입 DAO
+	 * @param uploadImages
+	 * @return
+	 */
+	public int insertAttachmentList(List<CafeAttachment> uploadImages) {
+		return sqlSession.insert("cafeMapper.insertAttachmentList", uploadImages);
+	}
+
+
+//	/** 조회수 상위 3 게시글 썸네일 조회 DAO
+//	 * @param cafeList
+//	 * @return
+//	 */
+//	public List<CafeAttachment> selectThumbnailList2(List<Cafe> cafeList) {
+//		return sqlSession.selectList("cafeMapper.selectThumbnailList2", cafeList);
+//	}
 	
 	
 

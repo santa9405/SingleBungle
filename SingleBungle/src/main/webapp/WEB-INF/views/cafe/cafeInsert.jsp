@@ -55,10 +55,10 @@
                     <div class="form-group row">
                         <label for="category" class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
-	                        <select	class="form-control div small" id="category" name="categoryName" style="width: 160px; height: 40px;">
-	                            <option value="10">혼밥식당</option>
-	                            <option value="20">맛집추천</option>
-	                            <option value="30">카페</option>
+	                        <select	class="form-control div small" id="category" name="categoryCode" style="width: 160px; height: 40px;">
+	                            <option value="1">혼밥식당</option>
+	                            <option value="2">맛집추천</option>
+	                            <option value="3">카페</option>
 	                        </select>
                         </div>
                     </div>

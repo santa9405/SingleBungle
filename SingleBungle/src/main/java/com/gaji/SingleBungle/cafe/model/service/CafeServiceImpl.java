@@ -1,15 +1,19 @@
 package com.gaji.SingleBungle.cafe.model.service;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gaji.SingleBungle.board.model.exception.BoardInsertAttachmentFailException;
 import com.gaji.SingleBungle.cafe.model.dao.CafeDAO;
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
@@ -37,10 +41,31 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	// 썸네일 목록 조회 Service 구현
-//	@Override
-//	public List<CafeAttachment> selectThumbnailList(List<Cafe> cList) {
-//		return dao.selectThumbnailList(cList);
-//	}
+	@Override
+	public List<CafeAttachment> selectThumbnailList(List<Cafe> cList) {
+		return dao.selectThumbnailList(cList);
+	}
+	
+	// 게시글 검색 목록 페이징 Service 구현
+	@Override
+	public CafePageInfo getSearchPageInfo(Map<String, Object> map) {
+		
+		int listCount = dao.getSearchListCount(map);
+		
+		return new CafePageInfo((int)map.get("cp"), listCount);
+	}
+
+	// 게시글 검색 목록 조회 Service 구현
+	@Override
+	public List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo) {
+		return dao.selectSearchList(map, cpInfo);
+	}
+
+	// 조회수 상위 3 게시글 조회 Service 구현
+	@Override
+	public List<Cafe> cafeListTop3() {
+		return dao.cafeListTop3();
+	}
 	
 	// 게시글 상세 조회 Service 구현
 	@Transactional(rollbackFor = Exception.class)
@@ -78,99 +103,87 @@ public class CafeServiceImpl implements CafeService {
 		
 		int cafeNo = dao.selectNextNo();
 		
-		if(cafeNo > 0) {
+		if (cafeNo > 0) {
 			map.put("cafeNo", cafeNo);
-			
-            String cafeTitle = (String)map.get("cafeTitle");
-            String cafeContent = (String)map.get("cafeContent");
-            
-            // 크로스 사이트 스크립팅 방지 처리 적용
-            cafeTitle = replaceParameter(cafeTitle);
-            cafeContent = replaceParameter(cafeContent);
-            
-            // 처리된 문자열을 다시 map에 세팅
-            map.put("cafeTitle", cafeTitle);
-            map.put("cafeContent", cafeContent);
-            
+
+			result = dao.insertBoard(map);
+
+			if (result > 0) {
+
+				List<CafeAttachment> uploadImages = new ArrayList<CafeAttachment>();
+
+				String filePath = null;
+
+				filePath = "/resources/cafeImages";
+
+				// ---------------------------------------------------- summernote
+
+				Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출 정규표현식
+
+				// SummerNote에 작성된 내용 중 img태그의 src속성의 값을 검사하여 매칭되는 값을 Matcher객체에 저장함.
+				Matcher matcher = pattern.matcher((String)map.get("cafeContent"));
+
+				String fileName = null; // 파일명 변환 후 저장할 임시 참조 변수
+				String src = null; // src 속성값을 저장할 임시 참조 변수
+				int fileLevel = 1;
+
+				// matcher.find() : Matcher 객체에 저장된 값(검사를 통해 매칭된 src 속성 값)에 반복 접근하여 값이 있을 경우
+				// true
+				while (matcher.find()) {
+					src = matcher.group(1); // 매칭된 src 속성값을 Matcher 객체에서 꺼내서 src에 저장
+
+					filePath = src.substring(src.indexOf("/", 2), src.lastIndexOf("/")); // 파일명을 제외한 경로만 별도로 저장.
+
+					fileName = src.substring(src.lastIndexOf("/") + 1); // 업로드된 파일명만 잘라서 별도로 저장.
+
+					// Attachment 객체를 이용하여 DB에 파일 정보를 저장
+					CafeAttachment at = new CafeAttachment(filePath, fileName, fileLevel, cafeNo);
+					uploadImages.add(at);
+					fileLevel++;
+				}
+
+				if (!uploadImages.isEmpty()) { // 업로드된 이미지가 있을 경우
+					// 파일 정보 삽입 DAO 호출
+					result = dao.insertAttachmentList(uploadImages);
+					// result == 삽입된 행의 개수
+
+					// 모든 데이터가 정상 삽입 되었을 경우 --> 서버에 파일 저장
+					if (result == uploadImages.size()) {
+						result = cafeNo;
+
+//						int size = 0;
+//						if (!images.get(0).getOriginalFilename().equals("")) {
+//							size = images.size();
+//						}
+//
+//						for (int i = 0; i < size; i++) {
+//
+//							try {
+//								images.get(uploadImages.get(i).getFileLevel())
+//										.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
+//
+//							} catch (Exception e) {
+//								e.printStackTrace();
+//
+//								throw new BoardInsertAttachmentFailException("파일 서버 저장 실패");
+//							}
+//						}
+
+					} else {
+						throw new BoardInsertAttachmentFailException("파일 정보 DB 삽입 실패");
+					}
+
+				} else { // 업로드된 이미지가 없을 경우
+					result = cafeNo;
+				}
+			}
 		}
-		
-		result = dao.insertBoard(map);
-		
-//      // 게시글 삽입 성공 시 이미지 정보 삽입
-//      if(result > 0) {
-//      	
-//      	List<BoardAttachment> uploadImages = new ArrayList<BoardAttachment>();
-//      	
-//      	String filePath = null;
-//      	
-//      	filePath = "/resources/infoImages";
-//
-//      // ---------------------------------------------------- summernote
-//      
-//			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); //img 태그 src 추출 정규표현식
-//			
-//			// SummerNote에 작성된 내용 중 img태그의 src속성의 값을 검사하여 매칭되는 값을 Matcher객체에 저장함.
-//			Matcher matcher = pattern.matcher((String)map.get("boardContent"));     
-//			 
-//			String fileName = null; // 파일명 변환 후 저장할 임시 참조 변수
-//			String src = null; // src 속성값을 저장할 임시 참조 변수
-//			
-//			// matcher.find() : Matcher 객체에 저장된 값(검사를 통해 매칭된 src 속성 값)에 반복 접근하여 값이 있을 경우 true 
-//			while(matcher.find()){
-//				src =  matcher.group(1); // 매칭된 src 속성값을  Matcher 객체에서 꺼내서 src에 저장 
-//				
-//				filePath = src.substring(src.indexOf("/", 2), src.lastIndexOf("/")); // 파일명을 제외한 경로만 별도로 저장.
-//				
-//				fileName = src.substring(src.lastIndexOf("/") + 1); // 업로드된 파일명만 잘라서 별도로 저장.
-//				
-//				// Attachment 객체를 이용하여 DB에 파일 정보를 저장
-//				BoardAttachment at = new BoardAttachment(filePath, fileName, 1, boardNo);
-//				uploadImages.add(at);
-//			}
-//
-//      // ----------------------------------------------------
-//      if(!uploadImages.isEmpty()) { // 업로드된 이미지가 있을 경우
-//         // 파일 정보 삽입 DAO 호출
-//         result = dao.insertAttachmentList(uploadImages);
-//         // result == 삽입된 행의 개수
-//         
-//         // 모든 데이터가 정상 삽입 되었을 경우 --> 서버에 파일 저장
-//         if(result == uploadImages.size()) {
-//            result = boardNo; // result에 boardNo 저장
-//            
-//            int size = 0;
-//            if( !images.get(0).getOriginalFilename().equals("") ) {
-//          	  size = images.size();
-//            }
-//                              
-//            for(int i=0; i<size; i++) {
-//                  
-//                  try {
-//                     images.get(uploadImages.get(i).getFileLevel())
-//                     .transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
-//                     
-//                  } catch (Exception e) {
-//                     e.printStackTrace();
-//                     
-//                     throw new InsertAttachmentFailException("파일 서버 저장 실패");
-//                     }
-//               }
-//            }
-//            
-//         } else {
-//            throw new InsertAttachmentFailException("파일 정보 DB 삽입 실패");
-//         }
-//      }else { // 업로드된 이미지가 없을 경우
-//      	result = boardNo;
-//      }
-		
-		result = cafeNo;
-		
+
 		return result;
 	}
 	
 	
-	   // 크로스 사이트 스크립트 방지 처리 메소드 ------------------------------------------------------------------------------------------------------
+	   // 크로스 사이트 스크립트 방지 처리 메소드
 	   private String replaceParameter(String param) {
 	      String result = param;
 	      if(param != null) {
@@ -183,7 +196,7 @@ public class CafeServiceImpl implements CafeService {
 	      return result;
 	   }
 	      
-	   // 파일명 변경 메소드 ---------------------------------------------------------------------------------------------------------------------
+	   // 파일명 변경 메소드
 	   public String rename(String originFileName) {
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 	      String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
@@ -198,6 +211,29 @@ public class CafeServiceImpl implements CafeService {
 	         
 	      return date + str + ext;
 	      }
+	   
+	// summernote 업로드 이미지 저장 Service 구현
+	@Override
+	public CafeAttachment insertImage(MultipartFile uploadFile, String savePath) {
+		
+		String fileName = rename(uploadFile.getOriginalFilename());
+		
+		String filePath = "/resources/cafeImages";
+		
+		CafeAttachment at = new CafeAttachment();
+		at.setFilePath(filePath);
+		at.setFileName(fileName);
+		
+		try {
+			uploadFile.transferTo( new File( savePath + "/" + fileName ) );
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			throw new BoardInsertAttachmentFailException("summernote 파일 업로드 실패");
+		}
+		
+		return at;
+	}	
 
 	// 게시글 삭제 Service 구현
 	@Transactional(rollbackFor = Exception.class)
@@ -206,26 +242,13 @@ public class CafeServiceImpl implements CafeService {
 		return dao.deleteCafe(cafe);
 	}
 
-	// 게시글 검색 목록 페이징 Service 구현
-	@Override
-	public CafePageInfo getSearchPageInfo(Map<String, Object> map) {
-		
-		int listCount = dao.getSearchListCount(map);
-		
-		return new CafePageInfo((int)map.get("cp"), listCount);
-	}
+//	// 조회수 상위 3 게시글 썸네일 조회 Service 구현
+//	@Override
+//	public List<CafeAttachment> selectThumbnailList2(List<Cafe> cafeList) {
+//		return dao.selectThumbnailList2(cafeList);
+//	}
 
-	// 게시글 검색 목록 조회 Service 구현
-	@Override
-	public List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo) {
-		return dao.selectSearchList(map, cpInfo);
-	}
 
-	// 조회수 상위 3 게시글 조회 Service 구현
-	@Override
-	public List<Cafe> cafeListTop3() {
-		return dao.cafeListTop3();
-	}	
 
 
 }

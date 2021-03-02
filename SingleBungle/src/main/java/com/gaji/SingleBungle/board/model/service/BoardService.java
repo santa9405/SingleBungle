@@ -24,6 +24,20 @@ public interface BoardService {
 	 * @return bList
 	 */
 	public abstract List<Board> selectList(BoardPageInfo bpInfo);
+	
+	/** 게시글 검색 목록 페이징 Service
+	 * @param map
+	 * @return bpInfo
+	 */
+	public abstract BoardPageInfo getSearchPageInfo(Map<String, Object> map);
+
+
+	/** 게시글 검색 목록 조회 Service
+	 * @param map
+	 * @param bpInfo
+	 * @return bList
+	 */
+	public abstract List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo);
 
 
 	/** 게시글 상세 조회 Service
@@ -44,7 +58,7 @@ public interface BoardService {
 	 * @param savePath
 	 * @return at
 	 */
-	public abstract BoardAttachment inserImage(MultipartFile uploadFile, String savePath);
+	public abstract BoardAttachment insertImage(MultipartFile uploadFile, String savePath);
 
 	/** 게시글 삽입 (+ 파일 업로드) Service
 	 * @param map
@@ -54,27 +68,21 @@ public interface BoardService {
 	 */
 	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> images, String savePath);
 
-
+//	/** 게시글 수정 Service
+//	 * @param updateBoard
+//	 * @param images
+//	 * @param savePath
+//	 * @param deleteImages
+//	 * @return result
+//	 */
+//	public abstract int updateBoard(Board updateBoard, List<MultipartFile> images, String savePath,
+//			boolean[] deleteImages);
+	
 	/** 게시글 삭제 Service
 	 * @param board
 	 * @return result
 	 */
 	public abstract int deleteBoard(Board board);
-
-
-	/** 게시글 검색 목록 페이징 Service
-	 * @param map
-	 * @return bpInfo
-	 */
-	public abstract BoardPageInfo getSearchPageInfo(Map<String, Object> map);
-
-
-	/** 게시글 검색 목록 조회 Service
-	 * @param map
-	 * @param bpInfo
-	 * @return bList
-	 */
-	public abstract List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo);
 
 
 

@@ -26,6 +26,7 @@
 		<result property="filePath" column="FILE_PATH" />
 		<result property="fileName" column="FILE_NM" />
 		<result property="parentBoardNo" column="PARENT_BOARD_NO" />
+		<result property="fileLevel" column="FILE_LEVEL" />
 	</resultMap>
 
 
@@ -125,11 +126,12 @@
 	<!-- 파일 정보 삽입 -->
   <insert id="insertAttachmentList" parameterType="list">
   		INSERT INTO BOARD_FILE
-  		SELECT SEQ_BNO.NEXTVAL, A. FROM (
+  		SELECT SEQ_BNO.NEXTVAL, A.* FROM (
   		
   		<foreach collection="list" item="item" separator="UNION ALL">
   				SELECT #{item.filePath} FILE_PATH,
-  							 #{item.fileName} FILE_NAME,
+  							 #{item.fileName} FILE_NM,
+  							 #{item.fileLevel} FILE_LEVEL,
   							 #{item.parentBoardNo} PARENT_BOARD_NO
   				FROM DUAL
   		</foreach>

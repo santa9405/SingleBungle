@@ -25,6 +25,7 @@ import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
 import com.gaji.SingleBungle.member.model.vo.Member;
+import com.google.gson.Gson;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -49,14 +50,14 @@ public class CafeController {
 		List<Cafe> cList = service.selectList(cpInfo);
 		
 		// 썸네일
-//		if (cList != null && !cList.isEmpty()) { // 게시글 목록 조회 성공 시
-//			List<CafeAttachment> thumbnailList = service.selectThumbnailList(cList);
-//
-//			if (thumbnailList != null) {
-//				model.addAttribute("thList", thumbnailList);
-//			}
-//
-//		}
+		if (cList != null && !cList.isEmpty()) { // 게시글 목록 조회 성공 시
+			List<CafeAttachment> thumbnailList = service.selectThumbnailList(cList);
+
+			if (thumbnailList != null) {
+				model.addAttribute("thList", thumbnailList);
+			}
+
+		}
 		
 		model.addAttribute("cList", cList);
 		model.addAttribute("cpInfo", cpInfo);
@@ -106,6 +107,17 @@ public class CafeController {
 				model.addAttribute("attachmentList", attachmentList);
 			}
 			
+			// 썸네일
+//			if (cafeList != null && !cafeList.isEmpty()) { // 게시글 목록 조회 성공 시
+//				List<CafeAttachment> thumbnailList = service.selectThumbnailList2(cafeList);
+//
+//				if (thumbnailList != null) {
+//					model.addAttribute("thList", thumbnailList);
+//				}
+//
+//			}
+			
+			
 			model.addAttribute("cafe", cafe);
 			model.addAttribute("cafeList", cafeList);
 			url = "cafe/cafeView";
@@ -140,7 +152,7 @@ public class CafeController {
 		map.put("memberNo", loginMember.getMemberNo());
 		map.put("cafeTitle", cafe.getCafeTitle());
 		map.put("cafeContent", cafe.getCafeContent());
-		map.put("categoryName", cafe.getCategoryCode());
+		map.put("categoryCode", cafe.getCategoryCode());
 		map.put("cafeName", cafe.getCafeName());
 		
 		String savePath = null;
@@ -157,7 +169,7 @@ public class CafeController {
 			url = "redirect:" + result;
 			
 			// 목록 버튼 경로
-			request.getSession().setAttribute("returnListURL", "../list");
+			request.getSession().setAttribute("returnListURL", "../list/");
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";
@@ -170,6 +182,23 @@ public class CafeController {
 		return url;
 	}
 	
+	// summernote -----------------------------
+	// summernote에 업로드된 이미지 저장 Controller
+	
+	@ResponseBody
+	@RequestMapping("insertImage")
+	public String insertImage(HttpServletRequest request,
+			 				@RequestParam("uploadFile") MultipartFile uploadFile) {
+		
+		String savePath = request.getSession().getServletContext().getRealPath("resources/cafeImages");
+		
+		CafeAttachment at = service.insertImage(uploadFile, savePath);
+		
+		return new Gson().toJson(at);
+	}
+	
+	
+	
 	// 게시글 수정 화면 전환용 Controller
 	@RequestMapping("{cafeNo}/update")
 	public String cafeUpdate() {
@@ -179,15 +208,6 @@ public class CafeController {
 	// 게시글 수정 Controller
 	@RequestMapping("{cafeNo}/updateAction")
 	public String updateAction() {
-		return null;
-	}
-	
-	// summernote -----------------------------
-	// summernote에 업로드된 이미지 저장 Controller
-	
-	@ResponseBody
-	@RequestMapping("insertImage")
-	public String insertImage() {
 		return null;
 	}
 	

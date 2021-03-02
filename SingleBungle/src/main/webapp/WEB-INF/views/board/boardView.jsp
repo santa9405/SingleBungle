@@ -92,23 +92,6 @@
 
                 <div class="board-content">
                 
-<%--                 	<!-- 이미지 부분 -->
-									<c:if test="${!empty attachmentList}">
-					
-										<div class="carousel slide m-3" id="carousel-325626">
-					
-											<div class="carousel-inner boardImgArea">
-					
-												<c:forEach var="at" items="${attachmentList}" varStatus="vs">
-													<c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}" />
-					
-													<div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
-														<img class="d-block w-100 boardImg" src="${src}" />
-														<input type="hidden" value="${at.fileNo}">
-													</div>
-												</c:forEach>
-											</div> --%>
-                
                 	<!-- Content -->
                 	<%-- JSTL을 이용한 개행문자 처리 --%>
 				

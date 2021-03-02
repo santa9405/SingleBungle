@@ -27,8 +27,25 @@ public interface CafeService {
 	 * @param cList
 	 * @return thList
 	 */
-//	public abstract List<CafeAttachment> selectThumbnailList(List<Cafe> cList);
-
+	public abstract List<CafeAttachment> selectThumbnailList(List<Cafe> cList);
+	
+	/** 게시글 검색 목록 페이징 Service
+	 * @param map
+	 * @return cpInfo
+	 */
+	public abstract CafePageInfo getSearchPageInfo(Map<String, Object> map);
+ 
+	/** 게시글 검색 목록 조회 Service
+	 * @param map
+	 * @param cpInfo
+	 * @return cList
+	 */
+	public abstract List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo);
+	
+	/** 조회수 상위 3 게시글 조회 Service
+	 * @return list
+	 */
+	public abstract List<Cafe> cafeListTop3();
 	
 	/** 게시글 상세 조회 Service
 	 * @param cafeNo
@@ -49,6 +66,13 @@ public interface CafeService {
 	 * @return result
 	 */
 	public abstract int insertCafe(Map<String, Object> map, List<MultipartFile> images, String savePath);
+	
+	/** summernote 업로드 이미지 저장 Service
+	 * @param uploadFile
+	 * @param savePath
+	 * @return at
+	 */
+	public abstract CafeAttachment insertImage(MultipartFile uploadFile, String savePath);
 
 	/** 게시글 삭제 Service
 	 * @param cafe
@@ -56,23 +80,15 @@ public interface CafeService {
 	 */
 	public abstract int deleteCafe(Cafe cafe);
 
-	/** 게시글 검색 목록 페이징 Service
-	 * @param map
-	 * @return cpInfo
-	 */
-	public abstract CafePageInfo getSearchPageInfo(Map<String, Object> map);
- 
-	/** 게시글 검색 목록 조회 Service
-	 * @param map
-	 * @param cpInfo
-	 * @return cList
-	 */
-	public abstract List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo);
+//	/** 조회수 상위 3 게시글 썸네일 조회 Service
+//	 * @param cafeList
+//	 * @return
+//	 */
+//	public abstract List<CafeAttachment> selectThumbnailList2(List<Cafe> cafeList);
 
-	/** 조회수 상위 3 게시글 조회 Service
-	 * @return list
-	 */
-	public abstract List<Cafe> cafeListTop3();
-	
+
+
+
+
 	
 }
