@@ -23,6 +23,7 @@ import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
+import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
 @Controller
@@ -136,11 +137,11 @@ public class FindFriendController {
 	
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
-	@RequestMapping("{type}/insertImage")
+	@RequestMapping("insertImage")
 	public String insertImage(HttpServletRequest request,
 					@RequestParam(value = "uploadFile") MultipartFile uploadFile){
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		String savePath = request.getSession().getServletContext().getRealPath("resources/findFriendImages");
 		
 		FindFriendAttachment at = service.inserImage(uploadFile, savePath);
 		
@@ -151,39 +152,95 @@ public class FindFriendController {
 	// 친구찾기 게시글 등록(+ 파일 업로드) Controller
 	@RequestMapping("insertAction")
 	public String insertAction(@ModelAttribute FindFriend findFriend,
-			/*@ModelAttribute("loginMember") Member loginMember,*/
+			@ModelAttribute("loginMember") Member loginMember,
 			HttpServletRequest request,
 			RedirectAttributes ra) {
 		
-		//FindFriend.setMemNo(loginMember.getMemberNo());
+		findFriend.setMemNo(loginMember.getMemberNo());
 		
 		String savePath 
-			= request.getSession().getServletContext().getRealPath("resources/infoImages");
+			= request.getSession().getServletContext().getRealPath("resources/findFriendImages");
 		
 		int result = service.insertBoard(findFriend, savePath);
 		
 		String url = null;
 		
 		if(result > 0) {
-			//swalIcon = "success";
-			//swalTitle = "게시글 등록 성공";
+			swalIcon = "success";
+			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
+			
+			// 새로 작성한 게시글 상세 조회시 목록으로 버튼 경로 지정하기
+			request.getSession().setAttribute("returnListURL", "list");
+			
 		}else {
-			//swalIcon ="error";
-			//swalTitle ="게시글 등록 실패";
+			swalIcon ="error";
+			swalTitle ="게시글 등록 실패";
 			url = "redirect:insert";
 		}
 		
-		//ra.addFlashAttribute("swalIcon", swalIcon);
-		//ra.addFlashAttribute("swalTitle", swalIcon);
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalIcon);
 		
 		return url;
 	}
 	
 	// 친구찾기 게시글 수정 화면 전환 Controller
-	public String updateView() {
+	@RequestMapping("{friendNo}/update")
+	public String updateView(@PathVariable("friendNo") int friendNo, Model model) {
+		
+		// 1) 게시글 상세 조회
+		FindFriend findFriend = service.selectBoard(friendNo);
+		
+		// 2) 해당 게시글에 포함된 이미지 목록 조회
+		if(findFriend != null) {
+			
+			List<FindFriendAttachment> attachmentList = service.selectAttachmentList(friendNo);
+			model.addAttribute("attachmentList", attachmentList);
+			
+		}
+		
+		model.addAttribute("friendNo", friendNo);
+		
 		return "findFriend/findFriendUpdate";
 	}
+	
+	// 친구찾기 게시글 수정 Controller
+	@RequestMapping("{friendNo}/updateAction")
+	public String updateAction(@PathVariable("friendNo") int friendNo,
+							   @ModelAttribute FindFriend updateBoard,
+							   Model model, RedirectAttributes ra,
+							   HttpServletRequest request) {
+		
+		// friendNo을 updateFriend에 세팅
+		updateBoard.setFriendNo(friendNo);
+		
+		// 파일 저장 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/findFriendImages");
+		
+		// 게시글 수정
+		int result = service.updateBoard(updateBoard);
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../" + friendNo;
+		}else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
+	
+	
+	
 	
 	
 

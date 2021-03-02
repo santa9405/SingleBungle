@@ -50,7 +50,7 @@
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<select class="form-control div small" id="rocation1" name="rocation1" style="width: 150px; height: 40px;" required>
+									<select class="form-control div small" id="location1" name="location1" style="width: 150px; height: 40px;" required>
 										<option value="서울특별시">서울특별시</option>
 										<option value="부산광역시">부산광역시</option>
 										<option value="대구광역시">대구광역시</option>
@@ -73,7 +73,7 @@
 
 								<label for="rocation2" class="input-group-addon col-sm-1 col-form-label">모임장소</label>
 								<div class="col-md-7">
-									<input type="text" class="form-control" id="rocation2" name="rocation2" required>
+									<input type="text" class="form-control" id="location2" name="location2" required>
 								</div>
 							</div>
 						</div>
@@ -129,16 +129,16 @@
 								</div>
 								<label for="gender" class="input-group-addon col-sm-1 col-form-label">성별</label>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="gender" id="female" value="W">
-												<label class="form-check-label" for="online">여자</label>
+											<input class="form-check-input" type="radio" name="gender" id="female" value="W" required>
+												<label class="form-check-label" for="female">여자</label>
 										</div>
 							    		<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="gender" id="male" value="M">
-											<label class="form-check-label" for="offline">남자</label>
+											<label class="form-check-label" for="male">남자</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="gender" id="irrelevant" value="F">
-											<label class="form-check-label" for="offline">무관</label>
+											<label class="form-check-label" for="irrelevant">무관</label>
 										</div>
 							</div>
 						</div>
@@ -151,7 +151,7 @@
 						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required></textarea>
 					</div>
 					<div class="text-center">
-						<button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
+						<button type="submit" class="btn btn-secondary mb-3 btn-warning">등록</button>
 						<button type="button" class="btn btn-secondary mb-3">취소</button>
 					</div>
 				</form>
