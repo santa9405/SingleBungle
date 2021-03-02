@@ -77,5 +77,16 @@
 		FROM MARKET_LIKE 
 		WHERE MEM_NO = #{memberNo}
 	</select>
+	
+	
+	<!-- 좋아요 증가  -->
+	<insert id="increaseLike" parameterType="map">
+		INSERT INTO MARKET_LIKE VALUES (#{memberNo}, #{marketNo})
+	</insert>
+	
+	<!-- 좋아요 감소 -->
+	<delete id="decreaseLike" parameterType="map">
+		DELETE FROM MARKET_LIKE WHERE MEM_NO = #{memberNo} AND MARKET_NO = #{marketNo}
+	</delete>
 
 </mapper>
