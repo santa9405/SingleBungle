@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>친구찾기 게시판 글작성</title>
+<title>친구찾기 게시판 글수정</title>
 <style>
 </style>
 

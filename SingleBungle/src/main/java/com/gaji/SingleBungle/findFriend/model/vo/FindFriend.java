@@ -21,6 +21,7 @@ public class FindFriend {
 	private int memNo;				// 회원 번호
 	private String nickname;		// 닉네임
 	private String categoryNm;		// 카테고리 이름
+	private int likes;				// 좋아요 개수
 	
 	public FindFriend() { }
 
@@ -173,6 +174,14 @@ public class FindFriend {
 	public void setCategoryNm(String categoryNm) {
 		this.categoryNm = categoryNm;
 	}
+	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
 
 	@Override
 	public String toString() {
@@ -180,7 +189,8 @@ public class FindFriend {
 				+ ", location1=" + location1 + ", location2=" + location2 + ", meetingDate=" + meetingDate
 				+ ", meetingTime=" + meetingTime + ", gender=" + gender + ", capacity=" + capacity + ", createDt="
 				+ createDt + ", readCount=" + readCount + ", boardStatus=" + boardStatus + ", categoryCd=" + categoryCd
-				+ ", memNo=" + memNo + ", nickname=" + nickname + ", categoryNm=" + categoryNm + "]";
+				+ ", memNo=" + memNo + ", nickname=" + nickname + ", categoryNm=" + categoryNm + ", likes=" + likes
+				+ "]";
 	}
 
 }
