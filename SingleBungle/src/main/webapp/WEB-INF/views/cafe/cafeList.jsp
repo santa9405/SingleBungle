@@ -141,10 +141,9 @@
 					<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 						<div class="bg-white rounded shadow-sm cafe-list">
 							<div class="embed-responsive embed-responsive-4by3">
-								<c:if test="${!empty thList }">
 									<c:set var="flag" value="true" />
-									<c:forEach items="${thList }" var="th">
-										<c:if test="${th.cafeNo == cafe.cafeNo }">
+									<c:forEach var="th" items="${thList}">
+										<c:if test="${th.cafeNo == cafe.cafeNo}">
 											<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-fluid card-img-top embed-responsive-item" id="img-list">
 											<c:set var="flag" value="false" />
 										</c:if>
@@ -152,7 +151,6 @@
 									<c:if test="${flag == 'true'}">
 										<img src="${contextPath}/resources/images/cafeNoImg.png" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
 									</c:if>
-								</c:if>
 							</div>
 
 							<div class="p-4">
