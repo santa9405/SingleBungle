@@ -199,7 +199,7 @@
 				<div class="px-lg-5">
 				
 				
-					<form action="#" method="GET">
+					<form action="#" method="GET" >
 						<div class="input-group mb-4 col-md-8 searchArea">
 							<input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control" >
 							<div class="input-group-append">
@@ -231,7 +231,7 @@
 					<h2>기본정보  <span id="requiredText">*필수정보</span> </h2> 
 				
 					
-					<form action="#" method="POST">
+					<form action="insertAction" method="POST" enctype="multipart/form-data" role="form">
 					<ul class="insertForm">
 					
 					<!-- 이미지 -->
@@ -244,9 +244,8 @@
 								<ul class="itemImages">
 									<li class="itemImageInsert">
 										<label for="imagesInput">
-											<!-- <img id="camera" src="${contextPath}/resources/images/camera.png"/> -->
 											<span>이미지 등록</span></label>
-											<input id="imagesInput" name="imagesInput" type="file" style="display: none;">
+											<input id="imagesInput" name="imagesInput" type="file" style="display: none;" multiple>
 									</li>
 									
 								</ul>
@@ -369,9 +368,6 @@
 
 
 
-
-
-
 				</div>
 			</div>
 		</div>
@@ -380,6 +376,7 @@
 	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
+		
 
 	</script>
 

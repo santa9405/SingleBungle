@@ -62,6 +62,12 @@ public interface FindFriendService {
 	 */
 	int insertBoard(FindFriend findFriend, String savePath);
 
+	/** 친구찾기 게시글 수정 Service
+	 * @param updateBoard
+	 * @return int
+	 */
+	int updateBoard(FindFriend updateBoard);
+
 	
 
 	

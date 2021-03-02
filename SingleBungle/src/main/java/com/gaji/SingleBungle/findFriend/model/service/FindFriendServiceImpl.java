@@ -90,7 +90,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 		String fileName = rename(uploadFile.getOriginalFilename());
 
 		// 웹상 접근 주소
-		String filePath = "/resources/infoImages/";
+		String filePath = "/resources/findFriendImages/";
 
 		// 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
 		FindFriendAttachment at = new FindFriendAttachment();
@@ -147,7 +147,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 				List<FindFriendAttachment> uploadImages = new ArrayList<FindFriendAttachment>();
 
 				// DB에 저장할 웹상 접근 주소(filePath)
-				String filePath = "/resources/infoImages";
+				String filePath = "/resources/findFriendImages";
 
 				Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img태그 src추출 정규표현식
 
@@ -192,6 +192,28 @@ public class FindFriendServiceImpl implements FindFriendService {
 		}
 
 		return result;
+	}
+
+	// 친구찾기 게시글 수정 Service 수정
+	@Override
+	public int updateBoard(FindFriend updateBoard) {
+		
+		// 게시글 수정
+		//int result = dao.updateBoard(updateBoard);
+		
+		// summernote로 작성된 게시글에 있는 이미지 정보 수정
+		//	-> 게시글 내부 <img> 태그의 src 속성을 얻어와 파일명을 얻어옴.
+		//	-> 수정 전 게시글 이미지와 수정 후 게시글 이미지 파일명을 비교
+		//	--> 새롭게 추가된 이미지, 기존 이미지에서 삭제된 것도 존재
+		//	--> Attachment 테이블에 반영
+		
+		// DB에 저장할 웹상 이미지 접근 경로
+		String filePath = "/resources/findFriendImages";
+		
+		
+			
+		
+		return 0;
 	}
 
 }
