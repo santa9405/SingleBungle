@@ -25,16 +25,26 @@
    	width : 100% !important;
   } 
 </style>
+
+	<!-- summernote 사용 시 필요한 css 파일 추가 -->
+	<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+
 </head>
 <body>
 		<jsp:include page="../common/header.jsp"/>
+		
+		<!-- summernote 사용 시 필요한 js 파일 추가 -->
+		<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+		<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+		<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+	
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 
                 <h4>자유게시판 수정</h4>
 
-                <form action="updateAction" method="post">
+                <form action="updateAction" method="post" enctype="multipart/form-data" name="updateForm" role="form" onsubmit="return validate();">
 
                     <div class="form-group row">
                         <label for="title" class="input-group-addon col-sm-1 insert-label">제목</label>
@@ -60,7 +70,7 @@
 												<div>
 													<label for="content">내용</label>
 												</div>
-                        <textarea class="form-control" id="content" name="boardContent" rows="10" style="resize: none;" required>${board.boardContent}</textarea>
+                        <textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required>${board.boardContent}</textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-success">수정</button>
@@ -74,6 +84,21 @@
 		<jsp:include page="../common/footer.jsp"/>
 		
 		<script>
+		// 유효성 검사
+		function validate() {
+			if ($("#title").val().trim().length == 0) {
+				alert("제목을 입력해 주세요.");
+				$("#title").focus();
+				return false;
+			}
+
+			if ($("#summernote").val().trim().length == 0) {
+				alert("내용을 입력해 주세요.");
+				$("#summernote").focus();
+				return false;
+			}
+		}
+		
 		
 		</script>
 		

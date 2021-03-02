@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
+import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
@@ -42,14 +43,18 @@ public class BoardController {
 
 	// 게시글 목록 조회 Controller
 	@RequestMapping("list")
-	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+							@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
 		
 		BoardPageInfo bpInfo = service.getPageInfo(cp);
 
 		List<Board> bList = service.selectList(bpInfo);
 		
+		List<BoardLike> likeInfo = service.selectLike(loginMember.getMemberNo());
+		
 		model.addAttribute("bList", bList);
 		model.addAttribute("bpInfo", bpInfo);
+		model.addAttribute("likeInfo", likeInfo);
 		
 		return "board/boardList";
 	}
@@ -158,7 +163,7 @@ public class BoardController {
 	
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value = { "insertImage", "{boardNo}/insertImage" })
 	public String insertImage(HttpServletRequest request,
 				 @RequestParam("uploadFile") MultipartFile uploadFile) {
 		
@@ -174,12 +179,10 @@ public class BoardController {
 	@RequestMapping("{boardNo}/update")
 	public String boardUpdate(@PathVariable("boardNo") int boardNo, Model model) {
 		
-		
 		Board board = service.selectBoard(boardNo);
 		
 		if(board != null) {
 			List<BoardAttachment> attachmentList = service.selectAttachmentList(boardNo);
-			
 			model.addAttribute("attachmentList", attachmentList);
 		}
 		
@@ -189,37 +192,35 @@ public class BoardController {
 	}
 	
 	
-//	// 게시글 수정 Controller
-//	@RequestMapping("{boardNo}/updateAction")
-//	public String updateAction(@PathVariable("boardNo") int boardNo,
-//							@ModelAttribute Board updateBoard,
-//							Model model, RedirectAttributes ra, HttpServletRequest request,
-//							@RequestParam("deleteImages") boolean[] deleteImages,
-//		                    @RequestParam(value="images", required=false) List<MultipartFile> images) {
-//		
-//		updateBoard.setBoardNo(boardNo);
-//		
-//		String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
-//		
-//		int result = service.updateBoard(updateBoard,images,savePath,deleteImages);
-//		
-//		String url = null;
-//	      
-//	      if(result > 0) {
-//	         swalIcon = "success";
-//	         swalTitle = "게시글 수정 성공";
-//	         url = "redirect:../" + boardNo;
-//	      }else {
-//	         swalIcon = "error";
-//	         swalTitle = "게시글 수정 실패";
-//	         url = "redirect:" + request.getHeader("referer");
-//	      }
-//	      
-//	      ra.addFlashAttribute("swalIcon", swalIcon);
-//	      ra.addFlashAttribute("swalTitle", swalTitle);
-//
-//	      return url;
-//	}
+	// 게시글 수정 Controller
+	@RequestMapping("{boardNo}/updateAction")
+	public String updateAction(@PathVariable("boardNo") int boardNo,
+							@ModelAttribute Board updateBoard,
+							Model model, RedirectAttributes ra, HttpServletRequest request) {
+		
+		updateBoard.setBoardNo(boardNo);
+		
+		String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
+		
+		int result = service.updateBoard(updateBoard);
+		
+		String url = null;
+	      
+	      if(result > 0) {
+	         swalIcon = "success";
+	         swalTitle = "게시글 수정 성공";
+	         url = "redirect:../" + boardNo;
+	      }else {
+	         swalIcon = "error";
+	         swalTitle = "게시글 수정 실패";
+	         url = "redirect:" + request.getHeader("referer");
+	      }
+	      
+	      ra.addFlashAttribute("swalIcon", swalIcon);
+	      ra.addFlashAttribute("swalTitle", swalTitle);
+
+	      return url;
+	}
 	
 
 	
@@ -251,9 +252,38 @@ public class BoardController {
 		return url;
 	}
 	
+	// 좋아요 증가 Controller
+	@ResponseBody
+	@RequestMapping("increaseLike")
+	public int increaseLike(@RequestParam int boardNo,
+						@ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("boardNo", boardNo);
+		
+		int result = service.increaseLike(map);
+		
+		return result;
+	}
 	
-	
-	
+	// 좋아요 감소 Controller
+	@ResponseBody
+	@RequestMapping("decreaseLike")
+	public int decreaseLike(@RequestParam int boardNo,
+			@ModelAttribute("loginMember") Member loginMember){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("boardNo", boardNo);
+		
+		int result = service.decreaseLike(map);
+		
+		return result;
+		
+	}
 	
 	
 	
