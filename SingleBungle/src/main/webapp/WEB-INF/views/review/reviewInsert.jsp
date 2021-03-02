@@ -56,26 +56,26 @@
 		<div class="row ">
 
 			<div class="col-md-12">
-				<form class="text-center" action="reviewInsert" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
+				<form action="reviewInsert" enctype="multipart/form-data" method="post" role="form" onsubmit="return validate();">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="col-md-4">
-								<select class="form-control div small" id="category" name="categoryName" style="width: 150px;">
-									<option value="10">가구</option>
-									<option value="20">생활용품</option>
-									<option value="30">전자기기</option>
-									<option value="40">기타</option>
+								<select class="form-control div small" id="category" name="categoryCode" style="width: 150px;">
+									<option value="21">가구</option>
+									<option value="22">생활용품</option>
+									<option value="23">전자기기</option>
+									<option value="24">기타</option>
 								</select>
 							</div>
 							<div class="col-md-12 py-2">
-								<input class="titleArea" placeholder="제목을 적어주세요." autocomplete="off"></input>
+								<input class="titleArea" name="boardTitle" placeholder="제목을 적어주세요." autocomplete="off"></input>
 								<hr>
 							</div>
 						</div>
 
 						<!-- 내용 -->
 						<div class="form-group">
-							<textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;"></textarea>
+							<textarea class="form-control" name="boardContent" id="summernote"  rows="10" style="resize: none;"></textarea>
 						</div>
 
 
