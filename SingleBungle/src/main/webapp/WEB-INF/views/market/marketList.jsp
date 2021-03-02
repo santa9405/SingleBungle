@@ -14,139 +14,142 @@
  
 
   <style>
-    body {
-      background: #f4f4f4;
-    }
+body {
+	background: #f4f4f4;
+}
 
-    .boardName {
-      margin-right: 40px;
-    }
+.boardName {
+	margin-right: 40px;
+}
 
-		.category {
-		  text-decoration: none;
-		  color: black;
-		  line-height: 54px;
-		}
-		
-		.category:hover{
-		  text-decoration: none;
-		  color: rgb(214, 156, 30);
-		}
+.category {
+	text-decoration: none;
+	color: black;
+	line-height: 54px;
+}
 
+.category:hover {
+	text-decoration: none;
+	color: rgb(214, 156, 30);
+}
 
-    .priceArea {
-      clear: both;
-    }
+.priceArea {
+	clear: both;
+}
 
-    .row_2 {
-      margin-bottom: 20px;
-    }
+.row_2 {
+	margin-bottom: 20px;
+}
 
-    .writeBtn, .writeBtn:hover {
-      text-decoration: none;
-      color: white;
-    }
-    
-    .text-dark {
-		  display:block;
-		  overflow: hidden;
-		  text-overflow: ellipsis;
-		  white-space: nowrap;
-		}
+.writeBtn, .writeBtn:hover {
+	text-decoration: none;
+	color: white;
+}
 
-	
-	/* 좋아요 */
-	#likeBtn {
-    border: 0px solid #ddd;
-    background-color: rgba(255, 255, 255, 0);
-  }
+.text-dark {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
-   .likeCnt {
-      color: #6c757d;
-   }
-   
-  .like {
-    background-image: url('${contextPath}/resources/img/like2.png');
-    background-repeat: no-repeat;
-  }
-  
-  .searchArea {
-  	margin : auto;
-  }
-  
-  #searchBtn{
-  	background: burlywood;
-  }
-  
-  #searchInput, #searchBtn {
-  	border : 1px solid burlywood;
-  }
+/* 좋아요 */
+#likeBtn {
+	border: 0px solid #ddd;
+	background-color: rgba(255, 255, 255, 0);
+}
 
-    /*  페이징바 css */
-    /* 페이징바 */
+.likeCnt {
+	color: #6c757d;
+}
 
-    .flex {
-      -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-    }
+.like {
+	background-image: url('${contextPath}/resources/img/like2.png');
+	background-repeat: no-repeat;
+}
 
+.searchArea {
+	margin: auto;
+}
 
-    @media (max-width:991.98px) {
-      .padding {
-        padding: 1.5rem;
-      }
-    }
+#searchBtn {
+	background: burlywood;
+}
 
-    @media (max-width:767.98px) {
-      .padding {
-        padding: 1rem;
-      }
-    }
+#searchInput, #searchBtn {
+	border: 1px solid burlywood;
+}
 
-    .container {
-      margin-top: 100px;
-    }
+/*  페이징바 css */
+/* 페이징바 */
+.flex {
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+}
 
-    .pagination,
-    .jsgrid .jsgrid-pager {
-      display: flex;
-      padding-left: 0;
-      list-style: none;
-      border-radius: 0.25rem;
-    }
+@media ( max-width :991.98px) {
+	.padding {
+		padding: 1.5rem;
+	}
+}
 
-    .page-link {
-      color: black;
-    }
+@media ( max-width :767.98px) {
+	.padding {
+		padding: 1rem;
+	}
+}
 
-    .pagination.pagination-rounded-flat .page-item {
-      margin: 0 .25rem;
-    }
+.container {
+	margin-top: 100px;
+}
 
-    .pagination-success .page-item.active .page-link {
-      background: #00c689;
-      border-color: #00c689;
-    }
+.pagination, .jsgrid .jsgrid-pager {
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	border-radius: 0.25rem;
+}
 
-    .pagination.pagination-rounded-flat .page-item .page-link {
-      border: none;
-      border-radius: 50px;x
-    }
-    
-     .banner span {
-				color : #c1c0c1a1;
-			}
-    
-    .marketNo{
-    	cursor: pointer;
-    }
-    
-    .col-md-4 {
-            flex: none !important;
-            max-width: none !important;
-        } 
-  </style>
+.page-link {
+	color: black;
+}
+
+.pagination.pagination-rounded-flat .page-item {
+	margin: 0 .25rem;
+}
+
+.pagination-success .page-item.active .page-link {
+	background: #00c689;
+	border-color: #00c689;
+}
+
+.pagination.pagination-rounded-flat .page-item .page-link {
+	border: none;
+	border-radius: 50px;
+	x
+}
+
+.banner span {
+	color: #c1c0c1a1;
+}
+
+.marketNo {
+	cursor: pointer;
+}
+
+.col-md-4 {
+	flex: none !important;
+	max-width: none !important;
+}
+
+.like2 {
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
+}
+
+</style>
 
 </head>
 <body>
@@ -163,97 +166,101 @@
             </div>
           </div>
         </form>
-				
-				
-      <!-- 게시판 이름/카테고리 -->
-      <div class="row py-5 no-gutters">
-        <div class="col-lg-12 mx-auto">
-          <div class="text-black banner">
-								<h1 class="boardName float-left">사고팔고</h1>
-								<a class="category cg" href="#">전체</a> <span> |</span> <a class="category cg" href="#">팝니다</a> <span> |</span> <a class="category cg" href="#">삽니다</a>
-
-								<div class="listTest float-right">
-									<a class="category sort" href="#">최신순</a> <span> |</span> <a class="category sort" href="#">좋아요순</a> <span> |</span> <a class="category sort" href="#">저가순</a> <span> |</span> <a class="category sort" href="#">고가순</a>
-								</div>
-        <hr>
-          </div>
-        </div>
-      </div>
-      <!-- End -->
- 
-      <div class="row itemArea">
-        <!-- Gallery item -->
-             <c:if test="${!empty likeInfo}" >
-				<c:forEach var="likes" items="${likeInfo}">
-              	<p>${likes.marketNo}</p>
-         </c:forEach>
-</c:if>
-		<c:if test="${empty likeInfo}">씨발 왜 안나와
-		</c:if>
-        <c:if test="${empty mList}">
-        	존재하는 게시글이 없습니다!
-        </c:if>
-        <c:if test="${!empty mList}"> 
-        <c:forEach var="market" items="${mList}" varStatus="vs">
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm no">
-          <span style='visibility: hidden;'>${market.marketNo}</span> 
-            <div class="embed-responsive embed-responsive-4by3" >
-             <img src="${contextPath}/resources/images/testImg.gif" class="img-fluid card-img-top embed-responsive-item marketNo" 
-              <c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>
-              >
-            </div> 
-            <div class="p-4">
-              <h5> <a class="text-dark marketNo">${market.marketTitle}</a></h5>
-              <div class="categoryDetail float-left row_2">
-             		<p class="small text-muted mb-0">
-             				<c:if test="${market.transactionCategory == 1}">삽니다</c:if>
-             				<c:if test="${market.transactionCategory == 2}">팝니다</c:if>
-             		</p>
-                <p class="small text-muted mb-0">${market.categoryNm}</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart"> <span class="likeCnt">${market.likes}</span>
-								</button>
-							</span>
 
 
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">${market.price} 원</span></p> 
-             	<c:if test="${market.transactionStatus == 1}">
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #deb887;">
-								거래중
-								</div>
-								</c:if>
-							<c:if test="${market.transactionStatus == 2}">
-								<div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #e01515ad;">
-								예약중 
-								</div>
-								</c:if>
-							<c:if test="${market.transactionStatus == 3}">
-								<div class="badge badge-info px-3 rounded-pill font-weight-normal" style="background-color: #3596ead6;">
-								거래완료 
-								</div>
-								</c:if>
-								
-								</div>
-              </div>
-            </div>
-          </div>
-        </c:forEach>
-        </c:if>
-        <!-- End -->
-        
-      </div>
+			<!-- 게시판 이름/카테고리 -->
+			<div class="row py-5 no-gutters">
+				<div class="col-lg-12 mx-auto">
+					<div class="text-black banner">
+						<h1 class="boardName float-left">사고팔고</h1>
+						<a class="category cg" href="#">전체</a> <span> |</span> <a
+							class="category cg" href="#">팝니다</a> <span> |</span> <a
+							class="category cg" href="#">삽니다</a>
 
-      
-      <button type="button" class="btn btn-info float-right"><a href="#" class="writeBtn">글쓰기</a></button>
+						<div class="listTest float-right">
+							<a class="category sort" href="#">최신순</a> <span> |</span> <a
+								class="category sort" href="#">좋아요순</a> <span> |</span> <a
+								class="category sort" href="#">저가순</a> <span> |</span> <a
+								class="category sort" href="#">고가순</a>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			<!-- End -->
+
+			<div class="row itemArea">
+				<!-- Gallery item -->
+
+				<c:if test="${empty mList}">존재하는 게시글이 없습니다!</c:if>
+				<c:if test="${!empty mList}">
+					<c:forEach var="market" items="${mList}" varStatus="vs">
+						<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+							<div class="bg-white rounded shadow-sm no">
+								<span style='visibility: hidden;'>${market.marketNo}</span>
+								<div class="embed-responsive embed-responsive-4by3">
+									<img src="${contextPath}/resources/images/testImg.gif"
+										class="img-fluid card-img-top embed-responsive-item marketNo"
+										<c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>>
+								</div>
+								<div class="p-4">
+									<h5>
+										<a class="text-dark marketNo">${market.marketTitle}</a>
+									</h5>
+									<div class="categoryDetail float-left row_2">
+										<p class="small text-muted mb-0">
+											<c:if test="${market.transactionCategory == 1}">삽니다</c:if>
+											<c:if test="${market.transactionCategory == 2}">팝니다</c:if>
+										</p>
+										<p class="small text-muted mb-0">${market.categoryNm}</p>
+									</div>
+
+										
+
+									<!-- 좋아요 버튼 -->
+									<span class="float-right">
+										<button type="button" id="likeBtn">
+											<img src="${contextPath}/resources/images/like1.png"
+												width="15" height="15" id="heart" class='
+													<c:forEach var="like" items="${likeInfo}">
+														<c:if test="${like.marketNo == market.marketNo}">like2</c:if></c:forEach>'>
+													 <span class="likeCnt">${market.likes}</span>
+										</button>
+									</span>
+
+									<div
+										class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
+										<p class="small mb-0">
+											<i class="mr-2"></i><span class="font-weight-bold price">${market.price}
+												원</span>
+										</p>
+										<c:if test="${market.transactionStatus == 1}">
+											<div
+												class="badge badge-info px-3 rounded-pill font-weight-normal"
+												style="background-color: #deb887;">거래중</div>
+										</c:if>
+										<c:if test="${market.transactionStatus == 2}">
+											<div
+												class="badge badge-info px-3 rounded-pill font-weight-normal"
+												style="background-color: #e01515ad;">예약중</div>
+										</c:if>
+										<c:if test="${market.transactionStatus == 3}">
+											<div
+												class="badge badge-info px-3 rounded-pill font-weight-normal"
+												style="background-color: #3596ead6;">거래완료</div>
+										</c:if>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
+				<!-- End -->
+			</div>
+
+
+			<button type="button" class="btn btn-info float-right"><a href="#" class="writeBtn">글쓰기</a></button>
 
 			<div class="padding">
 				<c:set var="firstPage" value="?cp=1" />
@@ -362,7 +369,7 @@
 	});
  */
 
- $()
+
 
 </script>
 </body>
