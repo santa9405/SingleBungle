@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,70 +167,31 @@
 
                 
                 <div class="accordion" id="accordionExample">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h2 class="clearfix mb-0">
-                                <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <i class="fa fa-chevron-circle-down"></i> 아이디/비밀번호를 찾지 못하겠어요
-                                </a>									
-                            </h2>
-                        </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">로그인 페이지에서 이메일 인증 후 아이디/비밀번호 찾기가 가능합니다.</div>
-                        </div>
-                    </div>
+
+                    <c:if test="${!empty board }">
+                  	<c:forEach var="board" items="${board}" varStatus="vs">
                     <div class="card">
                         <div class="card-header" id="headingTwo">
                             <h2 class="mb-0">
-                                <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    <i class="fa fa-chevron-circle-down"></i> 부적절한 게시글을 발견했습니다.
+                                <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${board.boardNo}" aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fa fa-chevron-circle-down"></i> ${board.boardTitle}
                                 </a>
                             </h2>
                         </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div id="collapse${board.boardNo}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                             <div class="card-body">
-                                부적절한 게시글을 남긴 회원에 대하여 등급 강등 및 회원 탈퇴를 진행하고 있습니다.<br>
-                                부적절하다 판단되시는 게시글의 경우, 신고하기를 눌러 신고하여 주시면<br>
-                                관리자가 직접 확인 후 적절한 조치를 취할 예정입니다.
+                                <% pageContext.setAttribute("newLine", "\n"); %>
+								${fn:replace(board.boardContent, newLine , "<br>") }
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                                <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <i class="fa fa-chevron-circle-down"></i> 회원 등급은 어떻게 올리나요?
-                                </a>                     
-                            </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                                저희 싱글벙글은 등급제로 운영되는 페이지로, 회원마다 등급이 상이합니다<br>
-                                LV1 ~ LV3까지 존재하며 활동에 따라 등급이 조정됩니다.<br>
-                                게시글 수, 댓글 수에 따라 관리자가 직접 등업 및 자동 등업으로 진행됩니다. <br>
-                                자세한 사항은 공지사항을 참고 부탁드립니다.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="headingFour">
-                            <h2 class="mb-0">
-                                <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    <i class="fa fa-chevron-circle-down"></i> 힘듭니다...
-                                </a>                               
-                            </h2>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                            <div class="card-body">
-                                요즘 한창 힘든 시기죠...<br>
-                  당신은 혼자가 아닙니다. 옆에 있는 좋은 사람들과 함께 시간을 보내보세요~
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
+                    </c:if>
+                   
                 </div>
                 <hr>
                 <br>
-                <a class="btn btn-success float-right" href="#">글쓰기</a><br><br>
+                <a class="btn btn-success float-right" href="../admin/faqInsert">글쓰기</a><br><br>
                 <div>
                     <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
                      

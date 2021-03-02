@@ -29,6 +29,8 @@
     </style>
 <body>
 <jsp:include page="../common/header.jsp"/>
+<script src="${contextPath }/resources/summernote/js/summernote-lite.js"></script> <!-- 이 코드가 있어야 섬머노트 사용 가능  -->
+   <script src="${contextPath }/resources/summernote/js/summernote-ko-KR.js"></script> <!-- 한글 패치  -->
 
     <div class="container">
         <div class="row">
@@ -37,7 +39,7 @@
                 <h4>FAQ 작성</h4>
                 <hr>
 
-                <form action="insertAction" method="post">
+                <form action="insertFaqAction" method="post" role="form" onsubmit="return validate();">
 
                     <div class="form-inline mb-2">
                         <label class="input-group-addon mr-3 insert-label">질문</label>
@@ -46,10 +48,10 @@
 
                     <div class="mb-2">
                         <label class="input-group-addon mr-3 insert-label">카테고리</label>
-                        <select   class="form-select" id="category" name="categoryName" style="width: 150px; height: 30px;">
-                            <option value="10">이용문의</option>
-                            <option value="20">게시판문의</option>
-                            <option value="30">회원서비스</option>
+                        <select   class="form-select" id="category" name="categoryCode" style="width: 150px; height: 30px;">
+                            <option value="51">이용문의</option>
+                            <option value="52">게시판문의</option>
+                            <option value="53">회원서비스</option>
                         </select>
                     </div>
 
@@ -62,13 +64,51 @@
                             rows="10" style="resize: none;" required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-secondary mb-3 btn-warning">등록</button>
-                        <button type="button" class="btn btn-secondary mb-3">취소</button>
+                        <button type="submit" class="btn btn-secondary mb-3 btn-warning">등록</button>
+                        <a class="btn btn-success float-right" href="${sessionScope.returnListURL}">취소</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+    <script>
+    $('#summernote').summernote({
+        height: 600,          // 기본 높이값
+		width : 1110,
+
+        focus: true,          // 페이지가 열릴때 포커스를 지정함
+
+        lang: 'ko-KR'  ,       // 한국어 지정(기본값은 en-US)
+
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+          ]
+
+
+      });
+
+    
+    function validate() {
+		if ($("#title").val().trim().length == 0) {
+			alert("제목을 입력해 주세요.");
+			$("#title").focus();
+			return false;
+		}
+
+		if ($("#content").val().trim().length == 0) {
+			alert("내용을 입력해 주세요.");
+			$("#content").focus();
+			return false;
+		}
+	}
+
+    
+
+    </script>
 </body>
 </html>

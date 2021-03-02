@@ -128,5 +128,15 @@
   		WHERE BOARD_NO = #{boardNo}
   	</update>
    
+  
 
+	<!-- 게시글 목록 조회 -->
+	<select id="selectFaqList" parameterType="_int" resultMap="board_rm">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT,
+					 CATEGORY_CD, BOARD_CD
+		FROM BOARD
+		WHERE STATUS = 'N'
+		AND BOARD_CD = #{type}
+		ORDER BY BOARD_NO DESC
+	</select>
 </mapper>
