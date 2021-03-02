@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -202,6 +203,30 @@ public class ReviewController {
 	
 	
 
+	// 게시글 삭제
+	@RequestMapping("{boardNo}/delete")
+	public String deleteReview(@PathVariable("boardNo") int boardNo, @ModelAttribute Review review, HttpServletRequest request, RedirectAttributes ra) {
+		
+		review.setBoardNo(boardNo);
+		
+		int result = service.deleteReview(review);
+		
+		String url = null;
+		
+		if(result>0) {
+			swalIcon = "success";
+			swalTitle ="삭제 성공";
+			url = "redirect:../list";
+		}else {
+			swalIcon = "error";
+			swalTitle = "삭제 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon",swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		return url;
+	}
 	
 
 	

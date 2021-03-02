@@ -10,6 +10,7 @@ public class ReviewReply {
 	private String replyStatus;
 	private int replyDepth;
 	private int memNo;
+	private String nickName;
 	private int parentBoardNo;
 	private int parentReplyNo;
 	
@@ -63,6 +64,14 @@ public class ReviewReply {
 		this.memNo = memNo;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public int getParentBoardNo() {
 		return parentBoardNo;
 	}
@@ -82,10 +91,11 @@ public class ReviewReply {
 	@Override
 	public String toString() {
 		return "ReviewReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
-				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo
-				+ ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickName="
+				+ nickName + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
 	}
-	
+
+
 	
 	
 	
