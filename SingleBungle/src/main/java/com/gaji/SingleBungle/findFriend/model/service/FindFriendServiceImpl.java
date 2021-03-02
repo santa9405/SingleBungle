@@ -90,7 +90,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 		String fileName = rename(uploadFile.getOriginalFilename());
 
 		// 웹상 접근 주소
-		String filePath = "/resources/findFriendImages/";
+		String filePath = "/resources/infoImages/";
 
 		// 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
 		FindFriendAttachment at = new FindFriendAttachment();
@@ -147,7 +147,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 				List<FindFriendAttachment> uploadImages = new ArrayList<FindFriendAttachment>();
 
 				// DB에 저장할 웹상 접근 주소(filePath)
-				String filePath = "/resources/findFriendImages";
+				String filePath = "/resources/infoImages";
 
 				Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img태그 src추출 정규표현식
 

@@ -22,8 +22,7 @@
 		<result property="memNo" column="MEM_NO"/>
 		<result property="nickname" column="NICKNAME"/>
 		<result property="categoryNm" column="CATEGORY_NM"/>
-		<result property="likes" column="LIKES"/>
-		
+	 
 	</resultMap>
 	
 	<resultMap type="FriendAttachment" id="fAttachment_rm">
@@ -109,7 +108,6 @@
    		WHERE FRIEND_NO = #{friendNo}
    </update>
    
-   <!-- 게시글에 포함된 이미지 목록 조회 -->
    <select id="selectAttachmentList" parameterType="_int" resultMap="fAttachment_rm">
    		SELECT * FROM FRIEND_FILE
    		WHERE FRIEND_NO = #{friendNo} 
@@ -121,18 +119,18 @@
    </select>
    
    <!-- 게시글 삽입 -->
-   <insert id="insertBoard" parameterType="Friend">
+   <!-- <insert id="insertBoard" parameterType="friend_rm">
    		INSERT INTO FRIEND VALUES
    		(#{friendNo}, #{friendTitle}, #{friendContent}, 
    		 #{location1}, #{location2}, #{meetingDate}, #{meetingTime},
    		 #{gender}, #{capacity}, DEFAULT, DEFAULT, DEFAULT,
    		 #{categoryCd}, #{memNo})
-   </insert>
+   </insert> -->
    
    <!-- 파일 정보 삽입(List 이용) -->
    <insert id="insertAttachmentList" parameterType="list">
    		INSERT INTO FRIEND_FILE
-   		SELECT SEQ_FFNO.NEXTVAL, A.* FROM (
+   		SELECT SEQ_FNO.NEXTVAL, A. FROM (
    		
    		<foreach collection="list" item="item" separator="UNION ALL">
    				SELECT #{item.filePath} FILE_PATH,

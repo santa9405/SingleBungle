@@ -129,41 +129,27 @@ body {
 		<div>
 			<div>
 				<h2 style="margin-top: 5px;">
-					<%-- 카테고리 스타일 지정 --%>
-					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-						<c:if test="${findFriend.categoryNm == '맛집'}">background-color: burlywood;</c:if> 
-						<c:if test="${findFriend.categoryNm == '문화생활'}">background-color: skyblue;</c:if>
-						<c:if test="${findFriend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${findFriend.categoryNm}</div>
-					<%-- 성별 스타일 지정 --%>
-					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-						<c:if test="${findFriend.gender == 'W'}">background-color: rgba(68, 152, 221, 0.699);</c:if> 
-						<c:if test="${findFriend.gender == 'M'}">background-color: rgb(135, 222, 150);</c:if> 
-						<c:if test="${findFriend.gender == 'F'}">background-color: rgb(245, 91, 125);</c:if> '>
-						
-						<c:if test="${findFriend.gender == 'W'}">여</c:if>
-						<c:if test="${findFriend.gender == 'M'}">남</c:if>
-						<c:if test="${findFriend.gender == 'F'}">무관</c:if>
-						</div>
-						
-					${findFriend.friendTitle}
+					<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">맛집</div>
+					<div class="badge badge-danger px-3 rounded-pill font-weight-normal" style="background-color: burlywood;">여</div>
+					마카오도우라오 훠궈 먹으러 가요
 				</h2>
 			</div>
 
 			<hr class="hr">
 
 			<div class="titleArea row mb-3 form-row">
-				<div class="col-md-1">
-					<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>${findFriend.nickname}</span>
+				<div class="col-md-2">
+					<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>크리스탈</span>
 				</div>
 
-				<div class="col-md-9">
+				<div class="col-md-8">
 					<div class="boardInfo" id="createDt" style="color: gray">2021.02.24 12:05</div>
 				</div>
 
 				<div class="col-md-2">
 					<div class="float-right">
 
-						<img class="image" src="${contextPath}/resources/images/view.png"> ${findFriend.readCount}
+						<img class="image" src="${contextPath}/resources/images/view.png"> 0
 						<button type="button" id="likeBtn">
 							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
 						</button>
@@ -172,20 +158,22 @@ body {
 			</div>
 
 			<div class="titleArea row mb-3 form-row">
-				<div class="col-md-12">
-					<img src="${contextPath}/resources/images/placeholder.png" width="20" height="20">
-					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: burlywood;'>${findFriend.location1}</div>&nbsp;&nbsp;
-					<span>${findFriend.location2}</span>&nbsp;&nbsp;
-					<img src="${contextPath}/resources/images/friendCalendar.png" width="17" height="17"><span>${findFriend.meetingDate}</span>&nbsp;&nbsp;
-					<img src="${contextPath}/resources/images/friendClock.png" width="17" height="17"><span>${findFriend.meetingTime}</span>
+				<div class="col-md-2">
+					<span>지역 : 서울</span>
+				</div>
+
+				<div class="col-md-4">
+					<span>모임장소 : 을지로입구 마카오도우라오</span>
+				</div>
+
+				<div class="col-md-2">
+					<span>모임날짜 : 2021.02.27</span>
+				</div>
+
+				<div class="col-md-2">
+					<span>모임시간 : 미정</span>
 				</div>
 			</div>
-
-			<!-- <div class="titleArea row mb-3 form-row">
-				<div class="col-md-12">
-					
-				</div>
-			</div> -->
 
 			<br>
 
@@ -199,8 +187,7 @@ body {
 			<hr class="hr">
 
 			<!-- Content -->
-			<div id="board-content">${findFriend.friendContent}</div>
-			
+			<div id="board-content">내용</div>
 
 			<hr>
 
@@ -213,14 +200,11 @@ body {
 					<c:if test="${empty sessionScope.returnListURL}">
 						<c:set var="returnListURL" value="../list/${board.boardCode}" scope="session" />
 					</c:if>
-					
-					<br> 
-					<a class="btn btn-success" href="${sessionScope.returnListURL}">목록으로</a>
-					
-					<c:url var="updateUrl" value="${findFriend.friendNo}/update" />
+					<br> <a class="btn btn-success" href="${sessionScope.returnListURL}">목록으로</a>
+					<c:url var="updateUrl" value="${board.boardNo}/update" />
 
 					<!-- 로그인된 회원이 글 작성자인 경우 -->
-					<c:if test="${(loginMember != null) && (findFriend.memNo == loginMember.memberNo)}">
+					<c:if test="${(loginMember != null) && (board.memberId == loginMember.memberId)}">
 						<a href="${updateUrl}" class="btn btn-success ml-1 mr-1">수정</a>
 						<button id="deleteBtn" class="btn btn-success">삭제</button>
 					</c:if>

@@ -23,7 +23,6 @@ import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
-import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
 @Controller
@@ -39,9 +38,8 @@ public class FindFriendController {
 	private String swalText = null;
 	
 	// 친구찾기 목록 조회 Controller
-	@RequestMapping("list/{type}")
+	@RequestMapping("list")
 	public String friendList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-							 @PathVariable("type") String type,
 							 Model model) {
 		
 		// 1) 페이징 처리를 위한 객체 PageInfo 생성
@@ -138,11 +136,11 @@ public class FindFriendController {
 	
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping("{type}/insertImage")
 	public String insertImage(HttpServletRequest request,
 					@RequestParam(value = "uploadFile") MultipartFile uploadFile){
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources/findFriendImages");
+		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
 		
 		FindFriendAttachment at = service.inserImage(uploadFile, savePath);
 		
@@ -153,34 +151,31 @@ public class FindFriendController {
 	// 친구찾기 게시글 등록(+ 파일 업로드) Controller
 	@RequestMapping("insertAction")
 	public String insertAction(@ModelAttribute FindFriend findFriend,
-			@ModelAttribute("loginMember") Member loginMember,
+			/*@ModelAttribute("loginMember") Member loginMember,*/
 			HttpServletRequest request,
 			RedirectAttributes ra) {
 		
-		System.out.println(findFriend);
-		System.out.println(loginMember.getMemberNo());
-		
-		findFriend.setMemNo(loginMember.getMemberNo());
+		//FindFriend.setMemNo(loginMember.getMemberNo());
 		
 		String savePath 
-			= request.getSession().getServletContext().getRealPath("resources/findFriendImages");
+			= request.getSession().getServletContext().getRealPath("resources/infoImages");
 		
 		int result = service.insertBoard(findFriend, savePath);
 		
 		String url = null;
 		
 		if(result > 0) {
-			swalIcon = "success";
-			swalTitle = "게시글 등록 성공";
+			//swalIcon = "success";
+			//swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
 		}else {
-			swalIcon ="error";
-			swalTitle ="게시글 등록 실패";
+			//swalIcon ="error";
+			//swalTitle ="게시글 등록 실패";
 			url = "redirect:insert";
 		}
 		
-		ra.addFlashAttribute("swalIcon", swalIcon);
-		ra.addFlashAttribute("swalTitle", swalIcon);
+		//ra.addFlashAttribute("swalIcon", swalIcon);
+		//ra.addFlashAttribute("swalTitle", swalIcon);
 		
 		return url;
 	}
