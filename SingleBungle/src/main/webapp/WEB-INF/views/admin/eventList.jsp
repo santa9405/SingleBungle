@@ -161,6 +161,20 @@ body {
 				</tr>
 			</c:if>
 			<!-- End -->
+			
+			<%-- <c:set var="flag" value="true"/>
+                               <c:forEach var="thumbnail" items="${fList }">
+                              <c:if test="${hospital.hospNo == thumbnail.hospNo }">
+                                    현재 출력하려는 게시글 번호와 썸네일 목록 중 부모게시글번호가 일치하는 썸네일 정보가 있다면 
+                                    <img class="hospital_img"  src="${contextPath }/resources/image/uploadHospitalImages/${thumbnail.fileName}">
+                                    <c:set var="flag" value="false"/>
+                              </c:if>
+                           </c:forEach>
+                                  
+                                  <c:if test="${flag == 'true'}">
+                              <img class="hospital_img"  src="${contextPath }/resources/image/icon/nonImage.png">
+                                  </c:if>
+			 --%>
 
 			<div class="row">
 				<c:if test="${!empty eventList }">
@@ -170,12 +184,18 @@ body {
 							<div class="bg-white rounded shadow-sm">
 								<span id="boardNo">${board.boardNo}</span>
 								<c:if test="${!empty thList }">
+									<c:set var="flag" value="true"/>
 									<c:forEach items="${thList }" var="th">
 										<c:if test="${th.parentBoardNo == board.boardNo }">
 											<img src="${contextPath }${th.filePath}/${th.fileName}"
 												class="mg-fluid card-img-top embed-responsive-item">
+												<c:set var="flag" value="false"/>
 										</c:if>
 									</c:forEach>
+									<c:if test="${flag == 'true'}">
+                              <img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg" alt="" class="mg-fluid card-img-top embed-responsive-item">
+                                  </c:if>
+									
 								</c:if>
 
 								<div class="p-4">
