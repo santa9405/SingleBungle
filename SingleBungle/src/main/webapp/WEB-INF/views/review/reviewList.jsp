@@ -107,7 +107,6 @@
 	flex: none !important;
 	max-width: none !important;
 }
-
 </style>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -128,11 +127,7 @@
 				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
-						<a class="category" href="#">전체</a> 
-						<a class="category" href="#">가구</a> 
-						<a class="category" href="#">생활용품</a> 
-						<a class="category" href="#">전자기기</a> 
-						<a class="category" href="#">기타</a>
+						<a class="category" href="#">전체</a> <a class="category" href="#">가구</a> <a class="category" href="#">생활용품</a> <a class="category" href="#">전자기기</a> <a class="category" href="#">기타</a>
 					</div>
 					<div class="arrayArea float-right">
 						<a class="array" herf="#">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
@@ -147,7 +142,6 @@
 
 
 
-
 		<div class="row">
 			<c:if test="${empty rList }">
 				<div class="col-lg-12">
@@ -155,21 +149,31 @@
 				</div>
 			</c:if>
 
+
 			<c:if test="${!empty rList }">
 				<c:forEach var="review" items="${rList}" varStatus="vs">
-
 					<!-- Gallery item -->
 					<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 						<div class="bg-white rounded shadow-sm viewdetail">
 
 							<!-- 썸네일 영역 -->
 							<div class="embed-responsive embed-responsive-4by3">
-								<img src="${contextPath}/resources/images/reviewTestImg.png" class="img-fluid card-img-top embed-responsive-item">
+								<c:set var="flag" value="true" />
+								<c:forEach var="thumbnail" items="${thList}">
+									<c:if test="${review.boardNo == thumbnail.parentBoardNo }">
+										<img src="${contextPath}${thumbnail.filePath}/${thumbnail.fileName}" class="img-fluid card-img-top embed-responsive-item">
+										<c:set var="flag" value="false" />
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${flag=='true'}">
+									<img src="${contextPath}/resources/images/ReviewNonImages.png" class="img-fluid card-img-top embed-responsive-item">
+								</c:if>
 							</div>
 
 							<div class="p-4">
 								<h5>
-									<a href="#" class="text-dark">${review.boardTitle }</a>
+									<a class="text-dark">${review.boardTitle }</a>
 								</h5>
 								<div class="infoArea float-right">
 									<div class="viewArea mb-2">
@@ -181,11 +185,11 @@
 									<p class="small mb-0">
 										<span class="font-weight-bold price">${review.nickName }</span>
 									</p>
-										<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+									<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
                             <c:if test="${review.categoryCode == '21'}">background-color: burlywood;</c:if>
                             <c:if test="${review.categoryCode == '22'}">background-color: #8dbe88;</c:if>
                             <c:if test="${review.categoryCode == '23'}">background-color: #5d8eb6d5;</c:if>
-                            <c:if test="${review.categoryCode == '24'}">background-color: #d48a9a;</c:if> '>${review.categoryName }</div>  
+                            <c:if test="${review.categoryCode == '24'}">background-color: #d48a9a;</c:if> '>${review.categoryName }</div>
 								</div>
 							</div>
 							<span id="boardNo" style="visibility: hidden">${review.boardNo }</span>
@@ -202,12 +206,13 @@
 		<!-- 등록하기 버튼 -->
 
 		<!-- 로그인이 되어있고, 회원 2등급 이상일 경우 !=T -->
-		<div class="row">
-			<div class="col-lg-12 mx-auto">
-				<button type="button" class="btn btn-success float-right" id="insertBoard">등록하기</button>
+		<c:if test="${!empty loginMember && loginMember.memberGrade != 'F' }">
+			<div class="row">
+				<div class="col-lg-12 mx-auto">
+					<button type="button" class="btn btn-success float-right" id="insertBoard">등록하기</button>
+				</div>
 			</div>
-		</div>
-
+		</c:if>
 
 
 		<!-- 페이징 -->
@@ -232,31 +237,27 @@
 								<c:set var="nextPage" value="?cp=${next}" />
 
 								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-									<li class="page-item"><!-- 첫 페이지로 이동(<<) -->
-										 <a class="page-link" href="${firstPage }">&laquo;&laquo;</a>
+									<li class="page-item">
+										<!-- 첫 페이지로 이동(<<) --> <a class="page-link" href="${firstPage }">&laquo;&laquo;</a>
 									</li>
 
-									<li class="page-item"><!-- 이전 페이지로 이동 (<) -->
-										 <a class="page-link" href="${prevPage }">&laquo;</a>
+									<li class="page-item">
+										<!-- 이전 페이지로 이동 (<) --> <a class="page-link" href="${prevPage }">&laquo;</a>
 									</li>
 								</c:if>
 
 								<c:forEach var="page" begin="${pInfo.startPage }" end="${pInfo.endPage }">
 									<c:choose>
 										<c:when test="${pInfo.currentPage == page }">
-											<li class="page-item active">
-												<a class="page-link">${page}</a> <!-- 같은 페이지일때는 클릭이 안 된다.  -->
-											</li>
+											<li class="page-item active"><a class="page-link">${page}</a> <!-- 같은 페이지일때는 클릭이 안 된다.  --></li>
 										</c:when>
-										
+
 										<c:otherwise>
-											<li class="page-item">	
-												<a class="page-link" href="?cp=${page}">${page}</a>
-											</li>
+											<li class="page-item"><a class="page-link" href="?cp=${page}">${page}</a></li>
 										</c:otherwise>
-										
-										
-										
+
+
+
 									</c:choose>
 								</c:forEach>
 
@@ -283,60 +284,54 @@
 							<option value="title">제목</option>
 							<option value="writer">작성자</option>
 							<option value="titcont">제목+내용</option>
-						</select> <input type="text" name="sv" class="form-control "  autocomplete="off" style="width: 25%; display: inline-block;">
+						</select> <input type="text" name="sv" class="form-control " autocomplete="off" style="width: 25%; display: inline-block;">
 						<button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 					</form>
 				</div>
 			</div>
 		</div>
-
-		<jsp:include page="../common/footer.jsp" />
-
-	
-		<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-		<c:set var="returnListURL" value="${contextPath}/review/list?cp=${pInfo.currentPage}" scope="session"/>
+	</div>
+	<jsp:include page="../common/footer.jsp" />
 
 
-		<script>
-			// 상세조회
-			$(".viewdetail").on("click",function(){
-				var boardNo = $(this).children("span#boardNo").text();
-				
-				var boardViewURL = "view/"+boardNo;
-				
-				location.href = boardViewURL;
+	<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+	<c:set var="returnListURL" value="${contextPath}/review/list?cp=${pInfo.currentPage}" scope="session" />
+
+
+	<script>
+		// 상세조회
+		$(".viewdetail").on("click", function() {
+			var boardNo = $(this).children("span#boardNo").text();
+
+			var boardViewURL = "view/" + boardNo;
+
+			location.href = boardViewURL;
+		});
+
+		// 등록하기 버튼
+		$("#insertBoard").on("click", function() {
+
+			location.href = "insert";
+
+		});
+
+		// 검색내용 있을 경우 검색창에 해당 내용 저장
+		(function() {
+			var searchKey = "${param.sk}";
+			var searchValue = "${param.sv}";
+
+			// 검색창 option 반복 접근
+			$("select[name=sk]>option").each(function(index, item) {
+
+				if ($(item).val() == searchKey) {
+					$(item).prop("selected", true);
+				}
 			});
-			
-			
-			
-			// 등록하기 버튼
-			$("#insertBoard").on("click",function(){
-				
-				location.href = "insert" ;
-				
-			});
-			
-			
-			
-			
-			// 검색내용 있을 경우 검색창에 해당 내용 저장
-			(function(){
-				var searchKey = "${param.sk}";
-				var searchValue = "${param.sv}";
-				
-				// 검색창 option 반복 접근
-				$("select[name=sk]>option").each(function(index,item){
-					
-					if($(item).val() == searchKey){
-						$(item).prop("selected", true);
-					}
-				});
-				
-				// 검색어 입력창에 searchValue 값 출력
-				$("input[name=sv]").val(searchValue);
-				
-			})();
-			
-		</script>
+
+			// 검색어 입력창에 searchValue 값 출력
+			$("input[name=sv]").val(searchValue);
+
+		})();
+	</script>
 </body>
 </html>

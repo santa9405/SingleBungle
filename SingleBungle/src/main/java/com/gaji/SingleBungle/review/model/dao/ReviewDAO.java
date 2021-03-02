@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.review.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.review.model.vo.Review;
+import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
 @Repository
@@ -39,6 +41,16 @@ public class ReviewDAO {
 		RowBounds rowBounds = new RowBounds(offset , pInfo.getLimit());
 		
 		return sqlSession.selectList("reviewMapper.selectList", pInfo, rowBounds);
+	}
+	
+	
+	
+	/** 썸네일 목록 조회
+	 * @param rList
+	 * @return thList
+	 */
+	public List<ReviewAttachment> selectThumbnailList(List<Review> rList) {
+		return sqlSession.selectList("reviewMapper.selectThumbnailList",rList);
 	}
 
 
@@ -84,6 +96,32 @@ public class ReviewDAO {
 	public int selectNextNo() {
 		return sqlSession.selectOne("reviewMapper.selectNextNo");
 	}
+
+
+
+	/** 게시글 삽입
+	 * @param map
+	 * @return result
+	 */
+	public int insertBoard(Map<String, Object> map) {
+		return sqlSession.insert("reviewMapper.insertBoard",map);
+	}
+
+
+
+
+	/** 파일 정보 삽입 DAO
+	 * @param uploadImages
+	 * @return result
+	 */
+	public int insertAttachmentList(List<ReviewAttachment> uploadImages) {
+		return sqlSession.insert("reviewMapper.insertAttachmentList", uploadImages);
+	}
+
+
+
+
+
 	
 
 

@@ -5,48 +5,108 @@ public class ReviewAttachment {
 	
 	private int fileNo;
 	private String filePath;
-	private String fileNm;
+	private String fileName;
+	private int fileLevel;
 	private int parentBoardNo;
 	
 	public ReviewAttachment() {	}
+	
+	
+	
+
+	public ReviewAttachment( String filePath, String fileName, int fileLevel, int parentBoardNo) {
+		super();
+		this.filePath = filePath;
+		this.fileName = fileName;
+		this.fileLevel = fileLevel;
+		this.parentBoardNo = parentBoardNo;
+	}
+
+
+
 
 	public int getFileNo() {
 		return fileNo;
 	}
 
+
+
+
 	public void setFileNo(int fileNo) {
 		this.fileNo = fileNo;
 	}
+
+
+
 
 	public String getFilePath() {
 		return filePath;
 	}
 
+
+
+
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
 
-	public String getFileNm() {
-		return fileNm;
+
+
+
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setFileNm(String fileNm) {
-		this.fileNm = fileNm;
+
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
+
+
+
+
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+
+
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+
+
+
 
 	public int getParentBoardNo() {
 		return parentBoardNo;
 	}
 
+
+
+
 	public void setParentBoardNo(int parentBoardNo) {
 		this.parentBoardNo = parentBoardNo;
 	}
 
+
+
+
 	@Override
 	public String toString() {
-		return "ReviewAttachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileNm=" + fileNm
-				+ ", parentBoardNo=" + parentBoardNo + "]";
+		return "ReviewAttachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName
+				+ ", fileLevel=" + fileLevel + ", parentBoardNo=" + parentBoardNo + "]";
 	}
+
+
+
+	
+	
+	
+	
 	
 	
 	

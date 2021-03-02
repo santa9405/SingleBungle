@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.review.model.vo.Review;
+import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
 public interface ReviewService {
@@ -24,7 +25,13 @@ public interface ReviewService {
 	 */
 	List<Review> selectList(ReviewPageInfo pInfo);
 
-
+	
+	
+	/** 게시글 썸네일 조회
+	 * @param rList
+	 * @return thList
+	 */
+	List<ReviewAttachment> selectThumbnailList(List<Review> rList);
 
 	/** 게시글 상세 조회
 	 * @param boardNo
@@ -47,6 +54,19 @@ public interface ReviewService {
 	 * @param savePath
 	 * @return result
 	 */
-	int insertReview(Map<String, Object> map, List<MultipartFile> images, String savePath);
+	int insertReview(Map<String, Object> map, String savePath);
+
+
+
+	/** summernote에 업로드된 이미지 저장
+	 * @param uploadFile
+	 * @param savePath
+	 * @return at
+	 */
+	ReviewAttachment insertImage(MultipartFile uploadFile, String savePath);
+
+
+
+
 
 }
