@@ -185,7 +185,12 @@
 									<%-- 지역 --%>
 									<td>${friend.location1}</td>
 									<%-- 카테고리 --%>
-									<td>${friend.categoryNm}</td>
+									<td>
+										<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
+										<c:if test="${friend.categoryNm == '맛집'}">background-color: burlywood;</c:if>
+										<c:if test="${friend.categoryNm == '문화생활'}">background-color: skyblue;</c:if>
+										<c:if test="${friend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${friend.categoryNm}</div>
+									</td>
 									<%-- 제목 --%>
 									<td>${friend.friendTitle}</td>
 									<%-- 모집인원 --%>
