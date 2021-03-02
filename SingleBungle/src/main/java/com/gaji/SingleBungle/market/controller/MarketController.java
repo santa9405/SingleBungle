@@ -1,6 +1,8 @@
 package com.gaji.SingleBungle.market.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -72,6 +75,37 @@ public class MarketController {
 	}
 	
 	
+	// 좋아요 증가 Controller
+	@ResponseBody
+	@RequestMapping("increaseLike")
+	public int increaseLike(@RequestParam int marketNo,
+			@ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("marketNo", marketNo);
+
+		int result = service.increaseLike(map);
+		
+		return result;
+	}
+	
+	// 좋아요 감소 Controller
+	@ResponseBody
+	@RequestMapping("decreaseLike")
+	public int decreaseLike(@RequestParam int marketNo,
+			@ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("marketNo", marketNo);
+		
+		int result = service.decreaseLike(map);
+		return result;
+	}
+	
+	
 	
 	@RequestMapping("{marketNo}") 
 	public String marketView(@PathVariable int marketNo,
@@ -84,7 +118,6 @@ public class MarketController {
 		if (market != null) {
 			
 //			List<CafeAttachment> attachmentList = service.selectAttachmentList(marketNo);
-//			
 //			if (attachmentList != null && !attachmentList.isEmpty()) {
 //				model.addAttribute("attachmentList", attachmentList);
 //			}

@@ -219,14 +219,16 @@ body {
 
 									<!-- 좋아요 버튼 -->
 									<span class="float-right">
-										<button type="button" id="likeBtn">
+										<button type="button" id="likeBtn" class="likeBtns">
 											<img src="${contextPath}/resources/images/like1.png"
-												width="15" height="15" id="heart" class='
-													<c:forEach var="like" items="${likeInfo}">
-														<c:if test="${like.marketNo == market.marketNo}">like2</c:if></c:forEach>'>
-													 <span class="likeCnt">${market.likes}</span>
+												width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.marketNo == market.marketNo}">like2</c:if></c:forEach>'>
+											<span class="likeCnt">${market.likes}</span>
 										</button>
 									</span>
+									
+									
+									
+									
 
 									<div
 										class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
@@ -337,9 +339,9 @@ body {
 
 <script>
 	
-	var temp =[];
+/* 	var temp =[];
   temp[0] = "";
-  temp[1] = "";
+  temp[1] = ""; */
   
   var cg;
   var sort;
@@ -351,7 +353,56 @@ body {
 		location.href = marketViewURL; 
 	});
 
-
+	
+	$(".likeBtns").on("click", function(){
+		var marketNo = $(this).closest('.no').children().eq(0).text();
+		var likeClassArray = $(this).children().attr('class').split(" ");
+		var likeClass = "like1";
+		var likeImg = $(this).children(".likeImgs");
+		var likeCnt = $(this).children(".likeCnt");
+		
+	
+		if(likeClassArray[1] == "like2") {
+			likeClass = "like2"; 
+		}
+		
+		if(likeClass == "like1") {
+			$.ajax({
+				url : "increaseLike",
+				type : "post",
+				data : {"marketNo" : marketNo},
+				success : function(result){
+					if(result > 0) {
+						likeCnt.text(Number(likeCnt.text()) + 1);
+						likeImg.toggleClass("like2");
+					}
+				}, 
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
+		} else{
+			$.ajax({
+				url : "decreaseLike",
+				type : "post", 
+				data : {"marketNo" : marketNo},
+				success : function(result){
+					if(result > 0){ // 삭제 성공
+						likeCnt.text(Number(likeCnt.text()) - 1);
+						likeImg.removeClass("like2");
+					}
+				},
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
+		}
+		
+		
+	
+	});
+	
+	
 /* 	$(".cg").on("click", function(){
 		cg ="";
 		cg = $(this).text();

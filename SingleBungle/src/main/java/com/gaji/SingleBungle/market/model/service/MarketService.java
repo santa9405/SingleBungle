@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.market.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
@@ -31,5 +32,17 @@ public interface MarketService {
 	 * @return
 	 */
 	List<MarketLike> selectLike(int memberNo);
+
+	/** 좋아요 증가 Service
+	 * @param map 
+	 * @return result
+	 */
+	int increaseLike(Map<String, Object> map);
+
+	/** 좋아요 감소 Service
+	 * @param map
+	 * @return result
+	 */
+	int decreaseLike(Map<String, Object> map);
 
 }

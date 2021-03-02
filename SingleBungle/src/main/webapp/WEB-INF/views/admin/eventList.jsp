@@ -217,7 +217,6 @@ body {
 
 
 
-
 			</div>
 			<a class="btn btn-success float-right" href="../admin/eventInsert">글쓰기</a>
 

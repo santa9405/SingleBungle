@@ -400,6 +400,13 @@ public class adminServiceImpl implements adminService{
 			return result;
 		}
 
+		@Transactional(rollbackFor = Exception.class)
+		@Override
+		public int deleteBoard(int boardNo) {
+			
+			return dao.deleteBoard(boardNo);
+		}
+
 
 
 }
