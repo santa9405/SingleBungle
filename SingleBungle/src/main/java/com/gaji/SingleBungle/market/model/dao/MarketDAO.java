@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.market.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -61,6 +62,24 @@ public class MarketDAO {
 	 */
 	public List<MarketLike> selectLike(int memberNo) {
 		return sqlSession.selectList("marketMapper.selectLike", memberNo);
+	}
+
+
+	/** 좋아요 증가 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int increaseLike(Map<String, Object> map) {
+		return sqlSession.insert("marketMapper.increaseLike", map);
+	}
+
+
+	/** 좋아요 감소 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int decreaseLike(Map<String, Object> map) {
+		return sqlSession.delete("marketMapper.decreaseLike", map);
 	}
 
 }
