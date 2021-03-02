@@ -67,6 +67,14 @@ public interface ReviewService {
 
 
 
+	/** 게시글 삭제
+	 * @param review
+	 * @return result
+	 */
+	int deleteReview(Review review);
+
+
+
 
 
 }

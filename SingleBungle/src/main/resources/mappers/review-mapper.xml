@@ -63,7 +63,7 @@
    
    <!-- 상세조회  -->
   <select id="selectReview"  parameterType="_int" resultMap="review_rm">
-  	SELECT BOARD_TITLE, BOARD_CONTENT, CREATE_DT,READ_COUNT, CATEGORY_CD, CATEGORY_NM, NICKNAME, LIKE_COUNT, MEM_NO
+  	SELECT BOARD_NO,BOARD_TITLE, BOARD_CONTENT, CREATE_DT,READ_COUNT, CATEGORY_CD, CATEGORY_NM, NICKNAME, LIKE_COUNT, MEM_NO
   	FROM V_BOARD
   	WHERE STATUS = 'N'
   	AND BOARD_NO = #{boardNo}
@@ -130,6 +130,15 @@
   		</foreach>
   		)A
   	</insert>
+  	
+  	
+  	
+  	<!-- 게시글 삭제 -->
+  	<update id="deleteReview" parameterType="Review">
+  		UPDATE BOARD SET
+  		STATUS = 'Y'
+  		WHERE BOARD_NO = '${boardNo}'
+  	</update>
   	
   	
   	

@@ -221,6 +221,15 @@ public class ReviewServiceImpl implements ReviewService {
 		return date + str + ext;
 	}
 
+	
+	// 게시글 삭제
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public int deleteReview(Review review) {
+		
+		return dao.deleteReview(review);
+	}
+
 
 
 }

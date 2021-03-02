@@ -121,6 +121,17 @@ public class ReviewDAO {
 
 
 
+	/** 게시글 삭제 DAO
+	 * @param review
+	 * @return result
+	 */
+	public int deleteReview(Review review) {
+		return sqlSession.update("reviewMapper.deleteReview",review);
+	}
+
+
+
+
 
 	
 

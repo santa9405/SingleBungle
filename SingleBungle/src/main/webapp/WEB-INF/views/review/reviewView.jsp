@@ -303,7 +303,6 @@ body {
 
 
 
-
 	<jsp:include page="../common/footer.jsp" />
 
 
@@ -333,9 +332,9 @@ body {
 	
 	// 삭제 버튼
 	$("#deleteBtn").on("click", function(){
-		if(alert("삭제하시겠습니까?")){
+		if(confirm("삭제 하시겠습니까?")){
 			
-			location.url = "${review.boardNo}/delete";
+			location.href = "../${review.boardNo}/delete";
 		}
 	});
 	
