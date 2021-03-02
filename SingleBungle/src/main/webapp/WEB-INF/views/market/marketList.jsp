@@ -261,8 +261,9 @@ body {
 				<!-- End -->
 			</div>
 
-
-			<button type="button" class="btn btn-info float-right"><a href="#" class="writeBtn">글쓰기</a></button>
+			<c:if test="${loginMember != null}">
+				<button type="button" class="btn btn-info float-right"><a href="${contextPath}/market/insert" class="writeBtn">글쓰기</a></button>
+			</c:if>
 
 			<div class="padding">
 				<c:set var="firstPage" value="?cp=1" />
@@ -397,9 +398,6 @@ body {
 				}
 			});
 		}
-		
-		
-	
 	});
 	
 	
