@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -336,6 +337,33 @@ public class adminController {
 				}
 				return url;
 
+	}
+	
+	
+	
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public String noticeDelete(@RequestParam("boardNo") int boardNo,
+								@RequestHeader(value="referer",required=false) String referer,
+								RedirectAttributes ra) {
+		
+		//System.out.println(boardNo);
+		
+		int result = service.deleteBoard(boardNo);
+		String url = null;
+		
+		if(result>0) {
+			ra.addFlashAttribute("swalIcon","success");
+			ra.addFlashAttribute("swalTitle","삭제성공하였습니다.");
+			url = "redirect:noticeList";
+		}else{
+			url = "redirect:" + referer;
+			ra.addFlashAttribute("swalIcon","error");
+			ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+		}
+		
+		return url;
+		
+		
 	}
 	
 	

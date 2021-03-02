@@ -116,9 +116,17 @@
   	
   	<!-- 파일 정보 삽입  -->
   	<insert id="insertAttachment" parameterType="AAttachment">
-  		INSERT INTO FILE_LEVEL
+  		INSERT INTO BOARD_FILE
   		VALUES(SEQ_FNO.NEXTVAL, #{filePath}, #{fileName}, #{parentBoardNo}, #{fileLevel})
   	</insert>
+  	
+  	
+  	<!-- 게시글 삭제  -->
+  	<update id="deleteBoard" parameterType="_int">
+  		UPDATE BOARD SET
+  		STATUS = 'Y'
+  		WHERE BOARD_NO = #{boardNo}
+  	</update>
    
 
 </mapper>
