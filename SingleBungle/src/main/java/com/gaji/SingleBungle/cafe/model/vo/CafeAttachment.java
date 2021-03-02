@@ -6,9 +6,33 @@ public class CafeAttachment {
 	private String filePath;	// 파일경로
 	private String fileName;	// 파일이름
 	private int cafeNo;			// 게시글번호
+	private int fileLevel;
 	
 	public CafeAttachment() {
 	}
+	
+	
+
+	public CafeAttachment(String filePath, String fileName, int cafeNo, int fileLevel) {
+		super();
+		this.filePath = filePath;
+		this.fileName = fileName;
+		this.cafeNo = cafeNo;
+		this.fileLevel = fileLevel;
+	}
+
+
+
+	public CafeAttachment(int fileNo, String filePath, String fileName, int cafeNo, int fileLevel) {
+		super();
+		this.fileNo = fileNo;
+		this.filePath = filePath;
+		this.fileName = fileName;
+		this.cafeNo = cafeNo;
+		this.fileLevel = fileLevel;
+	}
+
+
 
 	public int getFileNo() {
 		return fileNo;
@@ -42,11 +66,21 @@ public class CafeAttachment {
 		this.cafeNo = cafeNo;
 	}
 
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+
 	@Override
 	public String toString() {
 		return "CafeAttachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", cafeNo="
-				+ cafeNo + "]";
+				+ cafeNo + ", fileLevel=" + fileLevel + "]";
 	}
+
+
 	
 	
 

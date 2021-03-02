@@ -156,21 +156,7 @@ public class BoardController {
 		return url;
 	}
 	
-	// 게시글 수정 화면 전환용 Controller
-	@RequestMapping("{boardNo}/update")
-	public String boardUpdate() {
-		return "board/boardUpdate";
-	}
-	
-	// 게시글 수정 Controller
-	@RequestMapping("{boardNo}/updateAction")
-	public String updateAction() {
-		return null;
-	}
-	
-	// summernote -----------------------------
 	// summernote에 업로드된 이미지 저장 Controller
-	
 	@ResponseBody
 	@RequestMapping("insertImage")
 	public String insertImage(HttpServletRequest request,
@@ -178,12 +164,64 @@ public class BoardController {
 		
 		String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
 		
-		BoardAttachment at = service.inserImage(uploadFile, savePath);
+		BoardAttachment at = service.insertImage(uploadFile, savePath);
 		
 		return new Gson().toJson(at);
 	}
 	
 	
+	// 게시글 수정 화면 전환용 Controller
+	@RequestMapping("{boardNo}/update")
+	public String boardUpdate(@PathVariable("boardNo") int boardNo, Model model) {
+		
+		
+		Board board = service.selectBoard(boardNo);
+		
+		if(board != null) {
+			List<BoardAttachment> attachmentList = service.selectAttachmentList(boardNo);
+			
+			model.addAttribute("attachmentList", attachmentList);
+		}
+		
+		model.addAttribute("board", board);
+		
+		return "board/boardUpdate";
+	}
+	
+	
+//	// 게시글 수정 Controller
+//	@RequestMapping("{boardNo}/updateAction")
+//	public String updateAction(@PathVariable("boardNo") int boardNo,
+//							@ModelAttribute Board updateBoard,
+//							Model model, RedirectAttributes ra, HttpServletRequest request,
+//							@RequestParam("deleteImages") boolean[] deleteImages,
+//		                    @RequestParam(value="images", required=false) List<MultipartFile> images) {
+//		
+//		updateBoard.setBoardNo(boardNo);
+//		
+//		String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
+//		
+//		int result = service.updateBoard(updateBoard,images,savePath,deleteImages);
+//		
+//		String url = null;
+//	      
+//	      if(result > 0) {
+//	         swalIcon = "success";
+//	         swalTitle = "게시글 수정 성공";
+//	         url = "redirect:../" + boardNo;
+//	      }else {
+//	         swalIcon = "error";
+//	         swalTitle = "게시글 수정 실패";
+//	         url = "redirect:" + request.getHeader("referer");
+//	      }
+//	      
+//	      ra.addFlashAttribute("swalIcon", swalIcon);
+//	      ra.addFlashAttribute("swalTitle", swalTitle);
+//
+//	      return url;
+//	}
+	
+
 	
 	// 게시글 삭제 Controller
 	@RequestMapping("{boardNo}/delete")

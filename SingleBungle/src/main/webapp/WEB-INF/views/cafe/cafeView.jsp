@@ -65,6 +65,15 @@
   margin-right:5px;
 }
 
+/* carousel 화살표 수정 */
+/*  	.carousel-control-prev-icon {
+ 		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+	}
+	
+	.carousel-control-next-icon {
+  		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+	} */
+
 </style>
 
 </head>
@@ -110,22 +119,28 @@
 								</div>
 								
                 <div class="board-content">
-<%--                 	<!-- 이미지 부분 -->
-									<c:if test="${!empty attachmentList}">
-					
-										<div class="carousel slide m-3" id="carousel-325626">
-					
-											<div class="carousel-inner boardImgArea">
-					
-												<c:forEach var="at" items="${attachmentList}" varStatus="vs">
-													<c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}" />
-					
-													<div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
-														<img class="d-block w-100 boardImg" src="${src}" />
-														<input type="hidden" value="${at.fileNo}">
-													</div>
-												</c:forEach>
-											</div> --%>
+								<!-- 이미지 부분 carousel -->
+<%--  								<c:if test="${!empty attachmentList }">
+				
+									<div class="carousel slide m-3" id="carousel-325626">
+				
+										<div class="carousel-inner boardImgArea">
+				
+											<c:forEach var="at" items="${attachmentList}" varStatus="vs">
+												<c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}" />
+				
+												<div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
+													<img class="d-block w-100 boardImg" src="${src}" />
+													<input type="hidden" value="${at.fileNo}">
+												</div>
+											</c:forEach>
+				
+										</div>
+				
+										<a class="carousel-control-prev" href="#carousel-325626" data-slide="prev">
+										<span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-325626" data-slide="next"> <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+									</div>
+								</c:if> --%>
                 
                 	<!-- Content -->
                 	<%-- JSTL을 이용한 개행문자 처리 --%>
@@ -173,7 +188,19 @@
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
 	          <div class="bg-white rounded shadow-sm cafe-list">
 	            <div class="embed-responsive embed-responsive-4by3" id="img-list">
-	              <img src="${contextPath}/resources/images/cafeTestImg.png" class="img-fluid card-img-top embed-responsive-item">
+<%-- 								<c:if test="${!empty thList }">
+									<c:set var="flag" value="true" />
+									<c:forEach items="${thList }" var="th">
+										<c:if test="${th.cafeNo == cafeList.cafeNo }">
+											<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-fluid card-img-top embed-responsive-item" id="img-list">
+											<c:set var="flag" value="false" />
+										</c:if>
+									</c:forEach>
+									<c:if test="${flag == 'true'}">
+										<img src="${contextPath}/resources/images/cafeNoImg.png" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
+									</c:if>
+								</c:if> --%>
+								<img src="${contextPath}/resources/images/cafeNoImg.png" class="mg-fluid card-img-top embed-responsive-item">
 	            </div>
 	            <div class="p-4">
 	            <span id="cafeNo">${cafe.cafeNo}</span>
