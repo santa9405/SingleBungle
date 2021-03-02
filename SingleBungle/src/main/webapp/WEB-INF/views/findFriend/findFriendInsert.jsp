@@ -132,7 +132,7 @@
 											<input class="form-check-input" type="radio" name="gender" id="female" value="W">
 												<label class="form-check-label" for="online">여자</label>
 										</div>
-										<div class="form-check form-check-inline">
+							    		<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="gender" id="male" value="M">
 											<label class="form-check-label" for="offline">남자</label>
 										</div>

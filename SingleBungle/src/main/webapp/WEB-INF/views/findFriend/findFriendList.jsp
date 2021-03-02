@@ -11,7 +11,7 @@
 .boardName {
 	margin-right: 10px;
 }
-
+ 
 .category {
 	text-decoration: none;
 	color: black;

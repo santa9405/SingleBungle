@@ -182,7 +182,7 @@ body {
 				<button type="button" class="btn btn-primary float-right apply">참여신청</button>
 				<!-- chat button -->
 				<button type="button" class="btn btn-primary float-right chat">모집인원 1/4</button>
-
+ 
 			</div>
 			<hr class="hr">
 
