@@ -80,7 +80,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public List<FindFriendAttachment> selectAttachmentList(int friendNo) {
 		return dao.selectAttachmentList(friendNo);
 	}
-
+ 
 
 	// summernote 업로드 이미지 저장 Service 구현
 	@Override

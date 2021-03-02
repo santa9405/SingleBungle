@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class FindFriend {
-	
+	 
 	private int friendNo;			// 게시글  번호
 	private String friendTitle; 	// 게시글 제목
 	private String friendContent;   // 게시글 내용

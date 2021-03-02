@@ -117,7 +117,7 @@
    <select id="selectNextBoardNo" resultType="_int">
    		SELECT SEQ_FNO.NEXTVAL FROM DUAL
    </select>
-   
+    
    <!-- 게시글 삽입 -->
    <!-- <insert id="insertBoard" parameterType="friend_rm">
    		INSERT INTO FRIEND VALUES
