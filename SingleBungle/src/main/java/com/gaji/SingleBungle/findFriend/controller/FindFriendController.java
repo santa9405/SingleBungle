@@ -87,7 +87,7 @@ public class FindFriendController {
 	}
 	
 	// 친구찾기 상세 조회 Controller
-	@RequestMapping("{friendNo}") 
+	@RequestMapping("{friendNo}")
 	public String friendView(@PathVariable("friendNo") int friendNo, Model model,
 							 @RequestHeader(value = "referer", required = false) String referer,
 							 RedirectAttributes ra) {
