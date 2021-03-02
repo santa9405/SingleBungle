@@ -20,10 +20,12 @@
   	
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.Board" alias="Board" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardAttachment" alias="BoardAttachment" />
+  	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardLike" alias="BoardLike" />
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.Cafe" alias="Cafe" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeAttachment" alias="CafeAttachment" />
+  	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeLike" alias="CafeLike" />
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />

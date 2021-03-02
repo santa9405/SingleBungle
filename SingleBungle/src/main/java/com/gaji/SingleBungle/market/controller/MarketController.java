@@ -106,7 +106,7 @@ public class MarketController {
 	}
 	
 	
-	
+	// 사고팔고 상세 조회
 	@RequestMapping("{marketNo}") 
 	public String marketView(@PathVariable int marketNo,
 							Model model, @RequestHeader(value = "referer", required = false) String referer,
@@ -139,6 +139,8 @@ public class MarketController {
 		return url;
 	}
 	
+	
+	// 사고팔고 게시글 작성 view 전환용 
 	@RequestMapping("insert")
 	public String marketInsert() {
 		return "market/marketInsert"; 
