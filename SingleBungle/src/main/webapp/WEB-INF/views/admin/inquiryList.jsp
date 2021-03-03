@@ -122,6 +122,10 @@
             flex: none !important;
             max-width: none !important;
         } 
+        
+        #inquiryNo{
+        display:none;
+        }
 
     </style>
 
@@ -148,7 +152,7 @@
                 </div>
                     
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
                             <th>카테고리</th>
@@ -167,10 +171,18 @@
                     <c:if test="${!empty inquiryList }">
                     	<c:forEach var="board" items="${inquiryList}" varStatus="vs">
                         <tr>
-                            <td>${board.categoryCode }</td>
+                        	<td id="inquiryNo">${board.inquiryNo}</td>
+                            <td>${board.categoryNm }</td>
                             <td class="boardTitle">${board.inquiryTitle }</td>
                             <td>${board.createDate }</td>
-                            <td><i class="far fa-times-circle"></i></td>
+                            <td>
+                            	<c:if test="${board.inquiryFl == 'N'}">
+                            		<i class="far fa-times-circle"></i>
+                            	</c:if>
+                            	<c:if test="${board.inquiryFl == 'Y'}">
+                            		<i class="fas fa-check-circle"></i>
+                            	</c:if>
+                            </td>
                         </tr>
                         </c:forEach>
 					</c:if>
@@ -179,7 +191,7 @@
 
                 <a class="btn btn-success float-right" href="../admin/inquiryInsert">글쓰기</a>
 
-                      <div class="padding">
+                     <div class="padding">
                     <c:set var="firstPage" value="?cp=1"/>
 					<c:set var="lastPage" value="?cp=${pInfo.maxPage}"/>
 					
@@ -237,6 +249,21 @@
         </div>
     </div>
 <jsp:include page="../common/footer.jsp"/>
+<script>
+$("#list-table td").on("click",function(){
+	var inquiryNo = $(this).parent().children().eq(0).text();
+	// 게시글 목록 : /spring/board/list/1
+	// 게시글 상세조회 요청 주소 조합 -> spring/board/1/글번호  (list 빠짐)
+	// 절대경로
+	// var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo; 
+  // 상대경로
+  var boardViewURL = "${contextPath}/admin/inquiry/"+inquiryNo;
+ 
+	
+	location.href = boardViewURL; // 요청 전달
+
+});
+</script>
 </body>
 
 </html>
