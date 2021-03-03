@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 
 @Repository
@@ -79,5 +80,21 @@ public class adminDAO {
 		map.put("memberNo", memberNo);
 		
 		return sqlSession.selectList("adminMapper.inquiryList", map, rowBounds);
+	}
+
+	public int selecinquirytNextNo() {
+		return sqlSession.selectOne("adminMapper.selecinquirytNextNo");
+	}
+
+	public int insertinquiry(Map<String, Object> map) {
+		return sqlSession.insert("adminMapper.insertinquiry",map);
+	}
+
+	public inquiry selectInquiry(inquiry temp) {
+		return sqlSession.selectOne("adminMapper.selectInquiry", temp);
+	}
+
+	public List<IAttachment> selectIAttachmentList(int inquiryNo) {
+		return sqlSession.selectList("adminMapper.selectIAttachmentList", inquiryNo);
 	}
 }
