@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.review.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,15 @@ public class ReviewReplyDAO {
 	 */
 	public List<ReviewReply> selectReplyList(int parentBoardNo) {
 		return sqlSession.selectList("replyMapper.selectReplyList", parentBoardNo);
+	}
+
+
+	/** 댓글 삽입
+	 * @param map
+	 * @return
+	 */
+	public int insertReply(Map<String, Object> map) {
+		return sqlSession.insert("replyMapper.insertReply", map);
 	}
 
 }
