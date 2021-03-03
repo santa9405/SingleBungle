@@ -108,4 +108,23 @@ public class FindFriendDAO {
 		return sqlSession.insert("friendMapper.insertAttachmentList", uploadImages);
 	}
 
+	/** 게시글 수정 DAO
+	 * @param updateBoard
+	 * @return
+	 */
+	public int updateBoard(FindFriend updateBoard) {
+		return sqlSession.update("friendMapper.updateBoard", updateBoard);
+	}
+
+	/** 파일 정보 일괄 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("friendMapper.deleteAttachmentList", deleteFileNoList);
+	}
+	
+	
+
 }
