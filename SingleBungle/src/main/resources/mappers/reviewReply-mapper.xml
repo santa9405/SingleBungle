@@ -15,8 +15,28 @@
       <result property="parentBoardNo" column="PARENT_BOARD_NO"/>
       <result property="parentReplyNo" column="PARENT_REPLY_NO"/>
    </resultMap>
+   
+   
+   
+   <!-- 댓글 목록 조회  -->
+   <select id="selectReplyList" parameterType="_int" resultMap="reviewReply_rm">
+   	SELECT * FROM V_REPLY
+      WHERE REPLY_STATUS = 'Y'
+      AND PARENT_BOARD_NO = #{parentBoardNo}
+      AND PARENT_REPLY_NO IN ( SELECT REPLY_NO FROM V_REPLY
+                             WHERE REPLY_STATUS = 'Y'
+                             AND REPLY_DEPTH = 0
+                             AND PARENT_BOARD_NO = #{parentBoardNo} )
+      ORDER BY PARENT_REPLY_NO DESC
+      <!-- 대댓글 아직 안함  -->
+   </select>
 	
 	
+	<!-- 댓글 삽입 -->
+	<insert id="insertReply" parameterType="map">
+		INSERT INTO BOARD_REPLY
+		VALUES(SEQ_BRNO.NEXTVAL, #{replyContent}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{parentBoardNo}, SEQ_BRNO.CURRVAL)
+	</insert>
 	
 
   	

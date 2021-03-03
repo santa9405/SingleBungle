@@ -91,7 +91,7 @@
 						<div class="media-body">
 							<div class="row">
 								<div class="col-8 d-flex">
-									<h5>솔쨩</h5>
+									<h6>솔쨩</h6>
 									<span style="color: gray; font-size: 14px;">- 15:00</span>
 								</div>
 								<div class="col-4">
@@ -107,20 +107,20 @@
 								<button class="btn btn-sm ml-1 replyUpdateArea"> 삭제 </button>
 							</div>
 
-<%-- 							<div class="media mt-3 reReply">
+							<div class="media mt-3 reReply">
 								<div class="pr-3">
 									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
 								</div>
 								<div class="media-body">
 									<div class="row">
 										<div class="col-12 d-flex">
-											<h6>달마고</h6>
+											<h7>달마고</h7>
 											<span style="color: gray; font-size: 14px;"> - 15:30</span>
 										</div>
 									</div>
 									<div class="replyText">지금 올렸어요</div>
 								</div>
-							</div> --%>
+							</div> 
 							
 <%-- 							<div class="media mt-3 reReply">
 								<div class="pr-3">
@@ -177,7 +177,7 @@
 							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" type="button">등록</button>
+							<button class="btn btn-primary btn-sm shadow-none" id="addReply" type="button">등록</button>
 							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
@@ -215,9 +215,10 @@
 	
 <script>
 
-	var loginMemberId="${loginMember.memberNo}"; // 로그인한 회원 번호
-	var replyWriter ="${loginMember.nickName}"; // 로그인한 회원 닉네임
+	var loginMemberNo="${loginMember.memberNo}"; // 로그인한 회원 번호
+	var replyWriter ="${loginMember.memberNickname}"; // 로그인한 회원 닉네임
 	var parentBoardNo = "{review.boardNo}"; // 게시글 번호
+
 	
 	
 	// 댓글 (페이징 로딩 완료 시 댓글 목록 호출)
@@ -253,7 +254,7 @@
 						var reDiv1 = $("<div>").addClass("media mt-3 reReply");
 					}
 					
-					
+						
 					// 프로필 출력
 					var img = $("<img>").addClass("mr-3 rounded-circle").src("${contextPath}/resources/images/profile.png");
 					
@@ -266,7 +267,7 @@
 					
 					// 닉네임 시간 div
 					var div4 = $("<div>").addClass("col-8 d-flex");
-					var nickName = $("<h5>").html(item.nickName); 
+					var nickName = $("<h6>").html(item.nickName); 
 					var time = $("<span>").addClass("replyTime").html(item.replyCreateDt); // 시간 출력하고싶음,,조건
 					div4.append(nickName, time);
 					
@@ -278,7 +279,7 @@
 					// 로그인이 되어있고, 대댓글이 아닐 경우 답글 버튼 추가
 					if(loginMemberId!="" && item.replyDepth!=1){
 						
-						var insertBtn = $("button").addClass("btn ").text("답글").attr("onclick", "adChildReplyArea(this,"+ item.parentReplyNo + ")" ); 
+						var insertBtn = $("button").addClass("btn").text("답글").attr("onclick", "adChildReplyArea(this,"+ item.parentReplyNo + ")" ); 
 						var reportBtn = $("button").addClass("btn report").text("신고");
 						
 						ReplyBtnArea.append(insertBtn, reportBtn);
@@ -322,7 +323,37 @@
 //-----------------------------------------------------------------------------------------
 
 
-
+	// 댓글 등록
+	$("#addReply").on("click", function(){
+		
+		// 로그인 되어있는지 확인
+		if(loginMemberId==""){
+			swal({icon:"info", title :"로그인 후 이용해 주세요."});
+		}else{
+			var replyContent = $("#replyContent").val(); //작성된 댓글 내용을 얻어와 저장
+			
+			if(replyContent.trim().length ==0){ // 댓글 작성되지 않은 경우
+				swal({icon:"info", title:"댓글을 입력해 주세요."});
+			}else{ // 로그인 O, 댓글 작성 O인 경우
+				$.ajax({
+					url : "${contextPath}/review/reply/insertReply/" + parentBoardNo,
+					type : "post",
+					data : {"replyWriter" : replyWriter, "replyContent":replyContent},
+					success : function(result){
+						if(result>0){
+							$("#replyContent").val(""); // 작성한 댓글 내용을 삭제
+							swal({icon : "success", title:"댓글 등록 성공"});
+							selectReplyList(); // 다시 목록 조회
+						}
+					},
+					error : function(){
+						console.log("댓글 삽입 실패");
+					}
+				})
+			}
+		}
+	});
+	
 
 
 

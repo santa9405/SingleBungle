@@ -1,10 +1,13 @@
 package com.gaji.SingleBungle.review.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gaji.SingleBungle.review.model.service.ReviewReplyService;
@@ -35,6 +38,21 @@ public class ReviewReplyController {
 		
 		// rList를 json 형태로 변형시켜서 반환
 		return gson.toJson(rList);  // reply.jsp로 돌아감
+	}
+	
+	
+	@RequestMapping("insertReply/{parentBoardNo}")
+	public int insertReply(@PathVariable("parentBoardNo") int parentBoardNo,
+						   @RequestParam("loginMemberNo") int loginMemberNo, @RequestParam("replyContent") String replyContent) {
+	
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("parentBoardNo", parentBoardNo);
+		map.put("loginMemberNo", loginMemberNo);
+		map.put("replyContent", replyContent);
+		
+		int result = service.insertReply(map);
+		
+		return result;
 	}
 	
 	

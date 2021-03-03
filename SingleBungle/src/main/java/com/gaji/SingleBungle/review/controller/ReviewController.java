@@ -189,7 +189,7 @@ public class ReviewController {
 	
 	// summernote에 업로드된 이미지 저장
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value= {"insertImage", "{boardNo}/insertImage"})
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 		
 		// 서버에 이미지를 저장할 폴더 경로 얻어오기
@@ -200,6 +200,56 @@ public class ReviewController {
 		
 		return new Gson().toJson(at);
 	}
+	
+	
+	
+	
+	// 게시글 수정 화면 전환
+	@RequestMapping("{boardNo}/update")
+	public String update(@PathVariable("boardNo") int boardNo, Model model) {
+		
+		Review review = service.selectReview(boardNo);
+		
+		model.addAttribute("review", review);
+		
+		return "review/reviewUpdate";
+	}
+	
+	
+	
+	// 게시글 수정
+	@RequestMapping("{boardNo}/updateAction")
+	public String updateAction(@PathVariable("boardNo") int boardNo, @ModelAttribute Review updateReview, Model model,
+								RedirectAttributes ra, HttpServletRequest request) {
+		
+		updateReview.setBoardNo(boardNo);
+		
+		// 파일 저장 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/reviewBoardImages");
+		
+		
+		int result = service.updateReview(updateReview, savePath);
+		
+		String url = null;
+		
+		if(result>0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../view/"+boardNo;
+			
+		}else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
+	
+	
 	
 	
 

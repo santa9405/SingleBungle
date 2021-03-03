@@ -65,6 +65,12 @@ public interface ReviewService {
 	 */
 	ReviewAttachment insertImage(MultipartFile uploadFile, String savePath);
 
+	/** 게시글 수정
+	 * @param updateReview
+	 * @param savePath
+	 * @return result
+	 */
+	int updateReview(Review updateReview, String savePath);
 
 
 	/** 게시글 삭제
@@ -72,6 +78,9 @@ public interface ReviewService {
 	 * @return result
 	 */
 	int deleteReview(Review review);
+
+
+
 
 
 
