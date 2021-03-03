@@ -97,4 +97,12 @@ public class adminDAO {
 	public List<IAttachment> selectIAttachmentList(int inquiryNo) {
 		return sqlSession.selectList("adminMapper.selectIAttachmentList", inquiryNo);
 	}
+
+	public int getInquiryListCount() {
+		return sqlSession.selectOne("adminMapper.getInquiryListCount");
+	}
+
+	public int deleteInquiry(int inquiryNo) {
+		return sqlSession.update("adminMapper.deleteInquiry", inquiryNo);
+	}
 }
