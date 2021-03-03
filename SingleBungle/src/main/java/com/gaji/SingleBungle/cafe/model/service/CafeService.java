@@ -80,15 +80,6 @@ public interface CafeService {
 	 */
 	public abstract int deleteCafe(Cafe cafe);
 
-//	/** 조회수 상위 3 게시글 썸네일 조회 Service
-//	 * @param cafeList
-//	 * @return
-//	 */
-//	public abstract List<CafeAttachment> selectThumbnailList2(List<Cafe> cafeList);
-
-
-
-
 
 	
 }

@@ -9,7 +9,7 @@ public class ReviewReply {
 	private Timestamp replyCreateDt;
 	private String replyStatus;
 	private int replyDepth;
-	private int memNo;
+	private int memberNo;
 	private String nickName;
 	private int parentBoardNo;
 	private int parentReplyNo;
@@ -56,12 +56,12 @@ public class ReviewReply {
 		this.replyDepth = replyDepth;
 	}
 
-	public int getMemNo() {
-		return memNo;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMemNo(int memNo) {
-		this.memNo = memNo;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public String getNickName() {
@@ -91,10 +91,13 @@ public class ReviewReply {
 	@Override
 	public String toString() {
 		return "ReviewReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
-				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickName="
-				+ nickName + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memberNo=" + memberNo
+				+ ", nickName=" + nickName + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo
+				+ "]";
 	}
 
+
+	
 
 	
 	

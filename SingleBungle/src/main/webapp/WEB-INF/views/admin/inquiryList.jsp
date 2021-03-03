@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,6 +117,15 @@
             #inquiry{
                 color: orange;
             }
+            
+            .col-md-4 {
+            flex: none !important;
+            max-width: none !important;
+        } 
+        
+        #inquiryNo{
+        display:none;
+        }
 
     </style>
 
@@ -141,7 +152,7 @@
                 </div>
                     
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
                             <th>카테고리</th>
@@ -152,65 +163,107 @@
                     </thead>
 
                     <tbody>
+                    <c:if test="${empty inquiryList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+                   </c:if>
+                    <c:if test="${!empty inquiryList }">
+                    	<c:forEach var="board" items="${inquiryList}" varStatus="vs">
                         <tr>
-                            <td>이용문의</td>
-                            <td class="boardTitle">문의사항입니다.</td>
-                            <td>2021-02-20</td>
-                            <td><i class="far fa-times-circle"></i></td>
+                        	<td id="inquiryNo">${board.inquiryNo}</td>
+                            <td>${board.categoryNm }</td>
+                            <td class="boardTitle">${board.inquiryTitle }</td>
+                            <td>${board.createDate }</td>
+                            <td>
+                            	<c:if test="${board.inquiryFl == 'N'}">
+                            		<i class="far fa-times-circle"></i>
+                            	</c:if>
+                            	<c:if test="${board.inquiryFl == 'Y'}">
+                            		<i class="fas fa-check-circle"></i>
+                            	</c:if>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>게시판문의</td>
-                            <td class="boardTitle">싱글벙글 문의사항입니다.</td>
-                            <td>2021-02-20</td>
-                            <td><i class="far fa-times-circle"></i></td>
-                        </tr>
-                        <tr>
-                            <td>회원서비스</td>
-                            <td class="boardTitle">1:1 문의사항입니다.</td>
-                            <td>2021-02-20</td>
-                            <td><i class="far fa-check-circle"></i></td>
-                        </tr>
-
+                        </c:forEach>
+					</c:if>
                     </tbody>
                 </table>
 
-                <a class="btn btn-success float-right" href="#">글쓰기</a>
+                <a class="btn btn-success float-right" href="../admin/inquiryInsert">글쓰기</a>
 
-                    <div class="padding">
+                     <div class="padding">
+                    <c:set var="firstPage" value="?cp=1"/>
+					<c:set var="lastPage" value="?cp=${pInfo.maxPage}"/>
+					
+					<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+					<c:set var="prevPage" value="?cp=${prev}" />
+					
+					
+					<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+					<c:set var="nextPage" value="?cp=${next}" />
+				
+					
+					
                         <div class="container d-flex justify-content-center">
                             <div class="col-md-4 col-sm-6 grid-margin stretch-card">
                                         <nav>
                                             <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
+                                            	
+	                                            <c:if test="${pInfo.currentPage > pInfo.pageSize}">
+	                                                <li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+                                                	<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+	                                            </c:if>
+                                            	
+                                            	
+                        <!-- 페이지 목록 -->
+												<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+													<c:choose>
+														<c:when test="${pInfo.currentPage == page }">
+															<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+														</c:when>
+													
+														<c:otherwise>
+															<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												
+												
+												<c:if test="${next <= pInfo.maxPage}">
+													<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+													<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+												</c:if>
                                             </ul>
                                         </nav>
+
                             </div>
                         </div>
                     </div>
 
 
-                    <div>
-                        <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-                         
-                            <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
-                                <option value="tit">글제목</option>
-                                <option value="con">내용</option>
-                                <option value="titcont">제목+내용</option>
-                            </select> 
-                            <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                            <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
-                        </div>
-                    </div>
+                    
             </div>
 
         </div>
     </div>
 <jsp:include page="../common/footer.jsp"/>
+<script>
+$("#list-table td").on("click",function(){
+	var inquiryNo = $(this).parent().children().eq(0).text();
+	// 게시글 목록 : /spring/board/list/1
+	// 게시글 상세조회 요청 주소 조합 -> spring/board/1/글번호  (list 빠짐)
+	// 절대경로
+	// var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo; 
+  // 상대경로
+  var boardViewURL = "${contextPath}/admin/inquiry/"+inquiryNo;
+ 
+	
+	location.href = boardViewURL; // 요청 전달
+
+});
+</script>
 </body>
 
 </html>

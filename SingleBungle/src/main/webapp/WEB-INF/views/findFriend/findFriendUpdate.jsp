@@ -30,7 +30,7 @@
 					<div class="form-group row">
 						<label for="title" class="input-group-addon col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-11">
-							<input type="text" class="form-control" id="title" name="friendTitle" size="100%" required>
+							<input type="text" class="form-control" id="title" name="friendTitle" size="100%" value="${findFriend.friendTitle}" required>
 						</div>
 					</div>
 					<hr>
@@ -38,9 +38,9 @@
 						<label for="category" class="input-group-addon col-sm-1 col-form-label">카테고리</label>
 						<div class="col-sm-4">
 							<select class="form-control div small" id="category" name="categoryCd" style="width: 150px; height: 40px;" required>
-								<option value="10">맛집</option>
-								<option value="20">문화생활</option>
-								<option value="30">동네친구</option>
+								<option value="1">맛집</option>
+								<option value="2">문화생활</option>
+								<option value="3">동네친구</option>
 							</select>
 						</div>
 					</div>
@@ -50,30 +50,30 @@
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<select class="form-control div small" id="rocation1" name="rocation1" style="width: 150px; height: 40px;" required>
-										<option value="10">서울특별시</option>
-										<option value="20">부산광역시</option>
-										<option value="30">대구광역시</option>
-										<option value="40">인천광역시</option>
-										<option value="50">광주광역시</option>
-										<option value="60">대전광역시</option>
-										<option value="70">울산광역시</option>
-										<option value="80">세종특별자치시</option>
-										<option value="90">경기도</option>
-										<option value="100">강원도</option>
-										<option value="110">충청북도</option>
-										<option value="120">충청남도</option>
-										<option value="130">전라북도</option>
-										<option value="140">전라북도</option>
-										<option value="150">경상북도</option>
-										<option value="160">경상남도</option>
-										<option value="170">제주도</option>
+									<select class="form-control div small" id="location1" name="location1" style="width: 150px; height: 40px;" required>
+										<option value="서울특별시">서울특별시</option>
+										<option value="부산광역시">부산광역시</option>
+										<option value="대구광역시">대구광역시</option>
+										<option value="인천광역시">인천광역시</option>
+										<option value="광주광역시">광주광역시</option>
+										<option value="대전광역시">대전광역시</option>
+										<option value="울산광역시">울산광역시</option>
+										<option value="세종특별자치시">세종특별자치시</option>
+										<option value="경기도">경기도</option>
+										<option value="강원도">강원도</option>
+										<option value="충청북도">충청북도</option>
+										<option value="충청남도">충청남도</option>
+										<option value="전라북도">전라북도</option>
+										<option value="전라남도">전라남도</option>
+										<option value="경상북도">경상북도</option>
+										<option value="경상남도">경상남도</option>
+										<option value="제주도">제주도</option>
 									</select>
 								</div>
 
 								<label for="rocation2" class="input-group-addon col-sm-1 col-form-label">모임장소</label>
 								<div class="col-md-7">
-									<input type="text" class="form-control" id="rocation2" name="rocation2" required>
+									<input type="text" class="form-control" id="location2" name="location2" value="${findFriend.location2}" required>
 								</div>
 							</div>
 						</div>
@@ -84,28 +84,28 @@
 						<div class="col-sm-11">
 							<div class="row mb-3 form-row">
 								<div class="col-md-4">
-									<input type="date" class="form-control" id="meetingDate" name="meetingDate" style="width: 170px; height: 40px;" required>
+									<input type="date" class="form-control" id="meetingDate" name="meetingDate" value="${findFriend.meetingDate}" style="width: 170px; height: 40px;" required>
 								</div>
 								<label for="meetingTime" class="input-group-addon col-sm-1 col-form-label">모임시간</label>
 								<div class="col-md-4">
 									<select class="form-control div smal" id="meetingTime" name="meetingTime" style="width: 80px; height: 40px;" required>
-										<option value="10">6시</option>
-										<option value="20">7시</option>
-										<option value="30">8시</option>
-										<option value="40">9시</option>
-										<option value="50">10시</option>
-										<option value="60">11시</option>
-										<option value="70">12시</option>
-										<option value="80">13시</option>
-										<option value="90">14시</option>
-										<option value="100">15시</option>
-										<option value="110">16시</option>
-										<option value="120">17시</option>
-										<option value="130">18시</option>
-										<option value="140">19시</option>
-										<option value="150">20시</option>
-										<option value="160">21시</option>
-										<option value="170">미정</option>
+										<option value="6시">6시</option>
+										<option value="7시">7시</option>
+										<option value="8시">8시</option>
+										<option value="9시">9시</option>
+										<option value="10시">10시</option>
+										<option value="11시">11시</option>
+										<option value="12시">12시</option>
+										<option value="13시">13시</option>
+										<option value="14시">14시</option>
+										<option value="15시">15시</option>
+										<option value="16시">16시</option>
+										<option value="17시">17시</option>
+										<option value="18시">18시</option>
+										<option value="19시">19시</option>
+										<option value="20시">20시</option>
+										<option value="21시">21시</option>
+										<option value="미정">미정</option>
 									</select>
 								</div>
 							</div>
@@ -118,27 +118,30 @@
 							<div class="row mb-3 form-row">
 								<div class="col-sm-4">
 									<select class="form-control div smal" id="capacity" name="capacity" style="width: 80px; height: 40px;" required>
-										<option value="10">2</option>
-										<option value="20">3</option>
-										<option value="30">4</option>
-										<option value="40">5</option>
-										<option value="50">6</option>
-										<option value="60">7</option>
-										<option value="70">8</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
 									</select>
 								</div>
 								<label for="gender" class="input-group-addon col-sm-1 col-form-label">성별</label>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="gender" id="female" value="W">
-												<label class="form-check-label" for="online">여자</label>
+											<input class="form-check-input" type="radio" name="gender" id="female" value="W"
+											<c:if test="${findFriend.gender == 'W'}">checked</c:if>>
+												<label class="form-check-label" for="female">여자</label>
 										</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="gender" id="male" value="M">
-												<label class="form-check-label" for="offline">남자</label>
+												<input class="form-check-input" type="radio" name="gender" id="male" value="M"
+												<c:if test="${findFriend.gender == 'M'}">checked</c:if>>
+												<label class="form-check-label" for="male">남자</label>
 											</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="gender" id="irrelevant" value="F">
-												<label class="form-check-label" for="offline">무관</label>
+												<input class="form-check-input" type="radio" name="gender" id="irrelevant" value="F"
+												<c:if test="${findFriend.gender == 'F'}">checked</c:if>>
+												<label class="form-check-label" for="irrelevant">무관</label>
 											</div>
 							</div>
 						</div>
@@ -148,10 +151,10 @@
 						<div>
 							<label for="content">내용</label>
 						</div>
-						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required></textarea>
+						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required>${findFriend.friendContent}</textarea>
 					</div>
 					<div class="text-center">
-						<button type="button" class="btn btn-secondary mb-3 btn-warning">수정</button>
+						<button type="submit" class="btn btn-secondary mb-3 btn-warning">수정</button>
 						<button type="button" class="btn btn-secondary mb-3">취소</button>
 					</div>
 				</form>
@@ -163,6 +166,41 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
+ // 카테고리 선택
+ (function(){
+	 $("#category > option").each(function(index, item){
+		 if($(item).text() == "${findFriend.categoryNm}"){
+			 $(item).prop("selected", true);
+		 }
+	 })
+ })();
+ 
+ // 시/도 선택
+ (function(){
+	 $("#location1 > option").each(function(index, item){
+		 if($(item).text() == "${findFriend.location1}"){
+			 $(item).prop("selected", true);
+		 }
+	 })
+ })();
+ 
+ // 모임 시간 선택
+ (function(){
+	$("#meetingTime > option").each(function(index, item){
+		if($(item).text() == "${findFriend.meetingTime}"){
+			$(item).prop("selected", true);
+		}
+	})	 
+ })();
+ 
+ // 모집 인원 선택
+ (function(){
+	 $("#capacity > option").each(function(index, item){
+		 if($(item).text() == "${findFriend.capacity}"){
+			 $(item).prop("selected", true);
+		 }
+	 })
+ })();
 	
 </script>
 </body>

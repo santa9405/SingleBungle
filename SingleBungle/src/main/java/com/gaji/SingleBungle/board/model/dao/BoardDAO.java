@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
+import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 
 @Repository
@@ -117,6 +118,48 @@ public class BoardDAO {
 	public int deleteBoard(Board board) {
 		return sqlSession.update("boardMapper.deleteBoard", board);
 	}
+	
+	/** 좋아요 목록 조회 DAO
+	 * @param memberNo
+	 * @return
+	 */
+	public List<BoardLike> selectLike(int memberNo) {
+		return sqlSession.selectList("boardMapper.selectLike", memberNo);
+	}
+
+
+	/** 좋아요 증가 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int increaseLike(Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.increaseLike", map);
+	}
+
+	/** 좋아요 감소 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int decreaseLike(Map<String, Object> map) {
+		return sqlSession.delete("boardMapper.decreaseLike", map);
+	}
+
+	/** 게시글 수정 DAO
+	 * @param updateBoard
+	 * @return
+	 */
+	public int updateBoard(Board updateBoard) {
+		return sqlSession.update("boardMapper.updateBoard", updateBoard);
+	}
+
+	/** 파일 정보 일괄 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
+	}
+
 
 	
 	

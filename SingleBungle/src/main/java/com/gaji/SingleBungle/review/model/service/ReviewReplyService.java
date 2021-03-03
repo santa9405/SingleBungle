@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.review.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.gaji.SingleBungle.review.model.vo.ReviewReply;
 
@@ -13,5 +14,14 @@ public interface ReviewReplyService {
 	 * @return rList
 	 */
 	List<ReviewReply> selectReplyList(int parentBoardNo);
+
+	
+	
+	
+	/** 댓글 삽입
+	 * @param map
+	 * @return result
+	 */
+	int insertReply(Map<String, Object> map);
 
 }

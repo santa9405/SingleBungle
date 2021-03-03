@@ -34,6 +34,11 @@
 	margin-right: 5px;
 }
 
+.category:click {
+	color: orange;
+	text-weight: bold;
+}
+
 .viewdetail:hover {
 	cursor: pointer;
 }
@@ -127,11 +132,15 @@
 				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
-						<a class="category" href="#">전체</a> <a class="category" href="#">가구</a> <a class="category" href="#">생활용품</a> <a class="category" href="#">전자기기</a> <a class="category" href="#">기타</a>
+						<a class="category" href="search?ct=0">전체</a> 
+						<a class="category" href="search?ct=1">가구</a> 
+						<a class="category" href="search?ct=2">생활용품</a> 
+						<a class="category" href="search?ct=3">전자기기</a> 
+						<a class="category" href="search?ct=4">기타</a>
 					</div>
 					<div class="arrayArea float-right">
-						<a class="array" herf="#">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
-						</a> <a class="array" herf="#">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
+						<a class="array" href="search?sort=1">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
+						</a> <a class="array" href="search?sort=2">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
 					</div>
 				</div>
 			</div>
@@ -276,20 +285,22 @@
 
 		<!-- 검색창 -->
 
-		<div class="row" style="margin-bottom: 50px;">
+		<!--  -->
+		<form action="search" class="row" id="searchForm" style="margin-bottom: 50px;">
 			<div class="col-md-12">
 				<div class="search">
-					<form action="#" method="GET">
-						<select name="sk" id="searchOption" style="width: 100px; height: 36px; display: inline-block;">
-							<option value="title">제목</option>
-							<option value="writer">작성자</option>
-							<option value="titcont">제목+내용</option>
-						</select> <input type="text" name="sv" class="form-control " autocomplete="off" style="width: 25%; display: inline-block;">
-						<button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
-					</form>
+					<select name="sk" id="searchOption" style="width: 100px; height: 36px; display: inline-block;">
+						<option value="title">제목</option>
+						<option value="writer">작성자</option>
+						<option value="titcont">제목+내용</option>
+					</select> <input type="text" name="sv" class="form-control " autocomplete="off" style="width: 25%; display: inline-block;">
+					<button class="form-control btn btn-success" id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 				</div>
 			</div>
-		</div>
+			<input type="hidden" name="ct" value="${param.ct }">	<!-- 있으면 값 세팅  -->
+			<input type="hidden" name="sort" value="${param.sort }">
+		</form>
+
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 

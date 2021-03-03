@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.IAttachment;
+import com.gaji.SingleBungle.admin.vo.inquiry;
 
 public interface adminService {
 
@@ -32,5 +34,17 @@ public interface adminService {
 	List<ABoard> selectFaqList(int type);
 
 	int insertFaqAction(Map<String, Object> map);
+
+	List<inquiry> inquiryList(APageInfo pInfo, int memberNo);
+
+	int insertinquiryAction(Map<String, Object> map, List<MultipartFile> images, String savePath);
+
+	inquiry selectInquiryBoard(int inquiryNo);
+
+	List<IAttachment> selectIAttachmentList(int inquiryNo);
+
+	APageInfo getInquiryPageInfo(int cp);
+
+	int deleteInquiry(int inquiryNo);
 
 }

@@ -40,6 +40,14 @@ public class APageInfo {
 		this.boardType = boardType;
 	}
 
+	public APageInfo(int currentPage, int listCount) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+	}
+
+
+
 	public int getCurrentPage() {
 		return currentPage;
 	}

@@ -137,14 +137,6 @@ public class CafeDAO {
 		return sqlSession.insert("cafeMapper.insertAttachmentList", uploadImages);
 	}
 
-
-//	/** 조회수 상위 3 게시글 썸네일 조회 DAO
-//	 * @param cafeList
-//	 * @return
-//	 */
-//	public List<CafeAttachment> selectThumbnailList2(List<Cafe> cafeList) {
-//		return sqlSession.selectList("cafeMapper.selectThumbnailList2", cafeList);
-//	}
 	
 	
 

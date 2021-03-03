@@ -182,20 +182,6 @@ public class CafeServiceImpl implements CafeService {
 		return result;
 	}
 	
-	
-	   // 크로스 사이트 스크립트 방지 처리 메소드
-	   private String replaceParameter(String param) {
-	      String result = param;
-	      if(param != null) {
-	         result = result.replaceAll("&", "&amp;");
-	         result = result.replaceAll("<", "&lt;");
-	         result = result.replaceAll(">", "&gt;");
-	         result = result.replaceAll("\"", "&quot;");
-	      }
-	         
-	      return result;
-	   }
-	      
 	   // 파일명 변경 메소드
 	   public String rename(String originFileName) {
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
@@ -241,12 +227,6 @@ public class CafeServiceImpl implements CafeService {
 	public int deleteCafe(Cafe cafe) {
 		return dao.deleteCafe(cafe);
 	}
-
-//	// 조회수 상위 3 게시글 썸네일 조회 Service 구현
-//	@Override
-//	public List<CafeAttachment> selectThumbnailList2(List<Cafe> cafeList) {
-//		return dao.selectThumbnailList2(cafeList);
-//	}
 
 
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,10 +24,13 @@ import com.gaji.SingleBungle.admin.service.adminService;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.IAttachment;
+import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
 @Controller
+@SessionAttributes({"loginMember"})
 @RequestMapping("/admin/*")
 public class adminController {
 	
@@ -37,45 +41,8 @@ public class adminController {
 	private String swalTitle = null;
 	private String swalText = null;
 
-	// 寃뚯떆占�? 紐⑸줉 議고쉶 Controller
-	@RequestMapping("adminMypage")
-	public String adminMypage() {
-		return "admin/adminMypage";
-	}
 	
-	@RequestMapping("boardManage")
-	public String boardManageView() {
-		return "admin/boardManage";
-	}
-	
-	@RequestMapping("boardReport")
-	public String boardReportView() {
-		return "admin/boardReport";
-	}
-	
-	@RequestMapping("levelList")
-	public String levelListView() {
-		return "admin/levelList";
-	}
-	
-	@RequestMapping("memberList")
-	public String memberListView() {
-		return "admin/memberList";
-	}
-	
-	@RequestMapping("replyManage")
-	public String replyManageView() {
-		return "admin/replyManage";
-	}
-	
-	@RequestMapping("replyReport")
-	public String replyReportView() {
-		return "admin/replyReport";
-	}
-	
-	
-	
-	
+
 	
 	@RequestMapping("eventList")
 	public String eventListView(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model) {
@@ -136,7 +103,10 @@ public class adminController {
 	}
 	
 	
-	
+	@RequestMapping("eventInsert")
+	public String eventInsert() {
+		return "admin/eventInsert";
+	}
 	
 	
 	
@@ -190,7 +160,10 @@ public class adminController {
 				return url;
 			}
 	
-	
+			
+			
+			
+			//----------------------------------------------------FAQ
 	
 	
 	@RequestMapping("faqInsert")
@@ -241,10 +214,7 @@ public class adminController {
 	}
 
 
-	@RequestMapping("eventInsert")
-	public String eventInsert() {
-		return "admin/eventInsert";
-	}
+	
 	
 	
 	@RequestMapping("faqView")
@@ -259,21 +229,8 @@ public class adminController {
 	}
 	
 	
+	//-------------------------------notice
 	
-	@RequestMapping("inquiryInsert")
-	public String inquiryInsert() {
-		return "admin/inquiryInsert";
-	}
-	
-	@RequestMapping("inquiryList")
-	public String inquiryListView() {
-		return "admin/inquiryList";
-	}
-	
-	@RequestMapping("inquiryView")
-	public String inquiryView() {
-		return "admin/inquiryView";
-	}
 	
 	@RequestMapping("noticeInsert")
 	public String noticeInsert() {
@@ -395,13 +352,22 @@ public class adminController {
 	}
 	
 	
-	
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String noticeDelete(@RequestParam("boardNo") int boardNo,
+	//------------------------------------------------delete
+	@RequestMapping("{boardNo}/{boardCode}/delete")
+	public String noticeDelete(@PathVariable("boardNo") int boardNo,
+								@PathVariable("boardCode") int boardCode,
 								@RequestHeader(value="referer",required=false) String referer,
 								RedirectAttributes ra) {
 		
 		//System.out.println(boardNo);
+		
+		System.out.println(boardCode);
+		System.out.println(boardNo);
+		
+		/*
+		 * int boardNo = Integer.parseInt(boardNo1); int boardCode =
+		 * Integer.parseInt(boardCode1);
+		 */
 		
 		int result = service.deleteBoard(boardNo);
 		String url = null;
@@ -409,7 +375,19 @@ public class adminController {
 		if(result>0) {
 			ra.addFlashAttribute("swalIcon","success");
 			ra.addFlashAttribute("swalTitle","삭제성공하였습니다.");
-			url = "redirect:noticeList";
+			
+			switch (boardCode) {
+			case 3:
+				url = "redirect:../../noticeList";
+				break;
+
+			case 4:
+				url = "redirect:../../eventList";
+				break;
+			default:
+				url = "redirect:" + referer;
+				break;
+			}
 		}else{
 			url = "redirect:" + referer;
 			ra.addFlashAttribute("swalIcon","error");
@@ -423,7 +401,7 @@ public class adminController {
 	
 	
 	
-	// summernote에 업로드된 이미지 저장 Controller
+	// ---------------------------------------------summernote에 업로드된 이미지 저장 Controller
 		@ResponseBody
 		@RequestMapping("insertImage")
 		public String insertImage(HttpServletRequest request, 
@@ -445,6 +423,184 @@ public class adminController {
 			// 문자열이지만 자바스크립트 객체 모양 "{}"을 하고있다.
 			// gson을 사용함.
 			return new Gson().toJson(at);
+		}
+		
+		
+		
+		
+		//---------------------------------------------------inquiry
+		@RequestMapping("inquiryInsert")
+		public String inquiryInsert() {
+			return "admin/inquiryInsert";
+		}
+		
+		@RequestMapping("insertinquiryAction")
+		public String insertinquiryAction(@ModelAttribute inquiry board, 
+							@RequestParam(value="categoryCode") int categoryCode, 
+							@ModelAttribute("loginMember") Member loginMember,
+							@RequestParam(value="images", required=false) List<MultipartFile> images,
+							HttpServletRequest request, RedirectAttributes ra) {
+
+		System.out.println(categoryCode);
+		System.out.println(board);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("inquiryTitle", board.getInquiryTitle());
+		map.put("inquiryContent", board.getInquiryContent());
+		map.put("categoryCode", categoryCode);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		String savePath = null;
+		
+		savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
+		
+
+		
+		// 게시글 map, 이미지 images, 저장경로 savePath
+		// 게시글 삽입 Service 호출
+		int result = service.insertinquiryAction(map, images, savePath);
+		
+		String url = null;
+		
+		// 게시글 삽입 결과에 따른 View 연결 처리
+		if(result>0) {
+			swalIcon= "success";
+			swalTitle= "게시글 등록 성공";
+			url = "redirect:inquiryView";
+			
+			// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
+			request.getSession().setAttribute("returnListURL", "../");
+			
+		}else {
+			swalIcon="error";
+			swalTitle = "게시글 등록 실패";
+			url = "redirect:inquiryInsert";
+		}
+		
+		ra.addFlashAttribute("swalIcon",swalIcon);
+		ra.addFlashAttribute("swalTitle",swalTitle);
+
+		return url;
+		}
+		
+		
+		
+		@RequestMapping("inquiryList")
+		public String inquiryList(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model,
+				@ModelAttribute("loginMember") Member loginMember) {
+			
+			APageInfo pInfo = service.getInquiryPageInfo(cp);
+			pInfo.setLimit(10);
+			int memberNo = loginMember.getMemberNo();
+			List<inquiry> inquiryList = service.inquiryList(pInfo, memberNo);
+			
+
+			model.addAttribute("inquiryList", inquiryList);
+			model.addAttribute("pInfo", pInfo);
+			return "admin/inquiryList";
+		}
+		
+		
+		
+		@RequestMapping("inquiry/{inquiryNo}")
+		public String inquiryView(@PathVariable("inquiryNo") int inquiryNo,
+				Model model, @RequestHeader(value="referer",required=false) String referer,
+				RedirectAttributes ra) {
+			
+			
+			inquiry inquiry = service.selectInquiryBoard(inquiryNo);
+			
+			System.out.println(inquiry);
+			String url = null;
+			
+			if(inquiry!=null) {  //  상세 조회 성공 시
+						
+						// 상세 조회 성공한 게시물의 이미지 목록을 조회하는 Service 호출
+						List<IAttachment> attachmentList = service.selectIAttachmentList(inquiryNo);
+						
+						if(attachmentList !=null & !attachmentList.isEmpty()) {
+							model.addAttribute("attachmentList",attachmentList);
+						}
+						
+						model.addAttribute("inquiry",inquiry);
+						url = "admin/inquiryView";
+					}else { 
+						
+						if(referer == null) {// 이전 요청 주소가 없는 경우(ex. 북마크나 , 주소창으로 바로 접근을 했을 때)
+							url="redirect:../";
+						}else {// 이전 요청 주소가 있는 경우(ex. 사이트에서 루트를 타고 정상적으로 접근 했을 때)
+							url = "redirect:" + referer;
+						}
+						ra.addFlashAttribute("swalIcon","error");
+						ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+					}
+					return url;
+		}
+		
+		
+		
+		@RequestMapping("{inquiryNo}/inquiryDelete")
+		public String inquiryDelete(@PathVariable("inquiryNo") int inquiryNo,
+									@RequestHeader(value="referer",required=false) String referer,
+									RedirectAttributes ra) {
+			
+
+			int result = service.deleteInquiry(inquiryNo);
+			String url = null;
+			
+			if(result>0) {
+				ra.addFlashAttribute("swalIcon","success");
+				ra.addFlashAttribute("swalTitle","삭제성공하였습니다.");
+				url = "redirect:../inquiryList";
+
+			}else{
+				url = "redirect:" + referer;
+				ra.addFlashAttribute("swalIcon","error");
+				ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+			}
+			
+			return url;
+			
+			
+		}
+		
+		
+		
+		// ------------------------------------------------------------------------
+		//관리자 컨트롤러
+		@RequestMapping("adminMypage")
+		public String adminMypage() {
+			return "admin/adminMypage";
+		}
+		
+		@RequestMapping("boardManage")
+		public String boardManageView() {
+			return "admin/boardManage";
+		}
+		
+		@RequestMapping("boardReport")
+		public String boardReportView() {
+			return "admin/boardReport";
+		}
+		
+		@RequestMapping("levelList")
+		public String levelListView() {
+			return "admin/levelList";
+		}
+		
+		@RequestMapping("memberList")
+		public String memberListView() {
+			return "admin/memberList";
+		}
+		
+		@RequestMapping("replyManage")
+		public String replyManageView() {
+			return "admin/replyManage";
+		}
+		
+		@RequestMapping("replyReport")
+		public String replyReportView() {
+			return "admin/replyReport";
 		}
 	
 }
