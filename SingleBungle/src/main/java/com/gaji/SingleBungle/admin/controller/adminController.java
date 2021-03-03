@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,10 +24,12 @@ import com.gaji.SingleBungle.admin.service.adminService;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
 @Controller
+@SessionAttributes({"loginMember"})
 @RequestMapping("/admin/*")
 public class adminController {
 	
@@ -37,45 +40,8 @@ public class adminController {
 	private String swalTitle = null;
 	private String swalText = null;
 
-	// 寃뚯떆占�? 紐⑸줉 議고쉶 Controller
-	@RequestMapping("adminMypage")
-	public String adminMypage() {
-		return "admin/adminMypage";
-	}
 	
-	@RequestMapping("boardManage")
-	public String boardManageView() {
-		return "admin/boardManage";
-	}
-	
-	@RequestMapping("boardReport")
-	public String boardReportView() {
-		return "admin/boardReport";
-	}
-	
-	@RequestMapping("levelList")
-	public String levelListView() {
-		return "admin/levelList";
-	}
-	
-	@RequestMapping("memberList")
-	public String memberListView() {
-		return "admin/memberList";
-	}
-	
-	@RequestMapping("replyManage")
-	public String replyManageView() {
-		return "admin/replyManage";
-	}
-	
-	@RequestMapping("replyReport")
-	public String replyReportView() {
-		return "admin/replyReport";
-	}
-	
-	
-	
-	
+
 	
 	@RequestMapping("eventList")
 	public String eventListView(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model) {
@@ -190,7 +156,8 @@ public class adminController {
 				return url;
 			}
 	
-	
+			
+			
 	
 	
 	@RequestMapping("faqInsert")
@@ -260,20 +227,6 @@ public class adminController {
 	
 	
 	
-	@RequestMapping("inquiryInsert")
-	public String inquiryInsert() {
-		return "admin/inquiryInsert";
-	}
-	
-	@RequestMapping("inquiryList")
-	public String inquiryListView() {
-		return "admin/inquiryList";
-	}
-	
-	@RequestMapping("inquiryView")
-	public String inquiryView() {
-		return "admin/inquiryView";
-	}
 	
 	@RequestMapping("noticeInsert")
 	public String noticeInsert() {
@@ -396,12 +349,21 @@ public class adminController {
 	
 	
 	
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String noticeDelete(@RequestParam("boardNo") int boardNo,
+	@RequestMapping("{boardNo}/{boardCode}/delete")
+	public String noticeDelete(@PathVariable("boardNo") int boardNo,
+								@PathVariable("boardCode") int boardCode,
 								@RequestHeader(value="referer",required=false) String referer,
 								RedirectAttributes ra) {
 		
 		//System.out.println(boardNo);
+		
+		System.out.println(boardCode);
+		System.out.println(boardNo);
+		
+		/*
+		 * int boardNo = Integer.parseInt(boardNo1); int boardCode =
+		 * Integer.parseInt(boardCode1);
+		 */
 		
 		int result = service.deleteBoard(boardNo);
 		String url = null;
@@ -409,7 +371,19 @@ public class adminController {
 		if(result>0) {
 			ra.addFlashAttribute("swalIcon","success");
 			ra.addFlashAttribute("swalTitle","삭제성공하였습니다.");
-			url = "redirect:noticeList";
+			
+			switch (boardCode) {
+			case 3:
+				url = "redirect:../../noticeList";
+				break;
+
+			case 4:
+				url = "redirect:../../eventList";
+				break;
+			default:
+				url = "redirect:" + referer;
+				break;
+			}
 		}else{
 			url = "redirect:" + referer;
 			ra.addFlashAttribute("swalIcon","error");
@@ -445,6 +419,76 @@ public class adminController {
 			// 문자열이지만 자바스크립트 객체 모양 "{}"을 하고있다.
 			// gson을 사용함.
 			return new Gson().toJson(at);
+		}
+		
+		
+		@RequestMapping("inquiryInsert")
+		public String inquiryInsert() {
+			return "admin/inquiryInsert";
+		}
+		
+		@RequestMapping("inquiryList")
+		public String inquiryList(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model,
+				@ModelAttribute("loginMember") Member loginMember) {
+			
+			int type=5;
+			APageInfo pInfo = service.getPageInfo(cp,type);
+			pInfo.setLimit(10);
+			int memberNo = loginMember.getMemberNo();
+			System.out.println("memberNo:" + loginMember);
+			List<inquiry> inquiryList = service.inquiryList(pInfo, memberNo);
+			
+
+			model.addAttribute("inquiryList", inquiryList);
+			model.addAttribute("pInfo", pInfo);
+			return "admin/inquiryList";
+		}
+		
+		
+		
+		@RequestMapping("inquiryView")
+		public String inquiryView() {
+			
+			return "admin/inquiryView";
+		}
+		
+		
+		
+		// ------------------------------------------------------------------------
+		//관리자 컨트롤러
+		@RequestMapping("adminMypage")
+		public String adminMypage() {
+			return "admin/adminMypage";
+		}
+		
+		@RequestMapping("boardManage")
+		public String boardManageView() {
+			return "admin/boardManage";
+		}
+		
+		@RequestMapping("boardReport")
+		public String boardReportView() {
+			return "admin/boardReport";
+		}
+		
+		@RequestMapping("levelList")
+		public String levelListView() {
+			return "admin/levelList";
+		}
+		
+		@RequestMapping("memberList")
+		public String memberListView() {
+			return "admin/memberList";
+		}
+		
+		@RequestMapping("replyManage")
+		public String replyManageView() {
+			return "admin/replyManage";
+		}
+		
+		@RequestMapping("replyReport")
+		public String replyReportView() {
+			return "admin/replyReport";
 		}
 	
 }

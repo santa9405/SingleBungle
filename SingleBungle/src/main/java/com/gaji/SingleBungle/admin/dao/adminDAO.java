@@ -1,5 +1,6 @@
 package com.gaji.SingleBungle.admin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.inquiry;
 
 @Repository
 public class adminDAO {
@@ -65,5 +67,17 @@ public class adminDAO {
 
 	public List<ABoard> selectFaqList(int type) {
 		return sqlSession.selectList("adminMapper.selectFaqList", type);
+	}
+
+	public List<inquiry> inquiryList(APageInfo pInfo, int memberNo) {
+		// RowBounds 객체 : offset과 limit를 이용하여 조회 내용 중 일부 행만 조회하는 마이바티스 객체
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardType", pInfo.getBoardType());
+		map.put("memberNo", memberNo);
+		
+		return sqlSession.selectList("adminMapper.inquiryList", map, rowBounds);
 	}
 }
