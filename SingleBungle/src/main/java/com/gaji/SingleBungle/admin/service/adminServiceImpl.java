@@ -17,6 +17,7 @@ import com.gaji.SingleBungle.admin.dao.adminDAO;
 import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 
 @Repository
@@ -430,6 +431,11 @@ public class adminServiceImpl implements adminService{
 				result = dao.insertBoard(map);
 			}
 			return result;
+		}
+
+		@Override
+		public List<inquiry> inquiryList(APageInfo pInfo, int memberNo) {
+			return dao.inquiryList(pInfo, memberNo);
 		}
 
 

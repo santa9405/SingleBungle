@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,25 +154,21 @@
                     </thead>
 
                     <tbody>
+                    <c:if test="${empty inquiryList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+                   </c:if>
+                    <c:if test="${!empty inquiryList }">
+                    	<c:forEach var="board" items="${inquiryList}" varStatus="vs">
                         <tr>
-                            <td>이용문의</td>
-                            <td class="boardTitle">문의사항입니다.</td>
-                            <td>2021-02-20</td>
+                            <td>${board.categoryCode }</td>
+                            <td class="boardTitle">${board.inquiryTitle }</td>
+                            <td>${board.createDate }</td>
                             <td><i class="far fa-times-circle"></i></td>
                         </tr>
-                        <tr>
-                            <td>게시판문의</td>
-                            <td class="boardTitle">싱글벙글 문의사항입니다.</td>
-                            <td>2021-02-20</td>
-                            <td><i class="far fa-times-circle"></i></td>
-                        </tr>
-                        <tr>
-                            <td>회원서비스</td>
-                            <td class="boardTitle">1:1 문의사항입니다.</td>
-                            <td>2021-02-20</td>
-                            <td><i class="far fa-check-circle"></i></td>
-                        </tr>
-
+                        </c:forEach>
+					</c:if>
                     </tbody>
                 </table>
 
