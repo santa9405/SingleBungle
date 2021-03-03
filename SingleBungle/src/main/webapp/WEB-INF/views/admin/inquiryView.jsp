@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,8 +50,13 @@
                 clear: both;
             }
 
+            #boardNo{
+            	display : none;
+            }
             
-            
+            #boardContent{
+            	min-height : 300px;
+            }
         </style>
 </head>
 <body>
@@ -58,17 +65,18 @@
         <div class="row">
 
             <div class="col-md-12">
-                <p id="bTitle">1 : 1 문의사항</p>
+                <p>1 : 1 문의사항</p>
                 <hr>
                 <div class="boardArea">
                         <div class="row">
                             <div class="col-md-8">
-                                <span id="boardTitle">글제목</span>
+                                <span id="boardNo">${inquiry.inquiryNo}</span>
+                            	<span>[${inquiry.categoryNm}]</span>
+                                <span id="bTitle">${inquiry.inquiryTitle }</span>
                             </div>
                             <div class="col-md-4">
                                 <div id="boardInfo">
-                                    <span>2021-02-20</span><br>
-                                    <span>조회수 : 0</span>
+                                    <span><span>${inquiry.createDate}</span><br></span><br>
                                 </div>
                             </div>
                         </div>
@@ -76,8 +84,8 @@
                 <hr>
 
                 <div id="boardContent">
-                    안녕하세용...<br>
-                    테스트 글입니다...<br>
+                    <% pageContext.setAttribute("newLine", "\n"); %>
+					${fn:replace(inquiry.inquiryContent, newLine , "<br>") }
 
                 </div>
 
@@ -91,8 +99,8 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col-md-12">
-												<button type="button" class="btn btn-success">수정</button>
-												<button type="button" class="btn btn-danger">삭제</button>
+												<a href="#" class="btn btn-success ml-1 mr-1">수정</a>
+												<a href="../${inquiry.inquiryNo}/inquiryDelete" class="btn btn-success ml-1 mr-1">삭제</a>
 											</div>
 										</div>
 									</div>

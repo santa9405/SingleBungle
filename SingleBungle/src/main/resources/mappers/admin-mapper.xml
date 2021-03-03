@@ -35,6 +35,7 @@
 		<result property="inquiryFl" column="INQUIRY_FL" />
 		<result property="categoryCode" column="CTGR_CD" />
 		<result property="memberNo" column="MEM_NO" />
+		<result property="categoryNm" column="CTGR_NM" />
 	</resultMap>
 
 	<resultMap type="IAttachment" id="Iattachment_rm">
@@ -160,12 +161,20 @@
 	</select>
 	
 	
+	<!-- 1:1 게시판 전체 게시글 수 조회 -->
+	<select id="getInquiryListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM INQUIRY
+		WHERE DELETE_FL = 'N'
+	</select>
+	
+	
 	<!-- 게시글 목록 조회 -->
 	<select id="inquiryList" parameterType="map" resultMap="inquiry_rm">
 		SELECT INQUIRY_NO, INQUIRY_TITLE, INQUIRY_FL, CREATE_DT, CTGR_NM, MEM_NO
 		FROM INQUIRY
 		JOIN INQUIRY_CATEGORY USING (CTGR_CD)
 		WHERE MEM_NO = #{memberNo}
+		AND DELETE_FL = 'N'
 		ORDER BY INQUIRY_NO DESC
 	</select>
 	
@@ -187,6 +196,7 @@
 		FROM INQUIRY
 		JOIN INQUIRY_CATEGORY USING (CTGR_CD)
         WHERE INQUIRY_NO = #{inquiryNo}
+        AND DELETE_FL = 'N'
    </select>
    
    <!-- 게시글에 포함된 이미지 목록 조회 -->
@@ -195,4 +205,11 @@
   		WHERE INQUIRY_NO = #{inquiryNo}
   	</select>
   	
+  	
+  	<!-- 1:1 게시글 삭제  -->
+  	<update id="deleteInquiry" parameterType="_int">
+  		UPDATE INQUIRY SET
+  		DELETE_FL = 'Y'
+  		WHERE INQUIRY_NO = #{inquiryNo}
+  	</update>
 </mapper>

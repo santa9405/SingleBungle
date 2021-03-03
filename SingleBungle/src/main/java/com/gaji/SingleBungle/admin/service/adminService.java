@@ -43,4 +43,8 @@ public interface adminService {
 
 	List<IAttachment> selectIAttachmentList(int inquiryNo);
 
+	APageInfo getInquiryPageInfo(int cp);
+
+	int deleteInquiry(int inquiryNo);
+
 }

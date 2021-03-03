@@ -10,6 +10,7 @@ public class inquiry {
 	private String inquiryFl;
 	private int categoryCode;
 	private int memberNo;
+	private String categoryNm;
 	
 	public inquiry() {}
 
@@ -23,6 +24,17 @@ public class inquiry {
 		this.inquiryFl = inquiryFl;
 		this.categoryCode = categoryCode;
 		this.memberNo = memberNo;
+		this.categoryNm = categoryNm;
+	}
+
+	
+	
+	public String getCategoryNm() {
+		return categoryNm;
+	}
+
+	public void setCategoryNm(String categoryNm) {
+		this.categoryNm = categoryNm;
 	}
 
 	public int getInquiryNo() {
@@ -85,8 +97,10 @@ public class inquiry {
 	public String toString() {
 		return "inquiry [inquiryNo=" + inquiryNo + ", inquiryTitle=" + inquiryTitle + ", inquiryContent="
 				+ inquiryContent + ", createDate=" + createDate + ", inquiryFl=" + inquiryFl + ", categoryCode="
-				+ categoryCode + ", memberNo=" + memberNo + "]";
+				+ categoryCode + ", memberNo=" + memberNo + ", categoryNm=" + categoryNm + "]";
 	}
+
+	
 
 	
 	
