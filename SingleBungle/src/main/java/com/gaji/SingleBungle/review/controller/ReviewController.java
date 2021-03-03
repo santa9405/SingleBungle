@@ -278,6 +278,26 @@ public class ReviewController {
 		return url;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	// 게시글 검색
+	@RequestMapping("search")
+	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+								@RequestParam(value="sk",required = false) String sk, 
+								@RequestParam(value="sv",required = false) String sv,
+								@RequestParam(value="ct",required = false, defaultValue = "0") String ct,
+								@RequestParam(value="sort",required = false) String sort, Model model) {
+		System.out.println(sk);
+		System.out.println(sv);
+		System.out.println(ct);
+		System.out.println(sort);
+		return null;
+	}
 
 	
 
