@@ -80,7 +80,7 @@
  		flex-direction: column;
  		color : rgb(155, 153, 169);
  		font-size : 1rem;
- 		margin-right: 1rem;
+ 		margin-right: 12px;
  		box-sizing: border-box;
  }
  
@@ -185,8 +185,56 @@
 		border : 1px solid rgb(195, 194, 204);		
 		width: 100%;
 	}
+	
+	.itemImages{
+		display: flex;
+		width : 856px;
+		flex-wrap:  wrap;
+		overflow-x : hidden;
+	}
+	
+	.itemImage{
+		margin-bottom : 8px;
+		width: 202px;
+		height: 202px;
+		border: 1px solid rgb(230, 229, 239);
+		margin-right: 12px;
+		list-style-type: none;
+		position : relative;
+		display: flex;
+	}
+	
+	.image{
+		width: 100%;
+		height: 100%;
+	}
+	
+	.deleteBtn{
+		width : 1.5rem;
+		height : 1.5rem;
+		background-position : center center;
+		background-repeat : no-repeat;
+		background-size : 12px 12px;
+		background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIj4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTYuODQ4IDZsMy43NzYtMy43NzZhLjYuNiAwIDEgMC0uODQ4LS44NDhMNiA1LjE1IDIuMjI0IDEuMzc2YS42LjYgMCAwIDAtLjg0OC44NDhMNS4xNTIgNiAxLjM3NiA5Ljc3NWEuNi42IDAgMSAwIC44NDguODQ5TDYgNi44NDhsMy43NzYgMy43NzZhLjU5OC41OTggMCAwIDAgMS4wMjQtLjQyNS42LjYgMCAwIDAtLjE3Ni0uNDI0TDYuODQ4IDZ6IiBvcGFjaXR5PSIuNjQiLz4KPC9zdmc+Cg==");
+		background-color :  rgba(30, 29, 41, 0.32);
+		border-radius: 50%;
+		position: absolute;
+		top : 0.5rem;
+		right : 0.5rem;
+		outline : none;
+		border: none;
+	}
 
-
+	.sumbitArea{
+		width: auto;
+	}
+	
+	#submitBtn{
+		width : 20%;
+		margin : 40px 0 137px 0;
+		outline: none;
+		float: right;
+	}
 
 </style>
 </head>
@@ -237,16 +285,17 @@
 					<!-- 이미지 -->
 						<li class="formRow row borderTop">
 							<div class="formList">
-								<span>상품이미지<span class="star">*</span> (0/10) </span>
+								<span>상품이미지<span class="star">*</span> (<span id="imgCnt">0</span>/10) </span>
 							</div>
 							
 							<div class="formContent">
 								<ul class="itemImages">
-									<li class="itemImageInsert">
-										<label for="imagesInput">
+									<li class="itemImageInsert" id="imgInput">
+										<label for="imageInput">
 											<span>이미지 등록</span></label>
-											<input id="imagesInput" name="imagesInput" type="file" style="display: none;" multiple>
+											<input id="imageInput" name="imageInput" type="file" style="display: none;" onclick="LoadImg(this);">
 									</li>
+									
 									
 								</ul>
 							</div>
@@ -260,16 +309,14 @@
 							
 							<div class="formContent titleFlex">
 								<div class="titleArea ">
-									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" value="">
+									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="title" required maxlength="40" minlength="2">
 									<button id="cancelBtn" type="button"></button>
 									
 									<div class="titleCnt">
-									<span id="currCnt">10</span>
+									<span id="currCnt">0</span>
 									<span id="maxCnt">/ 40</span>
 								</div>
 								</div>
-								<span class="errorMsg" id="titleMsg">미친놈아!</span>
-								
 							</div>
 						</li>
 						
@@ -281,9 +328,20 @@
 							</div>			
 							
 							<div class="formContent">
-								<select id="Select1" class="form-control div large" style="height: 30px">
-									<option value="야">야</option>
-									<option value="되냐?">되나?</option>
+								<select id="SelectCategory" class="form-control div large" style="height: 40px">
+									<option value="1">디지털/가전</option>
+									<option value="2">가구/인테리어</option>
+									<option value="3">유아동/유아도서</option>
+									<option value="4">생활/가공식품</option>
+									<option value="5">스포츠/레저</option>
+									<option value="6">여성패션/잡화</option>
+									<option value="7">남성패션/잡화</option>
+									<option value="8">게임/취미</option>
+									<option value="9">뷰티/미용</option>
+									<option value="10">반려동물용품</option>
+									<option value="11">도서/티켓/음반</option>
+									<option value="12">식물</option>
+									<option value="13">기타 중고물품</option>
 								</select>
 							</div>
 						</li>
@@ -296,7 +354,7 @@
 							
 							<div class="formContent titleFlex">
 								<div class="locationBtnArea mb-20">
-									<button type="button" id="currLocation" class="LBtn btn btn-info">내 위치</button>
+									<button type="button" id="currLocation" class="LBtn btn btn-info" onclick="getLocation();">내 위치</button>
 									<button type="button" id="currLocation" class="LBtn btn btn-primary">주소 검색</button>
 								</div>
 								<input type="text" readonly placeholder="선호 거래 지역을 검색해주세요." id="locationInput" class="location">
@@ -362,11 +420,12 @@
 								</div>
 							</div>
 						</li>
-					</ul>
+						</ul>
+						<div id="sumbitArea">
+								<button id="submitBtn" type="submit" class="btn-lg btn-info">등록하기</button>
+						</div>
+	
 					</form>
-					
-
-
 
 				</div>
 			</div>
@@ -374,10 +433,64 @@
 	</div>
 	
 	<jsp:include page="../common/footer.jsp"/>
-	
-	<script>
-		
 
+	<script>
+	var imgCnt = 0;
+	
+	if(imgCnt <= 10) {
+		function LoadImg(value) {
+			if (value.files) {
+				var reader = new FileReader();
+				reader.readAsDataURL(value.files[0]);
+
+				reader.onload = function(e) {
+					var img = '<li class="itemImage"> <img class="image" src="' + e.target.result + '">' +
+						'<button type="button" class="deleteBtn" onclick="deleteImg(this);"></button>' + '</li>';
+					$(".itemImages").append(img);
+					$("#imgCnt").text(++imgCnt);
+				}
+			}
+		}
+	}
+    function deleteImg(value) {
+    		$("#imgCnt").text(--imgCnt);
+        $(value).parent().remove();
+        $(value).remove();
+    	
+     }
+    
+    
+    $("#title").on("input", function(){
+    	var cnt = $(this).val();
+    	$("#currCnt").text(cnt.length);
+    	
+    	if(cnt.length == 40){
+    		$("#currCnt").css("color", "red");
+    	}
+    });
+    
+    $("#cancelBtn").on("click", function(){
+    	$("#title").val("");
+    });
+    
+	
+    function getLocation(){
+    	if(navigator.geolocation) {
+    		navigator.geolocation.getCurrentPosition(function(position){
+    			alert(position.coords.latitude + ' ' + position.coords.longitude);
+    		}, function(error){
+    			console.error(error);
+    		}, {
+    			enableHighAccuracy: false,
+    			maximumAge : 0,
+    			timeout : Infinity
+    		});
+    	} else {
+    		alert('GPS를 지원하지 않습니다.');
+    	}
+    }
+
+		
 	</script>
 
 </body>

@@ -233,7 +233,7 @@ body {
 									<div
 										class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
 										<p class="small mb-0">
-											<i class="mr-2"></i><span class="font-weight-bold price">${market.price}
+											<i class="mr-2"></i><span class="font-weight-bold price"> <fmt:formatNumber value="${market.price}" pattern="###,###,###,###"/>
 												원</span>
 										</p>
 										<c:if test="${market.transactionStatus == 1}">
