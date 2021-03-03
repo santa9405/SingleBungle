@@ -489,11 +489,9 @@ public class adminController {
 		public String inquiryList(@RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model model,
 				@ModelAttribute("loginMember") Member loginMember) {
 			
-			int type=5;
-			APageInfo pInfo = service.getPageInfo(cp,type);
+			APageInfo pInfo = service.getInquiryPageInfo(cp);
 			pInfo.setLimit(10);
 			int memberNo = loginMember.getMemberNo();
-			System.out.println("memberNo:" + loginMember);
 			List<inquiry> inquiryList = service.inquiryList(pInfo, memberNo);
 			
 
@@ -512,6 +510,7 @@ public class adminController {
 			
 			inquiry inquiry = service.selectInquiryBoard(inquiryNo);
 			
+			System.out.println(inquiry);
 			String url = null;
 			
 			if(inquiry!=null) {  //  상세 조회 성공 시
@@ -536,6 +535,33 @@ public class adminController {
 						ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
 					}
 					return url;
+		}
+		
+		
+		
+		@RequestMapping("{inquiryNo}/inquiryDelete")
+		public String inquiryDelete(@PathVariable("inquiryNo") int inquiryNo,
+									@RequestHeader(value="referer",required=false) String referer,
+									RedirectAttributes ra) {
+			
+
+			int result = service.deleteInquiry(inquiryNo);
+			String url = null;
+			
+			if(result>0) {
+				ra.addFlashAttribute("swalIcon","success");
+				ra.addFlashAttribute("swalTitle","삭제성공하였습니다.");
+				url = "redirect:../inquiryList";
+
+			}else{
+				url = "redirect:" + referer;
+				ra.addFlashAttribute("swalIcon","error");
+				ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+			}
+			
+			return url;
+			
+			
 		}
 		
 		

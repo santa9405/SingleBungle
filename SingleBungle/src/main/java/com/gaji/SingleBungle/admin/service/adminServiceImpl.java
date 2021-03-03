@@ -574,6 +574,17 @@ public class adminServiceImpl implements adminService{
 			return dao.selectIAttachmentList(inquiryNo);
 		}
 
+		@Override
+		public APageInfo getInquiryPageInfo(int cp) {
+			int listCount = dao.getInquiryListCount();
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public int deleteInquiry(int inquiryNo) {
+			return dao.deleteInquiry(inquiryNo);
+		}
+
 
 
 }
