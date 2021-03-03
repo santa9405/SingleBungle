@@ -142,5 +142,25 @@
    		</foreach>
    		)A
    </insert>
+   
+   <!-- 게시글 수정 -->
+   <update id="updateBoard" parameterType="Friend">
+	   UPDATE FRIEND SET
+	   FRIEND_TITLE = #{friendTitle}, FRIEND_CONTENT = #{friendContent}, 
+	   LOCATION1 = #{location1}, LOCATION2 = #{location2},
+	   MEETING_DATE = #{meetingDate}, MEETING_TIME = #{meetingTime}, 
+	   GENDER = #{gender}, CAPACITY = #{capacity}, CATEGORY_CD = #{categoryCd}
+	   WHERE FRIEND_NO = #{friendNo}
+   </update>
+   
+   <!-- 파일 정보 일괄 삭제 -->
+   <delete id="deleteAttachmentList" parameterType="List">
+   		DELETE FROM FRIEND_FILE
+   		WHERE FILE_NO IN
+   		<foreach collection="list" item="fileNo" open="(" close=")" separator=",">
+   			#{fileNo}
+   		</foreach>
+   		
+   </delete>
 
 </mapper>
