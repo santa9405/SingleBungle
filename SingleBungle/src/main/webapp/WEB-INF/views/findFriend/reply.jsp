@@ -131,10 +131,10 @@
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
 							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="35">
-							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
+							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" type="button">등록</button>
+							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
 							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
@@ -145,8 +145,7 @@
 	<!-- 댓글 END -->
 	
 	<script>
-	var loginMemberNo = "${loginMember.memberNo};";
-	var replyWriter = "${loginMember.memberNo};";
+	var memNo = "${loginMember.memberNo};";
 	var friendNo = "${findFriend.friendNo}";
 	
 	// 페이지 로딩 완료 시 댓글 목록 호출
@@ -191,7 +190,7 @@
 				var report = $("<a>").attr("href", "#").text("신고");
 				
 				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글/신고 버튼 추가
-				if(loginMemberNo != "" && item.memberNo != replyWriter)
+				if(loginMemberNo != "" && item.memberNo != loginMemberNo)
 					floatRight.append(reply2).append(report);
 					col4.append(floatRight)
 				
@@ -199,7 +198,7 @@
 				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
 				
 				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
-				if(item.memberNo == loginMemberNo){
+				if(item.memNo == memNo){
 					var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px");
 					var replyUpdate = $("<a>").addClass("replyUpdate").attr("href", "#").text("수정");
 					var replyDelete = $("<a>").addClass("replyDelete").attr("href", "#").text("삭제");
@@ -219,7 +218,43 @@
 	//-----------------------------------------------------------------------------------------
 	
 	// 댓글 등록
-	$("")
+	$("#addReply").on("click", function(){
+		
+		if(memNo == ""){
+			swal({icon : "info", title : "로그인 후 이용해 주세요."});
+		}else{
+			
+			var replyContent = $("#replyContent").val();
+			
+			if(replyContent.trim().length == 0){
+				swal({icon : "info", title : "댓글을 작성해 주세요."});
+			}else{
+				
+				$.ajax({
+					url : "${contextPath}/findFriendReply/insertReplyList/" + friendNo,
+					type : "post",
+					data : {"memNo" : memNo, "replyContent" : replyContent },
+					success : function(result){
+						
+						if(result > 0){
+							
+							$("#replyContent").val("");
+							swal({icon : "success", title : "댓글이 작성되었습니다."});
+							selectReplyList();
+						}
+						
+					}, error : function(){
+						console.log("댓글 작성 실패");
+					}
+					
+					
+				});
+				
+			}
+			
+		}
+		
+	});
 	
 	
 	
