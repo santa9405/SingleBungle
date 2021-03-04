@@ -102,8 +102,7 @@ public class ReviewController {
 			
 			// 좋아요 정보 출력
 			List<ReviewLike> likeInfo = service.selectLike(loginMember.getMemberNo());
-			
-			
+			//System.out.println(likeInfo);
 			
 			model.addAttribute("review",review);
 			model.addAttribute("reviewList",reviewList);
@@ -129,10 +128,12 @@ public class ReviewController {
 	// 좋아요 증가 Controller
 	@ResponseBody
 	@RequestMapping("increaseLike")
-	public int increaseLike(@RequestParam int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+	public int increaseLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+		
+		int memberNo = loginMember.getMemberNo();
 		
 		Map<String, Object> map = new HashMap<String,Object>();
-		map.put("memberNo", loginMember.getMemberNo());
+		map.put("memberNo", memberNo);
 		map.put("boardNo", boardNo);
 		
 		int result = service.increaseLike(map);
@@ -145,7 +146,7 @@ public class ReviewController {
 	// 좋아요 감소 Controller
 	@ResponseBody
 	@RequestMapping("decreaseLike")
-	public int decreaseLike(@RequestParam int boardNo,
+	public int decreaseLike(@RequestParam("boardNo") int boardNo,
 			@ModelAttribute("loginMember") Member loginMember) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();

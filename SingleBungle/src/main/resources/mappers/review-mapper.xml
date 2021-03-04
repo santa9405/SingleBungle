@@ -86,8 +86,8 @@
 
 	<!-- 좋아요 목록  -->
 	<select id="selectLike" parameterType="_int" resultMap="like_rm">
-		SELECT MARKET_NO
-		FROM MARKET_LIKE 
+		SELECT BOARD_NO
+		FROM BOARD_LIKE
 		WHERE MEM_NO = #{memberNo}
 	</select>
 	
