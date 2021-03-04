@@ -286,6 +286,34 @@
 			$("input[name=sv]").val(searchValue);
 		})();
 		
+		
+		
+		// 카테고리 정렬
+		
+		$(function(){
+    	$("button").on('click',function(){
+    			var kind = $(this).val();  //버튼이 클릭 되었을 때 그 버튼의 value를 var kind로 가져와서	
+    			$.ajax({
+    				 				url : "${contextPath}/board/list", // 이 주소로 
+    	              type : "post", // 포스트 방식으로 보내는데
+    	              cache: false,
+    	              headers: {"cache-control":"no-cache", "pragma": "no-cache"},
+    	              data : {"kind" : kind}, // kind를 kind로 명명하여 보내겠다
+    	              success : function(data){ 
+    	                 console.log(data);
+    	                
+    	                 $('body').html(data); //성공할시에 body부분에 data라는 html문장들을 다 적용시키겠다
+    	              },
+    	              error : function(data){
+    	            	 alert('error');
+    	               
+    	              }//error
+    			})//ajax
+    		});//click
+    });//ready
+		
+		
+		
     </script>
 </body>
 </html>

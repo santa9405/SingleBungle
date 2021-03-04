@@ -3,6 +3,7 @@ package com.gaji.SingleBungle.board.model.service;
 import java.io.File;
 
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.board.model.dao.BoardDAO;
 import com.gaji.SingleBungle.board.model.exception.BoardInsertAttachmentFailException;
-import com.gaji.SingleBungle.board.model.exception.BoardUpdateAttachmentFailException;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardLike;
@@ -204,15 +204,7 @@ public class BoardServiceImpl implements BoardService {
 	
 			List<BoardAttachment> oldFiles = dao.selectAttachmentList(updateBoard.getBoardNo());
 	
-			List<BoardAttachment> uploadImages = new ArrayList<BoardAttachment>();
-	
-			List<BoardAttachment> removeFileList = new ArrayList<BoardAttachment>();
-	
 			String filePath = "/resources/boardImages";
-			
-			
-			
-			
 	
 			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출 정규표현식
 	
@@ -300,7 +292,7 @@ public class BoardServiceImpl implements BoardService {
 				result = dao.deleteAttachmentList(deleteFileNoList);
 	
 				if (result != deleteFileNoList.size()) {
-					throw new BoardInsertAttachmentFailException("파일 수정 실패(파일 정보 삭제중 오류 발생)");
+					throw new BoardInsertAttachmentFailException("파일 삭제 실패(파일 정보 삭제중 오류 발생)");
 				}
 			}
 	
