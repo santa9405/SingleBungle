@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 관리</title>
+    <title>삭제 게시글 관리</title>
 
     <!-- 부트스트랩 사용을 위한 css 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -110,9 +110,9 @@
             
         <script>
             function selectAll(selectAll) {
-            const selectReply = document.getElementsByName('ck');
-            selectReply.forEach((checkbox) => {
-            checkbox.checked = selectAll.checked;
+	            const selectReply = document.getElementsByName('ck');
+	            selectReply.forEach((checkbox) => {
+	            checkbox.checked = selectAll.checked;
             })
         }
         </script> 
@@ -161,21 +161,6 @@
                             <td class="boardTitle">아아 오늘은 훠궈가 땡기네요</td>
                             <td>달마고</td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" name="ck"></td>
-                            <td>2</td>
-                            <td>후기</td>
-                            <td class="boardTitle">MCM 장지갑 팔아요</td>
-                            <td>신이동특</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="ck"></td>
-                            <td>1</td>
-                            <td>친구찾기</td>
-                            <td class="boardTitle">데이트 하실 분ㅋ</td>
-                            <td>솔이이</td>
-                        </tr>
-
                     </tbody>
                 </table>
 

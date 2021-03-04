@@ -98,12 +98,13 @@
 
                 <hr>
                 <div>
+					<c:url var="updateUrl" value="../${board.boardNo}/${board.boardCode }/update"/>	
 					<div class="float-right">
 	
 						<a class="btn btn-success" href="#">목록으로</a>
 
 	                	<!-- 로그인된 회원이 글 작성자인 경우 -->
-							<a href="${updateUrl}" class="btn btn-success ml-1 mr-1">수정</a>
+							<a href="${updateUrl }" class="btn btn-success ml-1 mr-1">수정</a>
 							<a href="../${board.boardNo}/${board.boardCode}/delete" class="btn btn-success ml-1 mr-1">삭제</a>
 					</div>
 				</div>
