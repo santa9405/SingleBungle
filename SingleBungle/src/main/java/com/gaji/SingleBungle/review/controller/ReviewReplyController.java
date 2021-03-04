@@ -17,7 +17,7 @@ import com.google.gson.GsonBuilder;
 
 
 @RestController
-@RequestMapping("/review/reply/*")
+@RequestMapping("/reviewReply/*")
 public class ReviewReplyController {
 	
 	@Autowired
@@ -39,6 +39,8 @@ public class ReviewReplyController {
 		// rList를 json 형태로 변형시켜서 반환
 		return gson.toJson(rList);  // reply.jsp로 돌아감
 	}
+	
+	
 	
 	
 	@RequestMapping("insertReply/{parentBoardNo}")

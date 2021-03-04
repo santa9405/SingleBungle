@@ -33,6 +33,10 @@
 	display: none;
 }
 
+.infoAreaWrapper{
+   padding : 24px 24px 5px 24px;
+}
+
 .text-dark {
   display:block;
   overflow: hidden;
@@ -149,7 +153,7 @@
 										</c:if>
 									</c:forEach>
 									<c:if test="${flag == 'true'}">
-										<img src="${contextPath}/resources/images/cafeNoImg.png" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
+										<img src="${contextPath}/resources/images/cafeNoImg.jpg" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
 									</c:if>
 							</div>
 
@@ -158,6 +162,7 @@
 								<h5>
 									<a class="text-dark cafeTitle">${cafe.cafeTitle}</a>
 								</h5>
+								
 								<div class="infoArea float-right">
 									<div class="viewArea">
 										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${cafe.readCount}
@@ -184,10 +189,10 @@
 
 		</div>
 
-		<%-- 로그인이 되어있고 회원 2등급 이상일 경우 !=T--%>
-			<%-- <c:if test="${!empty loginMember }"> --%>
+			<%-- 로그인이 되어있고 회원 2등급 이상일 경우 --%>
+			<c:if test="${!empty loginMember && loginMember.memberGrade != 'T' }">
 				<a class="btn btn-success float-right" href="${contextPath}/cafe/insert">글쓰기</a>
-			<%-- </c:if> --%>
+			</c:if>
       
       <!--------------------------------- pagination  ---------------------------------->
       

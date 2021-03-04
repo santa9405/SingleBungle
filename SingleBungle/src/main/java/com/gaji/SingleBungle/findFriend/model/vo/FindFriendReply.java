@@ -1,20 +1,22 @@
 package com.gaji.SingleBungle.findFriend.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class FindFriendReply {
 	private int replyNo;			// 댓글 번호
 	private String replyContent;	// 댓글 내용
-	private Date replyCreateDt;		// 댓글 작성일
+	private Timestamp replyCreateDt;		// 댓글 작성일
 	private String replyStatus;		// 댓글 상태
 	private int replyDepth;			// 댓글 깊이
 	private int parentFriendNo;		// 댓글이 작성된 게시글 번호
 	private int memNo;				// 댓글 작성 회원 번호
 	private int parentReplyNo;		// 부모 댓글 번호
+	private String nickname;		// 닉네임
 
 	public FindFriendReply() { }
 
-	public FindFriendReply(int replyNo, String replyContent, Date replyCreateDt, String replyStatus, int replyDepth,
+	public FindFriendReply(int replyNo, String replyContent, Timestamp replyCreateDt, String replyStatus, int replyDepth,
 			int parentFriendNo, int memNo, int parentReplyNo) {
 		super();
 		this.replyNo = replyNo;
@@ -43,11 +45,11 @@ public class FindFriendReply {
 		this.replyContent = replyContent;
 	}
 
-	public Date getReplyCreateDt() {
+	public Timestamp getReplyCreateDt() {
 		return replyCreateDt;
 	}
 
-	public void setReplyCreateDt(Date replyCreateDt) {
+	public void setReplyCreateDt(Timestamp replyCreateDt) {
 		this.replyCreateDt = replyCreateDt;
 	}
 

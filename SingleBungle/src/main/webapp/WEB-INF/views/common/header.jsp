@@ -71,7 +71,6 @@
 	<a class="nav-link" href="${contextPath}/cafe/list" style="color:hotpink;">맛집게시판 목록 조회</a>
 	
 	<a class="nav-link" href="${contextPath}/market/list" style="color:orange;">사고팔고 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/market/insert" style="color:orange;">사고팔고 판매글 작성</a>
 	<a class="nav-link" href="${contextPath}/market/mypage" style="color:orange;">사고팔고 마이페이지</a>
 	<a class="nav-link" href="${contextPath}/market/modal" style="color:orange;">사고팔고 모달</a>
 

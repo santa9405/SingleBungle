@@ -177,7 +177,7 @@
 							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" id="addReply" type="button">등록</button>
+							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
 							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
@@ -215,8 +215,9 @@
 	
 <script>
 
-	var loginMemberNo="${loginMember.memberNo}"; // 로그인한 회원 번호
 	var replyWriter ="${loginMember.memberNickname}"; // 로그인한 회원 닉네임
+
+	var loginMemberNo="${loginMember.memberNo}"; // 로그인한 회원 번호
 	var parentBoardNo = "{review.boardNo}"; // 게시글 번호
 
 	
@@ -230,7 +231,7 @@
 	function selectReplyList(){
 		
 		$.ajax({
-			url : "${contextPath}/review/reply/selectReplyList" + parentBoardNo,
+			url : "${contextPath}/reviewReply/selectReplyList" + parentBoardNo,
 			type : "post",
 			dataType : "json",
 			success : function(rList){
@@ -325,9 +326,9 @@
 
 	// 댓글 등록
 	$("#addReply").on("click", function(){
-		
+		console.log(loginMemberNo)
 		// 로그인 되어있는지 확인
-		if(loginMemberId==""){
+		if(loginMemberNo==""){
 			swal({icon:"info", title :"로그인 후 이용해 주세요."});
 		}else{
 			var replyContent = $("#replyContent").val(); //작성된 댓글 내용을 얻어와 저장
@@ -336,7 +337,7 @@
 				swal({icon:"info", title:"댓글을 입력해 주세요."});
 			}else{ // 로그인 O, 댓글 작성 O인 경우
 				$.ajax({
-					url : "${contextPath}/review/reply/insertReply/" + parentBoardNo,
+					url : "${contextPath}/reviewReply/insertReply/" + parentBoardNo,
 					type : "post",
 					data : {"replyWriter" : replyWriter, "replyContent":replyContent},
 					success : function(result){
@@ -349,7 +350,7 @@
 					error : function(){
 						console.log("댓글 삽입 실패");
 					}
-				})
+				});
 			}
 		}
 	});

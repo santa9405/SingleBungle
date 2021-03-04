@@ -17,11 +17,24 @@ public class Cafe {
 	private String nickname; // 회원닉네임
 	private String memberGrade; // 회원등급코드
 	private String categoryName; // 카테고리명
+	private String cafeAddress; // 맛집주소
 	
 	public Cafe() {
 	}
 	
 	
+
+	public String getCafeAddress() {
+		return cafeAddress;
+	}
+
+
+
+	public void setCafeAddress(String cafeAddress) {
+		this.cafeAddress = cafeAddress;
+	}
+
+
 
 	public String getCategoryName() {
 		return categoryName;
@@ -134,8 +147,12 @@ public class Cafe {
 		return "Cafe [cafeNo=" + cafeNo + ", cafeTitle=" + cafeTitle + ", cafeContent=" + cafeContent + ", cafeName="
 				+ cafeName + ", createDate=" + createDate + ", status=" + status + ", readCount=" + readCount
 				+ ", likeCount=" + likeCount + ", categoryCode=" + categoryCode + ", memberNo=" + memberNo
-				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + ", categoryName=" + categoryName + "]";
+				+ ", nickname=" + nickname + ", memberGrade=" + memberGrade + ", categoryName=" + categoryName
+				+ ", cafeAddress=" + cafeAddress + "]";
 	}
+
+
+
 
 
 

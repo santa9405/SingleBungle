@@ -23,9 +23,14 @@
 	margin-right: 15px;
 }
 
-.image {
+#nickname {
 	width: 30px;
 	height: 30px;
+}
+
+#view {
+	width: 21px;
+	height: 21px;
 }
 
 .text-dark {
@@ -35,7 +40,7 @@
   white-space: nowrap;
 }
 
-#cafeNo {
+#cafeNo, #cafeNo2 {
 	display: none;
 }
 
@@ -48,10 +53,11 @@
 .likeCnt {
    color: #6c757d;
 }
- 
-.like {
-  background-image: url('${contextPath}/resources/img/like2.png');
-  background-repeat: no-repeat;
+
+.like2 {
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
 }
 
 /* 인기 게시글 */
@@ -65,16 +71,8 @@
   margin-right:5px;
 }
 
-/* carousel 화살표 수정 */
-/*  	.carousel-control-prev-icon {
- 		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
-	}
-	
-	.carousel-control-next-icon {
-  		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
-	} */
-
 </style>
+
 
 </head>
 <body>
@@ -82,13 +80,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                
                 <h8>맛집게시판</h8>
 								<div class="float-right">
 									<button type="button" class="btn btn-secondary mb-3 btn-success insert-list">목록</button>
 									<button type="button" class="btn btn-secondary mb-3 btn-danger report">신고</button>
 								</div>
-
+								
+								<span id="cafeNo2">${cafe.cafeNo}</span>
                 <div id="board-area">
                     <!-- 카테고리 -->
                     <h2>
@@ -102,54 +100,53 @@
                     <hr>
                 </div>
 
-								<div class="row">
+								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" src="${contextPath}/resources/images/profile.png" /> ${cafe.nickname}
+											<img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> ${cafe.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${cafe.createDate}</div>
 										<div class="infoArea float-right">
-											<img class="image" src="${contextPath}/resources/images/view.png"> ${cafe.readCount} <span>
-												<button type="button" id="likeBtn">
-													<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${cafe.likeCount}</span>
+											<img class="image" id="view" src="${contextPath}/resources/images/view.png"> ${cafe.readCount} <span>
+												<!-- 좋아요 버튼 -->
+												<button type="button" id="likeBtn" class="likeBtns">
+													<img src="${contextPath}/resources/images/like1.png" 
+													width="15" height="15" id="heart" class='likeImgs 
+														<c:if test="${like == 1}">like2
+														</c:if>
+														'>
+													<span class="likeCnt">${cafe.likeCount}</span>
 												</button>
 											</span>
+											
 										</div>
 									</div>
 								</div>
 								
+								<br>
+								
+								<div class="cafeName">
+								<img src="${contextPath}/resources/images/placeholder.png" width="20" height="20">
+								<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: coral;'>${cafe.cafeName}</div>&nbsp;&nbsp;
+								<span>${cafe.cafeAddress}</span>
+								</div>
+								<br>
+								
+								<!-- 지도 API 상세보기 구간 -->
+								<p style="margin-top:-12px">
+						    <em class="link">
+						        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')"></a>
+						    </em>
+								</p>
+								<div id="map" style="width:100%;height:350px;"></div>
+								
+								<br><br>
+								
                 <div class="board-content">
-								<!-- 이미지 부분 carousel -->
-<%--  								<c:if test="${!empty attachmentList }">
-				
-									<div class="carousel slide m-3" id="carousel-325626">
-				
-										<div class="carousel-inner boardImgArea">
-				
-											<c:forEach var="at" items="${attachmentList}" varStatus="vs">
-												<c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}" />
-				
-												<div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
-													<img class="d-block w-100 boardImg" src="${src}" />
-													<input type="hidden" value="${at.fileNo}">
-												</div>
-											</c:forEach>
-				
-										</div>
-				
-										<a class="carousel-control-prev" href="#carousel-325626" data-slide="prev">
-										<span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-325626" data-slide="next"> <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
-									</div>
-								</c:if> --%>
-                
-                	<!-- Content -->
-                	<%-- JSTL을 이용한 개행문자 처리 --%>
-				
-									<% pageContext.setAttribute("newLine", "\n"); %>
-									${fn:replace(cafe.cafeContent , newLine, "<br>")}
-                
+                	${cafe.cafeContent}   
                 </div>
-				
+                
+								<br>
 								<hr>
 
                 <!-- 댓글(페이지 연결하기) -->
@@ -161,28 +158,32 @@
 										<div class="row">
 											<div class="col-md-12">
 												<!-- 로그인된 회원이 글 작성자인 경우 -->
-<%-- 												<c:if test="${(loginMember != null) && (cafe.memberId == loginMember.memberId)}"> --%>
-												<button type="button" class="btn btn-success updateBtn">수정</button>
-												<button type="button" class="btn btn-danger deleteBtn">삭제</button>
-<%-- 												</c:if> --%>
+ 												<c:if test="${(loginMember != null) && (cafe.memberNo == loginMember.memberNo)}">
+													<button type="button" class="btn btn-success updateBtn">수정</button>
+													<button type="button" class="btn btn-danger deleteBtn">삭제</button>
+ 												</c:if>
 											</div>
 										</div>
 									</div>
 								</div>
 						
 								<!-- 목록버튼 -->
-								<div class="row  py-3" style="clear: both;">
+								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
 										<button type="button" class="btn btn-success insert-list">목록으로</button>
 									</div>
 								</div>
                 
+                
+                
+                
+                
 		<h7>맛집게시판 인기 게시글</h7>
 		<hr>
         <div class="row">
         
-        	<c:if test="${!empty cafeList }">
-						<c:forEach var="cafe" items="${cafeList}" varStatus="vs">
+        	<c:if test="${!empty cafeList}">
+						<c:forEach var="item" items="${cafeList}" varStatus="vs">
 				
           <!-- Gallery item -->
 	        <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
@@ -190,33 +191,33 @@
 	            <div class="embed-responsive embed-responsive-4by3" id="img-list">
 									<c:set var="flag" value="true" />
 									<c:forEach var="th" items="${thList}">
-										<c:if test="${th.cafeNo == cafeList.cafeNo}">
+										<c:if test="${th.cafeNo == item.cafeNo}">
 											<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-fluid card-img-top embed-responsive-item" id="img-list">
 											<c:set var="flag" value="false" />
 										</c:if>
 									</c:forEach>
 									<c:if test="${flag == 'true'}">
-										<img src="${contextPath}/resources/images/cafeNoImg.png" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
+										<img src="${contextPath}/resources/images/cafeNoImg.jpg" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
 									</c:if>
 	            </div>
 	            <div class="p-4">
-	            <span id="cafeNo">${cafe.cafeNo}</span>
-	              <h5> <a class="text-dark cafeTitle">${cafe.cafeTitle}</a></h5>
+	            <span id="cafeNo">${item.cafeNo}</span>
+	              <h5> <a class="text-dark cafeTitle">${item.cafeTitle}</a></h5>
 	              <div class="infoArea float-right">
 	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> ${cafe.readCount}
+	                  <img class="icon" src="${contextPath}/resources/images/view.png"/> ${item.readCount}
 	                </div>
 	                <div class="viewArea">
-	                  <img class="icon" src="${contextPath}/resources/images/like1.png" /> ${cafe.likeCount}
+	                  <img class="icon" src="${contextPath}/resources/images/like1.png" /> ${item.likeCount}
 	                </div>
 	              </div>
 	              <div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-	                <p class="small mb-0"><span class="font-weight-bold price">${cafe.nickname}</span></p>
+	                <p class="small mb-0"><span class="font-weight-bold price">${item.nickname}</span></p>
 	                
 									<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-									<c:if test="${cafe.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
-                  <c:if test="${cafe.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
-                  <c:if test="${cafe.categoryCode == '3'}">background-color: burlywood;</c:if> '>${cafe.categoryName}</div>
+									<c:if test="${item.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
+                  <c:if test="${item.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
+                  <c:if test="${item.categoryCode == '3'}">background-color: burlywood;</c:if> '>${item.categoryName}</div>
 	                
 	              </div>
 	            </div>
@@ -233,7 +234,8 @@
     </div>
 	<jsp:include page="../common/footer.jsp"/>
 	
-		<script>
+	 <script>
+	 // 신고
    $(".report").on("click", function(){
        window.open('${contextPath}/cafe/cafeReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	 });
@@ -266,8 +268,100 @@
 		
 	});
 	
+	
+	// 좋아요
+	
+	$(".likeBtns").on("click", function(){
+	var cafeNo = $(this).parents('.no').prev().prev("span").text();
+	var likeClassArray = $(this).children().attr('class').split(" ");
+	var likeClass = "like1";
+	var likeImg = $(this).children(".likeImgs");
+	var likeCnt = $(this).children(".likeCnt");
+	
+	if(likeClassArray[1] == "like2") {
+		likeClass = "like2"; 
+	}
+	console.log($(this));
+	//if(likeClass == "like1") {
+	if(!$(this).children("img").hasClass("like2")) {
+		$.ajax({
+			url : "increaseLike",
+			type : "post",
+			data : {"cafeNo" : cafeNo},
+			success : function(result){
+				if(result > 0) {
+					likeCnt.text(Number(likeCnt.text()) + 1);
+					likeImg.toggleClass("like2");
+				}
+			}, 
+			error : function(result){
+				console.log("ajax 통신 오류 발생");
+			}
+		});
+	} else{
+			$.ajax({
+				url : "decreaseLike",
+				type : "post", 
+				data : {"cafeNo" : cafeNo},
+				success : function(result){
+					if(result > 0){ // 삭제 성공
+						likeCnt.text(Number(likeCnt.text()) - 1);
+						likeImg.removeClass("like2");
+					}
+				},
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
+		}
+	});
+	
+		
 	</script>
 	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f81111cbd23ecc010379fb2b505b51b9&libraries=services"></script>
+
+	<script>
+	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	   	mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+	
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			// 주소로 좌표를 검색합니다
+			// 맛집 주소 가져와서 좌표 찍음
+			geocoder.addressSearch('${cafe.cafeAddress}', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${cafe.cafeName}</div>'
+			        // 맛집 이름 마커에 출력되게 함
+			});
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } else{
+			       console.log(result);
+			    }
+			});    
+   </script>
 	
 </body>
 </html>

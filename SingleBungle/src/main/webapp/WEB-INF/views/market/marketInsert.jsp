@@ -6,12 +6,11 @@
 <title>사고팔고 - 판매글 작성</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-
-
-
 <style>
-
-
+	.container{
+    min-width: 1080px;
+	}
+	
   .boardName {
     margin-right: 40px;
   }
@@ -155,13 +154,13 @@
  	color : #e67d10;
  	font-size : 14px;
  	display: block;
+ 	margin-top : 5px;
  }
  
  
  #locationInput{
  	width : 100%; 
  	margin-top : 1rem;
- 	background : rgb(244, 244, 250);
  	height : 3rem;
  	padding : 0px 1rem;
  	border : 1px solid rgb(195, 194, 204);
@@ -172,7 +171,7 @@
 		margin-top: 10px;
 	}
 	
-	#itemPrice{
+	.itemInputs{
 		height : 3rem;
 		padding : 0px 1rem;
 		border : 1px solid rgb(195, 194, 204);
@@ -235,6 +234,26 @@
 		outline: none;
 		float: right;
 	}
+	
+	.radioM{
+		margin-right : 35px;
+	}
+	
+	input:focus, textarea:focus {
+		outline : 1px solid black;
+	}
+	
+	input:checked{
+		outline : none;
+	}
+	
+	.radioArea{
+		padding-top : 17px;
+	}
+	
+	.priceArea label {
+		margin-top : 8px;
+	}
 
 </style>
 </head>
@@ -279,7 +298,7 @@
 					<h2>기본정보  <span id="requiredText">*필수정보</span> </h2> 
 				
 					
-					<form action="insertAction" method="POST" enctype="multipart/form-data" role="form">
+					<form action="insertAction" method="POST" enctype="multipart/form-data" role="form" onsubmit= "return validate();">
 					<ul class="insertForm">
 					
 					<!-- 이미지 -->
@@ -291,13 +310,27 @@
 							<div class="formContent">
 								<ul class="itemImages">
 									<li class="itemImageInsert" id="imgInput">
-										<label for="imageInput">
+										<label for="images0" class="imgLabel">
 											<span>이미지 등록</span></label>
-											<input id="imageInput" name="imageInput" type="file" style="display: none;" onclick="LoadImg(this);">
+											<input type="file" id="images0" name="images"  style="display: none;" onchange="LoadImg(this);">
 									</li>
 									
 									
 								</ul>
+							</div>
+						</li>
+						
+						<!-- 상태 -->
+						<li class="formRow row">
+							<div class="formList">
+								<span>분류<span class="star">*</span></span>
+							</div>
+
+							<div class="formContent radioArea">
+								<div class="itemStatusArea form-check">
+									<input type="radio" name="transactionCategory" value="1" class="itemRadio form-check-input" id="buy" checked> <label for="buy" class="radioM">삽니다</label>
+									<input type="radio" name="transactionCategory" value="2" class="itemRadio form-check-input" id="sell"> <label for="sell" class="radioM">팝니다</label>
+								</div>
 							</div>
 						</li>
 						
@@ -309,9 +342,8 @@
 							
 							<div class="formContent titleFlex">
 								<div class="titleArea ">
-									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="title" required maxlength="40" minlength="2">
+									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="marketTitle" required maxlength="40" minlength="2" required>
 									<button id="cancelBtn" type="button"></button>
-									
 									<div class="titleCnt">
 									<span id="currCnt">0</span>
 									<span id="maxCnt">/ 40</span>
@@ -328,7 +360,7 @@
 							</div>			
 							
 							<div class="formContent">
-								<select id="SelectCategory" class="form-control div large" style="height: 40px">
+								<select id="SelectCategory" name="categoryCd" class="form-control div large" style="height: 40px">
 									<option value="1">디지털/가전</option>
 									<option value="2">가구/인테리어</option>
 									<option value="3">유아동/유아도서</option>
@@ -355,9 +387,9 @@
 							<div class="formContent titleFlex">
 								<div class="locationBtnArea mb-20">
 									<button type="button" id="currLocation" class="LBtn btn btn-info" onclick="getLocation();">내 위치</button>
-									<button type="button" id="currLocation" class="LBtn btn btn-primary">주소 검색</button>
 								</div>
-								<input type="text" readonly placeholder="선호 거래 지역을 검색해주세요." id="locationInput" class="location">
+								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(시군구)" id="locationInput" name="address" class="location" required>
+								<span class="errorMsg" id="locationMsg"></span>
 							</div>
 						</li>
 						
@@ -367,10 +399,10 @@
 								<span>상태<span class="star">*</span></span>
 							</div>
 
-							<div class="formContent">
+							<div class="formContent radioArea">
 								<div class="itemStatusArea form-check">
-									<input type="radio" name="itemStatus" value="U" class="itemRdio form-check-input" id="usedStatus"> <label for="usedStatus">중고</label>
-									<input type="radio" name="itemStatus" value="N" class="itemRdio form-check-input" id="newStatus"> <label for="newStatus">새상품</label>
+									<input type="radio" name="status" value="U" class="itemRadio form-check-input" id="usedStatus" checked> <label for="usedStatus" class="radioM">중고</label>
+									<input type="radio" name="status" value="N" class="itemRadio form-check-input" id="newStatus"> <label for="newStatus" class="radioM">새상품</label>
 								</div>
 							</div>
 						</li>
@@ -383,10 +415,10 @@
 
 							<div class="formContent">
 								<div class="priceArea">
-									<input type="text" name="itemPrice" id="itemPrice" class="priceInput" placeholder="숫자만 입력해주세요."> 원
-										<span class="errorMsg" id="priceMsg">미친놈아!</span>
-									<input type="radio" name="delivery" value="F" class="itemRdio" id="including"> <label for="including">택배비 포함</label>
-									<input type="radio" name="delivery" value="N" class="itemRdio" id="noincluding"> <label for="noincluding">택배비 미포함</label>
+									<input type="text" name="price" id="itemPrice" class="priceInput itemInputs" placeholder="숫자만 입력해주세요." required> 원
+										<span class="errorMsg" id="priceMsg"></span>
+									<input type="radio" name="deliveryCharge" value="F" class="itemRadio" id="including" checked> <label for="including" class="radioM" >택배비 포함</label>
+									<input type="radio" name="deliveryCharge" value="N" class="itemRadio" id="noincluding"> <label for="noincluding" class="radioM">택배비 미포함</label>
 								</div>
 							</div>
 						</li>
@@ -399,11 +431,10 @@
 							</div>
 							
 							<div class="formContent titleFlex">
-								<textarea rows="6" placeholder="상품 설명을 입력해주세요." class="itemInfoText"></textarea>
-								<span class="errorMsg" id="infoTextMsg" style="display: contents;">미친놈아!</span>
+								<textarea rows="6" name="marketContent" placeholder="상품 설명을 입력해주세요.(최소 5글자)" class="itemInfoText" maxlength="2000" minlength="5" required></textarea>
 									<div class="titleCnt float-right">
-									<span id="currCnt">10</span>
-									<span id="maxCnt">/ 2000</span>
+									<span id="ContentCurrCnt">0</span>
+									<span id="ContentMaxCnt">/ 2000</span>
 								</div>
 							</div>
 						</li>
@@ -416,7 +447,8 @@
 
 							<div class="formContent">
 								<div class="priceArea">
-									<input type="number" name="itemPrice" id="itemPrice" class="priceInput" value="1"> 개
+									<input type="text" name="itemCount" id="itemCount" class="countInput itemInputs"  required /> 개
+									<span class="errorMsg" id="countMsgq"></span>
 								</div>
 							</div>
 						</li>
@@ -431,32 +463,41 @@
 			</div>
 		</div>
 	</div>
-	
 	<jsp:include page="../common/footer.jsp"/>
+	
 
 	<script>
 	var imgCnt = 0;
 	
 	if(imgCnt <= 10) {
 		function LoadImg(value) {
-			if (value.files) {
+			if (value.files && value.files[0]) {
 				var reader = new FileReader();
 				reader.readAsDataURL(value.files[0]);
 
 				reader.onload = function(e) {
-					var img = '<li class="itemImage"> <img class="image" src="' + e.target.result + '">' +
+					var img = '<li class="itemImage"> <img id="img' + imgCnt + '" class="image" name="test1" src="' + e.target.result + '">' +
 						'<button type="button" class="deleteBtn" onclick="deleteImg(this);"></button>' + '</li>';
 					$(".itemImages").append(img);
-					$("#imgCnt").text(++imgCnt);
+					$("#imgCnt").text(++imgCnt); 
+					addImgInput();
 				}
 			}
 		}
 	}
+	
+	function addImgInput(){
+		var input = '<label for="images' + imgCnt +'" class="imgLabel">' +
+								'<span>이미지 등록</span></label>'+
+								'<input type="file" id="images' + imgCnt + '" name="images" style="display:none;" onchange="LoadImg(this);">';
+		$(".itemImageInsert label").css("display", "none");
+		$('.itemImageInsert').append(input);
+	}
+	
     function deleteImg(value) {
     		$("#imgCnt").text(--imgCnt);
         $(value).parent().remove();
         $(value).remove();
-    	
      }
     
     
@@ -473,24 +514,84 @@
     	$("#title").val("");
     });
     
-	
-    function getLocation(){
-    	if(navigator.geolocation) {
-    		navigator.geolocation.getCurrentPosition(function(position){
-    			alert(position.coords.latitude + ' ' + position.coords.longitude);
-    		}, function(error){
-    			console.error(error);
-    		}, {
-    			enableHighAccuracy: false,
-    			maximumAge : 0,
-    			timeout : Infinity
-    		});
-    	} else {
-    		alert('GPS를 지원하지 않습니다.');
-    	}
-    }
 
-		
+    $("#itemPrice").on("input", function(){
+    	var regexp = /^[0-9]*$/;
+
+    	if($("#itemPrice").val() < 100) {
+    			$("#priceMsg").text("100원 이상 입력해주세요.");
+    	} else if(!regexp.test($("#itemPrice").val())){
+    		alert("숫자만 입력해주세요.");
+    		$("#priceMsg").text("숫자만 입력해주세요.");
+    		$("#priceMsg").text("숫자만 입력해주세요.");
+    	} else{
+    		$("#priceMsg").text("");
+    	}
+    });
+
+    $(".itemInfoText").on("input", function() {
+        var cnt = $(this).val();
+        $("#ContentCurrCnt").text(cnt.length);
+
+        if (cnt.length >= 2000) {
+           $("#ContentCurrCnt").css("color", "red");
+        }
+     });
+     
+     
+     $("#itemCount").on("input", function(){
+     	var regexp = /^[0-9]*$/;
+     	if($("#itemCount").val() <= 0) {
+     			$("#countMsgq").text("1개 이상 입력해주세요.");
+     	} else if(!regexp.test($("#itemCount").val())){
+     		alert("숫자만 입력해주세요.");
+     		$("#countMsgq").text("숫자만 입력해주세요.");
+     		$("#countMsgq").text("숫자만 입력해주세요.");
+     	} else{
+     		$("#countMsgq").text("");
+     	}
+     });
+     
+     
+      function validate(){
+        if(imgCnt == 0){
+           alert("1장 이상의 사진을 등록해주세요.");
+           $("#images").focus();
+           return false;
+        }
+        
+        if($("#title").val().trim().length == 0){
+           alert("제목을 입력해주세요.");
+           $("#title").focus();
+           return false;
+        }
+        
+        if($("#locationInput").val().trim().length == 0){
+           alert("거래지역을 입력해주세요.");
+           $("#locationInput").focus();
+           return false;
+        }
+        
+        if($("#itemPrice").val().trim().length == 0){
+           alert("가격을 입력해주세요.");
+           $("#itemPrice").focus();
+           return false;
+        }
+        
+        if($(".itemInfoText").val().trim().length == 0){
+           alert("상품 설명을 입력해주세요.");
+           $(".itemInfoText").focus();
+           return false;
+        }
+        
+        if($("#itemCount").val().trim().length == 0){
+           alert("상품 개수를 입력해주세요.");
+           $(".itemCount").focus();
+           return false;
+        }
+     }
+	
+      
 	</script>
 
 </body>

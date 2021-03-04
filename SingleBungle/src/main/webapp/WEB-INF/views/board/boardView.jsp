@@ -23,9 +23,14 @@
 	margin-right: 15px;
 }
 
-.image {
+#nickname {
 	width: 30px;
 	height: 30px;
+}
+
+#view {
+	width: 21px;
+	height: 21px;
 }
 	
 /* 좋아요 */
@@ -37,10 +42,11 @@
 .likeCnt {
    color: #6c757d;
 }
- 
-.like {
-  background-image: url('${contextPath}/resources/img/like2.png');
-  background-repeat: no-repeat;
+
+.like2 {
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
 }
 	
 </style>
@@ -54,7 +60,7 @@
                 
                 <h8>자유게시판</h8>
 								<div class="float-right">
-									<button type="button" class="btn btn-secondary mb-3 btn-success insert-list">목록</button>
+									<button type="button" class="btn btn-secondary mb-3 btn-success insert-list1">목록</button>
 									<button type="button" class="btn btn-secondary mb-3 btn-danger report">신고</button>
 								</div>
 								<span id="boardNo">${board.boardNo}</span>
@@ -74,18 +80,19 @@
                     <hr>
                 </div>
 
-								<div class="row">
+								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" src="${contextPath}/resources/images/profile.png" /> ${board.nickname}
+											<img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> ${board.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${board.createDate}</div>
 										<div class="infoArea float-right">
-											<img class="image" src="${contextPath}/resources/images/view.png"> ${board.readCount} <span>
+											<img class="image" id="view" src="${contextPath}/resources/images/view.png"> ${board.readCount} <span>
 												<!-- 좋아요 버튼 -->
 												<button type="button" id="likeBtn" class="likeBtns">
 													<img src="${contextPath}/resources/images/like1.png" 
-													width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.boardNo == board.boardNo}">like2</c:if></c:forEach>'>
+													width="15" height="15" id="heart" class='likeImgs 
+													<c:if test="${like == 1}">like2</c:if>'>
 													<span class="likeCnt">${board.likeCount}</span>
 												</button>
 											</span>
@@ -93,59 +100,57 @@
 										</div>
 									</div>
 								</div>
+								
+								<br><br>
 
                 <div class="board-content">
-                
-                	<!-- Content -->
-                	<%-- JSTL을 이용한 개행문자 처리 --%>
-				
-									<% pageContext.setAttribute("newLine", "\n"); %>
-									${fn:replace(board.boardContent , newLine, "<br>")}
-                
+									${board.boardContent}
                 </div>
                 
+                <br>
                 <hr>
-
-                <!-- 댓글(페이지 연결하기) -->
+                
+               	<!-- 댓글(페이지 연결하기) -->
 								<jsp:include page="boardReply.jsp"></jsp:include>
-
-
 
 								<!-- 버튼 -->
 								<div class="row float-right mt-3">
 									<div class="col-md-12">
 										<div class="row">
-											<div class="col-md-12">
+											<div class="col-md-12 float-right">
 											
 												<!-- 로그인된 회원이 글 작성자인 경우 -->
-												<%-- <c:if test="${(loginMember != null) && (board.memberId == loginMember.memberId)}"> --%>
-												<button type="button" class="btn btn-success updateBtn">수정</button>
-												<button type="button" class="btn btn-danger deleteBtn">삭제</button>
-												<%-- </c:if> --%>
+												<c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
+													<button type="button" class="btn btn-success updateBtn">수정</button>
+													<button type="button" class="btn btn-danger deleteBtn">삭제</button>
+												</c:if>
 											</div>
 										</div>
 									</div>
 								</div>
 						
 								<!-- 목록버튼 -->
-								<div class="row  py-3" style="clear: both;">
+								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<button type="button" class="btn btn-success insert-list">목록으로</button>
+										<button type="button" class="btn btn-success insert-list2">목록으로</button>
 									</div>
 								</div>
+								
 
             </div>
         </div>
     </div>
+    
 	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
+	 // 신고
    $(".report").on("click", function(){
        window.open('${contextPath}/board/boardReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	 });
    
 	// 목록버튼
-	$(".insert-list").on("click", function(){
+	$(".insert-list1, .insert-list2").on("click", function(){
 		location.href = "${sessionScope.returnListURL}";
 	});
 	
@@ -161,20 +166,21 @@
 	  }
 	});
 	
+	
 	// 좋아요
+
 	$(".likeBtns").on("click", function(){
-	var boardNo = $(this).closest('.no').children().eq(0).text();
+	var boardNo = $(this).parents('.no').prev().prev("span").text();
 	var likeClassArray = $(this).children().attr('class').split(" ");
 	var likeClass = "like1";
 	var likeImg = $(this).children(".likeImgs");
 	var likeCnt = $(this).children(".likeCnt");
 	
-
 	if(likeClassArray[1] == "like2") {
 		likeClass = "like2"; 
 	}
 	
-	if(likeClass == "like1") {
+	if(!$(this).children("img").hasClass("like2")) {
 		$.ajax({
 			url : "increaseLike",
 			type : "post",

@@ -49,7 +49,13 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-weight: bold;
+	font-size : 17px;
+}
+
+
+.infoAreaWrapper{
+
+	padding : 24px 24px 5px 24px;
 }
 
 /* 좋아요/댓글 */
@@ -61,6 +67,7 @@
 
 .nickNameArea {
 	clear: both;
+	margin-bottom : 3px;
 }
 
 .icon {
@@ -132,22 +139,20 @@
 				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
-						<a class="category" href="search?ct=0">전체</a> 
-						<a class="category" href="search?ct=1">가구</a> 
-						<a class="category" href="search?ct=2">생활용품</a> 
-						<a class="category" href="search?ct=3">전자기기</a> 
-						<a class="category" href="search?ct=4">기타</a>
+						<a class="category" id="0" href="search?ct=0">전체</a> 
+						<a class="category" id="1" href="search?ct=1">가구</a> 
+						<a class="category" id="2" href="search?ct=2">생활용품</a> 
+						<a class="category" id="3" href="search?ct=3">전자기기</a> 
+						<a class="category" id="4" href="search?ct=4">기타</a>
 					</div>
 					<div class="arrayArea float-right">
-						<a class="array" href="search?sort=1">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
-						</a> <a class="array" href="search?sort=2">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
+						<a class="array" href="search?sort=new">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
+						</a> <a class="array" href="search?sort=like">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- End -->
-
-
 
 
 
@@ -180,17 +185,31 @@
 								</c:if>
 							</div>
 
-							<div class="p-4">
+							<div class="infoAreaWrapper">
 								<h5>
 									<a class="text-dark">${review.boardTitle }</a>
 								</h5>
-								<div class="infoArea float-right">
-									<div class="viewArea mb-2">
+								<div class="infoArea ">
+									<div class="viewArea float-left">
+										<jsp:useBean id="now" class="java.util.Date" />
+											<fmt:formatDate var="createDate" value="${review.createDate }" pattern="yyyy-MM-dd" />
+											<fmt:formatDate var="today" value="${now }" pattern="yyyy-MM-dd" />
+											<c:choose>
+												<c:when test="${createDate != today }">
+														${createDate }
+													</c:when>
+												<c:otherwise>
+													<fmt:formatDate value="${review.createDate}" pattern="HH:mm" />
+												</c:otherwise>
+											</c:choose>
+									</div>
+									<div class="viewArea mb-2 float-right">
 										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
+										<img class="icon" src="${contextPath}/resources/images/reply.png" /> 댓글수
 									</div>
 
 								</div>
-								<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+								<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 " style="clear:both;">
 									<p class="small mb-0">
 										<span class="font-weight-bold price">${review.nickName }</span>
 									</p>
@@ -201,7 +220,7 @@
                             <c:if test="${review.categoryCode == '24'}">background-color: #d48a9a;</c:if> '>${review.categoryName }</div>
 								</div>
 							</div>
-							<span id="boardNo" style="visibility: hidden">${review.boardNo }</span>
+								<span id="boardNo" style="visibility: hidden">${review.boardNo }</span>
 						</div>
 					</div>
 
@@ -232,18 +251,47 @@
 						<nav>
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 
-								<!-- 화살표에 들어갈 주소를 변수로 생성  -->
-								<c:set var="firstPage" value="?cp=1" />
-								<c:set var="lastPage" value="?cp=${pInfo.maxPage }" />
+								
+								<!-- 주소 조합 작업  -->
+								
+								
+								<c:choose>
+									<c:when test="${!empty rSearch }">
+									
+										<c:if test="${!empty rSearch.ct }">
+											<c:set var="category" value="ct=${rSearch.ct}&"/>
+										</c:if>
+									
+										<c:set var="searchStr" value="${category}"/>
+										
+										<c:if test="${!empty rSearch.sv}">
+											<c:set var="searchStr" value="${category}sk=${rSearch.sk}&sv=${rSearch.sv}"/>
+										</c:if>
+										
+										<c:url var="pageUrl" value="../review/search?${searchStr}&"/>
+										<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+										<c:set var="returnListURL" value="${contextPath}/review/search/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+									</c:when>
+									
+									<c:otherwise>
+										<c:url var="pageUrl" value="?"/>
+										
+										<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+										<c:set var="returnListURL" value="${contextPath}/review/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+									</c:otherwise>
+								</c:choose>
+								
+								<c:set var="firstPage" value="${pageUrl}cp=1" />
+								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage }" />
 
 								<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
 								<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
-								<c:set var="prevPage" value="?cp=${prev}" />
+								<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
 
 
 								<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
 								<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-								<c:set var="nextPage" value="?cp=${next}" />
+								<c:set var="nextPage" value="${pageUrl}cp=${next}" />
 
 								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
 									<li class="page-item">
@@ -258,11 +306,15 @@
 								<c:forEach var="page" begin="${pInfo.startPage }" end="${pInfo.endPage }">
 									<c:choose>
 										<c:when test="${pInfo.currentPage == page }">
-											<li class="page-item active"><a class="page-link">${page}</a> <!-- 같은 페이지일때는 클릭이 안 된다.  --></li>
+											<li class="page-item active">
+												<a class="page-link">${page}</a> <!-- 같은 페이지일때는 클릭이 안 된다.  -->
+											</li>
 										</c:when>
 
 										<c:otherwise>
-											<li class="page-item"><a class="page-link" href="?cp=${page}">${page}</a></li>
+											<li class="page-item">
+												<a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+											</li>
 										</c:otherwise>
 
 
@@ -305,8 +357,6 @@
 	<jsp:include page="../common/footer.jsp" />
 
 
-	<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-	<c:set var="returnListURL" value="${contextPath}/review/list?cp=${pInfo.currentPage}" scope="session" />
 
 
 	<script>
@@ -319,6 +369,8 @@
 			location.href = boardViewURL;
 		});
 
+		
+		
 		// 등록하기 버튼
 		$("#insertBoard").on("click", function() {
 
@@ -326,23 +378,44 @@
 
 		});
 
-		// 검색내용 있을 경우 검색창에 해당 내용 저장
-		(function() {
-			var searchKey = "${param.sk}";
-			var searchValue = "${param.sv}";
-
-			// 검색창 option 반복 접근
-			$("select[name=sk]>option").each(function(index, item) {
-
-				if ($(item).val() == searchKey) {
-					$(item).prop("selected", true);
+		
+		// -------------검색 파라미터 유지-------------
+		$(function(){
+			
+			
+			// 카테고리
+			if(${param.ct == '0'}){
+				$("#0").css({"color":"orange", "font-weight":"bold"});
+			}else if(${param.ct == '1'}){
+				$("#1").css({"color":"orange", "font-weight":"bold"});
+			}else if(${param.ct == '2'}){
+				$("#2").css({"color":"orange", "font-weight":"bold"});
+			}else if(${param.ct == '3'}){
+				$("#3").css({"color":"orange", "font-weight":"bold"});
+			}else if(${param.ct == '4'}){
+				$("#4").css({"color":"orange", "font-weight":"bold"});
+			}else{ // 선택 안된 경우,,
+				$("#0").css({"color":"orange", "font-weight":"bold"});
+			}
+			
+			
+			
+			// 검색 조건
+			$("select[name=sk] > option").each(function(index,item){
+				if($(item).val() == "${rSearch.sk}"){
+					$(this).prop("selected", true);
 				}
 			});
-
-			// 검색어 입력창에 searchValue 값 출력
-			$("input[name=sv]").val(searchValue);
-
-		})();
+			
+			
+			// 검색 내용
+			$("input[name=sv]").val("${rSearch.sv}");
+			
+			
+			
+		});
+		
+		
 	</script>
 </body>
 </html>

@@ -38,6 +38,7 @@
 		
 		<result property="filePath" column="FILE_PATH" />
 		<result property="fileName" column="FILE_NM" />
+		<result property="fileLevel" column="FILE_LEVEL" />
 		<result property="parentMarketNo" column="PARENT_MARKET_NO" />
 	</resultMap>
 
@@ -89,4 +90,33 @@
 		DELETE FROM MARKET_LIKE WHERE MEM_NO = #{memberNo} AND MARKET_NO = #{marketNo}
 	</delete>
 
+	<!-- 다음 게시글 번호 조회 -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_MBNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 게시글 등록  -->
+	<insert id="insertMarket" parameterType="Market">
+		INSERT INTO MARKET VALUES
+		(#{marketNo}, #{marketTitle}, #{marketContent}, DEFAULT, DEFAULT, DEFAULT, #{price}, #{status},
+		#{deliveryCharge}, #{memNo}, #{categoryCd}, #{transactionCategory}, DEFAULT, #{itemCount})
+	</insert>
+	
+	
+	<!-- 파일 정보 삽입  -->
+	<insert id="insertAttachmentList" parameterType="list">
+		INSERT INTO MARKET_FILE
+		SELECT SEQ_MFNO.NEXTVAL, A.* FROM (
+			
+			<foreach collection="list" item="item" separator="UNION ALL">
+				SELECT #{item.filePath} FILE_PATH,
+							 #{item.fileName} FILE_NAME,
+							 #{item.parentMarketNo} PARENT_MARKET_NO,
+							 #{item.fileLevel} FILE_LEVEL
+				FROM DUAL
+			</foreach>
+			)A
+	</insert>
+	
+	
 </mapper>
