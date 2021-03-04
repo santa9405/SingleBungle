@@ -17,6 +17,7 @@
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewAttachment" alias ="ReviewAttachment"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewReply" alias ="ReviewReply"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewSearch" alias ="ReviewSearch"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewLike" alias ="ReviewLike"/>
   			 
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.ABoard" alias="ABoard" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
