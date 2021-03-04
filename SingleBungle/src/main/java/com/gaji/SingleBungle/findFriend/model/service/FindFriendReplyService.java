@@ -11,12 +11,30 @@ public interface FindFriendReplyService {
 	 * @param friendNo
 	 * @return rList
 	 */
-	List<FindFriendReplyController> selectReplyList(int friendNo);
+	List<FindFriendReplyController> selectReplyList(int parentFriendNo);
 
 	/** 댓글 삽입 Service
 	 * @param reply
 	 * @return result
 	 */
 	int insertReply(FindFriendReply reply);
+
+	/** 댓글 수정 Service
+	 * @param reply
+	 * @return result
+	 */
+	int updateReply(FindFriendReply reply);
+
+	/** 댓글 삭제 Service
+	 * @param replyNo
+	 * @return result
+	 */
+	int deleteReply(int replyNo);
+
+	/** 답글 삽입 Service
+	 * @param reply
+	 * @return
+	 */
+	int insertChildReply(FindFriendReply reply);
 
 }
