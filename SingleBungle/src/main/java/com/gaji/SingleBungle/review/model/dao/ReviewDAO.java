@@ -68,9 +68,6 @@ public class ReviewDAO {
 	}
 	
 	
-
-
-
 	/** 조회수 증가 DAO
 	 * @param boardNo
 	 * @return result
@@ -79,16 +76,7 @@ public class ReviewDAO {
 		
 		return sqlSession.update("reviewMapper.increaseReadCount", boardNo);
 	}
-	
-	
-	
-	/** 좋아요 감소 DAO
-	 * @param map
-	 * @return result
-	 */
-	public int decreaseLike(Map<String, Object> map) {
-		return sqlSession.delete("reviewMapper.decreaseLike", map);
-	}
+
 
 
 
@@ -120,6 +108,20 @@ public class ReviewDAO {
 	 */
 	public int increaseLike(Map<String, Object> map) {
 		return sqlSession.insert("reviewMapper.increaseLike", map);
+	}
+	
+	
+	
+
+	
+	
+	
+	/** 좋아요 감소 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int decreaseLike(Map<String, Object> map) {
+		return sqlSession.delete("reviewMapper.decreaseLike", map);
 	}
 
 

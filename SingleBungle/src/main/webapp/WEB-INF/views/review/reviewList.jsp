@@ -277,7 +277,7 @@
 										<c:url var="pageUrl" value="?"/>
 										
 										<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-										<c:set var="returnListURL" value="${contextPath}/review/list/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+										<c:set var="returnListURL" value="${contextPath}/review/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
 									</c:otherwise>
 								</c:choose>
 								
