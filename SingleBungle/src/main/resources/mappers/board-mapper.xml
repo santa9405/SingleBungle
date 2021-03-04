@@ -34,6 +34,25 @@
 		<id property="memberNo" column="MEM_NO"/>
 		<id property="boardNo" column="BOARD_NO"/>
 	</resultMap>
+	
+	<resultMap type="BoardReport" id="report_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<id property="reportTitle" column="REPORT_TITLE" />
+		<id property="reportContent" column="REPORT_CONTENT" />
+		<id property="memberNo" column="MEM_NO" />
+		<id property="categoryCode" column="CATEGORY_CD" />
+		<id property="boardNo" column="BOARD_NO" />
+	</resultMap>
+	
+	<resultMap type="BoardReplyReport" id="replyReport_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<id property="reportTitle" column="REPORT_TITLE" />
+		<id property="reportContent" column="REPORT_CONTENT" />
+		<id property="memberNo" column="MEM_NO" />
+		<id property="categoryCode" column="CATEGORY_CD" />
+		<id property="replyNo" column="REPLY_NO" />
+		<id property="boardNo" column="BOARD_NO" />
+	</resultMap>
 
 
 	<!-- 특정 게시판 전체 게시글 수 조회 -->

@@ -190,6 +190,23 @@ public class CafeDAO {
 	public int selectLikePushed(Map<String, Integer> map) {
 		return sqlSession.selectOne("cafeMapper.selectLikePushed", map);
 	}
+
+
+	/** 신고 등록 다음 게시글 번호 얻어오기 DAO
+	 * @return reportNo
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("boardMapper.selectReportNo");
+	}
+
+
+	/** 신고 등록 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertCafeReport(Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertCafeReport", map);
+	}
 	
 	
 

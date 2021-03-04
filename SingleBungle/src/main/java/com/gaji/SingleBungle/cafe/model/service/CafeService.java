@@ -112,5 +112,11 @@ public interface CafeService {
 	 */
 	public abstract int selectLikePushed(Map<String, Integer> map);
 
+	/** 신고 등록 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int insertCafeReport(Map<String, Object> map);
+
 	
 }

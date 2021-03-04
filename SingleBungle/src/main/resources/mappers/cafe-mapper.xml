@@ -35,6 +35,25 @@
 		<id property="memberNo" column="MEM_NO"/>
 		<id property="cafeNo" column="CAFE_NO"/>
 	</resultMap>
+	
+	<resultMap type="CafeReport" id="report_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<id property="reportTitle" column="REPORT_TITLE" />
+		<id property="reportContent" column="REPORT_CONTENT" />
+		<id property="memberNo" column="MEM_NO" />
+		<id property="categoryCode" column="CATEGORY_CD" />
+		<id property="cafeNo" column="CAFE_NO" />
+	</resultMap>
+	
+	<resultMap type="CafeReplyReport" id="replyReport_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<id property="reportTitle" column="REPORT_TITLE" />
+		<id property="reportContent" column="REPORT_CONTENT" />
+		<id property="memberNo" column="MEM_NO" />
+		<id property="categoryCode" column="CATEGORY_CD" />
+		<id property="replyNo" column="REPLY_NO" />
+		<id property="cafeNo" column="CAFE_NO" />
+	</resultMap>
 
   <!-- 특정 게시판 전체 게시글 수 조회 -->
 	<select id="getListCount" resultType="_int">
@@ -206,13 +225,28 @@
 		DELETE FROM CAFE_LIKE WHERE MEM_NO = #{memberNo} AND CAFE_NO = #{cafeNo}
 	</delete>
   
-	
 	<!-- 좋아요 여부 -->
 	<select id="selectLikePushed" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM CAFE_LIKE
 		WHERE MEM_NO = #{memberNo}
 		AND CAFE_NO = #{cafeNo}
 	</select>
+	
+	
+	
+	<!-- 신고 게시글 다음 번호 조회 -->
+	<select id="selectReportNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 신고 게시글 등록 -->
+	<insert id="insertCafeReport" parameterType="map">
+		INSERT INTO REPORT_CAFE VALUES 
+		(#{reportNo}, #{reportTitle}, 
+		 #{reportContent}, #{memberNo}, #{categoryCode}, #{cafeNo})
+		WHERE MEM_NO = #{memberNo}
+		AND CAFE_NO = #{cafeNo}
+  </insert>
 	
 	
 </mapper>

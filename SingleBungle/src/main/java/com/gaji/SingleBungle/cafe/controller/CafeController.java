@@ -25,6 +25,7 @@ import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
+import com.gaji.SingleBungle.cafe.model.vo.CafeReport;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -345,19 +346,58 @@ public class CafeController {
 	}
 	
 	
-	// 신고 페이지 연결
+	// 신고 페이지 연결 Controller
 	@RequestMapping("cafeReport")
 	public String cafeReport() {
 		return "cafe/cafeReport";
 	}
 	
+	// 게시글 신고 등록 Controller
+	@RequestMapping("cafeReportAction")
+	public String insertCafeReport(@ModelAttribute CafeReport report, @ModelAttribute Cafe cafe,
+					@ModelAttribute("loginMember") Member loginMember,
+					HttpServletRequest request, RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("cafeNo", cafe.getCafeNo());
+		map.put("reportTitle", report.getReportTitle());
+		map.put("reportContent", report.getReportContent());
+		map.put("categoryCode", report.getCategoryCode());
+		
+		int result = service.insertCafeReport(map);
+		
+		String url = null;
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "신고가 접수되었습니다.";
+			url = "redirect:" + result;
+		} else {
+			swalIcon = "error";
+			swalTitle = "신고 접수 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		
+		return url;
+	}
 	
 	
-	// 댓글 신고 페이지 연결
+	
+	
+	// 댓글 신고 페이지 연결 Controller
 	@RequestMapping("cafeReplyReport")
 	public String replyReport() {
 		return "cafe/cafeReplyReport";
 	}
+	
+	// 댓글 신고 등록 Controller
+	@RequestMapping("cafeReplyReportAction")
+	public String insertReplyReport() {
+		return "cafe/cafeReplyReport";
+	}
+	
 	
 
 }
