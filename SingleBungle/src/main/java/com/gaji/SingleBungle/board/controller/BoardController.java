@@ -84,13 +84,23 @@ public class BoardController {
 	// 게시글 상세조회 Controller
 	@RequestMapping("{boardNo}")
 	public String boardView(@PathVariable("boardNo") int boardNo, Model model,
-			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+					@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra,
+					@RequestHeader(value = "referer", required = false) String referer) {
 		
 		Board board = service.selectBoard(boardNo);
 		
 		String url = null;
 		
 		if (board != null) {
+			
+			// 해당 게시글에 좋아요를 눌렀는지 확인
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("boardNo", boardNo);
+			
+			int like = service.selectLikePushed(map);
+			model.addAttribute("like", like);
+			
 
 			List<BoardAttachment> attachmentList = service.selectAttachmentList(boardNo);
 

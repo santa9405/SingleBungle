@@ -13,7 +13,6 @@
 <!-- Bootstrap core JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery.placeholder.js"></script>
 
 <style>
 	.insert-label {
@@ -84,7 +83,7 @@
                         <div>
                             <label for="content">내용</label>
                         </div>
-                        <textarea class="form-control cafePlaceholder" id="summernote" name="editordata" rows="10" style="resize: none;" required>${cafe.cafeContent}</textarea>
+                        <textarea class="form-control cafePlaceholder" id="summernote" name="cafeContent" rows="10" style="resize: none;" required>${cafe.cafeContent}</textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-success">수정</button>

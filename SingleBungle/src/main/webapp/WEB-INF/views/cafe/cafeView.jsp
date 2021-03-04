@@ -23,9 +23,14 @@
 	margin-right: 15px;
 }
 
-.image {
+#nickname {
 	width: 30px;
 	height: 30px;
+}
+
+#view {
+	width: 21px;
+	height: 21px;
 }
 
 .text-dark {
@@ -48,10 +53,11 @@
 .likeCnt {
    color: #6c757d;
 }
- 
-.like {
-  background-image: url('${contextPath}/resources/img/like2.png');
-  background-repeat: no-repeat;
+
+.like2 {
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
 }
 
 /* 인기 게시글 */
@@ -79,6 +85,7 @@
 									<button type="button" class="btn btn-secondary mb-3 btn-success insert-list">목록</button>
 									<button type="button" class="btn btn-secondary mb-3 btn-danger report">신고</button>
 								</div>
+								
 								<span id="cafeNo2">${cafe.cafeNo}</span>
                 <div id="board-area">
                     <!-- 카테고리 -->
@@ -96,16 +103,18 @@
 								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" src="${contextPath}/resources/images/profile.png" /> ${cafe.nickname}
+											<img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> ${cafe.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${cafe.createDate}</div>
 										<div class="infoArea float-right">
-											<img class="image" src="${contextPath}/resources/images/view.png"> ${cafe.readCount} <span>
-												
+											<img class="image" id="view" src="${contextPath}/resources/images/view.png"> ${cafe.readCount} <span>
 												<!-- 좋아요 버튼 -->
 												<button type="button" id="likeBtn" class="likeBtns">
 													<img src="${contextPath}/resources/images/like1.png" 
-													width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.cafeNo == cafe.cafeNo}">like2</c:if></c:forEach>'>
+													width="15" height="15" id="heart" class='likeImgs 
+														<c:if test="${like == 1}">like2
+														</c:if>
+														'>
 													<span class="likeCnt">${cafe.likeCount}</span>
 												</button>
 											</span>
@@ -121,17 +130,17 @@
 								<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: coral;'>${cafe.cafeName}</div>&nbsp;&nbsp;
 								<span>${cafe.cafeAddress}</span>
 								</div>
-								<br><br>
+								<br>
 								
 								<!-- 지도 API 상세보기 구간 -->
+								<p style="margin-top:-12px">
+						    <em class="link">
+						        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')"></a>
+						    </em>
+								</p>
+								<div id="map" style="width:100%;height:350px;"></div>
 								
-								
-								
-								
-								
-								
-								
-								
+								<br><br>
 								
                 <div class="board-content">
                 	${cafe.cafeContent}   
@@ -259,6 +268,7 @@
 		
 	});
 	
+	
 	// 좋아요
 	
 	$(".likeBtns").on("click", function(){
@@ -267,13 +277,13 @@
 	var likeClass = "like1";
 	var likeImg = $(this).children(".likeImgs");
 	var likeCnt = $(this).children(".likeCnt");
-	console.log(cafeNo);
 	
 	if(likeClassArray[1] == "like2") {
 		likeClass = "like2"; 
 	}
-	
-	if(likeClass == "like1") {
+	console.log($(this));
+	//if(likeClass == "like1") {
+	if(!$(this).children("img").hasClass("like2")) {
 		$.ajax({
 			url : "increaseLike",
 			type : "post",
@@ -309,6 +319,49 @@
 		
 	</script>
 	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f81111cbd23ecc010379fb2b505b51b9&libraries=services"></script>
+
+	<script>
+	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	   	mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+	
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			// 주소로 좌표를 검색합니다
+			// 맛집 주소 가져와서 좌표 찍음
+			geocoder.addressSearch('${cafe.cafeAddress}', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${cafe.cafeName}</div>'
+			        // 맛집 이름 마커에 출력되게 함
+			});
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } else{
+			       console.log(result);
+			    }
+			});    
+   </script>
 	
 </body>
 </html>

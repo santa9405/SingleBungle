@@ -119,7 +119,7 @@ public class CafeController {
 	
 	// 게시글 상세조회 Controller
 	@RequestMapping("{cafeNo}")
-	public String cafeView(@PathVariable("cafeNo") int cafeNo, Model model,
+	public String cafeView(@PathVariable("cafeNo") int cafeNo, Model model, @ModelAttribute("loginMember") Member loginMember,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 		
 		Cafe cafe = service.selectCafe(cafeNo);
@@ -127,6 +127,15 @@ public class CafeController {
 		String url = null;
 		
 		if (cafe != null) {
+			
+			// 해당 게시글에 좋아요를 눌렀는지 확인
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("cafeNo", cafeNo);
+			
+			int like = service.selectLikePushed(map);
+			model.addAttribute("like", like);
+			
 			
 			List<Cafe> cafeList = service.cafeListTop3();
 			
@@ -145,6 +154,8 @@ public class CafeController {
 				}
 
 			}
+			
+			
 			
 			
 			model.addAttribute("cafe", cafe);
@@ -334,17 +345,13 @@ public class CafeController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 	// 신고 페이지 연결
 	@RequestMapping("cafeReport")
 	public String cafeReport() {
 		return "cafe/cafeReport";
 	}
+	
+	
 	
 	// 댓글 신고 페이지 연결
 	@RequestMapping("cafeReplyReport")

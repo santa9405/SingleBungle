@@ -23,9 +23,14 @@
 	margin-right: 15px;
 }
 
-.image {
+#nickname {
 	width: 30px;
 	height: 30px;
+}
+
+#view {
+	width: 21px;
+	height: 21px;
 }
 	
 /* 좋아요 */
@@ -37,10 +42,11 @@
 .likeCnt {
    color: #6c757d;
 }
- 
-.like {
-  background-image: url('${contextPath}/resources/img/like2.png');
-  background-repeat: no-repeat;
+
+.like2 {
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
 }
 	
 </style>
@@ -77,15 +83,16 @@
 								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" src="${contextPath}/resources/images/profile.png" /> ${board.nickname}
+											<img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> ${board.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${board.createDate}</div>
 										<div class="infoArea float-right">
-											<img class="image" src="${contextPath}/resources/images/view.png"> ${board.readCount} <span>
+											<img class="image" id="view" src="${contextPath}/resources/images/view.png"> ${board.readCount} <span>
 												<!-- 좋아요 버튼 -->
 												<button type="button" id="likeBtn" class="likeBtns">
 													<img src="${contextPath}/resources/images/like1.png" 
-													width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.boardNo == board.boardNo}">like2</c:if></c:forEach>'>
+													width="15" height="15" id="heart" class='likeImgs 
+													<c:if test="${like == 1}">like2</c:if>'>
 													<span class="likeCnt">${board.likeCount}</span>
 												</button>
 											</span>
@@ -137,6 +144,7 @@
 	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
+	 // 신고
    $(".report").on("click", function(){
        window.open('${contextPath}/board/boardReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	 });
@@ -167,13 +175,12 @@
 	var likeClass = "like1";
 	var likeImg = $(this).children(".likeImgs");
 	var likeCnt = $(this).children(".likeCnt");
-	// console.log(boardNo);
 	
 	if(likeClassArray[1] == "like2") {
 		likeClass = "like2"; 
 	}
 	
-	if(likeClass == "like1") {
+	if(!$(this).children("img").hasClass("like2")) {
 		$.ajax({
 			url : "increaseLike",
 			type : "post",

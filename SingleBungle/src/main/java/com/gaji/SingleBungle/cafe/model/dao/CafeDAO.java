@@ -181,6 +181,15 @@ public class CafeDAO {
 	public int decreaseLike(Map<String, Object> map) {
 		return sqlSession.delete("cafeMapper.decreaseLike", map);
 	}
+
+
+	/** 좋아요 여부 확인 DAO
+	 * @param map
+	 * @return like
+	 */
+	public int selectLikePushed(Map<String, Integer> map) {
+		return sqlSession.selectOne("cafeMapper.selectLikePushed", map);
+	}
 	
 	
 

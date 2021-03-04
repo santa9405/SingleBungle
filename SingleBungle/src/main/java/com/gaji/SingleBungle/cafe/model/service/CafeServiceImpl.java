@@ -299,6 +299,12 @@ public class CafeServiceImpl implements CafeService {
 		return dao.decreaseLike(map);
 	}
 
+	// 좋아요 여부 확인 Service 구현
+	@Override
+	public int selectLikePushed(Map<String, Integer> map) {
+		return dao.selectLikePushed(map);
+	}
+
 	
 
 

@@ -33,6 +33,10 @@
 	display: none;
 }
 
+.infoAreaWrapper{
+   padding : 24px 24px 5px 24px;
+}
+
 .text-dark {
   display:block;
   overflow: hidden;
@@ -158,6 +162,7 @@
 								<h5>
 									<a class="text-dark cafeTitle">${cafe.cafeTitle}</a>
 								</h5>
+								
 								<div class="infoArea float-right">
 									<div class="viewArea">
 										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${cafe.readCount}

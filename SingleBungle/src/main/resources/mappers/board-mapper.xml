@@ -170,6 +170,14 @@
 		DELETE FROM BOARD_LIKE WHERE MEM_NO = #{memberNo} AND BOARD_NO = #{boardNo}
 	</delete>
 	
+	<!-- 좋아요 여부 -->
+	<select id="selectLikePushed" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_LIKE
+		WHERE MEM_NO = #{memberNo}
+		AND BOARD_NO = #{boardNo}
+	</select>
+	
+	
 	<!-- 게시글 수정 -->
 	<update id="updateBoard" parameterType="Board">
 		UPDATE BOARD SET
