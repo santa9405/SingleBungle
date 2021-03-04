@@ -196,7 +196,7 @@ public class CafeDAO {
 	 * @return reportNo
 	 */
 	public int selectReportNo() {
-		return sqlSession.selectOne("boardMapper.selectReportNo");
+		return sqlSession.selectOne("cafeMapper.selectReportNo");
 	}
 
 
@@ -205,7 +205,7 @@ public class CafeDAO {
 	 * @return result
 	 */
 	public int insertCafeReport(Map<String, Object> map) {
-		return sqlSession.insert("boardMapper.insertCafeReport", map);
+		return sqlSession.insert("cafeMapper.insertCafeReport", map);
 	}
 	
 	
