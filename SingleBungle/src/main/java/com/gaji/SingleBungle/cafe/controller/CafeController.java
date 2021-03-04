@@ -157,8 +157,6 @@ public class CafeController {
 			}
 			
 			
-			
-			
 			model.addAttribute("cafe", cafe);
 			model.addAttribute("cafeList", cafeList);
 			url = "cafe/cafeView";
@@ -354,13 +352,16 @@ public class CafeController {
 	
 	// 게시글 신고 등록 Controller
 	@RequestMapping("cafeReportAction")
-	public String insertCafeReport(@ModelAttribute CafeReport report, @ModelAttribute Cafe cafe,
+	public String insertCafeReport(@ModelAttribute CafeReport report, @RequestParam("cafeNo") int cafeNo,
 					@ModelAttribute("loginMember") Member loginMember,
 					HttpServletRequest request, RedirectAttributes ra) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", loginMember.getMemberNo());
-		map.put("cafeNo", cafe.getCafeNo());
+		map.put("cafeNo", cafeNo);
+		
+		System.out.println(map);
+		
 		map.put("reportTitle", report.getReportTitle());
 		map.put("reportContent", report.getReportContent());
 		map.put("categoryCode", report.getCategoryCode());

@@ -244,8 +244,6 @@
 		INSERT INTO REPORT_CAFE VALUES 
 		(#{reportNo}, #{reportTitle}, 
 		 #{reportContent}, #{memberNo}, #{categoryCode}, #{cafeNo})
-		WHERE MEM_NO = #{memberNo}
-		AND CAFE_NO = #{cafeNo}
   </insert>
 	
 	
