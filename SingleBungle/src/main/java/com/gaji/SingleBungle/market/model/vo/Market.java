@@ -17,13 +17,13 @@ public class Market {
 	private int categoryCd;
 	private int transactionCategory;
 	private int transactionStatus;
+	private int itemCount;
 	private String nickname;
 	private String certifiedFl;
 	private String address;
 	private String categoryNm;
 	private int likes;
 	private int rating;
-	private int itemCount;
 	
 	
 	public Market() {}

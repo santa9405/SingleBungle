@@ -150,20 +150,41 @@ public class MarketController {
 	
 	@RequestMapping("insertAction")
 	public String marketInsertAction(@ModelAttribute Market market, RedirectAttributes ra,
-						@ModelAttribute Member loginMember, 
-						@RequestParam(value="images") List<MultipartFile> images,
+						@ModelAttribute("loginMember") Member loginMember, 
+						@RequestParam(value="images", required=true) List<MultipartFile> images,
 						HttpServletRequest request) {
 		
 		//System.out.println(market);
 		
 		market.setMemNo(loginMember.getMemberNo());
 		
-		for(int i=0; i<images.size(); i++) {
-		System.out.println("images[" + i + "] : " + images.get(i).getOriginalFilename());
-			}
+//		for(int i=0; i<images.size(); i++) {
+//		System.out.println("images[" + i + "] : " + images.get(i).getOriginalFilename());
+//			}
+		String savePath = null;
 		
+		savePath = request.getSession().getServletContext().getRealPath("resources/marketImages");
 		
-		return null;
+		int result = service.insertMarket(market, images, savePath);
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 등록 성공";
+			url = "redirect:" + result;
+			
+			request.getSession().setAttribute("returnListURL", "list");
+					
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 등록 실패";
+			url = "redirect:insert";
+		}
+		 ra.addFlashAttribute("swalIcon", swalIcon);
+		 ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
 	}
 	
 	@RequestMapping("mypage")

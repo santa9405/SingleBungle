@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 
@@ -80,6 +81,32 @@ public class MarketDAO {
 	 */
 	public int decreaseLike(Map<String, Object> map) {
 		return sqlSession.delete("marketMapper.decreaseLike", map);
+	}
+
+	
+	/** 다음 게시글 번호 조회 DAO
+	 * @return result
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("marketMapper.selectNextNo");
+	}
+
+
+	/** 게시글 등록 DAO
+	 * @param market
+	 * @return result
+	 */
+	public int insertMarket(Market market) {
+		return sqlSession.insert("marketMapper.insertMarket", market);
+	}
+
+
+	/** 파일 정보 삽입 DAO
+	 * @param uploadImages
+	 * @return result
+	 */
+	public int insertAttachmentList(List<MarketAttachment> uploadImages) {
+		return sqlSession.insert("marketMapper.insertAttachmentList", uploadImages);
 	}
 
 }
