@@ -310,9 +310,9 @@
 							<div class="formContent">
 								<ul class="itemImages">
 									<li class="itemImageInsert" id="imgInput">
-										<label for="images1">
+										<label for="images0" class="imgLabel">
 											<span>이미지 등록</span></label>
-											<input type="file" id="images1" name="images"  style="display: none;" onchange="LoadImg(this);">
+											<input type="file" id="images0" name="images"  style="display: none;" onchange="LoadImg(this);">
 									</li>
 									
 									
@@ -476,15 +476,23 @@
 				reader.readAsDataURL(value.files[0]);
 
 				reader.onload = function(e) {
-					var img = '<li class="itemImage"> <img id="img' + imgCnt + '" class="image" src="' + e.target.result + '">' +
+					var img = '<li class="itemImage"> <img id="img' + imgCnt + '" class="image" name="test1" src="' + e.target.result + '">' +
 						'<button type="button" class="deleteBtn" onclick="deleteImg(this);"></button>' + '</li>';
 					$(".itemImages").append(img);
 					$("#imgCnt").text(++imgCnt); 
+					addImgInput();
 				}
 			}
 		}
 	}
 	
+	function addImgInput(){
+		var input = '<label for="images' + imgCnt +'" class="imgLabel">' +
+								'<span>이미지 등록</span></label>'+
+								'<input type="file" id="images' + imgCnt + '" name="images" style="display:none;" onchange="LoadImg(this);">';
+		$(".itemImageInsert label").css("display", "none");
+		$('.itemImageInsert').append(input);
+	}
 	
     function deleteImg(value) {
     		$("#imgCnt").text(--imgCnt);
@@ -584,7 +592,6 @@
      }
 	
       
-		
 	</script>
 
 </body>

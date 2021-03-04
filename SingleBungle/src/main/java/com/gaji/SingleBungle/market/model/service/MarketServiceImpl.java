@@ -1,15 +1,22 @@
 package com.gaji.SingleBungle.market.model.service;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
+import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 import com.gaji.SingleBungle.market.model.dao.MarketDAO;
+import com.gaji.SingleBungle.market.model.exception.MarketInsertAttachmentFailException;
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 
@@ -75,6 +82,99 @@ public class MarketServiceImpl implements MarketService {
 	@Override
 	public int decreaseLike(Map<String, Object> map) {
 		return dao.decreaseLike(map);
+	}
+
+	// 게시글 등록 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertMarket(Market market, List<MultipartFile> images, String savePath) {
+		int result = 0;
+		
+		int marketNo = dao.selectNextNo();
+		
+		if(marketNo > 0) {
+			market.setMarketNo(marketNo);
+			
+			String marketTitle = market.getMarketTitle();
+			String marketContent = market.getMarketContent();
+			
+			marketTitle = replaceParameter(marketTitle);
+			marketContent = replaceParameter(marketContent);
+			
+			market.setMarketTitle(marketTitle);
+			market.setMarketContent(marketContent);
+		}
+		
+		result = dao.insertMarket(market);
+		
+		if(result > 0) {
+			List<MarketAttachment> uploadImages = new ArrayList<MarketAttachment>();
+			
+			String filePath = "/resources/marketImages";
+			
+			for(int i=0; i<images.size(); i++) {
+				if(!images.get(i).getOriginalFilename().equals("")) {
+					String fileName = rename(images.get(i).getOriginalFilename());
+					
+					MarketAttachment at = new MarketAttachment(filePath, fileName, i, marketNo);
+					
+					uploadImages.add(at);
+				}
+			}
+			
+			if(!uploadImages.isEmpty()) {
+				result = dao.insertAttachmentList(uploadImages);
+				
+				if(result == uploadImages.size()) {
+					result = marketNo;
+					
+					//int size = 0;
+					/*
+					 * if(!images.get(0).getOriginalFilename().equals("")) { size = images.size(); }
+					 */
+					for(int i=0; i<uploadImages.size(); i++) {
+						try {
+							images.get(uploadImages.get(i).getFileLevel())
+							.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
+							System.out.println("파일 저장 성공!!!!");
+						} catch (Exception e) {
+							e.printStackTrace();
+							
+							throw new MarketInsertAttachmentFailException("파일 서버 저장 실패");
+						}
+					}
+				}
+			} else {
+				throw new MarketInsertAttachmentFailException("파일 정보 DB 삽입 실패");
+			}
+		} else {
+			result = marketNo;
+		}
+		return result;
+	}
+	
+	
+	
+	// 크로스 사이트 스크립팅 방지 처리 메소드
+	private String replaceParameter(String param) {
+		String result = param;
+		if(param != null) {
+	         result = result.replaceAll("&", "&amp;");
+	         result = result.replaceAll("<", "&lt;");
+	         result = result.replaceAll(">", "&gt;");
+	         result = result.replaceAll("\"", "&quot;");
+		}
+		return result;
+	}
+	
+	public String rename(String originFileName) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
+		
+		int ranNum = (int)(Math.random()*100000);
+		String str = "_" + String.format("%05d", ranNum);
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		return date + str + ext;
 	}
 
 }
