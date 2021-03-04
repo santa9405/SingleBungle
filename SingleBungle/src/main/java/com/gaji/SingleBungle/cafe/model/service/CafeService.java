@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
+import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
 
 public interface CafeService {
@@ -80,6 +81,42 @@ public interface CafeService {
 	 */
 	public abstract int deleteCafe(Cafe cafe);
 
+	/** 게시글 수정 Service
+	 * @param updateCafe
+	 * @return result
+	 */
+	public abstract int updateCafe(Cafe updateCafe);
+
+	/** 좋아요 목록 조회 Service
+	 * @param memberNo
+	 * @return
+	 */
+	public abstract List<CafeLike> selectLike(int memberNo);
+
+	/** 좋아요 증가 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int increaseLike(Map<String, Object> map);
+
+
+	/** 좋아요 감소 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int decreaseLike(Map<String, Object> map);
+
+	/** 좋아요 여부 확인 Service
+	 * @param map
+	 * @return like
+	 */
+	public abstract int selectLikePushed(Map<String, Integer> map);
+
+	/** 신고 등록 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int insertCafeReport(Map<String, Object> map);
 
 	
 }

@@ -3,6 +3,8 @@ package com.gaji.SingleBungle.market.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
@@ -44,5 +46,13 @@ public interface MarketService {
 	 * @return result
 	 */
 	int decreaseLike(Map<String, Object> map);
+
+	/** 게시글 등록 Service
+	 * @param market
+	 * @param images
+	 * @param savePath
+	 * @return result
+	 */
+	int insertMarket(Market market, List<MultipartFile> images, String savePath);
 
 }

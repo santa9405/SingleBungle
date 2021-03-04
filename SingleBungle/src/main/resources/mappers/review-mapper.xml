@@ -29,6 +29,12 @@
 	</resultMap>
 	
 	
+	<resultMap type="ReviewLike" id="like_rm">
+		<id property="memberNo" column="MEM_NO"/>
+		<result property="boardNo" column="BOARD_NO"/>
+	</resultMap>
+	
+	
 	
 	<!--  전체 게시글 수 조회  -->
 	<select id="getListCount" resultType="_int">
@@ -39,7 +45,7 @@
 	
 	<!-- 게시글 목록 조회  -->
 	<select id="selectList" parameterType="_int" resultMap="review_rm">
-		SELECT BOARD_NO,BOARD_TITLE, READ_COUNT, CATEGORY_CD, CATEGORY_NM, NICKNAME
+		SELECT BOARD_NO,BOARD_TITLE, READ_COUNT, CATEGORY_CD, CATEGORY_NM, NICKNAME, CREATE_DT
 		FROM V_BOARD
 		WHERE STATUS = 'N'
 		AND BOARD_CD = '2'
@@ -55,7 +61,6 @@
  		<foreach collection="list" item="review" open="(" close=")" separator=",">
 			#{review.boardNo}
 		</foreach>
-		
 	</select>
 	
 
@@ -71,13 +76,35 @@
   </select>
   
   
-  
   <!-- 조회수증가  -->
   <select id="increaseReadCount" parameterType="_int">
 		UPDATE BOARD SET
 		READ_COUNT = READ_COUNT + 1
 		WHERE BOARD_NO = #{boardNo}
   </select>
+
+
+	<!-- 좋아요 목록  -->
+	<select id="selectLike" parameterType="_int" resultMap="like_rm">
+		SELECT BOARD_NO
+		FROM BOARD_LIKE
+		WHERE MEM_NO = #{memberNo}
+	</select>
+	
+	<!-- 좋아요 증가  -->
+	<insert id="increaseLike" parameterType="map">
+		INSERT INTO BOARD_LIKE
+		VALUES (#{memberNo},#{boardNo})
+	</insert>
+	
+		<!-- 좋아요 감소 -->
+	<delete id="decreaseLike" parameterType="map">
+		DELETE FROM BOARD_LIKE 
+		WHERE MEM_NO = #{memberNo} 
+		AND BOARD_NO = #{boardNo}
+	</delete>
+	
+
 
 
 
@@ -170,6 +197,65 @@
   		WHERE BOARD_NO = '${boardNo}'
   	</update>
   	
+  	
+  	
+  	
+  	<!-- 검색 조건에 맞는 게시글 수 조회  -->
+  	<select id="getSearchListCount" parameterType="ReviewSearch" resultType="_int">
+  		SELECT COUNT(*) FROM V_BOARD
+  		WHERE STATUS = 'N'
+  		AND BOARD_CD ='2'
+  		
+  		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬)  -->
+  	<if test="ct != null">
+	  	<choose>
+	  		<when test="ct == '1'">
+	  			WHERE CATEGORY_CD = '21'
+	  		</when>
+	  		<when test="ct=='2'">
+	  			WHERE CATEGORY_CD="22"
+	  		</when>
+	  		<when test="ct=='3'">
+	  			WHERE CATEGORY_CD="23"
+	  		</when>
+	  		<when test="ct=='4'">
+	  			WHERE CATEGORY_CD="24"
+	  		</when>
+	  	</choose>
+	 </if>			
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	<!-- 검색 조건에 맞는 게시글 목록-->
+  	<select id="selectSearchList" parameterType="ReviewSearch" resultMap="review_rm">
+  		SELECT * FROM V_BOARD
+  		WHERE STATUS = 'N'
+  		AND BOARD_CD ='2'
+  		
+  		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬)  -->
+  			<if test="ct != null">
+	  	<choose>
+	  		<when test="ct == '1'">
+	  			WHERE CATEGORY_CD = '21'
+	  		</when>
+	  		<when test="ct=='2'">
+	  			WHERE CATEGORY_CD="22"
+	  		</when>
+	  		<when test="ct=='3'">
+	  			WHERE CATEGORY_CD="23"
+	  		</when>
+	  		<when test="ct=='4'">
+	  			WHERE CATEGORY_CD="24"
+	  		</when>
+	  	</choose>
+	 </if>			
+   	 
+  		
+  		ORDER BY BOARD_NO DESC		
+  	</select>
   	
   	
 

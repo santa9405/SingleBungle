@@ -84,13 +84,23 @@ public class BoardController {
 	// 게시글 상세조회 Controller
 	@RequestMapping("{boardNo}")
 	public String boardView(@PathVariable("boardNo") int boardNo, Model model,
-			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+					@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra,
+					@RequestHeader(value = "referer", required = false) String referer) {
 		
 		Board board = service.selectBoard(boardNo);
 		
 		String url = null;
 		
 		if (board != null) {
+			
+			// 해당 게시글에 좋아요를 눌렀는지 확인
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("boardNo", boardNo);
+			
+			int like = service.selectLikePushed(map);
+			model.addAttribute("like", like);
+			
 
 			List<BoardAttachment> attachmentList = service.selectAttachmentList(boardNo);
 
@@ -148,7 +158,7 @@ public class BoardController {
 			url = "redirect:" + result;
 			
 			// 목록 버튼 경로
-			request.getSession().setAttribute("returnListURL", "../list/");
+			request.getSession().setAttribute("returnListURL", "list");
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";
@@ -200,25 +210,23 @@ public class BoardController {
 		
 		updateBoard.setBoardNo(boardNo);
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
-		
 		int result = service.updateBoard(updateBoard);
 		
 		String url = null;
-	      
-	      if(result > 0) {
-	         swalIcon = "success";
-	         swalTitle = "게시글 수정 성공";
-	         url = "redirect:../" + boardNo;
-	      }else {
-	         swalIcon = "error";
-	         swalTitle = "게시글 수정 실패";
-	         url = "redirect:" + request.getHeader("referer");
-	      }
+
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../" + boardNo;
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
 	      
 	      ra.addFlashAttribute("swalIcon", swalIcon);
 	      ra.addFlashAttribute("swalTitle", swalTitle);
-
+	
 	      return url;
 	}
 	
@@ -284,6 +292,9 @@ public class BoardController {
 		return result;
 		
 	}
+	
+	
+	
 	
 	
 	

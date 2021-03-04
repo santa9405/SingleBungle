@@ -1,6 +1,8 @@
 package com.gaji.SingleBungle.cafe.model.service;
 
 import java.io.File;
+
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ import com.gaji.SingleBungle.board.model.exception.BoardInsertAttachmentFailExce
 import com.gaji.SingleBungle.cafe.model.dao.CafeDAO;
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
+import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
 
 @Service
@@ -116,58 +119,32 @@ public class CafeServiceImpl implements CafeService {
 
 				filePath = "/resources/cafeImages";
 
-				// ---------------------------------------------------- summernote
-
 				Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출 정규표현식
 
-				// SummerNote에 작성된 내용 중 img태그의 src속성의 값을 검사하여 매칭되는 값을 Matcher객체에 저장함.
 				Matcher matcher = pattern.matcher((String)map.get("cafeContent"));
 
-				String fileName = null; // 파일명 변환 후 저장할 임시 참조 변수
-				String src = null; // src 속성값을 저장할 임시 참조 변수
+				String fileName = null;
+				String src = null;
 				int fileLevel = 1;
 
-				// matcher.find() : Matcher 객체에 저장된 값(검사를 통해 매칭된 src 속성 값)에 반복 접근하여 값이 있을 경우
-				// true
 				while (matcher.find()) {
-					src = matcher.group(1); // 매칭된 src 속성값을 Matcher 객체에서 꺼내서 src에 저장
+					src = matcher.group(1);
 
-					filePath = src.substring(src.indexOf("/", 2), src.lastIndexOf("/")); // 파일명을 제외한 경로만 별도로 저장.
+					filePath = src.substring(src.indexOf("/", 2), src.lastIndexOf("/"));
 
-					fileName = src.substring(src.lastIndexOf("/") + 1); // 업로드된 파일명만 잘라서 별도로 저장.
+					fileName = src.substring(src.lastIndexOf("/") + 1);
 
-					// Attachment 객체를 이용하여 DB에 파일 정보를 저장
 					CafeAttachment at = new CafeAttachment(filePath, fileName, fileLevel, cafeNo);
 					uploadImages.add(at);
 					fileLevel++;
 				}
 
 				if (!uploadImages.isEmpty()) { // 업로드된 이미지가 있을 경우
-					// 파일 정보 삽입 DAO 호출
-					result = dao.insertAttachmentList(uploadImages);
-					// result == 삽입된 행의 개수
 
-					// 모든 데이터가 정상 삽입 되었을 경우 --> 서버에 파일 저장
+					result = dao.insertAttachmentList(uploadImages);
+
 					if (result == uploadImages.size()) {
 						result = cafeNo;
-
-//						int size = 0;
-//						if (!images.get(0).getOriginalFilename().equals("")) {
-//							size = images.size();
-//						}
-//
-//						for (int i = 0; i < size; i++) {
-//
-//							try {
-//								images.get(uploadImages.get(i).getFileLevel())
-//										.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
-//
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//
-//								throw new BoardInsertAttachmentFailException("파일 서버 저장 실패");
-//							}
-//						}
 
 					} else {
 						throw new BoardInsertAttachmentFailException("파일 정보 DB 삽입 실패");
@@ -219,7 +196,81 @@ public class CafeServiceImpl implements CafeService {
 		}
 		
 		return at;
-	}	
+	}
+	
+	
+	// 게시글 수정 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateCafe(Cafe updateCafe) {
+		
+		int result = dao.updateCafe(updateCafe);
+		
+		if (result > 0) {
+			
+			List<CafeAttachment> oldFiles = dao.selectAttachmentList(updateCafe.getCafeNo());
+
+			String filePath = "/resources/cafeImages";
+	
+			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+	
+			Matcher matcher = pattern.matcher(updateCafe.getCafeContent());
+	
+			List<String> fileNameList = new ArrayList<String>();
+	
+			String src = null;
+			String fileName = null;
+	
+			while (matcher.find()) {
+				src = matcher.group(1);
+				fileName = src.substring(src.lastIndexOf("/") + 1);
+				fileNameList.add(fileName);
+			}
+	
+			// DB에 새로 추가할 이미지파일 정보를 모아둘 List 생성
+			List<CafeAttachment> newAttachmentList = new ArrayList<CafeAttachment>();
+	
+			// DB에 삭제할 이미지 파일 번호를 모아둘 List 생성
+			List<Integer> deleteFileNoList = new ArrayList<Integer>();
+	
+			// 기존에 올려둔 파일 전부 삭제
+			for(CafeAttachment oldAt : oldFiles) {
+				deleteFileNoList.add(oldAt.getFileNo());
+			}
+			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+				result = dao.deleteAttachmentList(deleteFileNoList);
+				
+				if(result != deleteFileNoList.size()) {
+					throw new BoardInsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+				}
+			}
+			
+			
+			// 새로운 파일 전부 등록
+			// 파일 레벨 
+			int fileLevel = 1;
+			
+			for (String fName : fileNameList) {
+				CafeAttachment at = new CafeAttachment(filePath, fName, fileLevel, updateCafe.getCafeNo());
+				newAttachmentList.add(at);
+				fileLevel++;
+			}
+			
+			if(!newAttachmentList.isEmpty()) {
+				result = dao.insertAttachmentList(newAttachmentList);
+				
+				if(result != newAttachmentList.size()) {
+					
+					throw new BoardInsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+					
+				}
+			}
+	
+		}
+	
+		return result;
+	}
+	
 
 	// 게시글 삭제 Service 구현
 	@Transactional(rollbackFor = Exception.class)
@@ -228,6 +279,79 @@ public class CafeServiceImpl implements CafeService {
 		return dao.deleteCafe(cafe);
 	}
 
+	// 좋아요 목록 조회 Service 구현
+	@Override
+	public List<CafeLike> selectLike(int memberNo) {
+		return dao.selectLike(memberNo);
+	}
+
+	// 좋아요 증가 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int increaseLike(Map<String, Object> map) {
+		return dao.increaseLike(map);
+	}
+
+	// 좋아요 감소 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int decreaseLike(Map<String, Object> map) {
+		return dao.decreaseLike(map);
+	}
+
+	// 좋아요 여부 확인 Service 구현
+	@Override
+	public int selectLikePushed(Map<String, Integer> map) {
+		return dao.selectLikePushed(map);
+	}
+
+	
+	// 신고 등록 Service 구현
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public int insertCafeReport(Map<String, Object> map) {
+		
+		int result = 0;
+		
+		int reportNo = dao.selectReportNo();
+		
+		if(reportNo > 0) {
+			map.put("reportNo", reportNo);
+			
+			String reportTitle = (String)map.get("reportTitle");
+			String reportContent = (String)map.get("reportContent");
+			
+			reportTitle = replaceParameter(reportTitle);
+			reportContent = replaceParameter(reportContent);
+			
+			map.put("reportTitle", reportTitle);
+			map.put("reportContent", reportContent);
+			
+		}
+				
+		result = dao.insertCafeReport(map);
+			
+		if(result > 0) {
+			
+			result = reportNo;
+		}
+		
+		return result;
+	}
+
+	
+   // 크로스 사이트 스크립트 방지 처리 메소드
+   private String replaceParameter(String param) {
+      String result = param;
+      if(param != null) {
+         result = result.replaceAll("&", "&amp;");
+         result = result.replaceAll("<", "&lt;");
+         result = result.replaceAll(">", "&gt;");
+         result = result.replaceAll("\"", "&quot;");
+      }
+         
+      return result;
+   }
 
 
 

@@ -5,19 +5,36 @@ public class MarketAttachment {
 	private int fileNo; 		// 이미지번호
 	private String filePath;	// 파일경로
 	private String fileName;	// 파일이름
+	private int fileLevel;      // 파일레벨
 	private int parentMarketNo;		// 게시글번호
 	
 	public MarketAttachment() {
 		// TODO Auto-generated constructor stub
 	} 
 
-	public MarketAttachment(int fileNo, String filePath, String fileName, int parentMarketNo) {
+	
+
+	public MarketAttachment(String filePath, String fileName, int fileLevel, int parentMarketNo) {
 		super();
-		this.fileNo = fileNo;
 		this.filePath = filePath;
 		this.fileName = fileName;
+		this.fileLevel = fileLevel;
 		this.parentMarketNo = parentMarketNo;
 	}
+
+
+	
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+
+
 
 	public int getFileNo() {
 		return fileNo;
@@ -51,9 +68,13 @@ public class MarketAttachment {
 		this.parentMarketNo = parentMarketNo;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "MarketAttachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName
-				+ ", parentMarketNo=" + parentMarketNo + "]";
+				+ ", fileLevel=" + fileLevel + ", parentMarketNo=" + parentMarketNo + "]";
 	}
+
+	
 }

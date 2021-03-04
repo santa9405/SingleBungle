@@ -10,11 +10,14 @@
   
   <typeAliases>
   	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriend" alias="Friend" /> 
-  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment" alias="FriendAttachment" /> 
+  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment" alias="FriendAttachment" />
+  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendReply" alias="FriendReply" /> 
   			
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.Review" alias ="Review"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewAttachment" alias ="ReviewAttachment"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewReply" alias ="ReviewReply"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewSearch" alias ="ReviewSearch"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewLike" alias ="ReviewLike"/>
   			 
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.ABoard" alias="ABoard" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
@@ -25,12 +28,16 @@
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardAttachment" alias="BoardAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardLike" alias="BoardLike" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReply" alias="BoardReply" />
+  	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReport" alias="BoardReport" />
+  	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReplyReport" alias="BoardReplyReport" />
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.Cafe" alias="Cafe" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeAttachment" alias="CafeAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeLike" alias="CafeLike" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReply" alias="CafeReply" />
+  	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReport" alias="CafeReport" />
+  	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReplyReport" alias="CafeReplyReport" />
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />
@@ -45,6 +52,8 @@
   
   <mappers>
   	<mapper resource="/mappers/friend-mapper.xml" />
+  	<mapper resource="/mappers/friendReply-mapper.xml" />
+  	
   	<mapper resource="/mappers/board-mapper.xml" />
   	<mapper resource="/mappers/cafe-mapper.xml" />
   	<mapper resource="/mappers/market-mapper.xml" />

@@ -103,6 +103,13 @@ public interface BoardService {
 	public abstract int decreaseLike(Map<String, Object> map);
 
 
+	/** 좋아요 여부 확인 Service
+	 * @param map
+	 * @return like
+	 */
+	public abstract int selectLikePushed(Map<String, Integer> map);
+
+
 
 	
 	

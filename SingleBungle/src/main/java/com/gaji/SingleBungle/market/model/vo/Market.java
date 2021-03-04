@@ -17,6 +17,7 @@ public class Market {
 	private int categoryCd;
 	private int transactionCategory;
 	private int transactionStatus;
+	private int itemCount;
 	private String nickname;
 	private String certifiedFl;
 	private String address;
@@ -29,6 +30,18 @@ public class Market {
 
 	
 	
+	public int getItemCount() {
+		return itemCount;
+	}
+
+
+
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
+	}
+
+
+
 	public int getRating() {
 		return rating;
 	}
@@ -192,7 +205,9 @@ public class Market {
 				+ ", status=" + status + ", deliveryCharge=" + deliveryCharge + ", memNo=" + memNo + ", categoryCd="
 				+ categoryCd + ", transactionCategory=" + transactionCategory + ", transactionStatus="
 				+ transactionStatus + ", nickname=" + nickname + ", certifiedFl=" + certifiedFl + ", address=" + address
-				+ ", categoryNm=" + categoryNm + ", likes=" + likes + ", rating=" + rating + "]";
+				+ ", categoryNm=" + categoryNm + ", likes=" + likes + ", rating=" + rating + ", itemCount=" + itemCount
+				+ "]";
 	}
+
 
 }

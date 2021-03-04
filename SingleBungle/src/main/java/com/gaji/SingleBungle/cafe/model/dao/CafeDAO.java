@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
+import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
 
 @Repository
@@ -136,6 +137,78 @@ public class CafeDAO {
 	public int insertAttachmentList(List<CafeAttachment> uploadImages) {
 		return sqlSession.insert("cafeMapper.insertAttachmentList", uploadImages);
 	}
+
+
+	/** 게시글 수정 DAO
+	 * @param updateCafe
+	 * @return
+	 */
+	public int updateCafe(Cafe updateCafe) {
+		return sqlSession.update("cafeMapper.updateCafe", updateCafe);
+	}
+
+
+	/** 파일 정보 일괄 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("cafeMapper.deleteAttachmentList", deleteFileNoList);
+	}
+
+
+	/** 좋아요 목록 조회 DAO
+	 * @param memberNo
+	 * @return
+	 */
+	public List<CafeLike> selectLike(int memberNo) {
+		return sqlSession.selectList("cafeMapper.selectLike", memberNo);
+	}
+
+
+	/** 좋아요 증가 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int increaseLike(Map<String, Object> map) {
+		return sqlSession.insert("cafeMapper.increaseLike", map);
+	}
+
+	/** 좋아요 감소 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int decreaseLike(Map<String, Object> map) {
+		return sqlSession.delete("cafeMapper.decreaseLike", map);
+	}
+
+
+	/** 좋아요 여부 확인 DAO
+	 * @param map
+	 * @return like
+	 */
+	public int selectLikePushed(Map<String, Integer> map) {
+		return sqlSession.selectOne("cafeMapper.selectLikePushed", map);
+	}
+
+
+	/** 신고 등록 다음 게시글 번호 얻어오기 DAO
+	 * @return reportNo
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("cafeMapper.selectReportNo");
+	}
+
+
+	/** 신고 등록 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertCafeReport(Map<String, Object> map) {
+		return sqlSession.insert("cafeMapper.insertCafeReport", map);
+	}
+	
+	
 
 	
 	

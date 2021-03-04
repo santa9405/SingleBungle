@@ -24,7 +24,9 @@ import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.service.ReviewService;
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 import com.google.gson.Gson;
 
 @Controller
@@ -75,7 +77,7 @@ public class ReviewController {
 	// 상세조회
 	@RequestMapping("view/{boardNo}")
 	public String reviewView(@PathVariable("boardNo") int boardNo, Model model, @RequestHeader(value="referer",required=false) String referer,
-							RedirectAttributes ra) {
+							RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
 		
 		Review review = service.selectReview(boardNo);
 		
@@ -98,11 +100,14 @@ public class ReviewController {
 				
 			}
 			
+			// 좋아요 정보 출력
+			List<ReviewLike> likeInfo = service.selectLike(loginMember.getMemberNo());
+			//System.out.println(likeInfo);
 			
-			
-			// 이미지 목록 조회
 			model.addAttribute("review",review);
 			model.addAttribute("reviewList",reviewList);
+			model.addAttribute("likeInfo",likeInfo);
+
 			url = "review/reviewView";
 		}else {
 			
@@ -120,9 +125,41 @@ public class ReviewController {
 	}
 	
 	
+	// 좋아요 증가 Controller
+	@ResponseBody
+	@RequestMapping("increaseLike")
+	public int increaseLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		int result = service.increaseLike(map);
+		
+		return result;
+	}
 	
 	
-	// summernote 에 업로드 된 이미지 저장 Controller
+	
+	// 좋아요 감소 Controller
+	@ResponseBody
+	@RequestMapping("decreaseLike")
+	public int decreaseLike(@RequestParam("boardNo") int boardNo,
+			@ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("boardNo", boardNo);
+		
+		int result = service.decreaseLike(map);
+		return result;
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -283,20 +320,40 @@ public class ReviewController {
 	
 	
 	
-	
-	
 	// 게시글 검색
 	@RequestMapping("search")
 	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
 								@RequestParam(value="sk",required = false) String sk, 
 								@RequestParam(value="sv",required = false) String sv,
-								@RequestParam(value="ct",required = false, defaultValue = "0") String ct,
-								@RequestParam(value="sort",required = false) String sort, Model model) {
-		System.out.println(sk);
-		System.out.println(sv);
-		System.out.println(ct);
-		System.out.println(sort);
-		return null;
+								@RequestParam(value="ct",required = false, defaultValue = "all") String ct,
+								@RequestParam(value="sort",required = false) String sort, 
+								@ModelAttribute("rSearch") ReviewSearch rSearch,
+								Model model) {
+		
+		
+		rSearch.setSk(sk);
+		rSearch.setSv(sv);
+		rSearch.setCt(ct);
+		rSearch.setSort(sort);
+		
+		
+		ReviewPageInfo pInfo = service.getSearchPageInfo(rSearch,cp);
+		
+		
+		List<Review> rList = service.selectSearchList(rSearch,pInfo);
+		
+		
+		if(!rList.isEmpty()) {
+			List<ReviewAttachment> thList = service.selectThumbnailList(rList);
+			model.addAttribute("thList",thList);
+		}
+		
+		model.addAttribute("rList",rList);
+		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("rSearch",rSearch);
+		
+		
+		return "review/reviewList";
 	}
 
 	

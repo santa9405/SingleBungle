@@ -147,12 +147,13 @@ body {
 			<div class="col-md-12">
 				<h8> 후기게시판 </h8>
 				<div class="float-right">
-					<button type="button" id="returnBtn" class="btn btn-primary ml-2">목록</button>
+					<span class="bn" style="visibility: hidden">${review.boardNo }</span>
+					<button type="button" class="btn btn-primary ml-2 returnBtn">목록</button>
 					<c:if test="${loginMember.memberNo != review.memberNo }">
 						<button type="button" class="btn btn-primary ml-2 report">신고</button>
 					</c:if>
 				</div>
-				
+
 				<h2 style="margin-top: 5px;">
 					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
                                 <c:if test="${review.categoryCode == '21'}">background-color: burlywood;</c:if>
@@ -164,7 +165,7 @@ body {
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row no">
 			<div class="col-md-12">
 				<div class="boardInfo" id="writer">
 					<img class="image" src="${contextPath}/resources/images/profile.png" /> ${review.nickName }
@@ -174,8 +175,6 @@ body {
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate var="createDate" value="${review.createDate }" pattern="yyyy-MM-dd" />
 					<fmt:formatDate var="today" value="${now }" pattern="yyyy-MM-dd" />
-
-
 					<c:choose>
 						<c:when test="${createDate != today }">
 								${createDate }
@@ -183,17 +182,22 @@ body {
 						<c:otherwise>
 							<fmt:formatDate value="${review.createDate}" pattern="HH:mm" />
 						</c:otherwise>
-
-
 					</c:choose>
 				</div>
+
 				<div class="infoArea float-right">
-					<img class="image" src="${contextPath}/resources/images/view.png"> ${review.readCount } <span>
-						<button type="button" id="likeBtn">
-							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${review.likeCount}</span>
+					<img class="image" src="${contextPath}/resources/images/view.png"> ${review.readCount }
+
+					<!-- 좋아요  -->
+					<span>
+						<button type="button" id="likeBtn" class="likeBtns">
+							<img src="${contextPath}/resources/images/like1.png" 
+							width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.cafeNo == cafe.cafeNo}">like2</c:if></c:forEach>'>
+							<span class="likeCnt">${cafe.likeCount}</span>
 						</button>
 					</span>
 				</div>
+
 			</div>
 		</div>
 
@@ -209,9 +213,9 @@ body {
 
 
 		<!-- 버튼 -->
-		
-		<c:url var="updateUrl" value="../${review.boardNo}/update"/>		
-		
+
+		<c:url var="updateUrl" value="../${review.boardNo}/update" />
+
 		<c:if test="${loginMember.memberNo == review.memberNo }">
 			<div class="row float-right mt-3">
 				<div class="col-md-12">
@@ -232,13 +236,9 @@ body {
 				<c:if test="${empty sessionScope.returnListURL }">
 					<c:set var="returnListURL" value="../" scope="session" />
 				</c:if>
-				<button type="button" class="btn btn-success" id="returnBtn" style="width: 100px;height:40px;">목록으로</button>
-
+				<button type="button" class="btn btn-success returnBtn" style="width: 100px; height: 40px;">목록으로</button>
 			</div>
 		</div>
-
-
-
 
 
 
@@ -273,7 +273,7 @@ body {
 
 							<div class="p-4">
 								<h5>
-									<a href="#" class="text-dark">${review.boardTitle }</a>
+									<a class="text-dark">${review.boardTitle }</a>
 								</h5>
 								<div class="infoArea float-right">
 									<div class="viewArea mb-2">
@@ -325,18 +325,63 @@ body {
 	
 
 	// 목록으로 버튼
-	$("#returnBtn").on("click", function(){
-		
+	$(".returnBtn").on("click", function(){
 		location.href = "${sessionScope.returnListURL}"
-		
 	});
-	
+	var cafeNo = $(this).parents('.no').prev().prev("span").text();
 	
 	// 삭제 버튼
 	$("#deleteBtn").on("click", function(){
 		if(confirm("삭제 하시겠습니까?")){
 			
 			location.href = "../${review.boardNo}/delete";
+		}
+	});
+	
+	
+	// 좋아요
+		$(".likeBtns").on("click", function(){
+		var boardNo = $(this).parents('.no').prev().find("span.bn").text();
+		var likeClassArray = $(this).children().attr('class').split(" ");
+		var likeClass = "like1";
+		var likeImg = $(this).children(".likeImgs");
+		var likeCnt = $(this).children(".likeCnt");
+		
+	
+		if(likeClassArray[1] == "like2") {
+			likeClass = "like2"; 
+		}
+		
+		if(likeClass == "like1") {
+			$.ajax({
+				url : "increaseLike",
+				type : "post",
+				data : {"boardNo" : boardNo},
+				success : function(result){
+					if(result > 0) {
+						likeCnt.text(Number(likeCnt.text()) + 1);
+						likeImg.toggleClass("like2");
+					}
+				}, 
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
+		} else{
+			$.ajax({
+				url : "decreaseLike",
+				type : "post", 
+				data : {"boardNo" : boardNo},
+				success : function(result){
+					if(result > 0){ // 삭제 성공
+						likeCnt.text(Number(likeCnt.text()) - 1);
+						likeImg.removeClass("like2");
+					}
+				},
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
 		}
 	});
 	

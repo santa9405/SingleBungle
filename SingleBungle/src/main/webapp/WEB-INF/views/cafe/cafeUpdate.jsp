@@ -25,16 +25,26 @@
      width : 100% !important;
 	} 
 </style>
+
+	<!-- summernote 사용 시 필요한 css 파일 추가 -->
+	<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+	
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
+	
+	<!-- summernote 사용 시 필요한 js 파일 추가 -->
+	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+		
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 
                 <h4>맛집게시판 수정</h4>
 
-                <form action="updateAction" method="post">
+                <form action="updateAction" method="post" enctype="multipart/form-data" name="updateForm" role="form" onsubmit="return validate();">
 
                     <div class="form-group row">
                         <label for="title" class="input-group-addon col-sm-1 insert-label">제목</label>
@@ -46,22 +56,26 @@
                     <div class="form-group row">
                         <label for="category" class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
-	                        <select	class="form-control div small" id="category" name="categoryName" style="width: 160px; height: 40px;">
-	                            <option value="10">혼밥식당</option>
-	                            <option value="20">맛집추천</option>
-	                            <option value="30">카페</option>
+	                        <select	class="form-control div small" id="category" name="categoryCode" style="width: 160px; height: 40px;">
+	                            <option value="1">혼밥식당</option>
+	                            <option value="2">맛집추천</option>
+	                            <option value="3">카페</option>
 	                        </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="cafeName" class="input-group-addon col-sm-1 insert-label">음식점</label>
-                        <div class="col-sm-2">
-                        	<input type="text" class="form-control" id="cafeName" name="cafeName" style="display: inline-block;" value="${cafe.cafeName}" required>
+                        <div class="col-sm-3">
+                        	<input type="text" class="form-control" id="cafeName" name="cafeName" style="display: inline-block;" value="${cafe.cafeName}" readonly>
                         </div>
-                        <div>
-                        	<button class="form-control btn btn-success" id="searchBtn" type="button" style="display: inline-block;">검색</button>
-												</div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="cafeAddress" class="input-group-addon col-sm-1 insert-label">주소</label>
+                        <div class="col-sm-3">
+                        	<input type="text" class="form-control" id="cafeAddress" name="cafeAddress" style="display: inline-block;" value="${cafe.cafeAddress}" readonly>
+                        </div>
                     </div>
 
 										<hr>
@@ -69,11 +83,13 @@
                         <div>
                             <label for="content">내용</label>
                         </div>
-                        <textarea class="form-control" id="content" name="cafeContent" rows="10" style="resize: none;" required>${cafe.cafeContext}</textarea>
+                        <textarea class="form-control cafePlaceholder" id="summernote" name="cafeContent" rows="10" style="resize: none;" required>${cafe.cafeContent}</textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-success">수정</button>
-                        <button type="button" class="btn btn-secondary mb-3">취소</button>
+                    </div>
+                    <div class="text-right">
+                    		<button type="button" class="btn btn-secondary mb-3 btn-success" id="insert-list">목록으로</button>
                     </div>
                 </form>
 
@@ -83,7 +99,34 @@
     <jsp:include page="../common/footer.jsp"/>
     
     <script>
+		// 유효성 검사
+		function validate() {
+			if ($("#title").val().trim().length == 0) {
+				alert("제목을 입력해 주세요.");
+				$("#title").focus();
+				return false;
+			}
+	
+			if ($("#summernote").val().trim().length == 0) {
+				alert("내용을 입력해 주세요.");
+				$("#summernote").focus();
+				return false;
+			}
+		}
 		
+		// 목록버튼
+		$("#insert-list").on("click", function(){
+			if(confirm("목록으로 돌아가시겠습니까?")){
+		         location.href = "${sessionScope.returnListURL}";
+		  }
+		});
+		
+		// 카테고리 선택
+		$.each($("#category > option"), function(index, item){
+			if($(item).text() == "${cafe.categoryName}"){
+				$(item).prop("selected", "true");
+			}
+		});
 		</script>
 </body>
 </html>

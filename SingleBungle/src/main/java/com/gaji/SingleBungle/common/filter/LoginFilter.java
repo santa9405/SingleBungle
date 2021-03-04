@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // 전체 요청이 필터를 거치게 함
-@WebFilter(/*urlPatterns = {"/*"}*/)
+@WebFilter(urlPatterns = {"/*"})
 public class LoginFilter implements Filter {
 	
     public LoginFilter() {}
@@ -75,7 +75,6 @@ public class LoginFilter implements Filter {
 		}else if(isLogin && !isAllowedPath ) {
 			// 로그인 되어있을 때 허용 주소를 제외한 요청
 			// 로그인이 되었을 때만 이용 가능한 주소
-			
 			chain.doFilter(request, response);
 			
 		} else { // 로그인이나 허용 주소 여부 관계없이
@@ -83,7 +82,7 @@ public class LoginFilter implements Filter {
 			if(Pattern.matches("/", path) || Pattern.matches("/resources/.*", path) || Pattern.matches("/board/list/.*", path) ) {
 				chain.doFilter(request, response);
 			}else {
-				res.sendRedirect(req.getContextPath()); // 메인페이지로 이동
+				res.sendRedirect(req.getContextPath()+"/member/login"); // 메인페이지로 이동
 			}
 		}
 			

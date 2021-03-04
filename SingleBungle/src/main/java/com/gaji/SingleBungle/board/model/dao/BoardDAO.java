@@ -160,6 +160,14 @@ public class BoardDAO {
 		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
 	}
 
+	/** 좋아요 여부 확인 DAO
+	 * @param map
+	 * @return like
+	 */
+	public int selectLikePushed(Map<String, Integer> map) {
+		return sqlSession.selectOne("boardMapper.selectLikePushed", map);
+	}
+
 
 	
 	
