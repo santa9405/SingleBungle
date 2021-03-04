@@ -72,82 +72,12 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-12">
+				
 					<!-- 댓글 출력 부분 -->
 					<div class="replyListArea">
-							<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-							<div class="media-body">
-								<div class="row">
-									<div class="col-8 d-flex">
-										<h5>솔쨩</h5>
-										<span style="color: gray; font-size: 14px;">- 15:00</span>
-									</div>
-									<div class="col-4">
-										<div class="reply float-right">
-											<a href="#"><span> 답글</span></a> <a href="#"><span> 신고</span></a>
-										</div>
-									</div>
-								</div>
-								<div class="replyText">영수증 첨부해주세요.</div>
-								<div class="float-right" style="font-size: 13px;">
-									<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
-								</div>
-	
-								<div class="media mt-3 reReply">
-									<div class="pr-3">
-										<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-									</div>
-									<div class="media-body">
-										<div class="row">
-											<div class="col-12 d-flex">
-												<h6>달마고</h6>
-												<span style="color: gray; font-size: 14px;"> - 15:30</span>
-											</div>
-										</div>
-										<div class="replyText">지금 올렸어요</div>
-									</div>
-								</div>
-								<div class="media mt-3">
-									<div class="pr-3">
-										<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-									</div>
-									<div class="media-body">
-										<div class="row">
-											<div class="col-12 d-flex">
-												<h6>솔쨩</h6>
-												<span style="color: gray; font-size: 14px;">- 15:31</span>
-											</div>
-										</div>
-										<div class="replyText">이미 신고했습니다.</div>
-										<div class="float-right" style="font-size: 13px;">
-											<a class="replyUpdate"> 수정 </a> 
-											<a class="replyDelete"> 삭제 </a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					<hr>
-					<!-- 댓글 1개 끝나면 밑줄 -->
-
-					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-						<div class="media-body">
-							<div class="row">
-								<div class="col-8 d-flex">
-									<h5>크리스탈</h5>
-									<span style="color: gray; font-size: 14px;">- 16:00</span>
-								</div>
-								<div class="col-4">
-									<div class="reply float-right">
-										<a href="#"><span>답글</span></a>
-										<a href="#"><span>신고</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="replyText">?</div>
-						</div>
+							
 					</div>
-					<hr>
+		
 					<!-- 댓글 작성창 -->
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
@@ -193,6 +123,8 @@
 			// 댓글 List 반복 접근
 			$.each(rList, function(index, item){
 				
+				var media = $("<div>").addClass("media mt-2");
+				
 				// 이미지
 				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
 																														.attr("style", "width: 30px;").attr("style", "height: 30px;");
@@ -217,21 +149,30 @@
 				var replyUpdate = $("<a>").addClass("replyUpdate").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
 				var replyDelete = $("<a>").addClass("replyDelete").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
 			
+				// 밑줄
+				var hr = $("<hr>");
+				
 				// 댓글의 깊이가 1인 요소는 별도의 스타일을 지정할 수 있도록 클래스 추가
 				if(item.replyDepth == 1){
 					img.addClass("childReply");
 					mediaBody.addClass("childReply");
 				}
 				
-				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글/신고 버튼 추가
+				// 댓글의 깊이가 0인 요소 신고 버튼 추가
+				if(item.replyDepth == 0){
+					reply2.append(report);
+				}
+				
+				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글 버튼 추가
 				if(memNo != "" && item.memNo != memNo){
 					col8.append(nickname).append(createDt);
-					floatRight.append(reply2).append(report);
+					floatRight.append(reply2);
 					col4.append(floatRight);
 					row.append(col8).append(col4);
 					mediaBody.append(row);
 					mediaBody.append(replyText);
-					replyListArea.append(img).append(mediaBody);
+					media.append(img).append(mediaBody);
+					replyListArea.append(media).append(hr);
 			
 				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
 				}else if(item.memNo == memNo){
@@ -241,16 +182,10 @@
 					mediaBody.append(replyText);
 					floatRight2.append(replyUpdate).append(replyDelete);
 					mediaBody.append(floatRight2);
-					replyListArea.append(img).append(mediaBody);
+					media.append(img).append(mediaBody);
+					replyListArea.append(media).append(hr);
 
-				// 
 				}
-				
-				//else{ 로그인 상태에서만 게시판 이용가능하므로 없어도 될 듯하다..
-					//mediaBody.append(row).append(col8).append(nickname).append(createDt);
-					//mediaBody.append(replyText);
-					//replyListArea.append(img).append(mediaBody);
-				//}
 				
 			});
 				
@@ -424,8 +359,8 @@
 		// 이전에 생성된 대댓글 영역이 모두 삭제된 경우에만 새로운 대댓글 영역 생성
 		if(check){
 			
-			// 댓글 작성자 번호 얻어오기
-			var writer = $(el).parent().parent().prev().prev().prev().text();
+			// 댓글 작성자 닉네임 얻어오기
+			var writer = $(el).parent().parent().prev().children("h5").text();
 			
 			// 답글 작성 영역에 필요한 요소(textarea, button 2개) 생성
 			
@@ -443,7 +378,7 @@
 			btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼 추가
 			div.append(textarea).append(btnArea); // 대댓글 영역에 textarea, 버튼 영역 추가
 			
-			$(el).parent().parent().parent().parent().after().after(div); // 답글 버튼 부모 요소 다음(이후)에 대댓글 영역 추가
+			$(el).parent().parent().parent().parent().parent().after().after(div); // 답글 버튼 부모 요소 다음(이후)에 대댓글 영역 추가
 			
 			// 추가된 대댓글 영역으로 포커스 이동
 			$(".childReplyContent").focus();
@@ -519,27 +454,10 @@
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 댓글 신고창 열기
 	$(".report").on("click", function(){
 			window.open('${contextPath}/findFriendReport/reportForm', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	});
-	
-	
-	
-	
 	
 	</script>
 
