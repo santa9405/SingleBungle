@@ -23,6 +23,8 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 		return dao.selectReplyList(parentBoardNo);
 	}
 
+	
+	
 	// 댓글 삽입
 	@Transactional(rollbackFor = Exception.class)
 	@Override

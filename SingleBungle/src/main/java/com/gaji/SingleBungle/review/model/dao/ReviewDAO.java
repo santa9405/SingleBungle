@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 @Repository
 public class ReviewDAO {
@@ -64,7 +66,8 @@ public class ReviewDAO {
 
 		return sqlSession.selectOne("reviewMapper.selectReview",boardNo);
 	}
-
+	
+	
 
 
 
@@ -76,6 +79,17 @@ public class ReviewDAO {
 		
 		return sqlSession.update("reviewMapper.increaseReadCount", boardNo);
 	}
+	
+	
+	
+	/** 좋아요 감소 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int decreaseLike(Map<String, Object> map) {
+		return sqlSession.delete("reviewMapper.decreaseLike", map);
+	}
+
 
 
 
@@ -85,6 +99,27 @@ public class ReviewDAO {
 	 */
 	public List<Review> reviewListTop3() {
 		return sqlSession.selectList("reviewMapper.reviewListTop3");
+	}
+
+	
+
+	/** 좋아요 목록 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public List<ReviewLike> selectLike(int memberNo) {
+		return sqlSession.selectList("reviewMapper.selectLike",memberNo);
+	}
+	
+	
+	
+
+	/** 좋아요 증가
+	 * @param map
+	 * @return result
+	 */
+	public int increaseLike(Map<String, Object> map) {
+		return sqlSession.insert("reviewMapper.increaseLike", map);
 	}
 
 
@@ -158,6 +193,50 @@ public class ReviewDAO {
 	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
 		return sqlSession.delete("reviewMapper.deleteAttachmentList", deleteFileNoList);
 	}
+
+
+
+
+	/** 검색 조건이 포함된 페이징 처리 객체 생성 DAO
+	 * @param rSearch
+	 * @return
+	 */
+	public int getSearchListCount(ReviewSearch rSearch) {
+		return sqlSession.selectOne("reviewMapper.getSearchListCount", rSearch);
+	}
+
+
+
+
+	/** 검색 조건이 포함된 게시글 목록 조회 DAO
+	 * @param rSearch
+	 * @param pInfo
+	 * @return rList
+	 */
+	public List<Review> selectSearchList(ReviewSearch rSearch, ReviewPageInfo pInfo) {
+		
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("reviewMapper.selectSearchList", rSearch, rowBounds);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
