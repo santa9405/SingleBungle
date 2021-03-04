@@ -3,6 +3,24 @@ $(document).ready(function() {
         width : 1110,    // 에디터 넓이
         height : 600,   // 에디터 높이
         lang : 'ko-KR',  // 언어 : 한국어
+        placeholder: '공지사항 확인 후 규칙에 맞게 작성해 주세요.',
+        
+        // 툴바 변경
+        toolbar: [
+			    // [groupName, [list of button]]
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert',['picture','link','video']],
+			    ['view', ['fullscreen', 'help']]
+			  	],
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        
 
         // 이미지 업로드 이벤트가 발생했을 때 콜백함수 수행
         callbacks : {
@@ -14,6 +32,9 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
 
 // summernote에 업로드된 이미지를 비동기로 서버에 전송하여 저장하는 함수
 function sendFile(file, editor){

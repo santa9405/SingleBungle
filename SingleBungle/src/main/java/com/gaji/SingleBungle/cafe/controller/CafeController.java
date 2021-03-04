@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gaji.SingleBungle.cafe.model.service.CafeService;
 import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
+import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
@@ -43,27 +44,55 @@ public class CafeController {
 	
 	// 게시글 목록 조회 Controller
 	@RequestMapping("list")
-	public String CafeList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
-		
-		CafePageInfo cpInfo = service.getPageInfo(cp);
+	public String CafeList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
 
-		List<Cafe> cList = service.selectList(cpInfo);
-		
-		// 썸네일
-		if (cList != null && !cList.isEmpty()) { // 게시글 목록 조회 성공 시
-			List<CafeAttachment> thumbnailList = service.selectThumbnailList(cList);
+		String url = null;
 
-			if (thumbnailList != null) {
-				model.addAttribute("thList", thumbnailList);
+		if (loginMember != null) {
+			if (loginMember.getMemberGrade().charAt(0) == 'T') {
+				swalIcon = "error";
+				swalTitle = "맛집 게시판은 2등급부터 이용할 수 있습니다.";
+				url = "redirect:/";
+			} else {
+
+				CafePageInfo cpInfo = service.getPageInfo(cp);
+
+				List<Cafe> cList = service.selectList(cpInfo);
+
+				List<CafeLike> likeInfo = service.selectLike(loginMember.getMemberNo());
+
+				// 썸네일
+				if (cList != null && !cList.isEmpty()) {
+					List<CafeAttachment> thumbnailList = service.selectThumbnailList(cList);
+
+					if (thumbnailList != null) {
+						model.addAttribute("thList", thumbnailList);
+					}
+
+				}
+
+				model.addAttribute("cList", cList);
+				model.addAttribute("cpInfo", cpInfo);
+				model.addAttribute("likeInfo", likeInfo);
+
+				url = "cafe/cafeList";
+
 			}
+			
+		} else {
+
+			swalIcon = "error";
+			swalTitle = "로그인 후 이용해주세요.";
+			url = "redirect:/";
 
 		}
-		
-		model.addAttribute("cList", cList);
-		model.addAttribute("cpInfo", cpInfo);
-		
-		return "cafe/cafeList";
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		return url;
 	}
+	
+	
 	
 	// 검색 Controller
 	@RequestMapping("search")
@@ -101,11 +130,11 @@ public class CafeController {
 			
 			List<Cafe> cafeList = service.cafeListTop3();
 			
-//			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
-//			
-//			if (attachmentList != null && !attachmentList.isEmpty()) {
-//				model.addAttribute("attachmentList", attachmentList);
-//			}
+			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
+			
+			if (attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
 			
 			// 썸네일
 			if (cafeList != null && !cafeList.isEmpty()) { // 게시글 목록 조회 성공 시
@@ -154,6 +183,7 @@ public class CafeController {
 		map.put("cafeContent", cafe.getCafeContent());
 		map.put("categoryCode", cafe.getCategoryCode());
 		map.put("cafeName", cafe.getCafeName());
+		map.put("cafeAddress", cafe.getCafeAddress());
 		
 		String savePath = null;
 		
@@ -169,7 +199,7 @@ public class CafeController {
 			url = "redirect:" + result;
 			
 			// 목록 버튼 경로
-			request.getSession().setAttribute("returnListURL", "../list/");
+			request.getSession().setAttribute("returnListURL", "list");
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";
@@ -182,11 +212,10 @@ public class CafeController {
 		return url;
 	}
 	
-	// summernote -----------------------------
 	// summernote에 업로드된 이미지 저장 Controller
 	
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value = { "insertImage", "{cafeNo}/insertImage" })
 	public String insertImage(HttpServletRequest request,
 			 				@RequestParam("uploadFile") MultipartFile uploadFile) {
 		
@@ -201,14 +230,46 @@ public class CafeController {
 	
 	// 게시글 수정 화면 전환용 Controller
 	@RequestMapping("{cafeNo}/update")
-	public String cafeUpdate() {
+	public String cafeUpdate(@PathVariable("cafeNo") int cafeNo, Model model) {
+		
+		Cafe cafe = service.selectCafe(cafeNo);
+		
+		if(cafe != null) {
+			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
+			model.addAttribute("attachmentList", attachmentList);
+		}
+		
+		model.addAttribute("cafe", cafe);
+		
 		return "cafe/cafeUpdate";
 	}
 	
 	// 게시글 수정 Controller
 	@RequestMapping("{cafeNo}/updateAction")
-	public String updateAction() {
-		return null;
+	public String updateAction(@PathVariable("cafeNo") int cafeNo,
+							@ModelAttribute Cafe updateCafe,
+							Model model, RedirectAttributes ra, HttpServletRequest request) {
+		
+		updateCafe.setCafeNo(cafeNo);
+		
+		int result = service.updateCafe(updateCafe);
+		
+		String url = null;
+
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../" + cafeNo;
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+
+		return url;
 	}
 	
 	// 게시글 삭제 Controller
@@ -237,6 +298,39 @@ public class CafeController {
 		ra.addFlashAttribute("swalTitle", swalTitle);
 		
 		return url;
+	}
+	
+	// 좋아요 증가 Controller
+	@ResponseBody
+	@RequestMapping("increaseLike")
+	public int increaseLike(@RequestParam int cafeNo,
+							@ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("cafeNo", cafeNo);
+		
+		int result = service.increaseLike(map);
+		
+		return result;
+	}
+	
+	// 좋아요 감소 Controller
+	@ResponseBody
+	@RequestMapping("decreaseLike")
+	public int decreaseLike(@RequestParam int cafeNo,
+						@ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("cafeNo", cafeNo);
+		
+		int result = service.decreaseLike(map);
+		
+		return result;
+		
 	}
 	
 	

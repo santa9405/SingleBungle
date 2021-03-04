@@ -148,7 +148,7 @@ public class BoardController {
 			url = "redirect:" + result;
 			
 			// 목록 버튼 경로
-			request.getSession().setAttribute("returnListURL", "../list/");
+			request.getSession().setAttribute("returnListURL", "list");
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";
@@ -200,25 +200,23 @@ public class BoardController {
 		
 		updateBoard.setBoardNo(boardNo);
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
-		
 		int result = service.updateBoard(updateBoard);
 		
 		String url = null;
-	      
-	      if(result > 0) {
-	         swalIcon = "success";
-	         swalTitle = "게시글 수정 성공";
-	         url = "redirect:../" + boardNo;
-	      }else {
-	         swalIcon = "error";
-	         swalTitle = "게시글 수정 실패";
-	         url = "redirect:" + request.getHeader("referer");
-	      }
+
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../" + boardNo;
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
 	      
 	      ra.addFlashAttribute("swalIcon", swalIcon);
 	      ra.addFlashAttribute("swalTitle", swalTitle);
-
+	
 	      return url;
 	}
 	
@@ -284,6 +282,9 @@ public class BoardController {
 		return result;
 		
 	}
+	
+	
+	
 	
 	
 	
