@@ -101,21 +101,21 @@ public class CafeController {
 			
 			List<Cafe> cafeList = service.cafeListTop3();
 			
-			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
-			
-			if (attachmentList != null && !attachmentList.isEmpty()) {
-				model.addAttribute("attachmentList", attachmentList);
-			}
+//			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
+//			
+//			if (attachmentList != null && !attachmentList.isEmpty()) {
+//				model.addAttribute("attachmentList", attachmentList);
+//			}
 			
 			// 썸네일
-//			if (cafeList != null && !cafeList.isEmpty()) { // 게시글 목록 조회 성공 시
-//				List<CafeAttachment> thumbnailList = service.selectThumbnailList2(cafeList);
-//
-//				if (thumbnailList != null) {
-//					model.addAttribute("thList", thumbnailList);
-//				}
-//
-//			}
+			if (cafeList != null && !cafeList.isEmpty()) { // 게시글 목록 조회 성공 시
+				List<CafeAttachment> thumbnailList = service.selectThumbnailList(cafeList);
+
+				if (thumbnailList != null) {
+					model.addAttribute("thList", thumbnailList);
+				}
+
+			}
 			
 			
 			model.addAttribute("cafe", cafe);

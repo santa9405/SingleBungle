@@ -39,8 +39,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> selectList(ReviewPageInfo pInfo) {
 		return dao.selcetList(pInfo);
 	}
-	
-	
+
 	// 썸네일 목록 조회
 	@Override
 	public List<ReviewAttachment> selectThumbnailList(List<Review> rList) {
@@ -70,20 +69,17 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.reviewListTop3();
 	}
 
-	
-	
-	
 	// 게시글 등록
-	@Transactional(rollbackFor=Exception.class)
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertReview(Map<String, Object> map, String savePath) {
 		int result = 0; // 결과 저장
 
 		// 게시글 번호 얻어오기
 		int boardNo = dao.selectNextNo();
-		
+
 		System.out.println(boardNo);
-		
+
 		System.out.println(map.get(boardNo));
 		// 게시글 삽입
 		if (boardNo > 0) {
@@ -97,7 +93,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 				String filePath = "/resources/reviewBoardImages";
 
-				
 				/*
 				 * for(int i=0; i<images.size(); i++) {
 				 * if(!images.get(i).getOriginalFilename().equals("")) {
@@ -108,7 +103,6 @@ public class ReviewServiceImpl implements ReviewService {
 				 * 
 				 * uploadImages.add(at); } }
 				 */
-				 
 
 				// boardContent 내부에 업로드된 이미지 정보 (filePath, fileName)이 들어있음
 				// -> boardContent에서 <img> 태그만을 골라내어 img 태그의 src 속성값을 추출 후 filePath, fileName을
@@ -169,10 +163,6 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return result;
 	}
-	
-	
-	
-	
 
 	// summernote에 업로드된 이미지 저장
 	@Override
@@ -188,22 +178,19 @@ public class ReviewServiceImpl implements ReviewService {
 		ReviewAttachment at = new ReviewAttachment();
 		at.setFilePath(filePath);
 		at.setFileName(fileName);
-		
+
 		// 서버에 파일 저장(transferTo())
-		
+
 		try {
 			uploadFile.transferTo(new File(savePath + "/" + fileName));
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 			throw new InsertAttachmentFailException("summerote 파일 업로드 실패");
 		}
 
 		return at;
 	}
-	
-	
-	
 
 	// 파일명 변경 메소드
 	public String rename(String originFileName) {
@@ -220,7 +207,157 @@ public class ReviewServiceImpl implements ReviewService {
 
 		return date + str + ext;
 	}
+	
+	
+	
+
+	// 게시글 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReview(Review updateReview, String savePath) {
+
+		int result = dao.updateReview(updateReview);
+
+		if (result > 0) {
+			
+			// 수정 전 파일을 모아두는 list
+			List<ReviewAttachment> oldFiles = dao.selectAttachmentList(updateReview.getBoardNo());
+			
+			// 삭제 되어야할 파일 정보를 담을 리스트
+			List<ReviewAttachment> removeFileList = new ArrayList<ReviewAttachment>();
 
 
+			// DB에 저장할 웹 상 이미지 접근 경로
+			String filePath = "/resources/reviewBoardImages";
+
+			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+
+			Matcher matcher = pattern.matcher(updateReview.getBoardContent());
+
+			List<String> fileNameList = new ArrayList<String>();
+
+			String src = null;
+			String fileName = null;
+
+			while (matcher.find()) {
+				src = matcher.group(1);
+				fileName = src.substring(src.lastIndexOf("/") + 1);
+				fileNameList.add(fileName);
+			}
+
+			// DB에 새로 추가할 이미지파일 정보를 모아둘 List생성
+			List<ReviewAttachment> newAttachmentList = new ArrayList<ReviewAttachment>();
+
+			// DB에서 삭제할 이미지파일 번호를 모아둘 List 생성
+			List<Integer> deleteFileNoList = new ArrayList<Integer>();
+			
+
+			// 파일 레벨 
+//			int fileLevel = 1;
+			
+			// 수정된 게시글 파일명 하나를 기준으로 하여 수정 전 파일명과 비교를 진행
+//			for (String fName : fileNameList) {
+//				boolean flag = true;
+//				for (ReviewAttachment oldAt : oldFiles) {
+//					if (fName.equals(oldAt.getFileName())) {
+//						flag = false;
+//						fileLevel++;
+//						break;
+//					}
+//				}
+//				if(flag) {
+//					ReviewAttachment at = new ReviewAttachment(filePath, fName, fileLevel, updateReview.getBoardNo());
+//					newAttachmentList.add(at);
+//					fileLevel++;
+//				}
+//			}
+			
+			
+//			for(ReviewAttachment oldAt : oldFiles) {
+//				boolean flag = true;
+//				
+//				for(String fName : fileNameList) {
+//					if(oldAt.getFileName().equals(fName)) {
+//						flag = false;
+//						break;
+//					}
+//				}
+//				
+//				if(flag) {
+//					deleteFileNoList.add(oldAt.getFileNo());
+//				}
+//			}
+			
+			// 게시글 수정 시 새로 삽입된 이미지가 있다면
+//			if(!newAttachmentList.isEmpty()) {
+//				result = dao.insertAttachmentList(newAttachmentList);
+//				
+//				if(result != newAttachmentList.size()) {
+//					
+//					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+//					
+//				}
+//			}
+			
+//			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+//				result = dao.deleteAttachmentList(deleteFileNoList);
+//				
+//				if(result != deleteFileNoList.size()) {
+//					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+//				}
+//			}
+			
+			
+			
+			// 기존에 올려둔 파일 전부 삭제
+			for(ReviewAttachment oldAt : oldFiles) {
+				deleteFileNoList.add(oldAt.getFileNo());
+			}
+			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+				result = dao.deleteAttachmentList(deleteFileNoList);
+				
+				if(result != deleteFileNoList.size()) {
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+				}
+			}
+			
+			
+			// 새로운 파일 전부 등록
+			// 파일 레벨 
+			int fileLevel = 1;
+			
+			for (String fName : fileNameList) {
+				ReviewAttachment at = new ReviewAttachment(filePath, fName, fileLevel, updateReview.getBoardNo());
+				newAttachmentList.add(at);
+				fileLevel++;
+			}
+			
+			if(!newAttachmentList.isEmpty()) {
+				result = dao.insertAttachmentList(newAttachmentList);
+				
+				if(result != newAttachmentList.size()) {
+					
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+					
+				}
+			}
+			
+			
+			
+			
+			
+		}
+		return result;
+	}
+
+	
+	
+	// 게시글 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteReview(Review review) {
+
+		return dao.deleteReview(review);
+	}
 
 }

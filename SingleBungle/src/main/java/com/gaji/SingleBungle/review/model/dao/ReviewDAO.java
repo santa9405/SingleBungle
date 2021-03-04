@@ -119,6 +119,56 @@ public class ReviewDAO {
 	}
 
 
+	
+
+	/** 게시글 수정 DAO
+	 * @param updateReview
+	 * @return result
+	 */
+	public int updateReview(Review updateReview) {
+		return sqlSession.update("reviewMapper.updateReview", updateReview);
+	}
+	
+	
+	
+	/** 게시글 수정 시 수정전 파일 모아두는 list
+	 * @param boardNo
+	 * @return attachmentList
+	 */
+	public List<ReviewAttachment> selectAttachmentList(int boardNo) {
+		return sqlSession.selectList("reviewMapper.selectAttachmentList", boardNo);
+	}
+
+
+	/** 게시글 삭제 DAO
+	 * @param review
+	 * @return result
+	 */
+	public int deleteReview(Review review) {
+		return sqlSession.update("reviewMapper.deleteReview",review);
+	}
+
+
+
+
+	/** 파일 정보 일괄 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("reviewMapper.deleteAttachmentList", deleteFileNoList);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

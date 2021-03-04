@@ -76,7 +76,7 @@ public class FindFriendController {
 		// 1) 페이징 처리를 위한 객체 PageInfo 생성
 		FindFriendPageInfo pInfo = service.getSearchPageInfo(map);
 		
-		System.out.println(pInfo);
+		//System.out.println(pInfo);
 		
 		// 2) 게시글 목록 조회
 		List<FindFriend> fList = service.selectSearchList(map, pInfo);
@@ -98,7 +98,7 @@ public class FindFriendController {
 		// 상세 조회
 		FindFriend findFriend = service.selectBoard(friendNo);
 		
-		System.out.println(findFriend);
+		//System.out.println(findFriend);
 		
 		String url = null;
 		
@@ -137,7 +137,7 @@ public class FindFriendController {
 	
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value = {"insertImage", "{friendNo}/insertImage"})
 	public String insertImage(HttpServletRequest request,
 					@RequestParam(value = "uploadFile") MultipartFile uploadFile){
 		
@@ -200,7 +200,7 @@ public class FindFriendController {
 			
 		}
 		
-		model.addAttribute("friendNo", friendNo);
+		model.addAttribute("findFriend", findFriend);
 		
 		return "findFriend/findFriendUpdate";
 	}
@@ -214,6 +214,8 @@ public class FindFriendController {
 		
 		// friendNo을 updateFriend에 세팅
 		updateBoard.setFriendNo(friendNo);
+		
+		System.out.println(updateBoard);
 		
 		// 파일 저장 경로 얻어오기
 		String savePath = request.getSession().getServletContext().getRealPath("resources/findFriendImages");

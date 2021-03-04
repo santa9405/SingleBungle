@@ -1,12 +1,14 @@
 package com.gaji.SingleBungle.board.model.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
+import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 
 public interface BoardService {
@@ -68,21 +70,37 @@ public interface BoardService {
 	 */
 	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> images, String savePath);
 
-//	/** 게시글 수정 Service
-//	 * @param updateBoard
-//	 * @param images
-//	 * @param savePath
-//	 * @param deleteImages
-//	 * @return result
-//	 */
-//	public abstract int updateBoard(Board updateBoard, List<MultipartFile> images, String savePath,
-//			boolean[] deleteImages);
+	/** 게시글 수정 Service
+	 * @param updateBoard
+	 * @return result
+	 */
+	public abstract int updateBoard(Board updateBoard);
 	
 	/** 게시글 삭제 Service
 	 * @param board
 	 * @return result
 	 */
 	public abstract int deleteBoard(Board board);
+	
+	/** 좋아요 목록 조회 Service
+	 * @param memberNo
+	 * @return
+	 */
+	List<BoardLike> selectLike(int memberNo);
+
+
+	/** 좋아요 증가 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int increaseLike(Map<String, Object> map);
+
+
+	/** 좋아요 감소 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int decreaseLike(Map<String, Object> map);
 
 
 

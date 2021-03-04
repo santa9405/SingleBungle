@@ -14,18 +14,23 @@
   			
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.Review" alias ="Review"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewAttachment" alias ="ReviewAttachment"/>
+  	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewReply" alias ="ReviewReply"/>
   			 
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.ABoard" alias="ABoard" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
+  	<typeAlias type="com.gaji.SingleBungle.admin.vo.inquiry" alias="inquiry" />
+  	<typeAlias type="com.gaji.SingleBungle.admin.vo.IAttachment" alias="IAttachment" />
   	
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.Board" alias="Board" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardAttachment" alias="BoardAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardLike" alias="BoardLike" />
+  	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReply" alias="BoardReply" />
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.Cafe" alias="Cafe" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeAttachment" alias="CafeAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeLike" alias="CafeLike" />
+  	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReply" alias="CafeReply" />
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />
@@ -47,6 +52,7 @@
 
 
   	<mapper resource="/mappers/review-mapper.xml"/>
+  	<mapper resource="/mappers/reviewReply-mapper.xml"/>
   	
   	<mapper resource="/mappers/admin-mapper.xml" />
   	

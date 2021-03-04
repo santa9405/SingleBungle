@@ -210,12 +210,14 @@ body {
 
 		<!-- 버튼 -->
 		
+		<c:url var="updateUrl" value="../${review.boardNo}/update"/>		
+		
 		<c:if test="${loginMember.memberNo == review.memberNo }">
 			<div class="row float-right mt-3">
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-12">
-							<button type="button" class="btn btn-success">수정</button>
+							<a href="${updateUrl }" type="button" class="btn btn-success">수정</a>
 							<button type="button" id="deleteBtn" class="btn btn-danger">삭제</button>
 						</div>
 					</div>
@@ -230,7 +232,7 @@ body {
 				<c:if test="${empty sessionScope.returnListURL }">
 					<c:set var="returnListURL" value="../" scope="session" />
 				</c:if>
-				<button type="button" class="btn btn-success" id="returnBtn">목록으로</button>
+				<button type="button" class="btn btn-success" id="returnBtn" style="width: 100px;height:40px;">목록으로</button>
 
 			</div>
 		</div>
@@ -303,7 +305,6 @@ body {
 
 
 
-
 	<jsp:include page="../common/footer.jsp" />
 
 
@@ -333,9 +334,9 @@ body {
 	
 	// 삭제 버튼
 	$("#deleteBtn").on("click", function(){
-		if(alert("삭제하시겠습니까?")){
+		if(confirm("삭제 하시겠습니까?")){
 			
-			location.url = "${review.boardNo}/delete";
+			location.href = "../${review.boardNo}/delete";
 		}
 	});
 	

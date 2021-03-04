@@ -199,21 +199,117 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public int updateBoard(FindFriend updateBoard) {
 		
 		// 게시글 수정
-		//int result = dao.updateBoard(updateBoard);
+		int result = dao.updateBoard(updateBoard);
 		
-		// summernote로 작성된 게시글에 있는 이미지 정보 수정
-		//	-> 게시글 내부 <img> 태그의 src 속성을 얻어와 파일명을 얻어옴.
-		//	-> 수정 전 게시글 이미지와 수정 후 게시글 이미지 파일명을 비교
-		//	--> 새롭게 추가된 이미지, 기존 이미지에서 삭제된 것도 존재
-		//	--> Attachment 테이블에 반영
-		
-		// DB에 저장할 웹상 이미지 접근 경로
-		String filePath = "/resources/findFriendImages";
-		
-		
+		// 이미지 수정
+		if(result > 0) {
 			
+			List<FindFriendAttachment> oldFiles = dao.selectAttachmentList(updateBoard.getFriendNo());
+			
+			List<FindFriendAttachment> uploadImages = new ArrayList<FindFriendAttachment>();
+			
+			List<FindFriendAttachment> removeFileList = new ArrayList<FindFriendAttachment>();
 		
-		return 0;
+			// DB에 저장할 웹상 이미지 접근 경로
+			String filePath = "/resources/findFriendImages";
+		
+			// summernote로 작성된 게시글에 있는 이미지 정보 수정
+			//	-> 게시글 내부 <img> 태그의 src 속성을 얻어와 파일명을 얻어옴.
+			//	-> 수정 전 게시글 이미지와 수정 후 게시글 이미지 파일명을 비교
+			//	--> 새롭게 추가된 이미지, 기존 이미지에서 삭제된 것도 존재
+			//	--> Attachment 테이블에 반영
+			
+			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img태그 src추출 정규표현식
+			
+			Matcher matcher = pattern.matcher(updateBoard.getFriendContent());
+			
+			List<String> fileNameList = new ArrayList<String>();
+			
+			String src = null; // matcher에 저장된 src를 꺼내서 임시 저장할 변수
+			String fileName = null; // src에서 파일명을 추출해서 임시 저장할 변수
+			
+			while(matcher.find()) {
+				src = matcher.group(1); // spring/findFriend/resources/findFriendImages/*.jpg
+				fileName = src.substring(src.lastIndexOf("/") + 1); // *.jpg
+				fileNameList.add(fileName);
+			}
+		
+			// DB에 새로 추가할 이미지파일 정보를 모아둘 List 생성
+			List<FindFriendAttachment> newAttachmentList = new ArrayList<FindFriendAttachment>();
+		
+			// DB에 삭제할 이미지 파일 번호를 모아둘 List 생성
+			List<Integer> deleteFileNoList = new ArrayList<Integer>();
+			
+			// 수정 된 게시글 파일명 목록(fileNameList)과
+			// 수정 전 파일 정보 목록(oldFiles)를 비교해서
+			// 수정 된 게시글 파일명 하나를 기준으로 하여 수정 전 파일명과 순차적으로 비교를 진행
+			// --> 수정 된 게시글 파일명과 일치하는 수정 전 파일명이 없다면
+			//	== 새로 삽입된 이미지임을 의미
+			for(String fName : fileNameList) {
+				
+				boolean flag = true;
+				
+				for(FindFriendAttachment oldAt : oldFiles) {
+					
+					if(fName.equals(oldAt.getFileName())) { // 이미지가 수정되지 않은 경우
+						flag = false;
+						break;
+					}
+				}
+				
+				// 새로 삽입된  이미지가 존재할 경우 -> newAttachmentList에 추가
+				if(flag) {
+					FindFriendAttachment at = new FindFriendAttachment(filePath, fName, updateBoard.getFriendNo());
+					newAttachmentList.add(at);
+				}
+				
+			}
+			
+			// 수정 전 게시글 파일명 목록(oldFiles)과
+			// 수정 된  파일명 목록(fileNameList)를 비교해서
+			// 수정 전 게시글 파일명 하나를 기준으로 하여 수정 전 파일명과 순차적으로 비교를 진행
+			// --> 수정 전 게시글 파일명과 일치하는 수정 후 파일명이 없다면
+			//	== 기존 수정 전 이미지가 삭제됨을 의미
+			for(FindFriendAttachment oldAt : oldFiles) {
+				
+				boolean flag = true;
+				
+				for(String fName : fileNameList) {
+					
+					if(oldAt.getFileName().equals(fName)) {
+						flag = false;
+						break;
+					}
+					
+				}
+				
+				// 삭제된  이미지가 존재할 경우 -> deleteFileNoList에 추가
+				if(flag) {
+					deleteFileNoList.add(oldAt.getFileNo());
+				}
+			}
+			
+			// newAttachmentList / deleteFileNoList 완성됨
+			if(!newAttachmentList.isEmpty()) { // 새로 삽입된 이미지가 있다면
+				result = dao.insertAttachmentList(newAttachmentList);
+				
+				if(result != newAttachmentList.size()) { // 삽입된 결과 행의 수와 삽입을 수행한 리스트 수가 맞지 않을 경우 == 실패
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+				}
+			}
+			
+			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+				result = dao.deleteAttachmentList(deleteFileNoList);
+				
+				if(result != deleteFileNoList.size()) {
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+				}
+				
+			}
+			
+		}
+		
+		return result;
 	}
 
 }

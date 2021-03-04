@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -188,7 +189,7 @@ public class ReviewController {
 	
 	// summernote에 업로드된 이미지 저장
 	@ResponseBody
-	@RequestMapping("insertImage")
+	@RequestMapping(value= {"insertImage", "{boardNo}/insertImage"})
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 		
 		// 서버에 이미지를 저장할 폴더 경로 얻어오기
@@ -201,8 +202,102 @@ public class ReviewController {
 	}
 	
 	
-
 	
+	
+	// 게시글 수정 화면 전환
+	@RequestMapping("{boardNo}/update")
+	public String update(@PathVariable("boardNo") int boardNo, Model model) {
+		
+		Review review = service.selectReview(boardNo);
+		
+		model.addAttribute("review", review);
+		
+		return "review/reviewUpdate";
+	}
+	
+	
+	
+	// 게시글 수정
+	@RequestMapping("{boardNo}/updateAction")
+	public String updateAction(@PathVariable("boardNo") int boardNo, @ModelAttribute Review updateReview, Model model,
+								RedirectAttributes ra, HttpServletRequest request) {
+		
+		updateReview.setBoardNo(boardNo);
+		
+		// 파일 저장 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/reviewBoardImages");
+		
+		
+		int result = service.updateReview(updateReview, savePath);
+		
+		String url = null;
+		
+		if(result>0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../view/"+boardNo;
+			
+		}else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
+	
+	
+	
+	
+
+	// 게시글 삭제
+	@RequestMapping("{boardNo}/delete")
+	public String deleteReview(@PathVariable("boardNo") int boardNo, @ModelAttribute Review review, HttpServletRequest request, RedirectAttributes ra) {
+		
+		review.setBoardNo(boardNo);
+		
+		int result = service.deleteReview(review);
+		
+		String url = null;
+		
+		if(result>0) {
+			swalIcon = "success";
+			swalTitle ="삭제 성공";
+			url = "redirect:../list";
+		}else {
+			swalIcon = "error";
+			swalTitle = "삭제 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon",swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		return url;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// 게시글 검색
+	@RequestMapping("search")
+	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+								@RequestParam(value="sk",required = false) String sk, 
+								@RequestParam(value="sv",required = false) String sv,
+								@RequestParam(value="ct",required = false, defaultValue = "0") String ct,
+								@RequestParam(value="sort",required = false) String sort, Model model) {
+		System.out.println(sk);
+		System.out.println(sv);
+		System.out.println(ct);
+		System.out.println(sort);
+		return null;
+	}
 
 	
 
