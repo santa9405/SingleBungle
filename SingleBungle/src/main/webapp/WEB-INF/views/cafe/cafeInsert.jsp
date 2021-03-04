@@ -12,7 +12,6 @@
 <!-- Bootstrap core JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery.placeholder.js"></script>
 
 <style>
 	.insert-label {
@@ -82,12 +81,13 @@
                 
                 <h4>맛집게시판 등록</h4>
 
-                <form action="insertAction" method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();">
+                <form action="insertAction" method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();" onkeydown="return event.key != 'Enter';">
 
                     <div class="form-group row">
                         <label for="title" class="input-group-addon col-sm-1 insert-label">제목</label>
                         <div class="col-sm-11">
-                        	<input type="text" class="form-control" id="title" name="cafeTitle" size="100%" required>
+                        <input type="hidden">
+                        	<input type="text" class="form-control" id="title" name="cafeTitle" size="100%" >
                         </div>
                     </div>
                     
@@ -122,10 +122,8 @@
 										    <div id="menu_wrap" class="bg_white">
 										        <div class="option">
 										            <div>
-										               <!--  <form onsubmit="searchPlaces(); return false;"> -->
-										                    키워드 : <input type="text" value="서울" id="keyword" size="15"> 
-										                    <button type="button" onclick="searchPlaces();">검색하기</button> 
-										                <!-- </form> -->
+						                    	키워드 : <input type="text" value="서울" id="keyword" size="15"> 
+							                    <button type="button" onclick="searchPlaces();">검색하기</button> 
 										            </div>
 										        </div>
 										        <hr>
@@ -139,11 +137,11 @@
                         <div>
                             <label for="summernote">내용</label>
                         </div>
-                        <textarea class="form-control cafePlaceholder" id="summernote" name="editordata" rows="10" style="resize: none;" required></textarea>
+                        <textarea class="form-control" id="summernote" name="cafeContent" rows="10" style="resize: none;" ></textarea>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary mb-3 btn-success">등록</button>
+                        <button type="submit" class="btn btn-secondary mb-3 btn-success" id="insertBtn">등록</button>
                     </div>
                     <div class="text-right">
                     		<button type="button" class="btn btn-secondary mb-3 btn-success" id="insert-list">목록으로</button>
@@ -156,7 +154,19 @@
     <jsp:include page="../common/footer.jsp"/>
     <script>
 		// 유효성 검사
+		
+		$("#keyword").keydown(function(){
+				console.log(event.keyCode);
+				if(event.keyCode === 13){
+					searchPlaces();
+				}
+			});
+		
+		
 		function validate() {
+			
+			console.log(event);
+			
 			if ($("#title").val().trim().length == 0) {
 				alert("제목을 입력해 주세요.");
 				$("#title").focus();
@@ -281,8 +291,8 @@
 		            
 				    		// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
 				    		kakao.maps.event.addListener(marker, 'click', function() {
-										//$("#cafeName").val(title);
-										$("#cafeName").val(address_name);
+										$("#cafeName").val(title);
+										$("#cafeAddress").val(address_name);
 				    		});
 
 		            itemEl.onmouseover =  function () {
@@ -405,11 +415,11 @@
 		    }
 		}
 		 
-		/* placeholder */
-		/*input 요소와 textarea 요소를 선택하여 적용*/
-	  $(document).ready(function(e) {
-		    $('input,textarea').placeholder();
-		});
+		
+		
+		
+		
+		
 		</script>
 </body>
 </html>

@@ -30,6 +30,14 @@
 #list-table > tbody > tr:hover {
 	cursor: pointer;
 }
+
+/* 좋아요 이미지 */
+#image {
+	width: 16px;
+	height: 16px;
+	margin-top : -5px;
+	margin-left : -3px;
+}
    
 /* 검색창 */
 .search { 
@@ -124,7 +132,7 @@
                         <th>닉네임</th>
                         <th>조회수</th>
                         <th>작성일</th>
-                        <th>♡</th>
+                        <th><img id="image" src="${contextPath}/resources/images/like2.png"></th>
                       </tr>
                     </thead>
                     <tbody>
