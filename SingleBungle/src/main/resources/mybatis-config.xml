@@ -10,7 +10,8 @@
   
   <typeAliases>
   	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriend" alias="Friend" /> 
-  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment" alias="FriendAttachment" /> 
+  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment" alias="FriendAttachment" />
+  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendReply" alias="FriendReply" /> 
   			
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.Review" alias ="Review"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewAttachment" alias ="ReviewAttachment"/>
@@ -46,6 +47,8 @@
   
   <mappers>
   	<mapper resource="/mappers/friend-mapper.xml" />
+  	<mapper resource="/mappers/friendReply-mapper.xml" />
+  	
   	<mapper resource="/mappers/board-mapper.xml" />
   	<mapper resource="/mappers/cafe-mapper.xml" />
   	<mapper resource="/mappers/market-mapper.xml" />
