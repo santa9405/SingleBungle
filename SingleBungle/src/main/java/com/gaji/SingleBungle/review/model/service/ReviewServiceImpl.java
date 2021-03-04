@@ -17,7 +17,9 @@ import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 import com.gaji.SingleBungle.review.model.dao.ReviewDAO;
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -46,6 +48,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.selectThumbnailList(rList);
 	}
 
+	
+	
+	
 	// 상세조회
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -62,6 +67,10 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return review;
 	}
+	
+	
+
+	
 
 	// 조회수 상위 3 게시글 조회
 	@Override
@@ -69,6 +78,37 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.reviewListTop3();
 	}
 
+	
+	
+	
+	//  좋아요 목록 조회
+	@Override
+	public List<ReviewLike> selectLike(int memberNo) {
+		return dao.selectLike(memberNo);
+	}
+	
+	
+	
+	// 좋아요 수 증가
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int increaseLike(Map<String, Object> map) {
+		return dao.increaseLike(map);
+	}
+	
+	
+	// 좋아요 수 감소
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int decreaseLike(Map<String, Object>map) {
+		return dao.decreaseLike(map);
+	}
+	
+
+	
+	
+	
+	
 	// 게시글 등록
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -251,63 +291,6 @@ public class ReviewServiceImpl implements ReviewService {
 			// DB에서 삭제할 이미지파일 번호를 모아둘 List 생성
 			List<Integer> deleteFileNoList = new ArrayList<Integer>();
 			
-
-			// 파일 레벨 
-//			int fileLevel = 1;
-			
-			// 수정된 게시글 파일명 하나를 기준으로 하여 수정 전 파일명과 비교를 진행
-//			for (String fName : fileNameList) {
-//				boolean flag = true;
-//				for (ReviewAttachment oldAt : oldFiles) {
-//					if (fName.equals(oldAt.getFileName())) {
-//						flag = false;
-//						fileLevel++;
-//						break;
-//					}
-//				}
-//				if(flag) {
-//					ReviewAttachment at = new ReviewAttachment(filePath, fName, fileLevel, updateReview.getBoardNo());
-//					newAttachmentList.add(at);
-//					fileLevel++;
-//				}
-//			}
-			
-			
-//			for(ReviewAttachment oldAt : oldFiles) {
-//				boolean flag = true;
-//				
-//				for(String fName : fileNameList) {
-//					if(oldAt.getFileName().equals(fName)) {
-//						flag = false;
-//						break;
-//					}
-//				}
-//				
-//				if(flag) {
-//					deleteFileNoList.add(oldAt.getFileNo());
-//				}
-//			}
-			
-			// 게시글 수정 시 새로 삽입된 이미지가 있다면
-//			if(!newAttachmentList.isEmpty()) {
-//				result = dao.insertAttachmentList(newAttachmentList);
-//				
-//				if(result != newAttachmentList.size()) {
-//					
-//					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
-//					
-//				}
-//			}
-			
-//			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
-//				result = dao.deleteAttachmentList(deleteFileNoList);
-//				
-//				if(result != deleteFileNoList.size()) {
-//					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
-//				}
-//			}
-			
-			
 			
 			// 기존에 올려둔 파일 전부 삭제
 			for(ReviewAttachment oldAt : oldFiles) {
@@ -341,11 +324,6 @@ public class ReviewServiceImpl implements ReviewService {
 					
 				}
 			}
-			
-			
-			
-			
-			
 		}
 		return result;
 	}
@@ -359,5 +337,29 @@ public class ReviewServiceImpl implements ReviewService {
 
 		return dao.deleteReview(review);
 	}
+	
+	
+	
+	//검색 조건이 포함된 페이징 처리 객체 생성 Service 구현
+	@Override
+	public ReviewPageInfo getSearchPageInfo(ReviewSearch rSearch, int cp) {
+		
+		// 검색 조건에 맞는 게시글 수 조회
+		int listCount = dao.getSearchListCount(rSearch);
+		
+		return new ReviewPageInfo(cp, listCount, '2');
+	}
+
+	
+	// 검색 조건이 포함된 게시글 목록 조회 Service 구현
+	@Override
+	public List<Review> selectSearchList(ReviewSearch rSearch, ReviewPageInfo pInfo) {
+		return dao.selectSearchList(rSearch,pInfo);
+	}
+
+
+
+
+
 
 }

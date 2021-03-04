@@ -174,8 +174,6 @@ body {
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate var="createDate" value="${review.createDate }" pattern="yyyy-MM-dd" />
 					<fmt:formatDate var="today" value="${now }" pattern="yyyy-MM-dd" />
-
-
 					<c:choose>
 						<c:when test="${createDate != today }">
 								${createDate }
@@ -183,17 +181,26 @@ body {
 						<c:otherwise>
 							<fmt:formatDate value="${review.createDate}" pattern="HH:mm" />
 						</c:otherwise>
-
-
 					</c:choose>
 				</div>
+				
 				<div class="infoArea float-right">
 					<img class="image" src="${contextPath}/resources/images/view.png"> ${review.readCount } <span>
-						<button type="button" id="likeBtn">
-							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">${review.likeCount}</span>
+					
+						<!-- 좋아요 버튼  -->
+						<button type="button" id="likeBtn"  class="likeBtns">
+							<img src="${contextPath}/resources/images/like1.png" 
+								width="15" height="15" id="heart" class='likeImgs
+								<c:forEach var="like" items="${likeInfo}">
+									<c:if test="${like.boardNo == review.boardNo}">like2</c:if>
+								${like.boardNo}  ${review.boardNo } 
+								</c:forEach>'> 
+								<span class="likeCnt">${review.likeCount}</span>
 						</button>
+						
 					</span>
 				</div>
+				
 			</div>
 		</div>
 
@@ -337,6 +344,53 @@ body {
 		if(confirm("삭제 하시겠습니까?")){
 			
 			location.href = "../${review.boardNo}/delete";
+		}
+	});
+	
+	
+	// 좋아요
+		$(".likeBtns").on("click", function(){
+		var marketNo = $(this).closest('.no').children().eq(0).text();
+		var likeClassArray = $(this).children().attr('class').split(" ");
+		var likeClass = "like1";
+		var likeImg = $(this).children(".likeImgs");
+		var likeCnt = $(this).children(".likeCnt");
+		
+	
+		if(likeClassArray[1] == "like2") {
+			likeClass = "like2"; 
+		}
+		
+		if(likeClass == "like1") {
+			$.ajax({
+				url : "increaseLike",
+				type : "post",
+				data : {"boardNo" : boardNo},
+				success : function(result){
+					if(result > 0) {
+						likeCnt.text(Number(likeCnt.text()) + 1);
+						likeImg.toggleClass("like2");
+					}
+				}, 
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
+		} else{
+			$.ajax({
+				url : "decreaseLike",
+				type : "post", 
+				data : {"boardNo" : boardNo},
+				success : function(result){
+					if(result > 0){ // 삭제 성공
+						likeCnt.text(Number(likeCnt.text()) - 1);
+						likeImg.removeClass("like2");
+					}
+				},
+				error : function(result){
+					console.log("ajax 통신 오류 발생");
+				}
+			});
 		}
 	});
 	
