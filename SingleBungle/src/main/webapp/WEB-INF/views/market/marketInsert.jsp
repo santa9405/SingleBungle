@@ -10,8 +10,6 @@
 
 
 <style>
-
-
   .boardName {
     margin-right: 40px;
   }
@@ -235,6 +233,22 @@
 		outline: none;
 		float: right;
 	}
+	
+	.radioM{
+		margin-right : 35px;
+	}
+	
+	input:focus, textarea:focus{
+		outline : 1px solid black;
+	}
+	
+	.radioArea{
+		padding-top : 17px;
+	}
+	
+	.priceArea label {
+		margin-top : 8px;
+	}
 
 </style>
 </head>
@@ -355,7 +369,6 @@
 							<div class="formContent titleFlex">
 								<div class="locationBtnArea mb-20">
 									<button type="button" id="currLocation" class="LBtn btn btn-info" onclick="getLocation();">내 위치</button>
-									<button type="button" id="currLocation" class="LBtn btn btn-primary">주소 검색</button>
 								</div>
 								<input type="text" readonly placeholder="선호 거래 지역을 검색해주세요." id="locationInput" class="location">
 							</div>
@@ -367,10 +380,10 @@
 								<span>상태<span class="star">*</span></span>
 							</div>
 
-							<div class="formContent">
+							<div class="formContent radioArea">
 								<div class="itemStatusArea form-check">
-									<input type="radio" name="itemStatus" value="U" class="itemRdio form-check-input" id="usedStatus"> <label for="usedStatus">중고</label>
-									<input type="radio" name="itemStatus" value="N" class="itemRdio form-check-input" id="newStatus"> <label for="newStatus">새상품</label>
+									<input type="radio" name="itemStatus" value="U" class="itemRadio form-check-input" id="usedStatus"> <label for="usedStatus" class="radioM">중고</label>
+									<input type="radio" name="itemStatus" value="N" class="itemRadio form-check-input" id="newStatus"> <label for="newStatus" class="radioM">새상품</label>
 								</div>
 							</div>
 						</li>
@@ -384,9 +397,9 @@
 							<div class="formContent">
 								<div class="priceArea">
 									<input type="text" name="itemPrice" id="itemPrice" class="priceInput" placeholder="숫자만 입력해주세요."> 원
-										<span class="errorMsg" id="priceMsg">미친놈아!</span>
-									<input type="radio" name="delivery" value="F" class="itemRdio" id="including"> <label for="including">택배비 포함</label>
-									<input type="radio" name="delivery" value="N" class="itemRdio" id="noincluding"> <label for="noincluding">택배비 미포함</label>
+										<span class="errorMsg" id="priceMsg"></span>
+									<input type="radio" name="delivery" value="F" class="itemRadio" id="including"> <label for="including" class="radioM">택배비 포함</label>
+									<input type="radio" name="delivery" value="N" class="itemRadio" id="noincluding"> <label for="noincluding" class="radioM">택배비 미포함</label>
 								</div>
 							</div>
 						</li>
@@ -456,7 +469,6 @@
     		$("#imgCnt").text(--imgCnt);
         $(value).parent().remove();
         $(value).remove();
-    	
      }
     
     
@@ -489,6 +501,26 @@
     		alert('GPS를 지원하지 않습니다.');
     	}
     }
+    
+    
+    // 가격
+    $("#itemPrice").on("input", function(){
+    	var currPrice = $(this).val();
+    	var priceMsg = $("#priceMsg");
+    	var regexp = /^[0-9]*$/
+    	
+    	
+    	if(currPrice < 100){
+    		priceMsg.css("color", "rgb(245, 126, 0)").text("100원 이상 입력해주세요.");
+    	} else {
+    		priceMsg.text("");
+    	}
+    	
+    	if(!regexp.test(currPrice)) {
+    		alert("숫자만 입력하세요.");
+    		$(this).text(currPrice(regexp,''));
+    	}
+    });
 
 		
 	</script>
