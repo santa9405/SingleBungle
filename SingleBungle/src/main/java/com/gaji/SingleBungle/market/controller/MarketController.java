@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.board.model.service.BoardService;
@@ -41,7 +44,7 @@ public class MarketController {
 								int cp, Model model, @ModelAttribute("loginMember") Member loginMember,
 								RedirectAttributes ra) {
 		String url = null;		
-		
+		System.out.println(loginMember);
 		if (loginMember != null) {
 			if (loginMember.getMemberGrade().charAt(0) != 'F') {
 				swalIcon = "error";
@@ -135,15 +138,32 @@ public class MarketController {
 			ra.addFlashAttribute("swalIcon", "error");
 			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
 		}
-		
 		return url;
 	}
 	
 	
-	// 사고팔고 게시글 작성 view 전환용 
+	// 사고팔고 게시글 작성 view 
 	@RequestMapping("insert")
 	public String marketInsert() {
 		return "market/marketInsert"; 
+	}
+	
+	@RequestMapping("insertAction")
+	public String marketInsertAction(@ModelAttribute Market market, RedirectAttributes ra,
+						@ModelAttribute Member loginMember, 
+						@RequestParam(value="images") List<MultipartFile> images,
+						HttpServletRequest request) {
+		
+		//System.out.println(market);
+		
+		market.setMemNo(loginMember.getMemberNo());
+		
+		for(int i=0; i<images.size(); i++) {
+		System.out.println("images[" + i + "] : " + images.get(i).getOriginalFilename());
+			}
+		
+		
+		return null;
 	}
 	
 	@RequestMapping("mypage")
