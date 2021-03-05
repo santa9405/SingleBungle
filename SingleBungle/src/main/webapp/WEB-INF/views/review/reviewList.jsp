@@ -130,6 +130,41 @@
 <body>
 
 	<jsp:include page="../common/header.jsp" />
+	
+	<!-- 주소 조합 작업  -->
+	<c:choose>
+		<c:when test="${!empty rSearch }">
+		
+				<c:if test="${!empty rSearch.ct }">
+					<c:set var="category" value="ct=${rSearch.ct}&"/>
+				</c:if>
+			
+				<c:if test="${!empty rSearch.sort }">
+					<c:set var="sort" value="sort=${rSearch.sort}&"/>
+				</c:if>
+			
+			
+			<c:if test="${!empty rSearch.sv}">
+				<c:set var="sk" value="sk=${rSearch.sk}&"/>
+				<c:set var="sv" value="sv=${rSearch.sv}"/>
+			
+				<c:set var="searchStr" value="${category}${sort}sk=${rSearch.sk}&sv=${rSearch.sv}&"/>
+			</c:if>
+			
+			
+			
+			<c:url var="pageUrl" value="search?${searchStr}"/>
+			
+			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+			<c:set var="returnListURL" value="${contextPath}/review/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+		</c:when>
+		
+		<c:otherwise>
+			<c:url var="pageUrl" value="?"/>
+			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+			<c:set var="returnListURL" value="${contextPath}/review/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+		</c:otherwise>
+	</c:choose>
 
 	<div class="container">
 
@@ -139,15 +174,15 @@
 				<div class="text-black banner">
 					<h1 class="boardName float-left">후기게시판</h1>
 					<div class="categoryArea">
-						<a class="category" id="0" href="search?ct=0">전체</a> 
-						<a class="category" id="1" href="search?ct=1">가구</a> 
-						<a class="category" id="2" href="search?ct=2">생활용품</a> 
-						<a class="category" id="3" href="search?ct=3">전자기기</a> 
-						<a class="category" id="4" href="search?ct=4">기타</a>
+						<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a> 
+						<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">가구</a> 
+						<a class="category" id="2" href="search?ct=2&${sort}${sk}${sv}">생활용품</a> 
+						<a class="category" id="3" href="search?ct=3&${sort}${sk}${sv}">전자기기</a> 
+						<a class="category" id="4" href="search?ct=4&${sort}${sk}${sv}">기타</a>
 					</div>
 					<div class="arrayArea float-right">
-						<a class="array" href="search?sort=new">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" />
-						</a> <a class="array" href="search?sort=like">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
+						<a class="array" id="newSort" href="search?${category}sort=new&${sk}${sv}">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a> 
+						<a class="array" id="likeSort" href="search?${category}sort=like&${sk}${sv}">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
 					</div>
 				</div>
 			</div>
@@ -252,34 +287,9 @@
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 
 								
-								<!-- 주소 조합 작업  -->
+
 								
 								
-								<c:choose>
-									<c:when test="${!empty rSearch }">
-									
-										<c:if test="${!empty rSearch.ct }">
-											<c:set var="category" value="ct=${rSearch.ct}&"/>
-										</c:if>
-									
-										<c:set var="searchStr" value="${category}"/>
-										
-										<c:if test="${!empty rSearch.sv}">
-											<c:set var="searchStr" value="${category}sk=${rSearch.sk}&sv=${rSearch.sv}"/>
-										</c:if>
-										
-										<c:url var="pageUrl" value="../review/search?${searchStr}&"/>
-										<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-										<c:set var="returnListURL" value="${contextPath}/review/search/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
-									</c:when>
-									
-									<c:otherwise>
-										<c:url var="pageUrl" value="?"/>
-										
-										<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-										<c:set var="returnListURL" value="${contextPath}/review/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
-									</c:otherwise>
-								</c:choose>
 								
 								<c:set var="firstPage" value="${pageUrl}cp=1" />
 								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage }" />
@@ -396,6 +406,13 @@
 				$("#4").css({"color":"orange", "font-weight":"bold"});
 			}else{ // 선택 안된 경우,,
 				$("#0").css({"color":"orange", "font-weight":"bold"});
+			}
+			
+			// 정렬
+			if(${param.sort == 'like'}){
+				$("#likeSort").css({"color":"orange", "font-weight":"bold"});
+			}else {
+				$("#newSort").css({"color":"orange", "font-weight":"bold"});
 			}
 			
 			
