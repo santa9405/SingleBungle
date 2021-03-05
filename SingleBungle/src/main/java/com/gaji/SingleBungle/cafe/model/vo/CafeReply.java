@@ -11,7 +11,7 @@ public class CafeReply {
 	private int replyDepth;
 	private int memNo;
 	private String nickName;
-	private int CafeNo;
+	private int CafeNo; // parentCafeNo
 	private int parentReplyNo;
 	
 	public CafeReply() {
