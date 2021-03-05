@@ -56,7 +56,7 @@
 		!important;
 }
 
-.ctgr, .titleArea>span, .chat, .apply {
+.ctgr, .titleArea>span, .chat, .apply, .cancelApply {
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
@@ -120,6 +120,7 @@ body {
 	width: 30px;
 	height: 30px;
 }
+
 </style>
 </head>
 <body>
@@ -158,7 +159,7 @@ body {
 				</div>
 
 				<div class="col-md-9">
-					<div class="boardInfo" id="createDt" style="color: gray">2021.02.24 12:05</div>
+					<div class="boardInfo" id="createDt" style="color: gray"> ${findFriend.createDt} </div>
 				</div>
 
 				<div class="col-md-2">
@@ -186,7 +187,20 @@ body {
 
 			<div class="titleArea">
 				<button type="button" class="btn btn-primary float-right report">신고</button>
-				<button type="button" class="btn btn-primary float-right apply">참여신청</button>
+				
+				<button type="button" id="applyBtn" class='btn btn-primary float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>참여신청</button>
+				
+				<%-- <c:choose>
+					<c:when test="${checkApply == 0}">
+						<button type="button" class="btn btn-primary float-right apply">참여신청</button>
+					</c:when>
+					
+					<c:otherwise>
+						<button type="button" class="btn btn-primary float-right apply">참여취소</button>
+					</c:otherwise>
+				
+				</c:choose> --%>
+				
 				<!-- chat button -->
 				<button type="button" class="btn btn-primary float-right chat">모집인원 1/4</button>
  
@@ -225,6 +239,42 @@ body {
 	<jsp:include page="../common/footer.jsp" />
 
 	<script>
+		var friendNo = ${findFriend.friendNo};
+	
+		// 참여신청 시
+		$("#applyBtn").on("click", function(){
+			//console.log($(".apply").attr("class"));
+			
+			var applyArray = $(".apply").attr("class").split(" ");
+			console.log(applyArray);
+			
+			if(applyArray[4] == "insertApply"){
+				
+				$.ajax({
+					url : "${contextPath}/findFriend/insertApply/" + friendNo,
+					success : function(result){
+						
+						if(result > 0){
+							swal({icon : "success", title : "참여 신청 성공!"});
+							
+							$("#applyBtn").text("참여취소");
+						}
+						
+					}, error : function(){
+						console.log("참여 신청 실패");
+					}
+					
+				});
+				
+			}
+			
+			
+			
+		});
+
+		
+		// -------------------------------------------------------------------------------------------------------------------
+	
 		// 게시글 신고창 열기
 		$(".report")
 				.on(

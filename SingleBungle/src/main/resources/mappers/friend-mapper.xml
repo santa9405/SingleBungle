@@ -115,6 +115,19 @@
    		WHERE FRIEND_NO = #{friendNo} 
    </select>
    
+   <!-- 상세 조회 시 참여신청 여부 확인 -->
+   <select id="checkApply" parameterType="map" resultType="_int">
+   		SELECT COUNT(*) FROM APPLICATION_DETAIL
+   		WHERE FRIEND_NO = #{friendNo}
+   		AND MEM_NO = #{memNo}
+   </select>
+   
+   <!-- 친구찾기 참여 신청 -->
+   <insert id="insertApply" parameterType="map">
+   		INSERT INTO APPLICATION_DETAIL
+   		VALUES(#{friendNo}, #{memNo})
+   </insert>
+   
    <!-- 다음 게시글 번호 조회 -->
    <select id="selectNextBoardNo" resultType="_int">
    		SELECT SEQ_FNO.NEXTVAL FROM DUAL

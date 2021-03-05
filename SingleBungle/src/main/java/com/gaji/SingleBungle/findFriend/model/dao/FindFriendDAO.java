@@ -84,6 +84,22 @@ public class FindFriendDAO {
 	public List<FindFriendAttachment> selectAttachmentList(int friendNo) {
 		return sqlSession.selectList("friendMapper.selectAttachmentList", friendNo);
 	}
+	
+	/** 상세 조회 시 참여신청 여부 확인 DAO
+	 * @param map
+	 * @return checkApply
+	 */
+	public int checkApply(Map<String, Object> map) {
+		return sqlSession.selectOne("friendMapper.checkApply", map);
+	}
+	
+	/** 친구찾기 참여 신청 DAO
+	 * @param map
+	 * @return int
+	 */
+	public int insertApply(Map<String, Object> map) {
+		return sqlSession.insert("friendMapper.insertApply", map);
+	}
 
 	/** 다음 게시글 번호 조회 DAO
 	 * @return nextBoardNo
@@ -121,10 +137,7 @@ public class FindFriendDAO {
 	 * @return result
 	 */
 	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
-		// TODO Auto-generated method stub
 		return sqlSession.delete("friendMapper.deleteAttachmentList", deleteFileNoList);
 	}
-	
-	
 
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -43,7 +44,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 		
 		JsonObject obj = new Gson().fromJson(message.getPayload(), JsonObject.class);
 		
-		logger.info("채팅 작성자 : " + obj.get("memberId").toString());
+		logger.info("채팅 작성자 : " + obj.get("nickname").toString());
 		logger.info("채팅 내용 : " + obj.get("chat").toString());
 		
 		for(WebSocketSession s : sessions) {
@@ -57,6 +58,17 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 		}
 		
 	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		sessions.remove(session);
+	
+	}
+	
+	
+	
+	
+	
 	
 
 }

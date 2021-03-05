@@ -38,7 +38,7 @@ public interface FindFriendService {
 	
 	/** 친구찾기 게시글 상세 조회 Service
 	 * @param friendNo
-	 * @return
+	 * @return findFriend
 	 */
 	FindFriend selectBoard(int friendNo);
 	
@@ -47,7 +47,19 @@ public interface FindFriendService {
 	 * @return attachmentList
 	 */
 	List<FindFriendAttachment> selectAttachmentList(int friendNo);
-
+	
+	/** 상세 조회 시 참여신청 여부 확인 Service
+	 * @param map
+	 * @return checkApply
+	 */
+	int checkApply(Map<String, Object> map);
+	
+	/** 친구찾기 참여 신청 Service
+	 * @param map
+	 * @return int
+	 */
+	int insertApply(Map<String, Object> map);
+	
 	/** summernote 업로드 이미지 저장 Service
 	 * @param uploadFile
 	 * @param savePath
@@ -67,6 +79,10 @@ public interface FindFriendService {
 	 * @return int
 	 */
 	int updateBoard(FindFriend updateBoard);
+
+	
+
+	
 
 	
 
