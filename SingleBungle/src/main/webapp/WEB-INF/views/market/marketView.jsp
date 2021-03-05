@@ -240,13 +240,13 @@
 			<div class="row">
 				<div class="col-md-6">
 						
-						            <!-- 이미지 출력 -->
-            <c:if test="${!empty fList}"> 
+			<!-- 이미지 출력 -->
+            <c:if test="${!empty attachmentList}"> 
             <div class="carousel slide boardImgArea" id="board-image">
                
                <!-- 이미지 선택 버튼 -->
                <ol class="carousel-indicators">
-                  <c:forEach var="file" items="${fList}" varStatus="vs">
+                  <c:forEach var="at" items="${attachmentList}" varStatus="vs">
                      
                      <li data-slide-to="${vs.index }" data-target="#board-image"  
                            <c:if test="${vs.first}"> class="active" </c:if> 
@@ -259,10 +259,12 @@
                
                <!-- 출력되는 이미지 -->
                <div class="carousel-inner">
-                  <c:forEach var="file" items="${fList}" varStatus="vs">
-                     <div class="carousel-item <c:if test="${vs.first}">active</c:if>">
+                  <c:forEach var="file" items="${attachmentList}" varStatus="vs">
+                  	<c:set var="src" value="${contextPath}/${at.filePath}/${at.fileName}"/>
+                  	
+                     <div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
                         <img class="d-block w-100 boardImg" id="200" 
-                           src="${contextPath}/resources/images/testImg.gif">
+                          src="${src}" /><input type="hidden" value="${at.fileNo}">
                      </div>
                   </c:forEach>
                </div> 
