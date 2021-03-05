@@ -58,7 +58,6 @@ public class MarketController {
 				
 				if(mList != null && !mList.isEmpty()) {
 					List<MarketAttachment> thumbnailList = service.selectThumbnailList(mList);
-					
 					if(thumbnailList != null) {
 						model.addAttribute("thList", thumbnailList);
 					}
@@ -128,10 +127,10 @@ public class MarketController {
 		String url = null;
 		
 		if (market != null) {
-			List<MarketAttachment> attachmentList = service.selectAttachmentList(marketNo);
+			List<MarketAttachment> at = service.selectAttachmentList(marketNo);
 			
-			if(attachmentList != null & !attachmentList.isEmpty()) {
-				model.addAttribute("attachmentList", attachmentList);
+			if(at != null & !at.isEmpty()) {
+				model.addAttribute("at", at);
 			}
 			
 			model.addAttribute("market", market);
