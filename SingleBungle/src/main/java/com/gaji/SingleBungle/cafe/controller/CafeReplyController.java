@@ -3,6 +3,7 @@ package com.gaji.SingleBungle.cafe.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
-@RequestMapping("/cafe/reply/*")
+@RequestMapping("/cafeReply/*")
 public class CafeReplyController {
 	
 	@Autowired
@@ -29,6 +30,44 @@ public class CafeReplyController {
 		
 		return gson.toJson(rList);
 	}
+	
+	// 댓글 삽입 Controller
+	@RequestMapping("insertReplyList/{cafeNo}")
+	public int insertReply(@PathVariable("cafeNo") int cafeNo,
+							@ModelAttribute CafeReply reply) {
+		
+		reply.setCafeNo(cafeNo);
+		
+		return service.insertReply(reply);
+	}
+	
+	// 댓글 수정 Controller
+	@RequestMapping("updateReply/{replyNo}")
+	public int updateReply(@PathVariable("replyNo") int replyNo,
+							@ModelAttribute CafeReply reply) {
+		
+		reply.setReplyNo(replyNo);
+		
+		return service.updateReply(reply);
+		
+	}
+	
+	// 댓글 삭제 Controller
+	@RequestMapping("deleteReply/{replyNo}")
+	public int deleteReply(@PathVariable("replyNo") int replyNo) {
+		return service.deleteReply(replyNo);
+	}
+	
+	// 답글 삽입 Controller
+	@RequestMapping("insertChildReply/{cafeNo}")
+	public int insertChildReply(@PathVariable("cafeNo") int cafeNo,
+								@ModelAttribute CafeReply reply) {
+		
+		reply.setCafeNo(cafeNo);
+		
+		return service.insertChildReply(reply);
+	}
+	
 	
 
 }

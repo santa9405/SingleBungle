@@ -19,8 +19,23 @@
 </style>
 </head>
 <body>
+<c:if test="${swalIcon == 'success' }">
+	<script>
+		swal({icon : "${swalIcon}",
+		 title : "${swalTitle}",
+		 text : "${swalText}"}).then(function(){close()});
+	</script>
+</c:if>
+<c:if test="${swalIcon == 'error' }">
+	<script>
+		swal({icon : "${swalIcon}",
+		 title : "${swalTitle}",
+		 text : "${swalText}"});
+	</script>
+</c:if>
    <div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
-     <form method="POST" action="cafeReportAction" class="needs-validation" name="report">
+     <form method="POST" action="../cafeReportAction" class="needs-validation" name="report">
+     <input type="hidden" value="${cafeNo }" name="cafeNo"> 
      <div class="form-group row">
       <label for="recipient-name" class="col-sm-3 col-form-label">신고 제목</label>
        <div class="col-sm-9">
@@ -47,12 +62,12 @@
          <div class="form-group row">
              <label for="content" class="col-sm-3 col-form-label">신고 내용</label>
              <div class="col-sm-9">
-             <textarea class="form-control" id="summernote" name="reportContent" rows="10" style="resize: none;" required></textarea>
+             <textarea class="form-control" id="reportContent" name="reportContent" rows="10" style="resize: none;" required></textarea>
              </div>
          </div>
          <div class="form-group row">
                <div class="col-sm-12" style="text-align:center; margin-top:30px;">
-                <button type="submit" class="btn btn-primary">신고</button>
+                <button type="submit" class="btn btn-primary" id="reportBtn">신고</button>
                 <button class="btn btn-outline-primary">취소</button>
              </div>
          </div>
@@ -60,8 +75,6 @@
     </div>
 </body>
 
-   <script>   
 
-   </script>
-</body>
+
 </html>

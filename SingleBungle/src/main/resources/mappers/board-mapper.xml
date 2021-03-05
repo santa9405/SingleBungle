@@ -151,7 +151,7 @@
 	<!-- 파일 정보 삽입 -->
   <insert id="insertAttachmentList" parameterType="list">
   		INSERT INTO BOARD_FILE
-  		SELECT SEQ_BNO.NEXTVAL, A.* FROM (
+  		SELECT SEQ_FNO.NEXTVAL, A.* FROM (
   		
   		<foreach collection="list" item="item" separator="UNION ALL">
   				SELECT #{item.filePath} FILE_PATH,
@@ -214,5 +214,18 @@
 			#{fileNo}
 		</foreach>
 	</delete>
+	
+	<!-- 신고 게시글 다음 번호 조회 -->
+	<select id="selectReportNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 신고 게시글 등록 -->
+	<insert id="insertBoardReport" parameterType="map">
+		INSERT INTO REPORT_BOARD VALUES 
+		(#{reportNo}, #{reportTitle}, 
+		 #{reportContent}, #{memberNo}, #{categoryCode}, #{boardNo})
+  </insert>
+	
 
 </mapper>

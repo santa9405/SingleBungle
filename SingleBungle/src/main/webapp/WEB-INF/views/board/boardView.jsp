@@ -146,7 +146,8 @@
 	<script>
 	 // 신고
    $(".report").on("click", function(){
-       window.open('${contextPath}/board/boardReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+	   	window.name = "parentWindow";
+       window.open('${contextPath}/board/boardReport/${board.boardNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 	 });
    
 	// 목록버튼

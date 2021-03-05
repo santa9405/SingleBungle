@@ -24,6 +24,7 @@ import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
+import com.gaji.SingleBungle.board.model.vo.BoardReport;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -293,17 +294,56 @@ public class BoardController {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
 	// 신고 페이지 연결
-	@RequestMapping("boardReport")
-	public String boardReport() {
+	@RequestMapping("boardReport/{boardNo}")
+	public String boardReport(@PathVariable int boardNo, Model model) {
+		model.addAttribute("boardNo", boardNo);
 		return "board/boardReport";
 	}
+	
+	// 게시글 신고 등록 Controller
+	@RequestMapping("boardReportAction")
+	public String insertBoardReport(@ModelAttribute BoardReport report, @RequestParam("boardNo") int boardNo,
+									@ModelAttribute("loginMember") Member loginMember,
+									HttpServletRequest request, RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("boardNo", boardNo);
+		
+		
+		map.put("reportTitle", report.getReportTitle());
+		map.put("reportContent", report.getReportContent());
+		map.put("categoryCode", report.getCategoryCode());
+		
+		int result = service.insertBoardReport(map);
+		
+		String url = "redirect:" + request.getHeader("referer");
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "신고가 접수되었습니다.";
+		} else {
+			swalIcon = "error";
+			swalTitle = "신고 접수 실패";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 댓글 신고 페이지 연결
 	@RequestMapping("boardReplyReport")

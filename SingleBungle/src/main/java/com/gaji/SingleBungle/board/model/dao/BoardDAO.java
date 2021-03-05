@@ -168,6 +168,21 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectLikePushed", map);
 	}
 
+	/** 신고 등록 다음 게시글 번호 얻어오기 DAO
+	 * @return reportNo
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("boardMapper.selectReportNo");
+	}
+
+	/** 신고 등록 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertBoardReport(Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertBoardReport", map);
+	}
+
 
 	
 	

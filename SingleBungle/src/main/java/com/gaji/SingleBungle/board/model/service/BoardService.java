@@ -110,6 +110,13 @@ public interface BoardService {
 	public abstract int selectLikePushed(Map<String, Integer> map);
 
 
+	/** 신고 등록 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int insertBoardReport(Map<String, Object> map);
+
+
 
 	
 	

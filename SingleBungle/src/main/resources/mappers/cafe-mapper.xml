@@ -118,7 +118,7 @@
   <!-- 파일 정보 삽입 DAO -->
  	<insert id="insertAttachmentList" parameterType="list">
 		INSERT INTO CAFE_FILE
-		SELECT SEQ_CNO.NEXTVAL, A.* FROM (
+		SELECT SEQ_FNO.NEXTVAL, A.* FROM (
 		
 		<foreach collection="list" item="item" separator="UNION ALL">
 			SELECT #{item.filePath} FILE_PATH,

@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
-@RequestMapping("/board/reply/*")
+@RequestMapping("/boardReply/*")
 public class BoardReplyController {
 	
 	@Autowired

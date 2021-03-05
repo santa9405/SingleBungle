@@ -48,47 +48,6 @@
    padding: 10px;
 }
 
-/* 페이징바 */
-.flex {
-	-webkit-box-flex: 1;
-	-ms-flex: 1 1 auto;
-	flex: 1 1 auto;
-}
-
-@media (max-width:991.98px) {
-	.padding {
-	    padding: 1.5rem;
-	}
-}
-
-@media (max-width:767.98px) {
-	.padding {
-	    padding: 1rem;
-	}
-}
-
-.container { margin-top: 100px; }
-
-.pagination, .jsgrid .jsgrid-pager {
-	display: flex;
-	padding-left: 0;
-	list-style: none;
-	border-radius: 0.25rem;
-}
-
-.page-item > a, .page-item > a:hover { color: black; }
-
-.pagination.pagination-rounded-flat .page-item { margin: 0 .25rem; }
-
-.pagination-success .page-item.active .page-link {
-	background: #00c689;
-	border-color: #00c689;
-}
-
-.pagination.pagination-rounded-flat .page-item .page-link {
-	border: none;
-	border-radius: 50px;
-}
 </style>
 
 </head>

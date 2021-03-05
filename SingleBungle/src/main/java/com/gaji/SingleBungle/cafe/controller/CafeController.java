@@ -345,8 +345,9 @@ public class CafeController {
 	
 	
 	// 신고 페이지 연결 Controller
-	@RequestMapping("cafeReport")
-	public String cafeReport() {
+	@RequestMapping("cafeReport/{cafeNo}")
+	public String cafeReport(@PathVariable int cafeNo, Model model ) {
+		model.addAttribute("cafeNo", cafeNo);
 		return "cafe/cafeReport";
 	}
 	
@@ -360,7 +361,6 @@ public class CafeController {
 		map.put("memberNo", loginMember.getMemberNo());
 		map.put("cafeNo", cafeNo);
 		
-		System.out.println(map);
 		
 		map.put("reportTitle", report.getReportTitle());
 		map.put("reportContent", report.getReportContent());
@@ -368,18 +368,20 @@ public class CafeController {
 		
 		int result = service.insertCafeReport(map);
 		
-		String url = null;
+		String url = "redirect:" + request.getHeader("referer");
 		
 		if (result > 0) {
 			swalIcon = "success";
 			swalTitle = "신고가 접수되었습니다.";
-			url = "redirect:" + result;
+			//url = "redirect:" + result;
 		} else {
 			swalIcon = "error";
 			swalTitle = "신고 접수 실패";
-			url = "redirect:" + request.getHeader("referer");
+			//url = "redirect:" + request.getHeader("referer");
 		}
 		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
 		
 		return url;
 	}

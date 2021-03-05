@@ -24,4 +24,38 @@ public class CafeReplyDAO {
 		return sqlSession.selectList("cafeReplyMapper.selectReplyList", cafeNo);
 	}
 
+
+	/** 댓글 등록 DAO
+	 * @param reply
+	 * @return result
+	 */
+	public int insertReply(CafeReply reply) {
+		return sqlSession.insert("cafeReplyMapper.insertReply", reply);
+	}
+
+	/** 댓글 수정 DAO
+	 * @param reply
+	 * @return result
+	 */
+	public int updateReply(CafeReply reply) {
+		return sqlSession.update("cafeReplyMapper.updateReply", reply);
+	}
+
+	/** 댓글 삭제 DAO
+	 * @param replyNo
+	 * @return result
+	 */
+	public int deleteReply(int replyNo) {
+		return sqlSession.update("cafeReplyMapper.deleteReply", replyNo);
+	}
+
+	/** 답글 삽입 DAO
+	 * @param reply
+	 * @return
+	 */
+	public int insertChildReply(CafeReply reply) {
+		return sqlSession.insert("cafeReplyMapper.insertChildReply", reply);
+	}
+
+
 }
