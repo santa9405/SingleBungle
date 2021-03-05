@@ -11,7 +11,7 @@
     <result property="replyStatus" column="REPLY_STATUS"/>
     <result property="replyDepth" column="REPLY_DEPTH"/>
     <result property="memNo" column="MEM_NO"/>
-    <result property="nickName" column="NICKNAME"/>
+    <result property="nickname" column="NICKNAME"/>
     <result property="cafeNo" column="CAFE_NO"/> <!-- parentCafeNo -->
     <result property="parentReplyNo" column="PARENT_REPLY_NO"/>
 	</resultMap>
@@ -55,5 +55,18 @@
 		INSERT INTO CAFE_REPLY(REPLY_NO, REPLY_CONTENT, CAFE_NO, PARENT_REPLY_NO, MEM_NO, REPLY_DEPTH)
 		VALUES(SEQ_BRNO.NEXTVAL, #{replyContent}, #{cafeNo}, #{parentReplyNo}, #{memNo}, 1)
 	</insert>
+	
+	<!-- 댓글 신고 다음 번호 조회 -->
+	<select id="selectReportNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 댓글 신고 등록 -->
+	<insert id="insertBoardReport" parameterType="map">
+		INSERT INTO REPORT_REPLY_CAFE VALUES 
+		(#{reportNo}, #{reportTitle}, 
+		 #{reportContent}, #{memberNo}, #{categoryCode}, #{replyNo}, #{cafeNo})
+  </insert>
+	
 
 </mapper>

@@ -10,7 +10,7 @@ public class CafeReply {
 	private String replyStatus;
 	private int replyDepth;
 	private int memNo;
-	private String nickName;
+	private String nickname;
 	private int CafeNo; // parentCafeNo
 	private int parentReplyNo;
 	
@@ -65,12 +65,12 @@ public class CafeReply {
 		this.memNo = memNo;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getCafeNo() {
@@ -92,8 +92,8 @@ public class CafeReply {
 	@Override
 	public String toString() {
 		return "CafeReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
-				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickName="
-				+ nickName + ", CafeNo=" + CafeNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickname="
+				+ nickname + ", CafeNo=" + CafeNo + ", parentReplyNo=" + parentReplyNo + "]";
 	}
 	
 	
