@@ -35,7 +35,7 @@
    clear: both;
 }
 
-/*  댓글 작성 */
+/* 댓글 작성 */
 .createReply {
    height: 150px;
    background-color: honeydew;
@@ -146,7 +146,7 @@
 				var col4 = $("<div>").addClass("col-4");
 				var floatRight = $("<div>").addClass("reply float-right");
 				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
-				var report = $("<a>").attr("href", "#").text("신고");
+				var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport("+item.replyNo+")").text("신고");
 				
 				// 내용 영역
 				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
@@ -460,10 +460,17 @@
 		
 	}
 	
-	// 댓글 신고창 열기
-  $(".report").on("click", function(){
-      window.open('${contextPath}/cafe/cafeReplyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-	});
+	
+	// 댓글 신고창 열기(이게 진짜)
+	function openReport(replyNo){
+		event.preventDefault(); // a태그 기본 이벤트 제거
+		
+		window.name = "parentWindow";
+    window.open('${contextPath}/cafeReply/cafeReplyReport/'+replyNo+'?cafeNo=${cafe.cafeNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		
+	}
+	
+
 	</script>
 </body>
 </html>

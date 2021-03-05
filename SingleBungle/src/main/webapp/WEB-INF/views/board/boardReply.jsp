@@ -35,7 +35,7 @@
    clear: both;
 }
 
-/*  댓글 작성 */
+/* 댓글 작성 */
 .createReply {
    height: 150px;
    background-color: honeydew;
@@ -48,6 +48,26 @@
    padding: 10px;
 }
 
+/* 답글 */
+.childReply{
+	padding-left: 50px;  
+}
+
+.childReplyArea{
+	padding-top : 30px;
+	width : 100%;
+  text-align: right;
+}
+
+.childReplyContent{
+	resize: none;  
+	width : 100%; 
+}
+
+.replyUpdateContent {
+	resize: none;
+	width: 100%;
+}
 </style>
 
 </head>
@@ -58,117 +78,400 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-12">
-					<!-- 1개의 댓글 -->
-					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-						<div class="media-body">
-							<div class="row">
-								<div class="col-8 d-flex">
-									<h5>솔쨩</h5>
-									<span style="color: gray; font-size: 14px;">- 15:00</span>
-								</div>
-								<div class="col-4">
-									<div class="reply float-right">
-										<a href="#"><span>답글</span></a> <a class="replyReport" href="#"><span>신고</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="replyText">영수증 첨부해주세요.</div>
-							<div class="float-right" style="font-size: 13px;">
-								<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
-							</div>
-
-							<div class="media mt-3 reReply">
-								<div class="pr-3">
-									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-								</div>
-								<div class="media-body">
-									<div class="row">
-										<div class="col-12 d-flex">
-											<h6>달마고</h6>
-											<span style="color: gray; font-size: 14px;"> - 15:30</span>
-										</div>
-									</div>
-									<div class="replyText">지금 올렸어요</div>
-								</div>
-							</div>
-							<div class="media mt-3">
-								<div class="pr-3">
-									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-								</div>
-								<div class="media-body">
-									<div class="row">
-										<div class="col-12 d-flex">
-											<h6>솔쨩</h6>
-											<span style="color: gray; font-size: 14px;">- 15:31</span>
-										</div>
-									</div>
-									<div class="replyText">이미 신고했습니다.</div>
-									<div class="float-right" style="font-size: 13px;">
-										<a class="replyUpdate"> 수정 </a> <a class="replyDelete"> 삭제 </a>
-									</div>
-								</div>
-							</div>
-						</div>
+				
+					<!-- 댓글 출력 부분 -->
+					<div class="replyListArea">
+					
 					</div>
-					<hr>
-					<!-- 댓글 1개 끝나면 밑줄 -->
-
-					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-						<div class="media-body">
-							<div class="row">
-								<div class="col-8 d-flex">
-									<h5>크리스탈</h5>
-									<span style="color: gray; font-size: 14px;">- 16:00</span>
-								</div>
-								<div class="col-4">
-									<div class="reply float-right">
-										<a href="#"><span>답글</span></a> <a class="replyReport" href="#"><span>신고</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="replyText">?</div>
-						</div>
-					</div>
-					<hr>
+				
 					<!-- 댓글 작성창 -->
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
-							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="40">
-							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
+							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="35">
+							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" type="button">등록</button>
+							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
 							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
-					<!-- 페이징바 -->
-          <nav>
-	          <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-	            <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-	            <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-	            <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-	            <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-	            <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-	            <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-	          </ul>
-        	</nav>
-					
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 댓글 END -->
-	
-	
+
 	<script>
-    $(".replyReport").on("click", function(){
-       window.open('${contextPath}/board/boardReplyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-	 });
-   
-   
-   
+	var memNo = "${loginMember.memberNo}";
+	var parentBoardNo = "${board.boardNo}";
+	
+	// 페이지 로딩 완료 시 댓글 목록 호출
+	$(function(){
+		selectReplyList();
+	});
+	
+	// 댓글 목록 불러오기
+	function selectReplyList(){
+	
+		$.ajax({
+			url : "${contextPath}/boardReply/selectReplyList/" + parentBoardNo,
+			type : "post",
+			dataType : "json",
+			success : function(rList){
+				
+			console.log(rList)
+				
+			var replyListArea = $(".replyListArea");
+
+			// 기존 정보 초기화
+			replyListArea.html("");
+			
+			// 댓글 List 반복 접근
+			$.each(rList, function(index, item){
+				
+				var media = $("<div>").addClass("media mt-2");
+				
+				// 이미지
+				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
+																														.attr("style", "width: 30px;").attr("style", "height: 30px;");
+				
+				// 작성자, 작성일 영역
+				var mediaBody = $("<div>").addClass("media-body");
+				var row = $("<div>").addClass("row");
+				var col8 = $("<div>").addClass("col-8 d-flex");
+				var nickname = $("<h5>").html(item.nickname);
+				var createDt = $("<span>").attr("style", "color: gray;").attr("style", "font-size: 14px;").html(item.replyCreateDt);
+				
+				// 답글, 신고 버튼 영역
+				var col4 = $("<div>").addClass("col-4");
+				var floatRight = $("<div>").addClass("reply float-right");
+				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
+				var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport("+item.replyNo+")").text("신고");
+				
+				// 내용 영역
+				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
+				
+				var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
+				var replyUpdate = $("<a>").addClass("replyUpdate").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
+				var replyDelete = $("<a>").addClass("replyDelete").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
+			
+				// 밑줄
+				var hr = $("<hr>");
+				
+				// 댓글의 깊이가 1인 요소는 별도의 스타일을 지정할 수 있도록 클래스 추가
+				if(item.replyDepth == 1){
+					img.addClass("childReply");
+					mediaBody.addClass("childReply");
+				}
+				
+				// 댓글의 깊이가 0인 요소 신고 버튼 추가
+				if(item.replyDepth == 0){
+					reply2.append(report);
+				}
+				
+				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글 버튼 추가
+				if(memNo != "" && item.memNo != memNo){
+					col8.append(nickname).append(createDt);
+					floatRight.append(reply2);
+					col4.append(floatRight);
+					row.append(col8).append(col4);
+					mediaBody.append(row);
+					mediaBody.append(replyText);
+					media.append(img).append(mediaBody);
+					replyListArea.append(media).append(hr);
+			
+				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
+				}else if(item.memNo == memNo){
+					col8.append(nickname).append(createDt);
+					row.append(col8);
+					mediaBody.append(row);
+					mediaBody.append(replyText);
+					floatRight2.append(replyUpdate).append(replyDelete);
+					mediaBody.append(floatRight2);
+					media.append(img).append(mediaBody);
+					replyListArea.append(media).append(hr);
+
+				}
+				
+			});
+				
+			}, error : function(){
+				console.log("댓글 목록 조회 실패")
+			}
+			
+		});
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------
+	
+	// 댓글 등록
+	$("#addReply").on("click", function(){
+		
+		console.log();
+		
+		if(memNo == 0){
+			swal({icon : "info", title : "로그인 후 이용해 주세요."});
+		}else{
+			
+			var replyContent = $("#replyContent").val();
+			
+			if(replyContent.trim().length == 0){
+				swal({icon : "info", title : "댓글을 작성해 주세요."});
+			}else{
+				
+				$.ajax({
+					url : "${contextPath}/boardReply/insertReplyList/" + parentBoardNo,
+					type : "post",
+					data : {"memNo" : memNo, "replyContent" : replyContent },
+					success : function(result){
+						
+						if(result > 0){
+							
+							$("#replyContent").val("");
+							swal({icon : "success", title : "댓글이 작성되었습니다."});
+							selectReplyList();
+						}
+						
+					}, error : function(){
+						console.log("댓글 작성 실패");
+					}
+					
+					
+				});
+				
+			}
+			
+		}
+		
+	});
+	
+	//-----------------------------------------------------------------------------------------
+	
+	// 댓글 수정 폼
+	
+	var beforeReplyRow;
+	
+	function showUpdateReply(replyNo, el){
+		
+		// 이미 열려있는 댓글 수정 창이 있을 경우 닫아주기
+		if($(".replyUpdateContent").length > 0){
+			$(".replyUpdateContent").eq(0).parent().html(beforeReplyRow);
+		}
+		
+		// 댓글 수정화면 출력 전 요소 저장
+		beforeReplyRow = $(el).parent().parent().html();
+		
+		// 작성되어있던 내용
+		var beforeContent = $(el).parent().prev().html();
+		
+		// 이전 댓글 내용의 크로스사이트 스크립트 처리 해제, 개행문자 변경
+	  // -> 자바스크립트에는 replaceAll() 메소드가 없으므로 정규 표현식을 이용하여 변경
+	  beforeContent = beforeContent.replace(/&amp;/g, "&");   
+	  beforeContent = beforeContent.replace(/&lt;/g, "<");   
+	  beforeContent = beforeContent.replace(/&gt;/g, ">");   
+	  beforeContent = beforeContent.replace(/&quot;/g, "\"");   
+	  
+	  beforeContent = beforeContent.replace(/<br>/g, "\n");   
+	  
+	  // 기존 댓글 영역을 삭제하고 textarea를 추가
+	  $(el).parent().prev().remove();
+	  var textarea = $("<textarea>").addClass("replyUpdateContent").attr("rows", "3").val(beforeContent);
+	  $(el).parent().before(textarea);
+	  
+		// 수정 버튼
+	  var updateReply = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+	  
+	  // 취소 버튼
+	  var cancelBtn = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	  
+	  var replyBtnArea = $(el).parent();
+	  
+	  $(replyBtnArea).empty(); 
+	  $(replyBtnArea).append(updateReply); 
+	  $(replyBtnArea).append(cancelBtn); 
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------
+
+	// 댓글 수정
+	function updateReply(replyNo, el){
+		
+		var replyContent = $(el).parent().prev().val();
+		
+		if(replyContent.trim().length == 0){
+			swal({icon : "info", title : "댓글을 입력해주세요."});
+		}else{
+			$.ajax({
+				url : "${contextPath}/boardReply/updateReply/" + replyNo,
+				type : "post",
+				data : {"replyContent" : replyContent},
+				success : function(result){
+					
+					if(result > 0){
+						swal({icon : "success", title : "댓글 수정 성공"});
+						selectReplyList();
+					}
+					
+				}, error : function(){
+					console.log("댓글 수정 실패");
+				}
+				
+			});
+		}
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------
+
+	// 댓글 수정 취소 시 원래대로 돌아가기
+	function updateCancel(el){
+		$(el).parent().parent().html(beforeReplyRow);
+	}
+	
+	//-----------------------------------------------------------------------------------------
+
+	// 댓글 삭제
+	function deleteReply(replyNo){
+		
+		if(confirm("정말로 삭제하시겠습니까?")){
+			
+			$.ajax({
+				url : "${contextPath}/boardReply/deleteReply/" + replyNo,
+				success : function(result){
+					
+					if(result > 0){
+						swal({icon : "success", title : "댓글 삭제 성공"});		
+						selectReplyList();
+					}
+					
+				}, error : function(){
+					console.log("댓글 삭제 실패");
+				}
+			
+			});
+		}
+	}
+	
+	//-----------------------------------------------------------------------------------------
+
+	// 답글 버튼 동작 (대댓글 작성 영역 생성)
+	function addChildReplyArea(el, parentReplyNo){
+		
+		// 생성되어 있는 모든 답글 작성 영역을 화면에서 제거
+		var check = cancelChildReply();
+		
+		// 이전에 생성된 대댓글 영역이 모두 삭제된 경우에만 새로운 대댓글 영역 생성
+		if(check){
+			
+			// 댓글 작성자 닉네임 얻어오기
+			var writer = $(el).parent().parent().prev().children("h5").text();
+			
+			// 답글 작성 영역에 필요한 요소(textarea, button 2개) 생성
+			
+			var div = $("<div>").addClass("childReplyArea"); // 대댓글 작성 영역 전체를 감쌀 div
+			var textarea = $("<textarea rows='3'>").addClass("childReplyContent")
+											.attr("placeholder", writer + "님께 답글 작성하기");
+			
+			var btnArea = $("<div>").addClass("btnArea");
+			var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1").text("등록")
+			.attr("onclick", "addChildReply(this, " + parentReplyNo + ")");
+			
+			var cancelBtn = $("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")
+			.attr("onclick", "cancelChildReply()");
+			
+			btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼 추가
+			div.append(textarea).append(btnArea); // 대댓글 영역에 textarea, 버튼 영역 추가
+			
+			$(el).parent().parent().parent().parent().parent().after().after(div); // 답글 버튼 부모 요소 다음(이후)에 대댓글 영역 추가
+			
+			// 추가된 대댓글 영역으로 포커스 이동
+			$(".childReplyContent").focus();
+			
+		}
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------
+	
+	// 답글(대댓글) 취소
+	// 내용이 작성되어 있으면 취소버튼 클릭 시 confirm 창 띄우기
+	function cancelChildReply(){
+		
+		// 대댓글 영역에 작성된 내용 얻어오기
+		var tmp = $(".childReplyContent").val();
+		
+		// 대댓글 textarea에 아무것도 작성되지 않았거나, 대댓글 textarea가 없을 경우
+		// == 아무것도 작성되지 않으면 confirm창으로 확인하는 과정 없이 바로 닫히게 만듦.
+		if(tmp == "" || tmp == undefined){
+			// 대댓글 작성 영역 childReplyArea을 모두 제거
+			$(".childReplyArea").remove();
+		return true;
+		}
+		
+		else{ // 답글 textarea에 무언가 작성되어 있을 경우
+			
+			var cancelConfirm = confirm("작성된 댓글 내용이 사라집니다. 작성 취소 하시겠습니까?");
+		
+			if(cancelConfirm){
+				$(".childReplyArea").remove();
+			}
+			
+			return cancelConfirm;
+			
+		}
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------
+
+	// 답글(대댓글) 등록
+	function addChildReply(el, parentReplyNo){
+		
+		var replyContent =	$(el).parent().prev().val();
+		
+		if(replyContent.trim().length == 0){ // 대댓글 미작성 시
+			swal({icon : "info", title : "댓글 작성 후 클릭해주세요"});
+		}
+		
+		else{
+			$.ajax({
+				url : "${contextPath}/boardReply/insertChildReply/" + parentBoardNo,
+				data : {"parentReplyNo" : parentReplyNo,
+								"replyContent" : replyContent,
+								"memNo" : memNo},
+				
+								type : "post",
+				success : function(result){
+					
+					if(result > 0){
+						swal({icon : "success", title : "답글 등록 성공"});
+						selectReplyList();
+					}
+					
+				}, error : function(){
+					console.log("답글 등록 실패");
+				}
+				
+			});		
+			
+		}
+		
+	}
+	
+	// 댓글 신고창 열기(이게 진짜)
+	function openReport(replyNo){
+		event.preventDefault(); // a태그 기본 이벤트 제거
+		
+		window.name = "parentWindow";
+    window.open('${contextPath}/boardReply/boardReplyReport/'+replyNo+'?boardNo=${board.boardNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		
+		
+	}
+	
+	
 	</script>
+   
 </body>
 </html>

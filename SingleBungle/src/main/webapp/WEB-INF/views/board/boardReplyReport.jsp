@@ -19,8 +19,24 @@
 </style>
 </head>
 <body>
+<c:if test="${swalIcon == 'success' }">
+	<script>
+		swal({icon : "${swalIcon}",
+		 title : "${swalTitle}",
+		 text : "${swalText}"}).then(function(){close()});
+	</script>
+</c:if>
+<c:if test="${swalIcon == 'error' }">
+	<script>
+		swal({icon : "${swalIcon}",
+		 title : "${swalTitle}",
+		 text : "${swalText}"});
+	</script>
+</c:if>
    <div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
-     <form method="POST" action="boardReplyReportAction" class="needs-validation" name="report">
+     <form method="POST" action="../boardReplyReportAction" class="needs-validation" name="report">
+     <input type="hidden" name="replyNo" value="${replyNo }">
+     <input type="hidden" name="boardNo" value="${param.boardNo }">
      <div class="form-group row">
       <label for="recipient-name" class="col-sm-3 col-form-label">신고 제목</label>
        <div class="col-sm-9">

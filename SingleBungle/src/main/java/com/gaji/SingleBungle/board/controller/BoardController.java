@@ -335,21 +335,5 @@ public class BoardController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 댓글 신고 페이지 연결
-	@RequestMapping("boardReplyReport")
-	public String replyReport() {
-		return "board/boardReplyReport";
-	}
-	
 
 }

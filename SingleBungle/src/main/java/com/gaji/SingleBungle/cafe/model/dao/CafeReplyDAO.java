@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.cafe.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,22 @@ public class CafeReplyDAO {
 	 */
 	public int insertChildReply(CafeReply reply) {
 		return sqlSession.insert("cafeReplyMapper.insertChildReply", reply);
+	}
+
+
+	/** 신고 등록 다음 게시글 번호 얻어오기 DAO
+	 * @return reportNo
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("cafeReplyMapper.selectReportNo");
+	}
+
+	/** 신고 등록 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertBoardReport(Map<String, Object> map) {
+		return sqlSession.insert("cafeReplyMapper.insertBoardReport", map);
 	}
 
 

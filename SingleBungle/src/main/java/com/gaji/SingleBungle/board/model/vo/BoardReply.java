@@ -10,7 +10,7 @@ public class BoardReply {
 	private String replyStatus;
 	private int replyDepth;
 	private int memNo;
-	private String nickName;
+	private String nickname;
 	private int parentBoardNo;
 	private int parentReplyNo;
 	
@@ -65,12 +65,12 @@ public class BoardReply {
 		this.memNo = memNo;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getParentBoardNo() {
@@ -92,8 +92,8 @@ public class BoardReply {
 	@Override
 	public String toString() {
 		return "BoardReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
-				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickName="
-				+ nickName + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickname="
+				+ nickname + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
 	}
 	
 	

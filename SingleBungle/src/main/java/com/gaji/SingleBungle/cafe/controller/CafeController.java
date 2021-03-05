@@ -389,18 +389,5 @@ public class CafeController {
 	
 	
 	
-	// 댓글 신고 페이지 연결 Controller
-	@RequestMapping("cafeReplyReport")
-	public String replyReport() {
-		return "cafe/cafeReplyReport";
-	}
-	
-	// 댓글 신고 등록 Controller
-	@RequestMapping("cafeReplyReportAction")
-	public String insertReplyReport() {
-		return "cafe/cafeReplyReport";
-	}
-	
-	
 
 }
