@@ -15,6 +15,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
+.btn { background-color: #00c689 !important;
+color: #FFFFFF !important; }
+
 .boardName { margin-right: 40px; }
 
 .category {
@@ -179,7 +182,7 @@
                   </table>
 									<%-- 로그인이 되어있는 경우 --%>
 									<%-- <c:if test="${!empty loginMember }"> --%>
-										<a class="btn btn-success float-right" href="${contextPath}/board/insert">글쓰기</a>
+										<a class="btn float-right" href="${contextPath}/board/insert">글쓰기</a>
 									<%-- </c:if> --%>
 									
                   <!--------------------------------- pagination  ---------------------------------->
@@ -216,9 +219,9 @@
 													<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 														<c:if test="${bpInfo.currentPage > bpInfo.pageSize}">
 															<!-- 첫 페이지로 이동(<<) -->
-															<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+															<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
 															<!-- 이전 페이지로 이동 (<) -->
-															<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+															<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 														</c:if>
 														
 														<!-- 페이지 목록 -->
@@ -237,9 +240,9 @@
 														<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
 														<c:if test="${next <= bpInfo.maxPage}">
 															<!-- 다음 페이지로 이동 (>) -->
-															<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+															<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
 															<!-- 마지막 페이지로 이동(>>) -->
-															<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+															<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 														</c:if>
 													</ul>
 												</nav>
@@ -259,7 +262,7 @@
                       <option value="titcont">제목+내용</option>
                     </select>
                     <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                    <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+                    <button class="form-control btn" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
                     </form>
                   </div>
             </div>
@@ -296,29 +299,7 @@
 		
 		
 		
-		// 카테고리 정렬
-		
-		$(function(){
-    	$("button").on('click',function(){
-    			var kind = $(this).val();  //버튼이 클릭 되었을 때 그 버튼의 value를 var kind로 가져와서	
-    			$.ajax({
-    				 				url : "${contextPath}/board/list", // 이 주소로 
-    	              type : "post", // 포스트 방식으로 보내는데
-    	              cache: false,
-    	              headers: {"cache-control":"no-cache", "pragma": "no-cache"},
-    	              data : {"kind" : kind}, // kind를 kind로 명명하여 보내겠다
-    	              success : function(data){ 
-    	                 console.log(data);
-    	                
-    	                 $('body').html(data); //성공할시에 body부분에 data라는 html문장들을 다 적용시키겠다
-    	              },
-    	              error : function(data){
-    	            	 alert('error');
-    	               
-    	              }//error
-    			})//ajax
-    		});//click
-    });//ready
+
 		
 		
 		

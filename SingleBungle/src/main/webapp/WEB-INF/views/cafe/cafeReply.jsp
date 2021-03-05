@@ -461,7 +461,7 @@
 	}
 	
 	
-	// 댓글 신고창 열기(이게 진짜)
+	// 댓글 신고창 열기
 	function openReport(replyNo){
 		event.preventDefault(); // a태그 기본 이벤트 제거
 		

@@ -19,6 +19,7 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
@@ -28,6 +29,14 @@
   	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
    	<style>
+   	* {
+				font-family: 'Noto Sans KR', sans-serif;
+				font-weight: 500;
+				/* 굵기 지정(100, 300, 400, 500, 700) */
+				font-size: 16px;
+				color: #212529;
+				margin: 0;
+		}
 	
    	</style>
 </head>

@@ -14,6 +14,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
+.updateBtn, .insert-list1, .insert-list2 { background-color: #00c689 !important;
+color: #FFFFFF !important; }
+
 #boardNo {
 	display: none;
 }
@@ -60,8 +63,8 @@
                 
                 <h8>자유게시판</h8>
 								<div class="float-right">
-									<button type="button" class="btn btn-secondary mb-3 btn-success insert-list1">목록</button>
-									<button type="button" class="btn btn-secondary mb-3 btn-danger report">신고</button>
+									<button type="button" class="btn btn-sm mb-3 insert-list1">목록</button>
+									<button type="button" class="btn btn-sm mb-3 btn-danger report">신고</button>
 								</div>
 								<span id="boardNo">${board.boardNo}</span>
                 <div id="board-area">
@@ -87,7 +90,7 @@
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${board.createDate}</div>
 										<div class="infoArea float-right">
-											<img class="image" id="view" src="${contextPath}/resources/images/view.png"> ${board.readCount} <span>
+											<i class="far fa-eye"></i> ${board.readCount} <span>
 												<!-- 좋아요 버튼 -->
 												<button type="button" id="likeBtn" class="likeBtns">
 													<img src="${contextPath}/resources/images/like1.png" 
@@ -121,8 +124,8 @@
 											
 												<!-- 로그인된 회원이 글 작성자인 경우 -->
 												<c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
-													<button type="button" class="btn btn-success updateBtn">수정</button>
-													<button type="button" class="btn btn-danger deleteBtn">삭제</button>
+													<button type="button" class="btn btn-sm updateBtn">수정</button>
+													<button type="button" class="btn btn-sm btn-danger deleteBtn">삭제</button>
 												</c:if>
 											</div>
 										</div>
@@ -132,7 +135,7 @@
 								<!-- 목록버튼 -->
 								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<button type="button" class="btn btn-success insert-list2">목록으로</button>
+										<button type="button" class="btn insert-list2">목록으로</button>
 									</div>
 								</div>
 								
