@@ -27,7 +27,7 @@ color: #FFFFFF !important; }
 
 .category:hover {
 	text-decoration: none;
-	color: rgb(214, 156, 30);
+	color: gray;
 }
 
 #list-table > tbody > tr:hover {
@@ -109,9 +109,9 @@ color: #FFFFFF !important; }
 				          <div class="text-black banner">
 				            <h1 class="boardName float-left">자유게시판</h1>
 				                  <a class="category" href="#">전체</a> | 
+				                  <a class="category" href="#">일상</a> | 
 				                  <a class="category" href="#">여행</a> | 
 				                  <a class="category" href="#">영화</a> | 
-				                  <a class="category" href="#">일상</a> | 
 				                  <a class="category" href="#">경제</a> | 
 				                  <a class="category" href="#">반려동물</a> | 
 				                  <a class="category" href="#">요리레시피</a>
@@ -151,12 +151,12 @@ color: #FFFFFF !important; }
 														<td>${board.boardNo}</td>
 														<td>
 														<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-				                    <c:if test="${board.categoryCode == '11'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
-				                    <c:if test="${board.categoryCode == '12'}">background-color: gray;</c:if>
-				                    <c:if test="${board.categoryCode == '13'}">background-color: rgb(135, 222, 150);</c:if>
-				                    <c:if test="${board.categoryCode == '14'}">background-color: navy;</c:if>
-				                    <c:if test="${board.categoryCode == '15'}">background-color: rgb(245, 91, 125);</c:if>
-				                    <c:if test="${board.categoryCode == '16'}">background-color: burlywood;</c:if> '>${board.categoryName}</div>
+				                    <c:if test="${board.categoryCode == '11'}">background-color: #9ea9d7;</c:if>
+				                    <c:if test="${board.categoryCode == '12'}">background-color: #d2add9;</c:if>
+				                    <c:if test="${board.categoryCode == '13'}">background-color: #AFD485;</c:if>
+				                    <c:if test="${board.categoryCode == '14'}">background-color: #e1c66d;</c:if>
+				                    <c:if test="${board.categoryCode == '15'}">background-color: #ef8694;</c:if>
+				                    <c:if test="${board.categoryCode == '16'}">background-color: #f6b06b;</c:if> '>${board.categoryName}</div>
 														</td>
 														<td>${board.boardTitle}</td>
 														<td>${board.nickname}</td>

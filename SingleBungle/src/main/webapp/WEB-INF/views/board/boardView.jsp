@@ -71,12 +71,12 @@ color: #FFFFFF !important; }
                     <!-- 카테고리 -->
                     <h2>
                     <div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-                    <c:if test="${board.categoryCode == '11'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
-                    <c:if test="${board.categoryCode == '12'}">background-color: gray;</c:if>
-                    <c:if test="${board.categoryCode == '13'}">background-color: rgb(135, 222, 150);</c:if>
-                    <c:if test="${board.categoryCode == '14'}">background-color: navy;</c:if>
-                    <c:if test="${board.categoryCode == '15'}">background-color: rgb(245, 91, 125);</c:if>
-                    <c:if test="${board.categoryCode == '16'}">background-color: burlywood;</c:if>'>${board.categoryName}</div>
+                    <c:if test="${board.categoryCode == '11'}">background-color: #9ea9d7;</c:if>
+                    <c:if test="${board.categoryCode == '12'}">background-color: #d2add9;</c:if>
+                    <c:if test="${board.categoryCode == '13'}">background-color: #AFD485;</c:if>
+                    <c:if test="${board.categoryCode == '14'}">background-color: #e1c66d;</c:if>
+                    <c:if test="${board.categoryCode == '15'}">background-color: #ef8694;</c:if>
+                    <c:if test="${board.categoryCode == '16'}">background-color: #f6b06b;</c:if>'>${board.categoryName}</div>
                     
                     <!-- 제목 -->
                     	${board.boardTitle}</h2>
