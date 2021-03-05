@@ -40,177 +40,99 @@
 	padding: 10px;
 }
 
-/* 답글/신고 버튼  */
-
-.col-4{
-	padding : 0 !important;
-}
-.reply{
-	margin-right : 10px;
+/* 답글 */
+.childReply{
+	padding-left: 50px;  
 }
 
-.btn{
-	width: 45px;
-	padding : 0 !important;
-	
+.childReplyArea{
+	padding-top : 30px;
+	width : 100%;
+  text-align: right;
 }
 
-/* 댓글 시간 */
-.replyTime{
-   color: gray; 
-   font-size: 14px;
+.childReplyContent{
+	resize: none;  
+	width : 100%; 
 }
 
-/* 수정/삭제버튼  */
-
-.replyUpdateArea{
-	width: 25px;
-	font-size : 10px !important;
+.replyUpdateContent {
+	resize: none;
+	width: 100%;
 }
-
-
-/* 댓글 수정삭제 버튼  */
-
-
 </style>
 
 <!-- 부트스트랩 사용을 위한 css 추가 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
 </head>
+
+
 <body>
+
 
 	<!-- 댓글 -->
 	<div class="row bg-light" style="margin-top: 15px;">
 		<div class="col-md-12">
 			<div class="row">
-				<div class="col-md-12" id="replyListArea">
-					<!-- 1개의 댓글 -->
-					
-					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-						<div class="media-body">
-							<div class="row">
-								<div class="col-8 d-flex">
-									<h6>솔쨩</h6>
-									<span style="color: gray; font-size: 14px;">- 15:00</span>
-								</div>
-								<div class="col-4">
-									<div class="reply float-right">
-										<button class="btn">답글</button> 
-										<button class="btn report">신고</button>
-									</div>
-								</div>
-							</div>
-							<div class="replyText">영수증 첨부해주세요.</div>
-							<div class="float-right" ">
-								<button class="btn btn-sm ml-1 replyUpdateArea"> 수정 </button> 
-								<button class="btn btn-sm ml-1 replyUpdateArea"> 삭제 </button>
-							</div>
-
-							<div class="media mt-3 reReply">
-								<div class="pr-3">
-									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-								</div>
-								<div class="media-body">
-									<div class="row">
-										<div class="col-12 d-flex">
-											<h7>달마고</h7>
-											<span style="color: gray; font-size: 14px;"> - 15:30</span>
-										</div>
-									</div>
-									<div class="replyText">지금 올렸어요</div>
-								</div>
-							</div> 
+				<div class="col-md-12">
+				
+					<!-- 댓글 출력 부분 -->
+					<div class="replyListArea">
 							
-<%-- 							<div class="media mt-3 reReply">
-								<div class="pr-3">
-									<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" />
-								</div>
-								<div class="media-body">
-									<div class="row">
-										<div class="col-12 d-flex">
-											<h6>솔쨩</h6>
-											<span style="color: gray; font-size: 14px;">- 15:31</span>
-										</div>
-									</div>
-									<div class="replyText">이미 신고했습니다.</div>
-									<div class="float-right" style="font-size: 13px;">
-										<a class="replyUpdate" href="#"> 수정 </a> 
-										<a class="replyDelete" href="#"> 삭제 </a>
-									</div>
-								</div>
-							</div> --%>
-						</div>
-					</div><!-- 끗 -->
-					<hr>
-					<!-- 댓글 1개 끝나면 밑줄 -->
-
-					<div class="media mt-2">
-						<img class="mr-3 rounded-circle" src="${contextPath}/resources/images/profile.png" />
-						<div class="media-body">
-							<div class="row">
-								<div class="col-8 d-flex">
-									<h5>크리스탈</h5>
-									<span style="color: gray; font-size: 14px;">- 16:00</span>
-								</div>
-								<div class="col-4">
-									<div class="reply float-right">
-										<button>답글</button> 
-										<button class="report">신고</button>
-									</div>
-								</div>
-							</div>
-							<div class="replyText">?</div>
-						</div>
 					</div>
-					<hr> <!-- 끗 -->
-					
-					
-					
-					
-					
-					
+		
 					<!-- 댓글 작성창 -->
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
 							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="35">
-							<textarea class="form-control ml-1 shadow-none textarea" style="resize: none"> </textarea>
+							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
 							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
 							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
-						
-						
-						
-						
-						
-								<!-------------------------------- 페이징 ------------------------------------>
+					
+					
+					
+		
+							<!-------------------------------- 페이징 ------------------------------------>
 							<div class="page-content page-container" id="page-content">
 								<div class="padding">
 									<div class="row container d-flex justify-content-center">
 										<div class="col-md-4 col-sm-6 grid-margin stretch-card">
 											<nav>
 												<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+													<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
 													<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 													<li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
 													<li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
 													<li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
 													<li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
 													<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+													<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 												</ul>
 											</nav>
 										</div>
 									</div>
 								</div>
 							</div>
-							<!-- 페이징 끝 -->
-
-				</div>
+							<!-- 페이징 끝 -->			
+					</div>	
 			</div>
 		</div>
 	</div>
+					
+					
+							
+
+						
+			
+
+
 	<!-- 댓글 END -->
 	
 <script>
@@ -231,15 +153,16 @@
 	function selectReplyList(){
 		
 		$.ajax({
-			url : "${contextPath}/reviewReply/selectReplyList" + parentBoardNo,
+			url : "${contextPath}/reviewReply/selectReplyList/" + parentBoardNo,
 			type : "post",
 			dataType : "json",
 			success : function(rList){
 				
+				console.log(rList)
 				
-				var replyListArea=${"#replyListArea}"} // 댓글 출력 영역
+				var replyListArea = $(".replyListArea"); // 댓글 출력 영역
 				
-				replyListarea.html(""); // 기존 정보 초기화
+				replyListArea.html(""); // 기존 정보 초기화
 				
 				
 				
@@ -248,70 +171,77 @@
 				$.each(rList, function(index,item){
 					
 					// 댓글 출력 영역
-					var div1 = $("<div>").addClass("media mt-2");
-					
-					// 대댓글 영역에 다른 class명 추가
-					if(item.replyDepth ==1){
-						var reDiv1 = $("<div>").addClass("media mt-3 reReply");
-					}
+					var media = $("<div>").addClass("media mt-2");
 					
 						
 					// 프로필 출력
-					var img = $("<img>").addClass("mr-3 rounded-circle").src("${contextPath}/resources/images/profile.png");
+					var img = $("<img>").addClass("mr-3 rounded-circle").src("${contextPath}/resources/images/profile.png").attr("style", "width: 30px;").attr("style", "height: 30px;");
 					
 					
 					// 프로필 제외 전체 감싸주는 div
-					var div2 =$("<div>").addClass("media-body");
+					var mediaBody =$("<div>").addClass("media-body");
 
 					// 닉네임, 시간 영역 과 버튼 영역 묶어주는 div
-					var div3 =$("<div>").addClass("row");
+					var row =$("<div>").addClass("row");
 					
 					// 닉네임 시간 div
-					var div4 = $("<div>").addClass("col-8 d-flex");
-					var nickName = $("<h6>").html(item.nickName); 
-					var time = $("<span>").addClass("replyTime").html(item.replyCreateDt); // 시간 출력하고싶음,,조건
-					div4.append(nickName, time);
-					
-					// 버튼 div
-					var div5 = $("<div>").addClass("col-4");
-					var replyBtnArea = $("<div>").addClass("reply float-right");
-					
-					
-					// 로그인이 되어있고, 대댓글이 아닐 경우 답글 버튼 추가
-					if(loginMemberId!="" && item.replyDepth!=1){
-						
-						var insertBtn = $("button").addClass("btn").text("답글").attr("onclick", "adChildReplyArea(this,"+ item.parentReplyNo + ")" ); 
-						var reportBtn = $("button").addClass("btn report").text("신고");
-						
-						ReplyBtnArea.append(insertBtn, reportBtn);
-					}
-					
-					// 버튼 영역에 버튼,,추가?
-					div5.append(ReplyBtnArea);
-					
-					// div(class="row") 에 닉넴이랑 버튼 영역 추가
-					div3.append(div4, div5);
-					
-					
-					// 댓글 내용
-					var rContent =$("<div>").addClass("replyText").html(item.replyContent);
-					
-					// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 버튼 추가
-          if(item.memberId == loginMemberId){
-              var replyUpdateArea = $("<div>").addClass("float-right");
-              // ** 추가되는 댓글에 onclick 이벤트를 부여하여 버튼 클릭 시 수정, 삭제를 수행할 수 있는 함수를 이벤트 핸들러로 추가함. 
-              var showUpdate = $("<button>").addClass("btn btn-sm ml-1 replyUpdateArea").text("수정").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)");
-              var deleteReply = $("<button>").addClass("btn btn-sm ml-1 replyUpdateArea").text("삭제").attr("onclick", "deleteReply(" + item.replyNo + ")");
-              
-              replyUpdateArea.append(showUpdate, deleteReply);
-           }
+					var col8 = $("<div>").addClass("col-8 d-flex");
+					var nickName = $("<h5>").html(item.nickName); 
+					var createDt = $("<span>").attr("style", "color: gray;").attr("style", "font-size: 14px;").html(item.replyCreateDt);
 
 					
-					div2.append(div3,rContent,replyUpdateArea);
-					div1.append(img,div2);
+					// 답글, 신고 버튼 영역
+					var col4 = $("<div>").addClass("col-4");
+					var floatRight = $("<div>").addClass("reply float-right");
+					var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
+					var report = $("<a>").attr("href", "#").text("신고");
 					
-					// 댓글 영역을 화면에 배치
-					replyListArea.append(div1);
+					// 내용 영역
+					var replyText = $("<div>").addClass("replyText").html(item.replyContent);
+					
+					var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
+					var replyUpdate = $("<a>").addClass("replyUpdate").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
+					var replyDelete = $("<a>").addClass("replyDelete").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
+				
+					// 밑줄
+					var hr = $("<hr>");
+					
+					
+					// 댓글의 깊이가 1인 요소는 별도의 스타일을 지정할 수 있도록 클래스 추가
+					if(item.replyDepth == 1){
+						img.addClass("childReply");
+						mediaBody.addClass("childReply");
+					}
+					
+					// 댓글의 깊이가 0인 요소 신고 버튼 추가
+					if(item.replyDepth == 0){
+						reply2.append(report);
+					}
+					
+					
+					// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글 버튼 추가
+					if(memNo != "" && item.memNo != memNo){
+						col8.append(nickname).append(createDt);
+						floatRight.append(reply2);
+						col4.append(floatRight);
+						row.append(col8).append(col4);
+						mediaBody.append(row);
+						mediaBody.append(replyText);
+						media.append(img).append(mediaBody);
+						replyListArea.append(media).append(hr);
+				
+					// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
+					}else if(item.memNo == memNo){
+						col8.append(nickname).append(createDt);
+						row.append(col8);
+						mediaBody.append(row);
+						mediaBody.append(replyText);
+						floatRight2.append(replyUpdate).append(replyDelete);
+						mediaBody.append(floatRight2);
+						media.append(img).append(mediaBody);
+						replyListArea.append(media).append(hr);
+
+					}
 					
 				});
 			}, 
@@ -339,7 +269,7 @@
 				$.ajax({
 					url : "${contextPath}/reviewReply/insertReply/" + parentBoardNo,
 					type : "post",
-					data : {"replyWriter" : replyWriter, "replyContent":replyContent},
+					data : {"loginMemberNo" : loginMemberNo, "replyContent":replyContent},
 					success : function(result){
 						if(result>0){
 							$("#replyContent").val(""); // 작성한 댓글 내용을 삭제
@@ -348,13 +278,15 @@
 						}
 					},
 					error : function(){
-						console.log("댓글 삽입 실패");
+						console.log("댓글 작성 실패");
 					}
 				});
 			}
 		}
 	});
 	
+
+
 
 
 

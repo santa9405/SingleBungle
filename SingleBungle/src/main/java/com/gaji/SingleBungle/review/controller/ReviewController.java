@@ -45,31 +45,47 @@ public class ReviewController {
 	
 	// 목록 조회
 	@RequestMapping("list")
-	public String reviewList(@RequestParam(value="cp", required=false, defaultValue="1") int cp, Model model) {
+	public String reviewList(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
+							@ModelAttribute("loginMember") Member loginMember, Model model,
+							RedirectAttributes ra) {
 		
-		// 페이징 처리
-		ReviewPageInfo pInfo = service.getPageInfo(cp);
+		String url = null;
 		
+		if(loginMember.getMemberGrade().charAt(0) == 'T') {
+			swalIcon = "error";
+			swalTitle ="후기게시판은 2등급부터 이용할 수 있습니다.";
+			url = "redirect:/";
+		}else {
 		
-		//게시글 목록 조회
-		List<Review> rList = service.selectList(pInfo);
-		
-		
-		/* 썸네일 출력 */
-		if(rList!=null && !rList.isEmpty()) {
-			List<ReviewAttachment> thumbnailList = service.selectThumbnailList(rList);
+			// 페이징 처리
+			ReviewPageInfo pInfo = service.getPageInfo(cp);
 			
 			
-			if(thumbnailList!=null) {
-				model.addAttribute("thList", thumbnailList);
+			//게시글 목록 조회
+			List<Review> rList = service.selectList(pInfo);
+			
+			
+			/* 썸네일 출력 */
+			if(rList!=null && !rList.isEmpty()) {
+				List<ReviewAttachment> thumbnailList = service.selectThumbnailList(rList);
+				
+				
+				if(thumbnailList!=null) {
+					model.addAttribute("thList", thumbnailList);
+				}
+			
 			}
-		
+			
+			model.addAttribute("rList", rList);
+			model.addAttribute("pInfo",pInfo);
+			
+			url = "review/reviewList";
 		}
 		
-		model.addAttribute("rList", rList);
-		model.addAttribute("pInfo",pInfo);
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
 		
-		return "review/reviewList";
+		return url;
 	}
 	
 	
@@ -97,19 +113,25 @@ public class ReviewController {
 				if(thumbnailList!=null) {
 					model.addAttribute("thList", thumbnailList);
 				}
-				
 			}
 			
 			// 좋아요 정보 출력
 			int memberNo = loginMember.getMemberNo();
 			
 			List<ReviewLike> likeInfo = service.selectLike(memberNo);
-			System.out.println(likeInfo);
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", memberNo);
+			map.put("boardNo", boardNo);
+			
+			int like = service.selectLikePushed(map);
+			
 			
 			model.addAttribute("review",review);
 			model.addAttribute("reviewList",reviewList);
 			model.addAttribute("likeInfo",likeInfo);
-
+			model.addAttribute("like", like);
+			
 			url = "review/reviewView";
 		}else {
 			
@@ -158,12 +180,6 @@ public class ReviewController {
 		int result = service.decreaseLike(map);
 		return result;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

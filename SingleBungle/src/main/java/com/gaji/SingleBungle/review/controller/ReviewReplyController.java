@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,17 +43,14 @@ public class ReviewReplyController {
 	
 	
 	
-	
+	// 댓글 삽입
 	@RequestMapping("insertReply/{parentBoardNo}")
 	public int insertReply(@PathVariable("parentBoardNo") int parentBoardNo,
-						   @RequestParam("loginMemberNo") int loginMemberNo, @RequestParam("replyContent") String replyContent) {
+						   @ModelAttribute("reply") ReviewReply reply) {
 	
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("parentBoardNo", parentBoardNo);
-		map.put("loginMemberNo", loginMemberNo);
-		map.put("replyContent", replyContent);
+		reply.setParentBoardNo(parentBoardNo);
 		
-		int result = service.insertReply(map);
+		int result = service.insertReply(reply);
 		
 		return result;
 	}

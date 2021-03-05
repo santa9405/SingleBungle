@@ -133,6 +133,14 @@ public interface ReviewService {
 
 
 
+	/** 좋아요 여부 확인
+	 * @param map
+	 * @return
+	 */
+	int selectLikePushed(Map<String, Integer> map);
+
+
+
 
 
 

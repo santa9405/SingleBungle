@@ -19,9 +19,9 @@ public interface ReviewReplyService {
 	
 	
 	/** 댓글 삽입
-	 * @param map
+	 * @param reply
 	 * @return result
 	 */
-	int insertReply(Map<String, Object> map);
+	int insertReply(ReviewReply reply);
 
 }
