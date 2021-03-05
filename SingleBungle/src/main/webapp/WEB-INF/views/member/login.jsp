@@ -84,6 +84,15 @@ a:hover {
 </head>
 
 <body>
+	
+	<c:if test="${!empty swalTitle}">
+		<script>
+			swal({icon : "${swalIcon}",
+				 title : "${swalTitle}",
+				 text : "${swalText}"});
+		</script>
+	</c:if>
+
 	<div class="container" id="login-container">
 		<div class="row">
 			<div class="col-md-4">
@@ -99,7 +108,7 @@ a:hover {
 					</div>
 
 					<div class="form-label-group">
-						<input type="password" id="memberPwd" class="form-control" placeholder="비밀번호" required>
+						<input type="password" id="memberPwd" name="memberPwd" class="form-control" placeholder="비밀번호" required>
 					</div>
 
 					<div class="checkbox mb-3">
@@ -120,7 +129,7 @@ a:hover {
 							<a class="pw" href="#">비밀번호 찾기</a>
 						</div>
 						<div class="idpw-right">
-							<a class="signup" href="#">회원가입</a>
+							<a class="signup" href="${contextPath}/member/signUp">회원가입</a>
 						</div>
 
 						<br>

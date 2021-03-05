@@ -93,5 +93,22 @@
 			104857600 byte == 100MB
 			20971520 byte == 20MB
      -->
+     
+     
+     <!-- 메일 인증 전송 -->
+     <!-- Gmail -->
+	  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="smtp.gmail.com" />
+	    <property name="port" value="587" />
+	    <property name="username" value="singlebungle.dev@gmail.com" />
+	    <property name="password" value="tousdudraahiwxqh" />
+	    <property name="javaMailProperties">
+	    <props>
+	      <prop key="mail.smtp.auth">true</prop>
+	      <prop key="mail.smtp.starttls.enable">true</prop>
+	    </props>
+	    </property>
+	  </bean>
+     
 	
 </beans>

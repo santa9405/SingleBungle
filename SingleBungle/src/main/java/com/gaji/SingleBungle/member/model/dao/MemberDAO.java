@@ -22,4 +22,32 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.loginAction", inputMember);
 	}
 
+
+	/** 아이디 중복 체크 DAO 
+	 * @param memberId
+	 * @return result
+	 */
+	public int idDupCheck(String memberId) {
+		return sqlSession.selectOne("memberMapper.idDupCheck", memberId);
+	}
+	
+	
+	/** 닉네임 중복 체크 DAO 
+	 * @param memberNickname
+	 * @return result
+	 */
+	public int nnDupCheck(String memberNickname) {
+		return sqlSession.selectOne("memberMapper.nnDupCheck", memberNickname);
+	}
+	
+	
+	/** 회원가입 DAO 
+	 * @param signUpMember
+	 * @return result 
+	 */
+	public int signUp(Member signUpMember) {
+		return sqlSession.insert("memberMapper.signUp", signUpMember);
+	}
+
+
 }
