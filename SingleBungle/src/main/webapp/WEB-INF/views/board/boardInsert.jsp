@@ -14,15 +14,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
+.btn { background-color: #00c689 !important;
+color: #FFFFFF !important; }
+
 	.insert-label {
 	    display: inline-block;
 	    width: 80px;
 	    line-height: 40px;
 	}
 	
-	.note-editor{
-   	width : 100% !important;
-  } 
+	.note-editor {
+   	width: 100% !important;
+  }
+  
 </style>
 
 <!-- summernote 사용 시 필요한 css 파일 추가 -->
@@ -73,10 +77,10 @@
                         <textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary mb-3 btn-success">등록</button>
+                        <button type="submit" class="btn mb-3">등록</button>
                     </div>
                     <div class="text-right">
-                    		<button type="button" class="btn btn-secondary mb-3 btn-success" id="insert-list">목록으로</button>
+                    		<button type="button" class="btn mb-3" id="insert-list">목록으로</button>
                     </div>
                 </form>
 

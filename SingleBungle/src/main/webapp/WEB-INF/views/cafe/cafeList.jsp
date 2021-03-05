@@ -12,6 +12,8 @@
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <style>
+.btn { background-color: #00c689 !important;
+color: #FFFFFF !important; }
 
 .boardName { margin-right: 40px; }
 
@@ -191,7 +193,7 @@
 
 			<%-- 로그인이 되어있고 회원 2등급 이상일 경우 --%>
 			<c:if test="${!empty loginMember && loginMember.memberGrade != 'T' }">
-				<a class="btn btn-success float-right" href="${contextPath}/cafe/insert">글쓰기</a>
+				<a class="btn float-right" href="${contextPath}/cafe/insert">글쓰기</a>
 			</c:if>
       
       <!--------------------------------- pagination  ---------------------------------->
@@ -228,9 +230,9 @@
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 								<c:if test="${cpInfo.currentPage > cpInfo.pageSize}">
 									<!-- 첫 페이지로 이동(<<) -->
-									<li class="page-item"><a class="page-link" href="${firstPage}" data-abc="true">&laquo;</a></li>
+									<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
 									<!-- 이전 페이지로 이동 (<) -->
-									<li class="page-item"><a class="page-link" href="${prevPage}" data-abc="true">&lt;</a></li>
+									<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 								</c:if>
 								
 								<!-- 페이지 목록 -->
@@ -249,9 +251,9 @@
 								<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
 								<c:if test="${next <= cpInfo.maxPage}">
 									<!-- 다음 페이지로 이동 (>) -->
-									<li class="page-item"><a class="page-link" href="${nextPage}" data-abc="true">&gt;</a></li>
+									<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
 									<!-- 마지막 페이지로 이동(>>) -->
-									<li class="page-item"><a class="page-link" href="${lastPage}" data-abc="true">&raquo;</a></li>
+									<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 								</c:if>
 							</ul>
 						</nav>
@@ -269,7 +271,7 @@
           <option value="titcont">제목+내용</option>
         </select>
         <input type="text" name="sv" class="form-control " style="width: 25%; display: inline-block;">
-        <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+        <button class="form-control btn" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
         </form>
       </div>
       
