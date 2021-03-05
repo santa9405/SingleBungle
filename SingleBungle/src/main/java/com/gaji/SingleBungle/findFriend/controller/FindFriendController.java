@@ -90,15 +90,22 @@ public class FindFriendController {
 	// 친구찾기 상세 조회 Controller
 	@RequestMapping("{friendNo}")
 	public String friendView(@PathVariable("friendNo") int friendNo, Model model,
+							 @ModelAttribute("loginMember") Member loginMember,
 							 @RequestHeader(value = "referer", required = false) String referer,
 							 RedirectAttributes ra) {
-		
-		//System.out.println("friendNo : " + friendNo);
 		
 		// 상세 조회
 		FindFriend findFriend = service.selectBoard(friendNo);
 		
-		//System.out.println(findFriend);
+		int memNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", friendNo);
+		map.put("memNo", memNo);
+		
+		// 참여신청 여부 확인
+		int checkApply = service.checkApply(map);
+		model.addAttribute("checkApply", checkApply);
 		
 		String url = null;
 		
@@ -127,6 +134,24 @@ public class FindFriendController {
 		}
 		
 		return url;
+	}
+	
+	
+	// 친구찾기 참여 신청 Controller
+	@ResponseBody
+	@RequestMapping("insertApply/{friendNo}")
+	public int insertApply(@PathVariable("friendNo") int friendNo,
+						   @ModelAttribute(name = "loginMember", binding = false) Member loginMember) {
+		
+		int memNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", friendNo);
+		map.put("memNo", memNo);
+		
+		int result = service.insertApply(map);
+		
+		return result;
 	}
 	
 	// 친구찾기 게시글 등록 화면 전환 Controller

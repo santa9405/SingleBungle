@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
@@ -122,6 +123,19 @@ public class FindFriendServiceImpl implements FindFriendService {
 
 		return date + str + ext;
 
+	}
+	
+	// 상세 조회 시 참여신청 여부 확인 Service 구현
+	@Override
+	public int checkApply(Map<String, Object> map) {
+		return dao.checkApply(map);
+	}
+	
+	// 친구찾기 참여 신청 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertApply(Map<String, Object> map) {
+		return dao.insertApply(map);
 	}
 
 	// 친구찾기 게시글 등록(+ 파일 업로드) Service 구현

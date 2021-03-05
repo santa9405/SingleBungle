@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -278,6 +280,11 @@ body {
 	-webkit-appearance: none;
 	border-radius: 0;
 }
+
+#inputChatting{
+   width : 90%;
+   resize : none;
+}
 </style>
 </head>
 <body>
@@ -345,8 +352,9 @@ body {
 							</div>
 
 							<div class="answer-add">
-								<div class="">
-									<input id="inputChatting" placeholder="Write a message">
+								<div class="input-area">
+									<textarea id="inputChatting" rows="3"></textarea>
+									<!-- <input id="inputChatting" placeholder="메세지를 입력해주세요."> -->
 								</div>
 								<div align="right">
 									<button id="send" class="btn btn-light">전송</button>
@@ -375,21 +383,24 @@ body {
 		</c:if>
 		
 		// 로그인한 회원이 채팅 입력 후 보내기 버튼을 클릭한 경우 채팅 내용이 서버로 전달됨
-		// (전달할 내용 : 입력한 채팅 + 로그인한 회원의 아이디)
+		// (전달할 내용 : 로그인한 회원의 닉네임 + 입력한 채팅 + 채팅 시간 )
 	
-		var memberId = "${loginMember.memberId}";
+		var nickname = "${loginMember.memberNickname}";
+		var memberNo = "${loginMember.memberNo}";
 		
-		$("#inputChatting").keyup(function(){
+		/* $("#inputChatting").keyup(function(e){
 			if(e.keyCode == 13){
-				if(e.shiftKey == false){
+				if(e.shiftKey === false){
 					$("#send").click();
 				}
 			}
-		});
+		}); */
 		
 		$("#send").on("click", function(){
 			
-			if(memberId ==""){
+			console.log(nickname);
+			
+			if(nickname == ""){
 				alert("로그인 후 이용해주세요");
 			}else{
 				
@@ -400,8 +411,13 @@ body {
 				}else{
 					
 					var obj = {};
-					obj.memberId = memberId;
+					obj.nickname = nickname;
 					obj.chat = chat;
+					
+					var date = new Date();
+					var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+					obj.time = time;
+					
 					
 					// 작성자와 채팅 내용이 담긴 obj 객체를 JSON 형태로 변환하여 웹소켓 핸들러로 보내기
 					chattingSock.send( JSON.stringify(obj) );
@@ -430,18 +446,18 @@ body {
 			
 			avatar.append(image);
 			
-			var writer = obj.memberName;
+			//var writer = obj.memberName;
 			var chat = obj.chat.replace(/\n/g, "<br>");
 			var time = obj.createDt;
 			
-			var name = $("<div>").addClass("name").text(writer);
+			var name = $("<div>").addClass("name").text(nickname);
 			var text = $("<div>").addClass("text").text(chat);
 			var time = $("<div>").addClass("time").text(time);
 			
-			if(obj.memberId == memberId){
-				answerRight.append(avater).append(name).append(text).append(time);
+			if(obj.memberNo == memberNo){
+				answerRight.append(avatar).append(name).append(text).append(time);
 			}else{
-				answerLeft.append(avater).append(name).append(text).append(time);
+				answerLeft.append(avatar).append(name).append(text).append(time);
 			}
 			
 			// 채팅 입력 시 스크롤을 가장 아래로 내리기

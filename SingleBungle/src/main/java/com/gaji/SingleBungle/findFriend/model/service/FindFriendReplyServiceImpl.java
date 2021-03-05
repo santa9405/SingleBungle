@@ -68,6 +68,7 @@ public class FindFriendReplyServiceImpl implements FindFriendReplyService {
 	}
 
 	// 답글 삽입 Service 구현
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertChildReply(FindFriendReply reply) {
 		return dao.insertChildReply(reply);
