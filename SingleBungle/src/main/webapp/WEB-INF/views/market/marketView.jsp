@@ -241,12 +241,12 @@
 				<div class="col-md-6">
 						
 			<!-- 이미지 출력 -->
-            <c:if test="${!empty attachmentList}"> 
+            <c:if test="${!empty at}"> 
             <div class="carousel slide boardImgArea" id="board-image">
                
                <!-- 이미지 선택 버튼 -->
                <ol class="carousel-indicators">
-                  <c:forEach var="at" items="${attachmentList}" varStatus="vs">
+                  <c:forEach var="at" items="${at}" varStatus="vs">
                      
                      <li data-slide-to="${vs.index }" data-target="#board-image"  
                            <c:if test="${vs.first}"> class="active" </c:if> 
@@ -259,8 +259,8 @@
                
                <!-- 출력되는 이미지 -->
                <div class="carousel-inner">
-                  <c:forEach var="file" items="${attachmentList}" varStatus="vs">
-                  	<c:set var="src" value="${contextPath}/${at.filePath}/${at.fileName}"/>
+                  <c:forEach var="file" items="${at}" varStatus="vs">
+                  	<c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}"/>
                   	
                      <div class="carousel-item <c:if test="${vs.index == 0}"> active</c:if>">
                         <img class="d-block w-100 boardImg" id="200" 

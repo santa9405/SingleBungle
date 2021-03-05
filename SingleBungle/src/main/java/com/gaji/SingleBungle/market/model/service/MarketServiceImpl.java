@@ -128,6 +128,7 @@ public class MarketServiceImpl implements MarketService {
 					MarketAttachment at = new MarketAttachment(filePath, fileName, i, marketNo);
 
 					uploadImages.add(at);
+					System.out.println(uploadImages);
 				}
 			}
 
