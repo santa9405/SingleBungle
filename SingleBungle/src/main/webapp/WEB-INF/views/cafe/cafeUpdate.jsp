@@ -60,22 +60,22 @@ color: #FFFFFF !important; }
                         <label for="category" class="input-group-addon col-sm-1 insert-label">카테고리</label>
                         <div class="col-sm-4">
 	                        <select	class="form-control div small" id="category" name="categoryCode" style="width: 160px; height: 40px;">
-	                            <option value="1">혼밥식당</option>
 	                            <option value="2">맛집추천</option>
+	                            <option value="1">혼밥식당</option>
 	                            <option value="3">카페</option>
 	                        </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="cafeName" class="input-group-addon col-sm-1 insert-label">음식점</label>
+                        <label class="input-group-addon col-sm-1 insert-label">맛집이름</label>
                         <div class="col-sm-3">
                         	<input type="text" class="form-control" id="cafeName" name="cafeName" style="display: inline-block;" value="${cafe.cafeName}" readonly>
                         </div>
                     </div>
                     
                     <div class="form-group row">
-                        <label for="cafeAddress" class="input-group-addon col-sm-1 insert-label">주소</label>
+                        <label class="input-group-addon col-sm-1 insert-label">주소</label>
                         <div class="col-sm-3">
                         	<input type="text" class="form-control" id="cafeAddress" name="cafeAddress" style="display: inline-block;" value="${cafe.cafeAddress}" readonly>
                         </div>
@@ -84,7 +84,7 @@ color: #FFFFFF !important; }
 										<hr>
                     <div class="form-group">
                         <div>
-                            <label for="content">내용</label>
+                            <label>내용 (영수증 이미지 필수)</label>
                         </div>
                         <textarea class="form-control cafePlaceholder" id="summernote" name="cafeContent" rows="10" style="resize: none;" required>${cafe.cafeContent}</textarea>
                     </div>

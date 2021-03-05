@@ -24,7 +24,7 @@ color: #FFFFFF !important; }
 
 .category:hover {
 	text-decoration: none;
-	color: rgb(214, 156, 30);
+	color: gray;
 }
 
 #img-list:hover, #img-list2:hover, .cafeTitle:hover {
@@ -123,8 +123,8 @@ color: #FFFFFF !important; }
 	          <div class="text-black banner">
 	            <h1 class="boardName float-left">맛집게시판</h1>
 	                  <a class="category" href="#">전체</a> | 
-	                  <a class="category" href="#">혼밥식당</a> | 
 	                  <a class="category" href="#">맛집추천</a> | 
+	                  <a class="category" href="#">혼밥식당</a> | 
 	                  <a class="category" href="#">카페</a>
 	
 	            <div class="listTest float-right">
@@ -178,9 +178,9 @@ color: #FFFFFF !important; }
 										<span class="font-weight-bold price">${cafe.nickname}</span>
 									</p>
 									<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-											<c:if test="${cafe.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
-                    	<c:if test="${cafe.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
-                    	<c:if test="${cafe.categoryCode == '3'}">background-color: burlywood;</c:if> '>${cafe.categoryName}</div>
+											<c:if test="${cafe.categoryCode == '1'}">background-color: #9ea9d7;</c:if>
+                    	<c:if test="${cafe.categoryCode == '2'}">background-color: #ef8694;</c:if>
+                    	<c:if test="${cafe.categoryCode == '3'}">background-color: #e1c66d;</c:if> '>${cafe.categoryName}</div>
 								</div>
 							</div>
 						</div>

@@ -94,9 +94,9 @@ color: #FFFFFF !important; }
                     <!-- 카테고리 -->
                     <h2>
                     <div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-                    <c:if test="${cafe.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
-                    <c:if test="${cafe.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
-                    <c:if test="${cafe.categoryCode == '3'}">background-color: burlywood;</c:if> '>${cafe.categoryName}</div>
+                    <c:if test="${cafe.categoryCode == '1'}">background-color: #9ea9d7;</c:if>
+                    <c:if test="${cafe.categoryCode == '2'}">background-color: #ef8694;</c:if>
+                    <c:if test="${cafe.categoryCode == '3'}">background-color: #e1c66d;</c:if> '>${cafe.categoryName}</div>
                     
                     <!-- 제목 -->
                     ${cafe.cafeTitle}</h2>
@@ -130,7 +130,7 @@ color: #FFFFFF !important; }
 								
 								<div class="cafeName">
 								<img src="${contextPath}/resources/images/placeholder.png" width="20" height="20">
-								<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: coral;'>${cafe.cafeName}</div>&nbsp;&nbsp;
+								<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: #ff4a4a;'>${cafe.cafeName}</div>&nbsp;&nbsp;
 								<span>${cafe.cafeAddress}</span>
 								</div>
 								<br>
@@ -218,9 +218,9 @@ color: #FFFFFF !important; }
 	                <p class="small mb-0"><span class="font-weight-bold price">${item.nickname}</span></p>
 	                
 									<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-									<c:if test="${item.categoryCode == '1'}">background-color: rgba(68, 152, 221, 0.699);</c:if>
-                  <c:if test="${item.categoryCode == '2'}">background-color: rgb(245, 91, 125);</c:if>
-                  <c:if test="${item.categoryCode == '3'}">background-color: burlywood;</c:if> '>${item.categoryName}</div>
+									<c:if test="${item.categoryCode == '1'}">background-color: #9ea9d7;</c:if>
+                  <c:if test="${item.categoryCode == '2'}">background-color: #ef8694;</c:if>
+                  <c:if test="${item.categoryCode == '3'}">background-color: #e1c66d;</c:if> '>${item.categoryName}</div>
 	                
 	              </div>
 	            </div>
