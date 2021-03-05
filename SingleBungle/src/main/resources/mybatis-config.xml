@@ -55,7 +55,11 @@
   	<mapper resource="/mappers/friendReply-mapper.xml" />
   	
   	<mapper resource="/mappers/board-mapper.xml" />
+  	<mapper resource="/mappers/boardReply-mapper.xml" />
+  	
   	<mapper resource="/mappers/cafe-mapper.xml" />
+  	<mapper resource="/mappers/cafeReply-mapper.xml" />
+  	
   	<mapper resource="/mappers/market-mapper.xml" />
 <!--   	<mapper resource="/mappers/market-mapper.xml" />  -->
 

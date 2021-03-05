@@ -336,6 +336,51 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectLikePushed(map);
 	}
 
+	// 신고 게시글 등록 Service 구현
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public int insertBoardReport(Map<String, Object> map) {
+		
+		int result = 0;
+		
+		int reportNo = dao.selectReportNo();
+		
+		if(reportNo > 0) {
+			map.put("reportNo", reportNo);
+			
+			String reportTitle = (String)map.get("reportTitle");
+			String reportContent = (String)map.get("reportContent");
+			
+			reportTitle = replaceParameter(reportTitle);
+			reportContent = replaceParameter(reportContent);
+			
+			map.put("reportTitle", reportTitle);
+			map.put("reportContent", reportContent);
+			
+		}
+				
+		result = dao.insertBoardReport(map);
+			
+		if(result > 0) {
+			
+			result = reportNo;
+		}
+		
+		return result;
+	}
+
+   // 크로스 사이트 스크립트 방지 처리 메소드
+   private String replaceParameter(String param) {
+      String result = param;
+      if(param != null) {
+         result = result.replaceAll("&", "&amp;");
+         result = result.replaceAll("<", "&lt;");
+         result = result.replaceAll(">", "&gt;");
+         result = result.replaceAll("\"", "&quot;");
+      }
+         
+      return result;
+   }
 
 
 
