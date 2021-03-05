@@ -37,6 +37,14 @@ public class MarketDAO {
 		RowBounds rowBounds = new RowBounds(offset, mpInfo.getLimit());
 		return sqlSession.selectList("marketMapper.selectList", mpInfo, rowBounds);
 	}
+	 
+	/** 썸네일 목록 조회 DAO
+	 * @param mList
+	 * @return thList
+	 */
+	public List<MarketAttachment> selectThumbnailList(List<Market> mList) {
+		return sqlSession.selectList("marketMapper.selectThumbnailList", mList);
+	}
 
 
 	/** 상세조회 DAO
@@ -108,5 +116,17 @@ public class MarketDAO {
 	public int insertAttachmentList(List<MarketAttachment> uploadImages) {
 		return sqlSession.insert("marketMapper.insertAttachmentList", uploadImages);
 	}
+
+
+	/** 게시글에 포함된 이미지 목록 조회 DAO
+	 * @param marketNo
+	 * @return attachmentList
+	 */
+	public List<MarketAttachment> selectAttachmentList(int marketNo) {
+		return sqlSession.selectList("marketMapper.selectAttachmentList", marketNo);
+	}
+
+
+
 
 }

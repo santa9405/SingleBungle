@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 
@@ -22,12 +23,28 @@ public interface MarketService {
 	 * @return mList
 	 */
 	List<Market> selectList(MarketPageInfo mpInfo);
+	
+	
+	/** 썸네일 목록 조회 Service
+	 * @param mList
+	 * @return thList
+	 */
+	List<MarketAttachment> selectThumbnailList(List<Market> mList);
+	
 
 	/** 상세조회 Service
 	 * @param marketNo
 	 * @return market
 	 */
 	Market selectMarket(int marketNo);
+	
+	
+	/** 게시글 상세조회 이미지 Service
+	 * @param marketNo
+	 * @return attachmentList
+	 */
+	List<MarketAttachment> selectAttachmentList(int marketNo);
+	
 
 	/** 좋아요 목록 조회 Service
 	 * @param memberNo
@@ -54,5 +71,8 @@ public interface MarketService {
 	 * @return result
 	 */
 	int insertMarket(Market market, List<MultipartFile> images, String savePath);
+
+
+	
 
 }

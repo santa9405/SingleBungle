@@ -23,6 +23,7 @@ import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.market.model.service.MarketService;
 import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
 import com.gaji.SingleBungle.member.model.vo.Member;
@@ -54,7 +55,15 @@ public class MarketController {
 				MarketPageInfo mpInfo = service.getPageInfo(cp);
 
 				List<Market> mList = service.selectList(mpInfo);
-
+				
+				if(mList != null && !mList.isEmpty()) {
+					List<MarketAttachment> thumbnailList = service.selectThumbnailList(mList);
+					
+					if(thumbnailList != null) {
+						model.addAttribute("thList", thumbnailList);
+					}
+				}
+				
 				List<MarketLike> likeInfo = service.selectLike(loginMember.getMemberNo());
 				System.out.println(likeInfo);
 
@@ -119,11 +128,11 @@ public class MarketController {
 		String url = null;
 		
 		if (market != null) {
+			List<MarketAttachment> attachmentList = service.selectAttachmentList(marketNo);
 			
-//			List<CafeAttachment> attachmentList = service.selectAttachmentList(marketNo);
-//			if (attachmentList != null && !attachmentList.isEmpty()) {
-//				model.addAttribute("attachmentList", attachmentList);
-//			}
+			if(attachmentList != null & !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
 			
 			model.addAttribute("market", market);
 			url = "market/marketView";
