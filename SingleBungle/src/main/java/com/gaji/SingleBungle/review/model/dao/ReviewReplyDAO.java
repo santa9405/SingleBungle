@@ -29,8 +29,8 @@ public class ReviewReplyDAO {
 	 * @param map
 	 * @return
 	 */
-	public int insertReply(Map<String, Object> map) {
-		return sqlSession.insert("replyMapper.insertReply", map);
+	public int insertReply(ReviewReply reply) {
+		return sqlSession.insert("replyMapper.insertReply", reply);
 	}
 
 }

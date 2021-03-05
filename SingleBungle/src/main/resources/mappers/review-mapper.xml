@@ -17,6 +17,7 @@
 		<result property="categoryName" column="CATEGORY_NM" />
 		<result property="memberNo" column="MEM_NO" />
 		<result property="nickName" column="NICKNAME" />
+		<result property="likeCount" column="LIKE_COUNT" />
 	</resultMap>
 
 	<resultMap type="ReviewAttachment" id="attachment_rm">
@@ -111,6 +112,13 @@
 		AND BOARD_NO = #{boardNo}
 	</delete>
 
+
+	<!-- 좋아요 여부 -->
+	<select id="selectLikePushed" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_LIKE
+		WHERE MEM_NO = #{memberNo}
+		AND BOARD_NO = #{boardNo}
+	</select>
 
 
 

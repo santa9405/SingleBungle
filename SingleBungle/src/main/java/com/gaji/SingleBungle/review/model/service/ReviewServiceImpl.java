@@ -104,6 +104,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.decreaseLike(map);
 	}
 	
+	@Override
+	public int selectLikePushed(Map<String, Integer> map) {
+		return dao.selectLikePushed(map);
+	}
+	
 
 	
 	

@@ -28,16 +28,18 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 	// 댓글 삽입
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertReply(Map<String, Object> map) {
+	public int insertReply(ReviewReply reply) {
 		
 		// 크로스 사이트 스크립팅 방지
-		map.put("replyContent", replaceParameter( (String)map.get("replyContent")) );
+		reply.setReplyContent( replaceParameter( reply.getReplyContent() ) );
+	
+		
 		
 		// ajax로 textarea 내용을 얻어올 경우 개행문자가 \n으로 취급됨.
 		// 개행문자 처리 \n -> <br>
-		map.put("replyContent", ((String)map.get("replyContent")).replaceAll("\n", "<br>") );
+		reply.setReplyContent( reply.getReplyContent().replaceAll("\n", "<br>"));
 
-		return dao.insertReply(map);
+		return dao.insertReply(reply);
 	}
 	
 	

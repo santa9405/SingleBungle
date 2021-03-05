@@ -45,6 +45,13 @@
 	background-repeat: no-repeat;
 }
 
+
+.like2 {
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
+}
+
 /* TOP3 출력 */
 body {
 	background: #f4f4f4;
@@ -186,19 +193,16 @@ body {
 				</div>
 
 				<div class="infoArea float-right">
-					<img class="image" src="${contextPath}/resources/images/view.png"> ${review.readCount }
+					<i class="far fa-eye"></i> ${review.readCount }
 						
 					<!-- 좋아요  -->
 					<span>
-						<button type="button" id="likeBtn" class="likeBtns">
+						<button type="button" id="likeBtn" class="likeBtns" >
 							<img src="${contextPath}/resources/images/like1.png" 
-							width="15" height="15" id="heart" class='likeImgs<c:forEach var="like" items="${likeInfo}"><c:if test="${like.boardNo == review.boardNo}">like2</c:if></c:forEach>' >
+							width="15" height="15" id="heart" class='likeImgs 
+							<c:if test="${like == 1}">like2</c:if>'>
 							<span class="likeCnt">${review.likeCount}</span>
-							${likeInfo}
-							${review.likeCount}	
-
-						</button>
-					</span>
+						</button>					</span>
 				</div>
 
 			</div>
@@ -354,7 +358,7 @@ body {
 			likeClass = "like2"; 
 		}
 		
-		if(likeClass == "like1") {
+		if(!$(this).children("img").hasClass("like2")) {
 			$.ajax({
 				url : "increaseLike",
 				type : "post",

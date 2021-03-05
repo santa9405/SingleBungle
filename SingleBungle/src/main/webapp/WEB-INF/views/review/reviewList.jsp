@@ -239,7 +239,7 @@
 											</c:choose>
 									</div>
 									<div class="viewArea mb-2 float-right">
-										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
+										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount } &nbsp;
 										<img class="icon" src="${contextPath}/resources/images/reply.png" /> 댓글수
 									</div>
 
@@ -304,13 +304,8 @@
 								<c:set var="nextPage" value="${pageUrl}cp=${next}" />
 
 								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-									<li class="page-item">
-										<!-- 첫 페이지로 이동(<<) --> <a class="page-link" href="${firstPage }">&laquo;&laquo;</a>
-									</li>
-
-									<li class="page-item">
-										<!-- 이전 페이지로 이동 (<) --> <a class="page-link" href="${prevPage }">&laquo;</a>
-									</li>
+									<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
+									<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 								</c:if>
 
 								<c:forEach var="page" begin="${pInfo.startPage }" end="${pInfo.endPage }">
@@ -334,9 +329,8 @@
 
 
 								<c:if test="${next <=pInfo.maxPage }">
-									<li class="page-item"><a class="page-link" href="${nextPage }">&raquo;</a></li>
-
-									<li class="page-item"><a class="page-link" href="${lastPage }">&raquo;&raquo;</a></li>
+										<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+										<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 								</c:if>
 							</ul>
 						</nav>
