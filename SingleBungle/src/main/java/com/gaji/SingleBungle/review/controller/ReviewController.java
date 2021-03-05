@@ -101,8 +101,10 @@ public class ReviewController {
 			}
 			
 			// 좋아요 정보 출력
-			List<ReviewLike> likeInfo = service.selectLike(loginMember.getMemberNo());
-			//System.out.println(likeInfo);
+			int memberNo = loginMember.getMemberNo();
+			
+			List<ReviewLike> likeInfo = service.selectLike(memberNo);
+			System.out.println(likeInfo);
 			
 			model.addAttribute("review",review);
 			model.addAttribute("reviewList",reviewList);
@@ -127,7 +129,7 @@ public class ReviewController {
 	
 	// 좋아요 증가 Controller
 	@ResponseBody
-	@RequestMapping("increaseLike")
+	@RequestMapping("view/increaseLike")
 	public int increaseLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -145,7 +147,7 @@ public class ReviewController {
 	
 	// 좋아요 감소 Controller
 	@ResponseBody
-	@RequestMapping("decreaseLike")
+	@RequestMapping("view/decreaseLike")
 	public int decreaseLike(@RequestParam("boardNo") int boardNo,
 			@ModelAttribute("loginMember") Member loginMember) {
 		
@@ -325,7 +327,7 @@ public class ReviewController {
 	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
 								@RequestParam(value="sk",required = false) String sk, 
 								@RequestParam(value="sv",required = false) String sv,
-								@RequestParam(value="ct",required = false, defaultValue = "all") String ct,
+								@RequestParam(value="ct",required = false) String ct,
 								@RequestParam(value="sort",required = false) String sort, 
 								@ModelAttribute("rSearch") ReviewSearch rSearch,
 								Model model) {
@@ -335,6 +337,8 @@ public class ReviewController {
 		rSearch.setSv(sv);
 		rSearch.setCt(ct);
 		rSearch.setSort(sort);
+		
+		System.out.println(rSearch);
 		
 		
 		ReviewPageInfo pInfo = service.getSearchPageInfo(rSearch,cp);

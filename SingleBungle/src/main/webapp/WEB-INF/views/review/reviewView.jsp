@@ -147,7 +147,7 @@ body {
 			<div class="col-md-12">
 				<h8> 후기게시판 </h8>
 				<div class="float-right">
-					<span class="bn" style="visibility: hidden">${review.boardNo }</span>
+					<span class="bn" style="visibility: hidden">${review.boardNo}</span>
 					<button type="button" class="btn btn-primary ml-2 returnBtn">목록</button>
 					<c:if test="${loginMember.memberNo != review.memberNo }">
 						<button type="button" class="btn btn-primary ml-2 report">신고</button>
@@ -187,13 +187,16 @@ body {
 
 				<div class="infoArea float-right">
 					<img class="image" src="${contextPath}/resources/images/view.png"> ${review.readCount }
-
+						
 					<!-- 좋아요  -->
 					<span>
 						<button type="button" id="likeBtn" class="likeBtns">
 							<img src="${contextPath}/resources/images/like1.png" 
-							width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.cafeNo == cafe.cafeNo}">like2</c:if></c:forEach>'>
-							<span class="likeCnt">${cafe.likeCount}</span>
+							width="15" height="15" id="heart" class='likeImgs<c:forEach var="like" items="${likeInfo}"><c:if test="${like.boardNo == review.boardNo}">like2</c:if></c:forEach>' >
+							<span class="likeCnt">${review.likeCount}</span>
+							${likeInfo}
+							${review.likeCount}	
+
 						</button>
 					</span>
 				</div>
@@ -341,12 +344,11 @@ body {
 	
 	// 좋아요
 		$(".likeBtns").on("click", function(){
-		var boardNo = $(this).parents('.no').prev().find("span.bn").text();
+		var boardNo = Number($(this).parents('.no').prev().find("span.bn").text());
 		var likeClassArray = $(this).children().attr('class').split(" ");
 		var likeClass = "like1";
 		var likeImg = $(this).children(".likeImgs");
 		var likeCnt = $(this).children(".likeCnt");
-		
 	
 		if(likeClassArray[1] == "like2") {
 			likeClass = "like2"; 
