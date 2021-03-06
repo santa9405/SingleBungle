@@ -109,12 +109,21 @@
         </style>
             
         <script>
-            function selectAll(selectAll) {
-	            const selectReply = document.getElementsByName('ck');
-	            selectReply.forEach((checkbox) => {
-	            checkbox.checked = selectAll.checked;
+        $(document).ready(function(){
+            //최상단 체크박스 클릭
+            $("#checkall").click(function(){
+                //클릭되었으면
+                if($("#checkall").prop("checked")){
+                    //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                    $("input[name=chk]").prop("checked",true);
+                    //클릭이 안되있으면
+                }else{
+                    //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                    $("input[name=chk]").prop("checked",false);
+                }
             })
-        }
+        });
+
         </script> 
 </head>
 <body>
@@ -145,14 +154,14 @@
                 <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" name="ck" onclick='selectAll(this)'></th>
+                            <th><input type="checkbox" id="checkall"></th>
                             <th class="hidden">번호</th>
                             <th>게시판명</th>
                             <th>제목</th>
                         </tr>
                     </thead>
 
-                    <tbody>s
+                    <tbody>
                     <c:if test="${empty boardList }">
                    			<tr>
 								<td colspan="6">존재하는 게시글이 없습니다.
@@ -162,7 +171,7 @@
                   	<c:forEach var="board" items="${boardList}" varStatus="vs">
                   		<c:if test="${board.boardCode != 5 }">
                         <tr>
-                            <td><input type="checkbox" name="ck"></td>
+                            <td><input type="checkbox" name="chk"></td>
                             <td class="hidden boardNo">${board.boardNo }</td>
                             <td class="hidden">${board.boardCode }</td>
                             <td>
@@ -258,18 +267,26 @@
   
   
 	$("#recoverBtn").on("click", function(){
-    	var list = [];
+    	var boardNoList = [];
+    	var boardCodeList = [];
     	
-    	$("input:checkbox[name='ck']:checked").length;
-        
-        $('input[type="checkbox"]:checked').each(function (index) {
-        		
-        		/* if($(this).val() != "on"){
-  					list.push($(this).val());
-        		} */
-        });
+    	if($("#checkall").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $("input:checkbox[name=chk]").each(function(){
+				if(this.checked){
+					boardNoList = $(this).parent().siblings().eq(0).text();
+					boardCodeList = $(this).parent().siblings().eq(1).text();
+				}
+				
+			});
+            //클릭이 안되있으면
+            //console.log(list);
+        }else{
+        	
+        }
     	
-            $.ajax({
+    	
+           /*  $.ajax({
 				url : "${contextPath}/admin/recoverBoard",
 				data : {"numberList" : list.join()},
 				
@@ -292,7 +309,7 @@
 				error : function(){
 					console.log("복구 실패");
 				}
-			});  
+			});  */ 
         	
     });
 </script>

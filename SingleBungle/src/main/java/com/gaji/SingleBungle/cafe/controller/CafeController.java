@@ -397,7 +397,7 @@ public class CafeController {
 	//--------------------------------------------------------------------------------------------------------------------------
 	// 관리자(admin) 삭제된 게시글 상세조회 Controller
 	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
-	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("cafeNo") int cafeNo, Model model,
+	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("boardNo") int cafeNo, Model model,
 			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
 	
 		Cafe cafe = service.selectDeleteCafe(cafeNo);
