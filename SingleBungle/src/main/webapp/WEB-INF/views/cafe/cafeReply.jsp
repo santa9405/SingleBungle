@@ -72,7 +72,7 @@
 /* 댓글, 답글 신고 부분 색상 변경 */
 .replyReport, .replyReport:hover {
 	text-decoration: none;
-	color: black;
+	color: #ff5536;
 }
 
 </style>
@@ -98,8 +98,8 @@
 							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
-							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
+							<button class="btn btn-success btn-sm shadow-none" id="addReply">등록</button>
+							<button class="btn btn-secondary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
 				</div>
@@ -136,35 +136,32 @@
 			// 댓글 List 반복 접근
 			$.each(rList, function(index, item){
 				
-				var media = $("<div>").addClass("media mt-2");
+				var media = $("<div>").addClass("media mt-2  replyBorder").css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"});
 				
 				// 이미지
 				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
-																														.attr("style", "width: 30px;").attr("style", "height: 30px;");
+																														.css({"width": "30px;","height": "30px;"});
 				
 				// 작성자, 작성일 영역
 				var mediaBody = $("<div>").addClass("media-body");
 				var row = $("<div>").addClass("row");
 				var col8 = $("<div>").addClass("col-8 d-flex");
-				var nickname = $("<h5>").html(item.nickname);
-				var createDt = $("<span>").attr("style", "color: gray;").attr("style", "font-size: 14px;").html(item.replyCreateDt);
+				var nickname = $("<h5>").html(item.nickname).css({"margin-right":"5px"});
+				var createDt = $("<span>").css({"color":"gray", "font-size": "12px"}).html(item.replyCreateDt);
 				
 				// 답글, 신고 버튼 영역
 				var col4 = $("<div>").addClass("col-4");
 				var floatRight = $("<div>").addClass("reply float-right");
-				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
+				var reply2 = $("<a>").addClass("childReply").css({"margin-right":"5px"}).attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
 				var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport("+item.replyNo+")").text("신고");
 				
 				// 내용 영역
 				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
 				
 				var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
-				var replyUpdate = $("<a>").addClass("replyUpdate").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
+				var replyUpdate = $("<a>").addClass("replyUpdate").css({"margin-right":"5px"}).attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
 				var replyDelete = $("<a>").addClass("replyDelete").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
 			
-				// 밑줄
-				var hr = $("<hr>");
-				
 				// 댓글의 깊이가 1인 요소는 별도의 스타일을 지정할 수 있도록 클래스 추가
 				if(item.replyDepth == 1){
 					 media.addClass("childReply");
@@ -184,7 +181,7 @@
            mediaBody.append(row);
            mediaBody.append(replyText);
            media.append(img).append(mediaBody);
-           replyListArea.append(media).append(hr);
+           replyListArea.append(media)
 			
 				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
 				}else if(item.memNo == memNo){
@@ -195,7 +192,7 @@
 					floatRight2.append(replyUpdate).append(replyDelete);
 					mediaBody.append(floatRight2);
 					media.append(img).append(mediaBody);
-					replyListArea.append(media).append(hr);
+					replyListArea.append(media)
 
 				}
 				
@@ -289,7 +286,7 @@
 	  var updateReply = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
 	  
 	  // 취소 버튼
-	  var cancelBtn = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	  var cancelBtn = $("<button>").addClass("btn btn-secondary btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
 	  
 	  var replyBtnArea = $(el).parent();
 	  

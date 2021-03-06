@@ -14,8 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-.btn { background-color: #00c689 !important;
-color: #FFFFFF !important; }
 
 	.insert-label {
 	    display: inline-block;
@@ -77,10 +75,10 @@ color: #FFFFFF !important; }
                         <textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn mb-3">등록</button>
+                        <button type="submit" class="btn maincolor mb-3">등록</button>
                     </div>
                     <div class="text-right">
-                    		<button type="button" class="btn mb-3" id="insert-list">목록으로</button>
+                    		<button type="button" class="btn maincolor-re mb-3" id="insert-list">목록으로</button>
                     </div>
                 </form>
 
