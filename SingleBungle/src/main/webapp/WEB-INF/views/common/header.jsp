@@ -31,7 +31,7 @@
    	<style>
    	* {
 		font-family: 'Noto Sans KR', sans-serif;
-		font-weight: 500;
+		font-weight: 300;
 		/* 굵기 지정(100, 300, 400, 500, 700) */
 		font-size: 16px;
 		color: #212529;
