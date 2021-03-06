@@ -124,6 +124,8 @@
 		</script>
 	</c:if>
 	
+	<jsp:include page="../common/header.jsp"/>
+	
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -261,7 +263,7 @@
 
                         <div class="form-row">
                             <div class="col-md-5 verifyBtn">
-                                <button type="button" class="btn btn-primary form-control" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
+                                <button type="button" class="btn btn-primary form-control maincolor" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
                             </div>
                             <div class="col-md-7">
                                 <input type="text" class="form-control email" id="verifyEmail" placeholder="인증번호 입력" required>
@@ -286,17 +288,6 @@
                             <input type="radio" id="w" name="memberGender" value="W" class="custom-control-input">
                             <label class="custom-control-label" for="w">여자</label>
                           </div>
-
-                        <!-- <div class="custom-control custom-radio custom-control-inline">
-                            <div>
-
-                                <input type="radio" name="gender" id="m"><label for="m">남자　</label>
-                            </div>
-                            <div>
-
-                                <input type="radio" name="gender" id="w"> <label for="w">여자</label>
-                            </div>
-                        </div> -->
                     </div>
 
                     <hr>
@@ -332,7 +323,7 @@
                     </div>
                     
                     <div class="submit">
-                    	<button id="nextBtn" type="submit" class="btn btn-primary btn-block">회원가입 완료</button>
+                    	<button id="nextBtn" type="submit" class="btn btn-primary btn-block maincolor">회원가입 완료</button>
                     </div>
 		
 
@@ -341,7 +332,7 @@
                         <span style="font-weight: 400;">
                             이미 아이디가 있으신가요?
                         </span>
-                        <a href="${contextPath}/member/login" style="font-weight: 700;">로그인</a>
+                        	<a href="${contextPath}/member/login" style="font-weight: 700;" class="maincolor-font">로그인</a>
                     </div>
 
                     <br><br><br><br><br><br>

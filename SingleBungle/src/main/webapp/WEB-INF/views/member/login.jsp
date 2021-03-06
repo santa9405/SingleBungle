@@ -52,6 +52,11 @@ a:hover {
 	float: right;
 }
 
+/*
+.id,.pw,.signup{
+	font-weight: 400;
+}*/
+
 /* sns */
 #sns_signUp {
 	margin-top: 50px;
@@ -92,6 +97,9 @@ a:hover {
 				 text : "${swalText}"});
 		</script>
 	</c:if>
+	
+	
+	
 
 	<div class="container" id="login-container">
 		<div class="row">
@@ -122,14 +130,14 @@ a:hover {
 							
 						</label>
 					</div>
-					<button class="btn btn-primary btn-block btn-login text-uppercase mb-2" type="submit">로그인</button>
+					<button class="btn btn-primary btn-block btn-login text-uppercase mb-2 maincolor" type="submit">로그인</button>
 					<div>
 						<div class="idpw-left">
-							<a class="id" href="#">아이디 찾기</a>
-							<a class="pw" href="#">비밀번호 찾기</a>
+							<a class="id maincolor-font-bk" href="#">아이디 찾기</a>
+							<a class="pw maincolor-font-bk" href="#">비밀번호 찾기</a>
 						</div>
 						<div class="idpw-right">
-							<a class="signup" href="${contextPath}/member/signUp">회원가입</a>
+							<a class="signup maincolor-font-bk" href="${contextPath}/member/signUp">회원가입</a>
 						</div>
 
 						<br>
@@ -147,6 +155,9 @@ a:hover {
 			<div class="col-md-4"></div>
 		</div>
 	</div>
+	
+	<jsp:include page="../common/header.jsp"/>
+	
 </body>
 
 </html>
