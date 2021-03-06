@@ -376,16 +376,13 @@ public class ReviewController {
 		return "review/reviewList";
 	}
 	
-	
-	
-	
-//--------------------------------------------------------------------------------------------------------------------------	
+	//--------------------------------------------------------------------------------------------------------------------------	
 	// 관리자 삭제된 게시글 상세조회
 	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
 	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("boardNo") int boardNo, Model model,
 			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
-
-
+	
+	
 		Review review = service.selectDeleteReview(boardNo);
 		
 		String url = null;
@@ -438,7 +435,5 @@ public class ReviewController {
 		
 		return url;
 	}
-
-	
 
 }

@@ -313,10 +313,11 @@ public class FindFriendController {
 	
 	// 친구찾기 삭제 게시글 관리자 상세 조회 Controller
 	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
-	public String adminView(@PathVariable("boardNo") int friendNo, Model model,
-							 @ModelAttribute("loginMember") Member loginMember,
-							 @RequestHeader(value = "referer", required = false) String referer,
-							 RedirectAttributes ra) {
+	public String adminView(@PathVariable("boardCode") int boardCode,
+							@PathVariable("boardNo") int friendNo, Model model,
+							@ModelAttribute("loginMember") Member loginMember,
+							@RequestHeader(value = "referer", required = false) String referer,
+							RedirectAttributes ra) {
 		
 		// 삭제 게시글 상세 조회
 		FindFriend findFriend = service.selectDeleteBoard(friendNo);
@@ -347,7 +348,7 @@ public class FindFriendController {
 		}else {
 			
 			if(referer == null) { // 이전 요청 주소가 없는 경우
-				url = "redirect:../list";
+				url = "${contextPath}/admin/boardManage";
 			}else { // 이전 요청 주소가 있는 경우
 				url = "redirect:" + referer;
 			}
