@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,9 +25,25 @@ import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.board.model.service.BoardService;
+import com.gaji.SingleBungle.board.model.vo.Board;
+import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
+import com.gaji.SingleBungle.cafe.model.service.CafeService;
+import com.gaji.SingleBungle.cafe.model.vo.Cafe;
+import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
+import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
+import com.gaji.SingleBungle.market.model.service.MarketService;
+import com.gaji.SingleBungle.market.model.vo.Market;
+import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.member.model.vo.Member;
+import com.gaji.SingleBungle.review.model.service.ReviewService;
 import com.gaji.SingleBungle.review.model.vo.Review;
+import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.google.gson.Gson;
+
 
 @Controller
 @SessionAttributes({ "loginMember" })
@@ -37,6 +52,12 @@ public class adminController {
 
 	@Autowired
 	private adminService service;
+	private BoardService service1;
+	private ReviewService service2;
+	private CafeService service6;
+	private FindFriendService service7;
+	private MarketService service8;
+	
 
 	private String swalIcon = null;
 	private String swalTitle = null;
@@ -75,7 +96,7 @@ public class adminController {
 		String url = null;
 
 		if (board != null) { // 상세 조회 성공 시
-
+			
 			// 상세 조회 성공한 게시물의 이미지 목록을 조회하는 Service 호출
 			List<AAttachment> attachmentList = service.selectAttachmentList(boardNo);
 
@@ -597,7 +618,7 @@ public class adminController {
 	}
 
 	
-	
+	//-------------------------------------삭제된 게시글 조회
 	@RequestMapping("boardManage")
 	public String boardManageView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model) {
@@ -611,7 +632,19 @@ public class adminController {
 
 		return "admin/boardManage";
 	}
+	
+	
+	
+	//삭제게시글 복구
+	@ResponseBody
+	@RequestMapping("recoverBoard")
+	public int recoverBoard(@RequestParam String numberList) {
+		int result=0;
+		System.out.println("numberList:" + numberList);
+		return result;
+	}
 
+	
 	
 	
 	@RequestMapping("boardReport")

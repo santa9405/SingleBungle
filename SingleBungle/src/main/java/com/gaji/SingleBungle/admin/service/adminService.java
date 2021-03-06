@@ -11,6 +11,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 
+
 public interface adminService {
 
 	APageInfo getPageInfo(int cp, int type);
@@ -52,5 +53,9 @@ public interface adminService {
 	APageInfo getAllPageInfo(int cp);
 
 	List<ABoard> selectAllList(APageInfo pInfo);
+
+	
+
+	
 
 }
