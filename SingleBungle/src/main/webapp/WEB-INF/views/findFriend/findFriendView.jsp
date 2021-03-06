@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -159,7 +160,19 @@ body {
 				</div>
 
 				<div class="col-md-9">
-					<div class="boardInfo" id="createDt" style="color: gray"> ${findFriend.createDt} </div>
+					<div class="boardInfo" id="createDt" style="color: gray"> 
+						<%-- 날짜 출력 모양 지정 --%> 
+						<fmt:formatDate var="createDt" value="${findFriend.createDt}" pattern="yyyy-MM-dd" /> 
+						<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /> 
+							<c:choose>
+								<c:when test="${createDt != now}">
+									${createDt}
+								</c:when>
+							<c:otherwise>
+								<fmt:formatDate value="${findFriend.createDt}" pattern="HH:mm" />
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 
 				<div class="col-md-2">
@@ -188,18 +201,9 @@ body {
 			<div class="titleArea">
 				<button type="button" class="btn btn-primary float-right report">신고</button>
 				
-				<button type="button" id="applyBtn" class='btn btn-primary float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>참여신청</button>
-				
-				<%-- <c:choose>
-					<c:when test="${checkApply == 0}">
-						<button type="button" class="btn btn-primary float-right apply">참여신청</button>
-					</c:when>
-					
-					<c:otherwise>
-						<button type="button" class="btn btn-primary float-right apply">참여취소</button>
-					</c:otherwise>
-				
-				</c:choose> --%>
+				<c:if test="${findFriend.memNo != loginMember.memberNo}">
+					<button type="button" id="applyBtn" class='btn btn-primary float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>참여신청</button>
+				</c:if>
 				
 				<!-- chat button -->
 				<button type="button" class="btn btn-primary float-right chat">모집인원 1/4</button>
@@ -222,12 +226,12 @@ body {
 						<c:set var="returnListURL" value="list" scope="session" />
 					</c:if>
 					<br> 
+					
 					<a class="btn btn-success" href="${sessionScope.returnListURL}">목록으로</a>
 					
-					<c:url var="updateUrl" value="${findFriend.friendNo}/update" />
-
 					<!-- 로그인된 회원이 글 작성자인 경우 -->
 					<c:if test="${(loginMember != null) && (findFriend.memNo == loginMember.memberNo)}">
+						<c:url var="updateUrl" value="${findFriend.friendNo}/update" />
 						<a href="${updateUrl}" class="btn btn-success ml-1 mr-1">수정</a>
 						<button id="deleteBtn" class="btn btn-success">삭제</button>
 					</c:if>
@@ -246,7 +250,7 @@ body {
 			//console.log($(".apply").attr("class"));
 			
 			var applyArray = $(".apply").attr("class").split(" ");
-			console.log(applyArray);
+			//console.log(applyArray);
 			
 			if(applyArray[4] == "insertApply"){
 				
@@ -258,6 +262,7 @@ body {
 							swal({icon : "success", title : "참여 신청 성공!"});
 							
 							$("#applyBtn").text("참여취소");
+							$(".apply").toggleClass("insertApply");
 						}
 						
 					}, error : function(){
@@ -266,13 +271,29 @@ body {
 					
 				});
 				
+			}else{
+				
+				$.ajax({
+					url : "${contextPath}/findFriend/deleteApply/" + friendNo,
+					success : function(result){
+						
+						if(result > 0){
+							swal({icon : "success", title : "참여가 취소되었습니다."});
+							
+							$("#applyBtn").text("참여신청");
+							$(".apply").toggleClass("insertApply");
+						}
+						
+					}, error : function(){
+						console.log("참여 취소 실패");
+					}
+					
+				});
+				
 			}
-			
-			
 			
 		});
 
-		
 		// -------------------------------------------------------------------------------------------------------------------
 	
 		// 게시글 신고창 열기
@@ -298,6 +319,20 @@ body {
 											"popup",
 											"width=600, height=700, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 						});
+		
+		// -------------------------------------------------------------------------------------------------------------------
+		
+		// 게시글 삭제
+		$("#deleteBtn").on("click", function(){
+			
+			if(confirm("삭제 하시겠습니까?")){
+				
+				location.href = "${findFriend.friendNo}/updateStatus";
+				
+			}
+			
+		});
+		
 	</script>
 
 </body>

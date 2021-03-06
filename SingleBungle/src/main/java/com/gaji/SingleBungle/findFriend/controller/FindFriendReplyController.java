@@ -30,7 +30,7 @@ public class FindFriendReplyController {
 		
 		//System.out.println(parentFriendNo);
 		
-		List<FindFriendReplyController> rList = service.selectReplyList(parentFriendNo);
+		List<FindFriendReply> rList = service.selectReplyList(parentFriendNo);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm:ss").create();
 		

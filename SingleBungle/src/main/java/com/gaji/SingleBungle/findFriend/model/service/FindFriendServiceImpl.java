@@ -137,8 +137,17 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public int insertApply(Map<String, Object> map) {
 		return dao.insertApply(map);
 	}
+	
+	// 친구찾기 참여 취소 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteApply(Map<String, Object> map) {
+		return dao.deleteApply(map);
+	}
+
 
 	// 친구찾기 게시글 등록(+ 파일 업로드) Service 구현
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertBoard(FindFriend findFriend, String savePath) {
 		// 최종 결과 저장 변수 선언
@@ -209,6 +218,7 @@ public class FindFriendServiceImpl implements FindFriendService {
 	}
 
 	// 친구찾기 게시글 수정 Service 수정
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int updateBoard(FindFriend updateBoard) {
 		
@@ -324,6 +334,13 @@ public class FindFriendServiceImpl implements FindFriendService {
 		}
 		
 		return result;
+	}
+
+	// 친구찾기 게시글 상태변경 Service
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateStatus(int friendNo) {
+		return dao.updateStatus(friendNo);
 	}
 
 }

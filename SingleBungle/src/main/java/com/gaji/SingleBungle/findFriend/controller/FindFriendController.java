@@ -149,9 +149,27 @@ public class FindFriendController {
 		map.put("friendNo", friendNo);
 		map.put("memNo", memNo);
 		
-		int result = service.insertApply(map);
+		return service.insertApply(map);
+	}
+	
+	// 친구찾기 참여 취소 Controller
+	@ResponseBody
+	@RequestMapping("deleteApply/{friendNo}")
+	public int deleteApply(@PathVariable("friendNo") int friendNo,
+						   @ModelAttribute(name = "loginMember", binding = false) Member loginMember) {
+		
+		int memNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", friendNo);
+		map.put("memNo", memNo);
+		
+		int result = service.deleteApply(map);
+		
+		System.out.println(result);
 		
 		return result;
+		
 	}
 	
 	// 친구찾기 게시글 등록 화면 전환 Controller
@@ -205,7 +223,7 @@ public class FindFriendController {
 		}
 		
 		ra.addFlashAttribute("swalIcon", swalIcon);
-		ra.addFlashAttribute("swalTitle", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
 		
 		return url;
 	}
@@ -266,9 +284,28 @@ public class FindFriendController {
 		return url;
 	}
 	
-	
-	
-	
-	
+	// 친구찾기 게시글 상태변경 Controller
+	@RequestMapping("{friendNo}/updateStatus")
+	public String updateStatus(@PathVariable("friendNo") int friendNo, RedirectAttributes ra, HttpServletRequest request) {
+		
+		int result = service.updateStatus(friendNo);
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 삭제 성공";
+			url = "redirect:../list";
+		}else {
+			swalIcon = "error";
+			swalTitle = "게시글 삭제 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
 
 }
