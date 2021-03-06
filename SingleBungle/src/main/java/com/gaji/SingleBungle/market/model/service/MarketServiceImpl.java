@@ -64,7 +64,13 @@ public class MarketServiceImpl implements MarketService {
 		}
 		return market;
 	}
-
+	
+	// 좋아요 여부 확인 Service 구현
+	@Override
+	public int selectLikePushed(Map<String, Integer> map) {
+		return dao.selectLikePushed(map);
+	}
+	
 	// 게시글 상세 조회 이미지 목록 조회 Service 구현
 	@Override
 	public List<MarketAttachment> selectAttachmentList(int marketNo) {
@@ -187,6 +193,8 @@ public class MarketServiceImpl implements MarketService {
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		return date + str + ext;
 	}
+
+
 
 
 
