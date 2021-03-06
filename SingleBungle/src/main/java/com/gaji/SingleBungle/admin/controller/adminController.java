@@ -373,41 +373,53 @@ public class adminController {
 			
 			model.addAttribute("board", board);
 			
-			return "admin/noticeUpdate";
+			String url = null;
+			if(boardCode == 3) url = "admin/noticeUpdate";
+			else if(boardCode==4) url="admin/eventUpdate";
+
+			return url;
 		}
 		
 		
 		// 게시글 수정
-//		@RequestMapping("updateAction")
-//		public String updateAction(@ModelAttribute ABoard updateBoard, Model model,
-//									RedirectAttributes ra, HttpServletRequest request) {
-//			
-//			updateReview.setBoardNo(boardNo);
-//			
+		@RequestMapping("updateAction")
+		public String updateAction(@ModelAttribute ABoard updateBoard, Model model,
+									RedirectAttributes ra, HttpServletRequest request,
+									@RequestParam(value = "boardNo") int boardNo, @RequestParam(value = "boardCode") int boardCode) {
+			
+			updateBoard.setBoardNo(boardNo);
+			updateBoard.setBoardCode(boardCode);
+//			System.out.println(updateBoard);
+			
 //			// 파일 저장 경로 얻어오기
-//			String savePath = request.getSession().getServletContext().getRealPath("resources/reviewBoardImages");
-//			
-//			
-//			int result = service.updateReview(updateReview, savePath);
-//			
-//			String url = null;
-//			
-//			if(result>0) {
-//				swalIcon = "success";
-//				swalTitle = "게시글 수정 성공";
-//				url = "redirect:../view/"+boardNo;
-//				
-//			}else {
-//				swalIcon = "error";
-//				swalTitle = "게시글 수정 실패";
-//				url = "redirect:" + request.getHeader("referer");
-//			}
-//			
-//			ra.addFlashAttribute("swalIcon", swalIcon);
-//			ra.addFlashAttribute("swalTitle", swalTitle);
-//			
+		String savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
+			
+			
+			int result = service.updateBoard(updateBoard, savePath);
+			
+			String url = null;
+			String boardType = null;
+			
+			if(boardCode == 3) boardType = "notice/";
+			else if(boardCode==4) boardType = "event/";
+			
+			if(result>0) {
+				swalIcon = "success";
+				swalTitle = "게시글 수정 성공";
+				url = "redirect:../admin/"+boardType+boardNo;
+				
+			}else {
+				swalIcon = "error";
+				swalTitle = "게시글 수정 실패";
+				url = "redirect:" + request.getHeader("referer");
+			}
+			
+			ra.addFlashAttribute("swalIcon", swalIcon);
+			ra.addFlashAttribute("swalTitle", swalTitle);
+			
 //			return url;
-//		}
+			return url;
+		}
 	
 
 	// ---------------------------------------------summernote에 업로드된 이미지 저장
@@ -584,12 +596,24 @@ public class adminController {
 		return "admin/adminMypage";
 	}
 
+	
+	
 	@RequestMapping("boardManage")
 	public String boardManageView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model) {
+		
+		APageInfo pInfo = service.getAllPageInfo(cp);
+		pInfo.setLimit(10);
+		List<ABoard> boardList = service.selectAllList(pInfo);
+
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pInfo", pInfo);
+
 		return "admin/boardManage";
 	}
 
+	
+	
 	@RequestMapping("boardReport")
 	public String boardReportView() {
 		return "admin/boardReport";

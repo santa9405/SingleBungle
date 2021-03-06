@@ -76,14 +76,7 @@
                 <div id="boardContent">
                     <%-- ${board.boardContent} --%>
 					<%-- JSTL을 이용한 개행문자 처리 --%>
-					<c:forEach var="at" items="${attachmentList}" varStatus="vs">
-			                    <c:set var="src" value="${contextPath}${at.filePath}/${at.fileName}"/>
-			                    		
-				                <div <c:if test="${vs.index == 0}"> active</c:if>">
-				                    <img class="d-block w-100 boardImg" src="${src}" />
-				                    <input type="hidden" value="${at.fileNo}">
-				                </div>
-	                </c:forEach>
+					
 					
 					
 					<% pageContext.setAttribute("newLine", "\n"); %>
@@ -92,11 +85,12 @@
 
                 <hr>
                 <div>
+					<c:url var="updateUrl" value="../${board.boardNo}/${board.boardCode }/update"/>	
 					<div class="float-right">
 	
 						<a class="btn btn-success" href="#">목록으로</a>
 
-	                	<a href="#" class="btn btn-success ml-1 mr-1">수정</a>
+	                	<a href="${updateUrl }" class="btn btn-success ml-1 mr-1">수정</a>
 						<a href="../${board.boardNo}/${board.boardCode}/delete" class="btn btn-success ml-1 mr-1">삭제</a>
 					</div>
 				</div>

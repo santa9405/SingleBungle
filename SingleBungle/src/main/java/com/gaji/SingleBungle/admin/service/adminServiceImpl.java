@@ -20,6 +20,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
+import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 
 @Repository
 public class adminServiceImpl implements adminService{
@@ -583,6 +584,94 @@ public class adminServiceImpl implements adminService{
 		@Override
 		public int deleteInquiry(int inquiryNo) {
 			return dao.deleteInquiry(inquiryNo);
+		}
+
+		
+		
+		@Transactional(rollbackFor = Exception.class)
+		@Override
+		public int updateBoard(ABoard updateBoard, String savePath) {
+			int result = dao.updateBoard(updateBoard);
+
+			if (result > 0) {
+				
+				// 수정 전 파일을 모아두는 list
+				List<AAttachment> oldFiles = dao.selectAttachmentList(updateBoard.getBoardNo());
+				
+				// 삭제 되어야할 파일 정보를 담을 리스트
+				List<AAttachment> removeFileList = new ArrayList<AAttachment>();
+
+
+				// DB에 저장할 웹 상 이미지 접근 경로
+				String filePath = "/resources/adminImages";
+
+				Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+
+				Matcher matcher = pattern.matcher(updateBoard.getBoardContent());
+
+				List<String> fileNameList = new ArrayList<String>();
+
+				String src = null;
+				String fileName = null;
+
+				while (matcher.find()) {
+					src = matcher.group(1);
+					fileName = src.substring(src.lastIndexOf("/") + 1);
+					fileNameList.add(fileName);
+				}
+
+				// DB에 새로 추가할 이미지파일 정보를 모아둘 List생성
+				List<AAttachment> newAttachmentList = new ArrayList<AAttachment>();
+
+				// DB에서 삭제할 이미지파일 번호를 모아둘 List 생성
+				List<Integer> deleteFileNoList = new ArrayList<Integer>();
+				
+				
+				// 기존에 올려둔 파일 전부 삭제
+				for(AAttachment oldAt : oldFiles) {
+					deleteFileNoList.add(oldAt.getFileNo());
+				}
+				if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+					result = dao.deleteAttachmentList(deleteFileNoList);
+					
+					if(result != deleteFileNoList.size()) {
+						throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+					}
+				}
+				
+				
+				// 새로운 파일 전부 등록
+				// 파일 레벨 
+				int fileLevel = 1;
+				
+				for (String fName : fileNameList) {
+					AAttachment at = new AAttachment(filePath, fName, fileLevel, updateBoard.getBoardNo());
+					newAttachmentList.add(at);
+					fileLevel++;
+				}
+				
+				if(!newAttachmentList.isEmpty()) {
+					result = dao.insertAttachmentList(newAttachmentList);
+					
+					if(result != newAttachmentList.size()) {
+						
+						throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+						
+					}
+				}
+			}
+			return result;
+		}
+
+		@Override
+		public APageInfo getAllPageInfo(int cp) {
+			int listCount = dao.getAllListCount();
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectAllList(APageInfo pInfo) {
+			return dao.selectAllList(pInfo);
 		}
 
 
