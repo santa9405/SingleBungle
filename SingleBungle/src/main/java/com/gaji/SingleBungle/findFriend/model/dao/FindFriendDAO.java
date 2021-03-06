@@ -158,4 +158,11 @@ public class FindFriendDAO {
 		return sqlSession.update("friendMapper.updateStatus", friendNo);
 	}
 
+	/** DB에 최근 3일 이전에 저장된 파일 조회 DAO
+	 * @return dbFileList
+	 */
+	public List<String> selectDBFileList() {
+		return sqlSession.selectList("friendMapper.selectDBFileList");
+	}
+
 }

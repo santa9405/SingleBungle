@@ -343,4 +343,10 @@ public class FindFriendServiceImpl implements FindFriendService {
 		return dao.updateStatus(friendNo);
 	}
 
+	// DB에 최근 3일 이전에 저장된 파일 조회 Service 구현
+	@Override
+	public List<String> selectDBFileList() {
+		return dao.selectDBFileList();
+	}
+
 }
