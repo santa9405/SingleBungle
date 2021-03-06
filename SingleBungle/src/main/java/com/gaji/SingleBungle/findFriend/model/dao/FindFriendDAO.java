@@ -100,7 +100,6 @@ public class FindFriendDAO {
 	public int insertApply(Map<String, Object> map) {
 		return sqlSession.insert("friendMapper.insertApply", map);
 	}
-	
 
 	/** 친구찾기 참여 취소 DAO
 	 * @param map
@@ -109,8 +108,23 @@ public class FindFriendDAO {
 	public int deleteApply(Map<String, Object> map) {
 		return sqlSession.delete("friendMapper.deleteApply", map);
 	}
-
-
+	
+	/** 친구찾기 게시글 좋아요 등록 DAO
+	 * @param map
+	 * @return int
+	 */
+	public int increaseLike(Map<String, Object> map) {
+		return sqlSession.insert("friendMapper.increaseLike", map);
+	}
+	
+	/** 친구찾기 게시글 좋아요 취소 DAO
+	 * @param map
+	 * @return int
+	 */
+	public int decreaseLike(Map<String, Object> map) {
+		return sqlSession.delete("friendMapper.deleteLike", map);
+	}
+	
 	/** 다음 게시글 번호 조회 DAO
 	 * @return nextBoardNo
 	 */
@@ -164,7 +178,6 @@ public class FindFriendDAO {
 	public List<String> selectDBFileList() {
 		return sqlSession.selectList("friendMapper.selectDBFileList");
 	}
-
 	
 	/** 친구찾기 삭제 게시글 관리자 상세 조회 DAO
 	 * @param friendNo

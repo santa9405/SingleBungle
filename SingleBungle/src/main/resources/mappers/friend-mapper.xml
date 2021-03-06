@@ -135,6 +135,19 @@
    		AND MEM_NO = #{memNo}
    </delete>
    
+   <!-- 친구찾기 게시글 좋아요 등록 -->
+   <insert id="increaseLike" parameterType="map">
+   		INSERT INTO FRIEND_LIKE
+   		VALUES(#{memNo}, #{friendNo})
+   </insert>
+   
+   <!-- 친구찾기 게시글 좋아요 취소 -->
+   <delete id="deleteLike" parameterType="map">
+   		DELETE FROM FRIEND_LIKE
+   		WHERE MEM_NO = #{memNo}
+   		AND FRIEND_NO = #{friendNo}
+   </delete>
+   
    <!-- 다음 게시글 번호 조회 -->
    <select id="selectNextBoardNo" resultType="_int">
    		SELECT SEQ_FNO.NEXTVAL FROM DUAL
