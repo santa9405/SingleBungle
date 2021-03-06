@@ -34,7 +34,6 @@ public class adminDAO {
 	}
 
 	public List<AAttachment> selectThumbnailList(List<ABoard> eventList) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("adminMapper.selectThumbnailList", eventList);
 	}
 
@@ -104,5 +103,25 @@ public class adminDAO {
 
 	public int deleteInquiry(int inquiryNo) {
 		return sqlSession.update("adminMapper.deleteInquiry", inquiryNo);
+	}
+
+	public int updateBoard(ABoard updateBoard) {
+		return sqlSession.update("adminMapper.updateBoard", updateBoard);
+	}
+
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("adminMapper.deleteAttachmentList", deleteFileNoList);
+	}                   
+
+	public int getAllListCount() {
+		return sqlSession.selectOne("adminMapper.getAllListCount");
+	}
+
+	public List<ABoard> selectAllList(APageInfo pInfo) {
+		// RowBounds 객체 : offset과 limit를 이용하여 조회 내용 중 일부 행만 조회하는 마이바티스 객체
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectAllList", rowBounds);
 	}
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,21 +148,37 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" name="ck" onclick='selectAll(this)'></th>
-                            <th>번호</th>
                             <th>게시판명</th>
                             <th>제목</th>
-                            <th>닉네임</th>
                         </tr>
                     </thead>
 
                     <tbody>
+                    <c:if test="${empty boardList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+                   </c:if>
+                   <c:if test="${!empty boardList }">
+                  	<c:forEach var="board" items="${boardList}" varStatus="vs">
                         <tr>
                             <td><input type="checkbox" name="ck"></td>
-                            <td>3</td>
-                            <td>사고팔고</td>
-                            <td class="boardTitle">아아 오늘은 훠궈가 땡기네요</td>
-                            <td>달마고</td>
+                            <td>
+                            	<c:choose>
+									<c:when test="${board.boardCode == 1}">자유게시판</c:when>
+									<c:when test="${board.boardCode == 2}">후기게시판</c:when>
+									<c:when test="${board.boardCode == 3}">고객센터</c:when>
+									<c:when test="${board.boardCode == 4}">이벤트</c:when>
+									<c:when test="${board.boardCode == 5}">FAQ</c:when>
+									<c:when test="${board.boardCode == 6}">맛집게시판</c:when>
+									<c:when test="${board.boardCode == 7}">친구찾기</c:when>
+									<c:when test="${board.boardCode == 7}">사고팔고</c:when>
+								</c:choose>
+                            </td>
+                            <td class="boardTitle">${board.boardTitle }</td>
                         </tr>
+                        </c:forEach>
+                        </c:if>
                     </tbody>
                 </table>
 

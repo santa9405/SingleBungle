@@ -47,4 +47,10 @@ public interface adminService {
 
 	int deleteInquiry(int inquiryNo);
 
+	int updateBoard(ABoard updateBoard, String savePath);
+
+	APageInfo getAllPageInfo(int cp);
+
+	List<ABoard> selectAllList(APageInfo pInfo);
+
 }
