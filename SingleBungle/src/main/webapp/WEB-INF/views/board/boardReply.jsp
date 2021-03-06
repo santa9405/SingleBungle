@@ -72,7 +72,7 @@
 /* 댓글, 답글 신고 부분 색상 변경 */
 .replyReport, .replyReport:hover {
 	text-decoration: none;
-	color: #ff5536;
+	color: #212529;
 }
 
 
@@ -99,7 +99,7 @@
 							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-success btn-sm shadow-none" id="addReply">등록</button>
+							<button class="btn maincolor btn-sm shadow-none" id="addReply">등록</button>
 							<button class="btn btn-secondary btn-sm ml-1 shadow-none" type="button">취소</button>
 						</div>
 					</div>
@@ -284,7 +284,7 @@
 	  $(el).parent().before(textarea);
 	  
 		// 수정 버튼
-	  var updateReply = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+	  var updateReply = $("<button>").addClass("btn maincolor btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
 	  
 	  // 취소 버튼
 	  var cancelBtn = $("<button>").addClass("btn btn-secondary btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
@@ -379,7 +379,7 @@
 											.attr("placeholder", writer + "님께 답글 작성하기");
 			
 			var btnArea = $("<div>").addClass("btnArea");
-			var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1").text("등록")
+			var insertBtn = $("<button>").addClass("btn btn-sm maincolor ml-1").text("등록")
 			.attr("onclick", "addChildReply(this, " + parentReplyNo + ")");
 			
 			var cancelBtn = $("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")

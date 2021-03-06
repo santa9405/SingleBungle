@@ -15,8 +15,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-.btn { background-color: #00c689 !important;
-color: #FFFFFF !important; }
 
 .boardName { margin-right: 40px; }
 
@@ -27,7 +25,6 @@ color: #FFFFFF !important; }
 
 .category:hover {
 	text-decoration: none;
-	color: gray;
 }
 
 #list-table > tbody > tr:hover {
@@ -108,17 +105,17 @@ color: #FFFFFF !important; }
 				        <div class="col-lg-12 mx-auto">
 				          <div class="text-black banner">
 				            <h1 class="boardName float-left">자유게시판</h1>
-				                  <a class="category" href="#">전체</a> | 
-				                  <a class="category" href="#">일상</a> | 
-				                  <a class="category" href="#">여행</a> | 
-				                  <a class="category" href="#">영화</a> | 
-				                  <a class="category" href="#">경제</a> | 
-				                  <a class="category" href="#">반려동물</a> | 
-				                  <a class="category" href="#">요리레시피</a>
+				                  <a class="category maincolor-font-bk" href="#">전체</a> | 
+				                  <a class="category maincolor-font-bk" href="#">일상</a> | 
+				                  <a class="category maincolor-font-bk" href="#">여행</a> | 
+				                  <a class="category maincolor-font-bk" href="#">영화</a> | 
+				                  <a class="category maincolor-font-bk" href="#">경제</a> | 
+				                  <a class="category maincolor-font-bk" href="#">반려동물</a> | 
+				                  <a class="category maincolor-font-bk" href="#">요리레시피</a>
 				
 				            <div class="listTest float-right">
-				              <a class="category" href="#">최신순</a> |
-				              <a class="category" href="#">좋아요순</a>
+				              <a class="category maincolor-font-bk" href="#">최신순</a> |
+				              <a class="category maincolor-font-bk" href="#">좋아요순</a>
 				            </div>
 				            <hr>
 				          </div>
@@ -182,7 +179,7 @@ color: #FFFFFF !important; }
                   </table>
 									<%-- 로그인이 되어있는 경우 --%>
 									<%-- <c:if test="${!empty loginMember }"> --%>
-										<a class="btn float-right" href="${contextPath}/board/insert">글쓰기</a>
+										<a class="btn float-right maincolor" href="${contextPath}/board/insert">글쓰기</a>
 									<%-- </c:if> --%>
 									
                   <!--------------------------------- pagination  ---------------------------------->
@@ -262,7 +259,7 @@ color: #FFFFFF !important; }
                       <option value="titcont">제목+내용</option>
                     </select>
                     <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                    <button class="form-control btn" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+                    <button class="form-control btn maincolor" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
                     </form>
                   </div>
             </div>

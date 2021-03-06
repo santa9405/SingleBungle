@@ -12,8 +12,6 @@
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <style>
-.btn { background-color: #00c689 !important;
-color: #FFFFFF !important; }
 
 .boardName { margin-right: 40px; }
 
@@ -122,14 +120,14 @@ color: #FFFFFF !important; }
 	        <div class="col-lg-12 mx-auto">
 	          <div class="text-black banner">
 	            <h1 class="boardName float-left">맛집게시판</h1>
-	                  <a class="category" href="#">전체</a> | 
-	                  <a class="category" href="#">맛집추천</a> | 
-	                  <a class="category" href="#">혼밥식당</a> | 
-	                  <a class="category" href="#">카페</a>
+	                  <a class="category maincolor-font-bk" href="#">전체</a> | 
+	                  <a class="category maincolor-font-bk" href="#">맛집추천</a> | 
+	                  <a class="category maincolor-font-bk" href="#">혼밥식당</a> | 
+	                  <a class="category maincolor-font-bk" href="#">카페</a>
 	
 	            <div class="listTest float-right">
-	              <a class="category" href="#">최신순</a> |
-	              <a class="category" href="#">좋아요순</a>
+	              <a class="category maincolor-font-bk" href="#">최신순</a> |
+	              <a class="category maincolor-font-bk" href="#">좋아요순</a>
 	            </div>
 	            <hr>
 	          </div>
@@ -193,7 +191,7 @@ color: #FFFFFF !important; }
 
 			<%-- 로그인이 되어있고 회원 2등급 이상일 경우 --%>
 			<c:if test="${!empty loginMember && loginMember.memberGrade != 'T' }">
-				<a class="btn float-right" href="${contextPath}/cafe/insert">글쓰기</a>
+				<a class="btn float-right maincolor" href="${contextPath}/cafe/insert">글쓰기</a>
 			</c:if>
       
       <!--------------------------------- pagination  ---------------------------------->
@@ -271,7 +269,7 @@ color: #FFFFFF !important; }
           <option value="titcont">제목+내용</option>
         </select>
         <input type="text" name="sv" class="form-control " style="width: 25%; display: inline-block;">
-        <button class="form-control btn" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+        <button class="form-control btn maincolor" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
         </form>
       </div>
       

@@ -15,7 +15,16 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
-   
+  .maincolor{
+      color: #ffffff !important; 
+      background-color:#ffaf18 !important;
+      border: 1px solid #ffaf18 !important;
+  }
+  .maincolor:hover{
+      color: #ffffff !important; 
+      background-color:#ff8500 !important;
+      border: 1px solid #ffc823 !important;
+  }
 </style>
 </head>
 <body>
@@ -68,8 +77,8 @@
          </div>
          <div class="form-group row">
                <div class="col-sm-12" style="text-align:center; margin-top:30px;">
-                <button type="submit" class="btn btn-primary">신고</button>
-                <button class="btn btn-outline-primary">취소</button>
+                <button type="submit" class="btn maincolor">신고</button>
+                <button class="btn btn-secondary">취소</button>
              </div>
          </div>
      </form>
