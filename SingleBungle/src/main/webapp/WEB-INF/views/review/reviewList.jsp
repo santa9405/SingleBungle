@@ -240,7 +240,7 @@
 									</div>
 									<div class="viewArea mb-2 float-right">
 										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount } &nbsp;
-										<img class="icon" src="${contextPath}/resources/images/reply.png" /> 댓글수
+										<img class="icon" src="${contextPath}/resources/images/reply.png" /> 99999999
 									</div>
 
 								</div>

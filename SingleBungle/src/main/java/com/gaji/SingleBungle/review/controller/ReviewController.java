@@ -375,6 +375,69 @@ public class ReviewController {
 		
 		return "review/reviewList";
 	}
+	
+	
+	
+	
+//--------------------------------------------------------------------------------------------------------------------------	
+	// 관리자 삭제된 게시글 상세조회
+	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
+	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("boardNo") int boardNo, Model model,
+			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
+
+
+		Review review = service.selectDeleteReview(boardNo);
+		
+		String url = null;
+		
+		if(review!=null) { // 상세조회 성공시
+			
+			// 조회수 상위3  게시글 출력
+			List<Review> reviewList = service.reviewListTop3();
+			
+			// 조회수 상위3 썸네일
+			if(reviewList!=null && !reviewList.isEmpty()) {
+				/* 썸네일 출력 */
+				List<ReviewAttachment> thumbnailList = service.selectThumbnailList(reviewList);
+		
+				
+				if(thumbnailList!=null) {
+					model.addAttribute("thList", thumbnailList);
+				}
+			}
+			
+			// 좋아요 정보 출력
+			int memberNo = loginMember.getMemberNo();
+			
+			List<ReviewLike> likeInfo = service.selectLike(memberNo);
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", memberNo);
+			map.put("boardNo", boardNo);
+			
+			int like = service.selectLikePushed(map);
+			
+			
+			model.addAttribute("review",review);
+			model.addAttribute("reviewList",reviewList);
+			model.addAttribute("likeInfo",likeInfo);
+			model.addAttribute("like", like);
+			
+			url = "review/reviewView";
+		}else {
+			
+			if(referer == null) { //이전 요청주소가 없는 경우
+				url = "${contextPath}/admin/boardManage";
+			}else {
+				url="redirect:"+referer;
+			}
+			
+			ra.addFlashAttribute("swalicon","error");
+			ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+		}
+		
+		return url;
+	}
 
 	
 

@@ -236,6 +236,19 @@ public class ReviewDAO {
 	}
 
 
+	
+//-----------------------------------------------------------------------
+
+
+	/** 관리자 삭제된 페이지  상세조회
+	 * @param boardNo
+	 * @return
+	 */
+	public Review selectDeleteReview(int boardNo) {
+		return sqlSession.selectOne("reviewMapper.selectDeleteReview",boardNo);
+	}
+
+
 
 
 
