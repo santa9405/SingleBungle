@@ -9,7 +9,7 @@
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -37,20 +37,20 @@
 
 
 
-	<div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
-     <form method="POST" action="reportAction" class="needs-validation" name="report">
+<div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
+     <form method="POST" action="../reviewReportAction" class="needs-validation" name="report">
      <input type="hidden" value="${boardNo}" name="boardNo">
      <div class="form-group row">
       <label for="recipient-name" class="col-sm-3 col-form-label">신고 제목</label>
        <div class="col-sm-9">
-      	 	<input type="text" class="form-control" id="recipient-name" name="reportTitle" placeholder="신고 제목을 입력해 주세요." required>
-    		</div>
+             <input type="text" class="form-control" id="recipient-name" name="reportTitle" placeholder="신고 제목을 입력해 주세요." autocomplete="off" required>
+          </div>
      </div>
 
          <div class="form-group row">
              <label class="input-group-addon col-sm-3 insert-label">신고 사유</label>
              <div class="col-sm-9">
-             <select   class="form-control div small" id="category" name="categoryName" required>
+             <select class="form-control div small" id="category" name="categoryCode" required>
                  <option value="1">욕설, 비방, 차별, 혐오</option>
                  <option value="2">홍보, 영리목적</option>
                  <option value="3">불법 정보</option>
@@ -62,20 +62,18 @@
              </div>
          </div>
 
-
          <div class="form-group row">
              <label for="content" class="col-sm-3 col-form-label">신고 내용</label>
              <div class="col-sm-9">
-             
-             <textarea class="form-control" id="summernote" name="boardContent"
-                 rows="10" style="resize: none;" required></textarea>
+        
+             <textarea class="form-control" id="reportContent" name="reportContent" rows="10" style="resize: none;" required></textarea>
              </div>
          </div>
          <div class="form-group row">
-	         	<div class="col-sm-12" style="text-align:center; margin-top:30px;">
-	             <button type="submit" class="btn maincolor" id="reportBtn">신고</button>
-	             <button class="btn btn-secondary">취소</button>
-	          </div>
+               <div class="col-sm-12" style="text-align:center; margin-top:30px;">
+                <button type="submit" class="btn maincolor" id="reportBtn">신고</button>
+                <button class="btn btn-secondary" onclick="self.close();">취소</button>
+             </div>
          </div>
      </form>
     </div>

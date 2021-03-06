@@ -236,6 +236,22 @@ public class ReviewDAO {
 	}
 
 
+	/** 게시글 신고 다음 번호 가져오기
+	 * @return
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("reviewMapper.selectReportNo");
+	}
+	
+	
+	/** 게시글 신고
+	 * @param map
+	 * @return
+	 */
+	public int insertReviewReport(Map<String, Object> map) {
+		return sqlSession.insert("reviewMapper.insertReviewReport",map);
+	}	
+	
 	
 //-----------------------------------------------------------------------
 
@@ -247,6 +263,16 @@ public class ReviewDAO {
 	public Review selectDeleteReview(int boardNo) {
 		return sqlSession.selectOne("reviewMapper.selectDeleteReview",boardNo);
 	}
+
+
+
+
+
+
+
+
+
+
 
 
 

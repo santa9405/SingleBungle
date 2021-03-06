@@ -340,12 +340,11 @@ body {
 	});
 	
 	
-	// 게시글 신고창 열기
-	   $(".report").on("click", function(){
-		   	window.name = "parentWindow";
-	       window.open('${contextPath}/review/reviewReport/${review.boardNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-		 });
-	
+	// 게시글 신고
+   $(".report").on("click", function(){
+	   	window.name = "parentWindow";
+       window.open('${contextPath}/review/reviewReport/${review.boardNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+	 });
 
 	// 목록으로 버튼
 	$(".returnBtn").on("click", function(){

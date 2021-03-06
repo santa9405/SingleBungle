@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.review.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,21 @@ public class ReviewReplyDAO {
 	public int insertChildReply(ReviewReply reply) {
 		
 		return sqlSession.update("reviewReplyMapper.insertChildReply", reply);
+	}
+
+	/** 신고 등록 다음 게시글 번호 얻어오기 
+	 * @return
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("reviewReplyMapper.selectReportNo");
+	}
+
+	/** 댓글 신고 등록
+	 * @param map
+	 * @return
+	 */
+	public int insertReviewReplyReport(Map<String, Object> map) {
+		return sqlSession.insert("reviewReplyMapper.insertReviewReplyReport", map);
 	}
 	
 

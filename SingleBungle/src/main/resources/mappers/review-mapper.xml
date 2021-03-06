@@ -323,8 +323,19 @@
 	</select>
 	
 	
+	<!-- 게시글 신고 다음 번호 조회  -->
+	<select id="selectReportNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+	</select>
 	
 	
+	
+	<!-- 게시글 신고  -->
+	<insert id="insertReviewReport" parameterType="map">
+		INSERT INTO REPORT_BOARD
+		VALUES (#{reportNo}, #{reportTitle}, #{reportContent}, 
+		#{memberNo}, #{categoryCode}, #{boardNo})
+	</insert>
 	
 	
 	<!-- 관리자 : 삭제된 게시글 상세조회  -->

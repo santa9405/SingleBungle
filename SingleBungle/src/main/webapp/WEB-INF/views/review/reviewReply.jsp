@@ -192,7 +192,7 @@
 					var col4 = $("<div>").addClass("col-4");
 					var floatRight = $("<div>").addClass("reply float-right");
 					var reply2 = $("<a>").addClass("childReply").css({"margin-right":"5px"}).attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
-					var report = $("<a>").attr("href", "#").text("신고");
+					var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport("+item.replyNo+")").text("신고");
 					
 					// 내용 영역
 					var replyText = $("<div>").addClass("replyText").css({"margin-bottom":"5px"}).html(item.replyContent);
@@ -493,6 +493,18 @@
 		}
 		
 	}	
+	
+	
+	
+	
+	// 댓글 신고창 열기
+	
+	function openReport(replyNo){
+		event.preventDefault(); // a태그 기본 이벤트 제거
+		
+		window.name="parentWindow";
+		window.open('${contextPath}/reviewReply/reviewReplyReport/'+replyNo+'?boardNo=${review.boardNo}', "popup","width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200" );
+	}
 
 
 
