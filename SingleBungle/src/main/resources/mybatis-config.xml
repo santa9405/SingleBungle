@@ -51,7 +51,8 @@
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.Market" alias="Market" />       
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketAttachment" alias="MarketAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketLike" alias="MarketLike" />
-
+		<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketReply" alias="MarketReply" />
+		
   </typeAliases>
   
   <mappers>
@@ -65,6 +66,7 @@
   	<mapper resource="/mappers/cafeReply-mapper.xml" />
   	
   	<mapper resource="/mappers/market-mapper.xml" />
+  	  	<mapper resource="/mappers/marketReply-mapper.xml" />
 <!--   	<mapper resource="/mappers/market-mapper.xml" />  -->
 
 
