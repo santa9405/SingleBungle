@@ -189,5 +189,14 @@
    		BOARD_STATUS = 'Y'
    		WHERE FRIEND_NO = #{friendNo}
    </update>
+   
+   <!-- DB에 최근 3일 이전에 저장된 파일 조회 -->
+   <select id="selectDBFileList" resultType="string">
+   		SELECT FILE_NAME
+   		FROM FRIEND_FILE
+   		<![CDATA[
+   		WHERE TO_DATE( SUBSTR(FILE_NAME, 0, 8), 'YYMMDDHH24' ) < SYSDATE - 3
+   		]]>
+   </select>
 
 </mapper>
