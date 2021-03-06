@@ -158,15 +158,15 @@
 					mediaBody.addClass("childReply");
 				}
 				
-				// 댓글의 깊이가 0인 요소 신고 버튼 추가
+				// 댓글의 깊이가 0인 요소 답글 버튼 추가
 				if(item.replyDepth == 0){
-					reply2.append(report);
+					floatRight.append(reply2).append(report);
 				}
 				
-				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글 버튼 추가
+				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 신고 버튼 추가
 				if(memNo != "" && item.memNo != memNo){
 					col8.append(nickname).append(createDt);
-					floatRight.append(reply2);
+					floatRight.append(report);
 					col4.append(floatRight);
 					row.append(col8).append(col4);
 					mediaBody.append(row);

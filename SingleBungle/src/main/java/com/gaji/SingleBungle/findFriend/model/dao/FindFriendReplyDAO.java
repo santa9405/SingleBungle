@@ -19,7 +19,7 @@ public class FindFriendReplyDAO {
 	 * @param friendNo
 	 * @return rList
 	 */
-	public List<FindFriendReplyController> selectReplyList(int parentFriendNo) {
+	public List<FindFriendReply> selectReplyList(int parentFriendNo) {
 		return sqlSession.selectList("replyMapper.selectReplyList", parentFriendNo);
 	}
 

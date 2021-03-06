@@ -11,7 +11,7 @@ public interface FindFriendReplyService {
 	 * @param friendNo
 	 * @return rList
 	 */
-	List<FindFriendReplyController> selectReplyList(int parentFriendNo);
+	List<FindFriendReply> selectReplyList(int parentFriendNo);
 
 	/** 댓글 삽입 Service
 	 * @param reply

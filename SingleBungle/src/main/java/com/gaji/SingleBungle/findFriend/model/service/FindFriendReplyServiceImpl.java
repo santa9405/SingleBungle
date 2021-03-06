@@ -18,7 +18,7 @@ public class FindFriendReplyServiceImpl implements FindFriendReplyService {
 
 	// 댓글 목록 조회 Service 구현
 	@Override
-	public List<FindFriendReplyController> selectReplyList(int parentFriendNo) {
+	public List<FindFriendReply> selectReplyList(int parentFriendNo) {
 		return dao.selectReplyList(parentFriendNo);
 	}
 
