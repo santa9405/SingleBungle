@@ -30,13 +30,66 @@
    
    	<style>
    	* {
-				font-family: 'Noto Sans KR', sans-serif;
-				font-weight: 500;
-				/* 굵기 지정(100, 300, 400, 500, 700) */
-				font-size: 16px;
-				color: #212529;
-				margin: 0;
-		}
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+		/* 굵기 지정(100, 300, 400, 500, 700) */
+		font-size: 16px;
+		color: #212529;
+		margin: 0;
+	}
+	
+	a {
+        color: #212529;
+    }
+
+    a:hover {
+    	text-decoration: none;
+    }
+		
+	/* 메인 색--------------------------------------- */
+    /* 버튼 */
+    .maincolor{
+        color: #ffffff !important; 
+        background-color:#ffaf18 !important;
+        border: 1px solid #ffaf18 !important;
+    }
+    .maincolor:hover{
+        color: #ffffff !important; 
+        background-color:#ff8500 !important;
+        border: 1px solid #ffc823 !important;
+    }
+
+    /* 버튼 반대로 */
+    .maincolor-re{
+        color: #ffffff !important;
+        background-color: #ffffff !important;
+        border: 1px solid #ffaf18 !important;
+    }
+
+    .maincolor-re:hover{
+        color: #ffffff !important; 
+        background-color:#ff8500 !important;
+        border: 1px solid #ffc823 !important;
+    }
+
+    /* a태그 폰트 */
+    .maincolor-font{
+        color:#ffaf18;
+    }
+    .maincolor-font:hover{
+        color:#ff8500;
+    }
+
+    .maincolor-font-bk{
+        color:#212529;
+    }
+    .maincolor-font-bk:hover{
+        color:#ff8500;
+    }
+
+    /* 별표 주황색 */
+    .requiredInput{ color : #ff8500; }
+    /* 메인 색--------------------------------------- */
 	
    	</style>
 </head>
