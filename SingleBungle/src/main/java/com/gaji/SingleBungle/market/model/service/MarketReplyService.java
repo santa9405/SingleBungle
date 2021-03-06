@@ -29,5 +29,11 @@ public interface MarketReplyService {
 	 * @return result
 	 */
 	int deleteReply(int replyNo);
+
+	/** 대댓글 등록 Service
+	 * @param reply
+	 * @return result
+	 */
+	int insertChildReply(MarketReply reply);
 	
 }

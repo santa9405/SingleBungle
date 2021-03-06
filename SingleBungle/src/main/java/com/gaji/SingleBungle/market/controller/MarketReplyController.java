@@ -57,6 +57,14 @@ public class MarketReplyController {
 		return service.deleteReply(replyNo);
 	}
 	
+	
+	// 답글 삽입 Controller
+	@RequestMapping("insertChildReply/{parentMarketNo}")
+	public int insertChildReply(@PathVariable("parentMarketNo") int parentMarketNo,
+								@ModelAttribute MarketReply reply) {
+		reply.setParentMarketNo(parentMarketNo);
+		return service.insertChildReply(reply);
+	}
 }
 
 

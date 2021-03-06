@@ -42,6 +42,14 @@ public class MarketReplyDAO {
 	public int deleteReply(int replyNo) {
 		return sqlSession.update("marketReplyMapper.deleteReply", replyNo);
 	}
+
+	/** 답글 삽입 DAO
+	 * @param reply
+	 * @return result
+	 */
+	public int insertChildReply(MarketReply reply) {
+		return sqlSession.insert("marketReplyMapper.insertChildReply", reply);
+	}
 	
 
 

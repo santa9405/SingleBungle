@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
  <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -234,7 +235,7 @@
 							
 							
 							
-			<button type="button" class="btn btn-success float-right">목록</button>
+			<button type="button" class="btn btn-success float-right returnBtn">목록</button>
 		</div>
         <div class="col-lg-12 mx-auto">
         	      
@@ -318,8 +319,11 @@
 						 </div>
 						  
 						<div>
+<%-- 						<jsp:useBean id="now" class="java.util.Date" />
+						<fmt:formatDate var="createDt" value="${market.createDt}" pattern="yyyy-MM-dd" />
+						<fmt:formatDate var="today" value="${now }" pattern="yyyy-MM-dd" />  --%>
 						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
-						 <h5 class="clock float-left cnt">${market.createDt}</h5> 
+						 <h5 class="clock float-left cnt">${createDt - today}</h5> 
 						 </div> 
 						 
 						
@@ -405,7 +409,8 @@
 		<!-- 게시글 내용 -->
 		<div class="row">
 			<div class="col-md-12 contentArea">
-				${market.marketContent}
+			<% pageContext.setAttribute("newLine", "\n"); %>
+				${fn:replace(market.marketContent , newLine, "<br>")}
 			</div>
 		</div>
 
@@ -427,7 +432,11 @@
 		<!-- 목록버튼 -->
 		<div class="row  py-3" style="clear: both;">
 			<div class="col-md-12 text-center ">
-				<button type="button" class="btn btn-success">목록으로</button>
+				<c:if test="${empty sessionScope.returnListURL}">
+					<c:set var="returnListURL" value="/list" scope="session"/>
+				</c:if>
+				<button type="button" class="btn btn-success returnBtn">목록으로</button>
+				
 			</div>
 		</div>
 		
@@ -527,6 +536,13 @@
 </div>
 
 	<script>
+	
+	// 목록으로 버튼
+	$(".returnBtn").on("click", function(){
+		location.href = "${sessionScope.returnListURL}"
+	});
+	
+	
 	$(".likeBtn").on("click", function(){
 		var marketNo = $(this).closest('.no').children().eq(0).text();
 		var likeClassArray = $(this).children().attr('class').split(" ");
