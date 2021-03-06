@@ -114,9 +114,7 @@
 
 	<!-- 게시글 상세 조회 -->
 	<select id="selectBoard" parameterType="Board" resultMap="board_rm">
-		SELECT BOARD_CD, CATEGORY_NM, BOARD_TITLE, NICKNAME, CREATE_DT, 
-					 BOARD_CONTENT, READ_COUNT, LIKE_COUNT, CATEGORY_CD, BOARD_NO, MEM_NO
-		FROM V_BOARD
+		SELECT * FROM V_BOARD
 		WHERE STATUS = 'N'
 		AND BOARD_NO = #{boardNo}
 		AND BOARD_CD = '1'
@@ -226,6 +224,24 @@
 		(#{reportNo}, #{reportTitle}, 
 		 #{reportContent}, #{memberNo}, #{categoryCode}, #{boardNo})
   </insert>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- 관리자 : 삭제된 게시글 상세조회  -->
+	<!-- 상세조회 -->
+	<select id="selectDeleteBoard" parameterType="_int" resultMap="board_rm">
+		SELECT * FROM V_BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NO = #{boardNo}
+		AND BOARD_CD = '1'
+	</select>
 	
 
 </mapper>

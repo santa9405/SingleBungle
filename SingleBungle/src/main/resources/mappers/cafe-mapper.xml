@@ -81,10 +81,7 @@
 	
 	<!-- 게시글 상세 조회 -->
 	<select id="selectCafe" parameterType="Cafe" resultMap="cafe_rm">
-		SELECT CATEGORY_NM, CAFE_TITLE, NICKNAME, CREATE_DT,
-					 CAFE_CONTENT, READ_COUNT, CAFE_NO, LIKE_COUNT, CATEGORY_CD, 
-					 MEM_NO, CAFE_NAME, CAFE_ADDRESS
-		FROM V_CAFE
+		SELECT * FROM V_CAFE
 		WHERE STATUS = 'N'
 		AND CAFE_NO = #{cafeNo}
 	</select>
@@ -245,6 +242,23 @@
 		(#{reportNo}, #{reportTitle}, 
 		 #{reportContent}, #{memberNo}, #{categoryCode}, #{cafeNo})
   </insert>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- 관리자 : 삭제된 게시글 상세조회  -->
+	<!-- 상세조회 -->
+	<select id="selectDeleteCafe" parameterType="_int" resultMap="cafe_rm">
+		SELECT * FROM V_CAFE
+		WHERE STATUS = 'Y'
+		AND CAFE_NO = #{cafeNo}
+	</select>
 	
 	
 </mapper>

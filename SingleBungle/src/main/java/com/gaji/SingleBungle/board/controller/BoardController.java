@@ -338,5 +338,55 @@ public class BoardController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	//--------------------------------------------------------------------------------------------------------------------------
+	// 관리자(admin) 삭제된 게시글 상세조회 Controller
+	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
+	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("boardNo") int boardNo, Model model,
+			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
+		
+		Board board = service.selectDeleteBoard(boardNo);
+		
+		String url = null;
+		
+		if (board != null) {
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("boardNo", boardNo);
+			
+			int like = service.selectLikePushed(map);
+			model.addAttribute("like", like);
+			
+
+			List<BoardAttachment> attachmentList = service.selectAttachmentList(boardNo);
+
+			if (attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
+
+			model.addAttribute("board", board);
+			url = "board/boardView";
+
+		} else {
+			if (referer == null) {
+				url = "${contextPath}/admin/boardManage";
+			} else {
+				url = "redirect:" + referer;
+			}
+
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+		}
+
+		return url;
+	}
+	
 
 }

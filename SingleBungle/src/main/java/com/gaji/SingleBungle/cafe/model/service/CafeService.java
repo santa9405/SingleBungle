@@ -119,4 +119,21 @@ public interface CafeService {
 	public abstract int insertCafeReport(Map<String, Object> map);
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 관리자(admin) 삭제된 게시글 상세조회 Service
+	 * @param cafeNo
+	 * @return
+	 */
+	public abstract Cafe selectDeleteCafe(int cafeNo);
+
+	
 }

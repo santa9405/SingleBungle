@@ -116,6 +116,26 @@ public interface BoardService {
 	 */
 	public abstract int insertBoardReport(Map<String, Object> map);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/** 관리자(admin) 삭제된 게시글 상세조회 Service
+	 * @param boardNo
+	 * @return 
+	 */
+	public abstract Board selectDeleteBoard(int boardNo);
+
 
 
 	
