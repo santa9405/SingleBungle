@@ -123,7 +123,7 @@
 			// 댓글 List 반복 접근
 			$.each(rList, function(index, item){
 				
-				var media = $("<div>").addClass("media mt-2");
+				var media = $("<div>").addClass("media mt-2 replyBorder").css({"border-bottom-color" : "lightgray", "border-bottom-style" : "solid", "border-bottom-width" : "thin"});
 				
 				// 이미지
 				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
@@ -133,20 +133,20 @@
 				var mediaBody = $("<div>").addClass("media-body");
 				var row = $("<div>").addClass("row");
 				var col8 = $("<div>").addClass("col-8 d-flex");
-				var nickname = $("<h5>").html(item.nickname);
-				var createDt = $("<span>").attr("style", "color: gray;").attr("style", "font-size: 14px;").html(item.replyCreateDt);
+				var nickname = $("<h5>").html(item.nickname).css({"margin-right":"5px"});
+				var createDt = $("<span>").css({"color" : "gray", "font-size" : "12px"}).html(item.replyCreateDt);
 				
 				// 답글, 신고 버튼 영역
 				var col4 = $("<div>").addClass("col-4");
 				var floatRight = $("<div>").addClass("reply float-right");
-				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글");
+				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글").css({"margin-right":"5px"});
 				var report = $("<a>").attr("href", "#").text("신고");
 				
 				// 내용 영역
 				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
 				
 				var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
-				var replyUpdate = $("<a>").addClass("replyUpdate").attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
+				var replyUpdate = $("<a>").addClass("replyUpdate").css({"margin-right":"5px"}).attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
 				var replyDelete = $("<a>").addClass("replyDelete").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
 			
 				// 밑줄
@@ -171,7 +171,7 @@
 					mediaBody.append(row);
 					mediaBody.append(replyText);
 					media.append(img).append(mediaBody);
-					replyListArea.append(media).append(hr);
+					replyListArea.append(media);
 			
 				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
 				}else if(item.memNo == memNo){
@@ -182,7 +182,7 @@
 					floatRight2.append(replyUpdate).append(replyDelete);
 					mediaBody.append(floatRight2);
 					media.append(img).append(mediaBody);
-					replyListArea.append(media).append(hr);
+					replyListArea.append(media);
 
 				}
 				
