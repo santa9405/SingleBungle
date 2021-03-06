@@ -362,6 +362,17 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.selectSearchList(rSearch,pInfo);
 	}
 
+	
+	
+//------------------------------------------------------------------------------
+
+	//관리자 삭제된 게시글 상세조회
+	@Override
+	public Review selectDeleteReview(int boardNo) {
+		
+		return dao.selectDeleteReview(boardNo);
+	}
+
 
 
 

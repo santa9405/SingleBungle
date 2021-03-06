@@ -24,11 +24,11 @@
 	height: 30px;
 }
 
-.viewArea {
+/* 좋아요/댓글 */
+.viewArea, .replyArea {
 	display: inline-block;
 	font-size: 11px;
-	width: 75px;
-	text-align: right;
+	margin-right: 5px;
 }
 
 #likeBtn {
@@ -282,9 +282,23 @@ body {
 								<h5>
 									<a class="text-dark">${review.boardTitle }</a>
 								</h5>
-								<div class="infoArea float-right">
-									<div class="viewArea mb-2">
+								<div class="infoArea">
+									<div class="viewArea float-left">
+										<jsp:useBean id="now2" class="java.util.Date" />
+											<fmt:formatDate var="createDate" value="${review.createDate }" pattern="yyyy-MM-dd" />
+											<fmt:formatDate var="today" value="${now2 }" pattern="yyyy-MM-dd" />
+											<c:choose>
+												<c:when test="${createDate != today }">
+														${createDate }
+													</c:when>
+												<c:otherwise>
+													<fmt:formatDate value="${review.createDate}" pattern="HH:mm" />
+												</c:otherwise>
+											</c:choose>
+									</div>								
+									<div class="viewArea mb-2 float-right">
 										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
+										<img class="icon" src="${contextPath}/resources/images/reply.png" /> 9999999
 									</div>
 
 								</div>

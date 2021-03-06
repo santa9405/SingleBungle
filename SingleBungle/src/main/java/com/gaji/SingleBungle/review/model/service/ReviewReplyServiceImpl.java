@@ -1,7 +1,6 @@
 package com.gaji.SingleBungle.review.model.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,44 +16,67 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 	private ReviewReplyDAO dao;
 
 	
-	// 댓글 목록 조회 Service 구현
+	// 댓글 목록 조회
 	@Override
 	public List<ReviewReply> selectReplyList(int parentBoardNo) {
 		return dao.selectReplyList(parentBoardNo);
 	}
 
 	
-	
 	// 댓글 삽입
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertReply(ReviewReply reply) {
+		reply.setReplyContent(replaceParameter (reply.getReplyContent()));
+		reply.setReplyContent(reply.getReplyContent().replaceAll("\n", "<br>"));
 		
-		// 크로스 사이트 스크립팅 방지
-		reply.setReplyContent( replaceParameter( reply.getReplyContent() ) );
-	
-		
-		
-		// ajax로 textarea 내용을 얻어올 경우 개행문자가 \n으로 취급됨.
-		// 개행문자 처리 \n -> <br>
-		reply.setReplyContent( reply.getReplyContent().replaceAll("\n", "<br>"));
-
 		return dao.insertReply(reply);
 	}
 	
-	
-	
 	// 크로스 사이트 스크립트 방지 메소드
 	private String replaceParameter(String param) {
+		
 		String result = param;
-		if(param != null) {
+		
+		if(param !=null) {
 			result = result.replaceAll("&", "&amp;");
 			result = result.replaceAll("<", "&lt;");
 			result = result.replaceAll(">", "&gt;");
-			result = result.replaceAll("\"", "&quot;");
+			result = result.replaceAll("\"", "&quot;"); 
 		}
 		
 		return result;
+		
 	}
+
+	
+	// 댓글 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReply(ReviewReply reply) {
+		reply.setReplyContent( replaceParameter( reply.getReplyContent() ) );
+		reply.setReplyContent( reply.getReplyContent().replaceAll("\n", "<br>"));		
+		
+		return dao.updateReply(reply);
+	}
+
+	// 댓글 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteReply(int replyNo) {
+		return dao.deleteReply(replyNo);
+	}
+
+	
+	
+	// 답글 등록
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChildReply(ReviewReply reply) {
+		return dao.insertChildReply(reply);
+	}
+
+	
+
 
 }

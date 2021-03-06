@@ -140,6 +140,18 @@ public interface ReviewService {
 	int selectLikePushed(Map<String, Integer> map);
 
 
+	
+	
+	
+//------------------------------------------------------------------------------
+
+	/**	관리자 삭제된 게시글 상세조회
+	 * @param boardNo
+	 * @return
+	 */
+	Review selectDeleteReview(int boardNo);
+
+
 
 
 
