@@ -38,9 +38,11 @@ public class LoginFilter implements Filter {
 		// 회원 전용 페이지 중 비회원이 접근 가능한 페이지 경로 추가
 		ALLOWED_PATH.add("/member/login"); // 로그인 페이지 요청
 		ALLOWED_PATH.add("/member/loginAction"); // 로그인 요청
-		ALLOWED_PATH.add("/member2/signUp"); // 회원 가입 페이지 요청
-		ALLOWED_PATH.add("/member2/signUpAction"); // 회원 가입 요청
-		ALLOWED_PATH.add("/member2/idDupCheck"); // 아이디 중복검사 요청
+		ALLOWED_PATH.add("/member/signUp"); // 회원 가입 페이지 요청
+		ALLOWED_PATH.add("/member/signUpAction"); // 회원 가입 요청
+		ALLOWED_PATH.add("/member/idDupCheck"); // 아이디 중복검사 요청
+		ALLOWED_PATH.add("/member/nnDupCheck"); // 닉네임 중복검사 요청
+		ALLOWED_PATH.add("/member/SignUpMail"); // 회원가입 이메일 전송
 		
 		
 		HttpServletRequest req = (HttpServletRequest)request;

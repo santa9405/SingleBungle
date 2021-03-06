@@ -149,7 +149,6 @@ public class memberController {
 	}
 	
 	
-	// 하는중... 
 	// 닉네임 중복 체크 Controller (AJAX)
 	@RequestMapping("nnDupCheck")
 	@ResponseBody
