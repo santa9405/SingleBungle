@@ -74,10 +74,10 @@
                         <textarea class="form-control" id="summernote" name="boardContent" rows="10" style="resize: none;" required>${board.boardContent}</textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn mb-3">수정</button>
+                        <button type="submit" class="btn maincolor mb-3">수정</button>
                         </div>
                     <div class="text-right">
-                    		<button type="button" class="btn mb-3" id="insert-list">목록으로</button>
+                    		<button type="button" class="btn maincolor-re mb-3" id="insert-list">목록으로</button>
                     </div>
                 </form>
 

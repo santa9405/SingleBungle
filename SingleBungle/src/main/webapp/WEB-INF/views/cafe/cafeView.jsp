@@ -85,8 +85,8 @@ color: #FFFFFF !important; }
             <div class="col-md-12">
                 <h8>맛집게시판</h8>
 								<div class="float-right">
-									<button type="button" class="btn mb-3 btn-sm insert-list">목록</button>
-									<button type="button" class="btn btn-sm mb-3 btn-danger report">신고</button>
+									<button type="button" class="btn maincolor-re mb-3 btn-sm insert-list">목록</button>
+									<button type="button" class="btn btn-sm mb-3 report"><img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">신고</button>
 								</div>
 								
 								<span id="cafeNo2">${cafe.cafeNo}</span>
@@ -162,7 +162,7 @@ color: #FFFFFF !important; }
 											<div class="col-md-12">
 												<!-- 로그인된 회원이 글 작성자인 경우 -->
  												<c:if test="${(loginMember != null) && (cafe.memberNo == loginMember.memberNo)}">
-													<button type="button" class="btn btn-sm updateBtn">수정</button>
+													<button type="button" class="btn maincolor btn-sm updateBtn">수정</button>
 													<button type="button" class="btn btn-sm btn-danger deleteBtn">삭제</button>
  												</c:if>
 											</div>
@@ -173,7 +173,7 @@ color: #FFFFFF !important; }
 								<!-- 목록버튼 -->
 								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<button type="button" class="btn insert-list">목록으로</button>
+										<button type="button" class="btn maincolor-re insert-list">목록으로</button>
 									</div>
 								</div>
                 

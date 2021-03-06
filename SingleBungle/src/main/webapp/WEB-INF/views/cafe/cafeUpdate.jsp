@@ -87,10 +87,10 @@
                         <textarea class="form-control cafePlaceholder" id="summernote" name="cafeContent" rows="10" style="resize: none;" required>${cafe.cafeContent}</textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn mb-3">수정</button>
+                        <button type="submit" class="btn maincolor mb-3">수정</button>
                     </div>
                     <div class="text-right">
-                    		<button type="button" class="btn mb-3" id="insert-list">목록으로</button>
+                    		<button type="button" class="btn maincolor-re mb-3" id="insert-list">목록으로</button>
                     </div>
                 </form>
 
