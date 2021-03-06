@@ -198,5 +198,12 @@
    		WHERE TO_DATE( SUBSTR(FILE_NAME, 0, 8), 'YYMMDDHH24' ) < SYSDATE - 3
    		]]>
    </select>
+   
+   <!-- 친구찾기 삭제 게시글 관리자 상세 조회 -->
+   <select id="selectDeleteBoard" parameterType="Friend" resultMap="friend_rm">
+   		SELECT * FROM V_FBOARD
+   		WHERE BOARD_STATUS = 'Y'
+   		AND FRIEND_NO = #{friendNo}
+   </select>
 
 </mapper>

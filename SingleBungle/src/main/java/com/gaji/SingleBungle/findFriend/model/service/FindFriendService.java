@@ -97,6 +97,12 @@ public interface FindFriendService {
 	 */
 	List<String> selectDBFileList();
 
+	/** 친구찾기 삭제 게시글 관리자 상세 조회 Service
+	 * @param friendNo
+	 * @return findFriend
+	 */
+	FindFriend selectDeleteBoard(int friendNo);
+
 
 
 	

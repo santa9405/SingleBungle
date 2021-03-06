@@ -349,4 +349,10 @@ public class FindFriendServiceImpl implements FindFriendService {
 		return dao.selectDBFileList();
 	}
 
+	// 친구찾기 삭제 게시글 관리자 상세 조회 Service 구현
+	@Override
+	public FindFriend selectDeleteBoard(int friendNo) {
+		return dao.selectDeleteBoard(friendNo);
+	}
+
 }
