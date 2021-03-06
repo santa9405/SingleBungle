@@ -2,6 +2,7 @@ package com.gaji.SingleBungle.cafe.controller;
 
 import java.util.HashMap;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -389,5 +390,64 @@ public class CafeController {
 	
 	
 	
+	
+	
+	
+	
+	//--------------------------------------------------------------------------------------------------------------------------
+	// 관리자(admin) 삭제된 게시글 상세조회 Controller
+	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
+	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("cafeNo") int cafeNo, Model model,
+			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
+	
+		Cafe cafe = service.selectDeleteCafe(cafeNo);
+		
+		String url = null;
+		
+		if (cafe != null) {
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("cafeNo", cafeNo);
+			
+			int like = service.selectLikePushed(map);
+			model.addAttribute("like", like);
+			
+			
+			List<Cafe> cafeList = service.cafeListTop3();
+			
+			List<CafeAttachment> attachmentList = service.selectAttachmentList(cafeNo);
+			
+			if (attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
+			
+			// 썸네일
+			if (cafeList != null && !cafeList.isEmpty()) {
+				List<CafeAttachment> thumbnailList = service.selectThumbnailList(cafeList);
+
+				if (thumbnailList != null) {
+					model.addAttribute("thList", thumbnailList);
+				}
+
+			}
+			
+			model.addAttribute("cafe", cafe);
+			model.addAttribute("cafeList", cafeList);
+			url = "cafe/cafeView";
+		} else {
+			
+			if (referer == null) {
+				url = "${contextPath}/admin/boardManage";
+			} else {
+				url = "redirect:" + referer;
+			}
+
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+		}
+		
+		return url;
+	}
 
 }

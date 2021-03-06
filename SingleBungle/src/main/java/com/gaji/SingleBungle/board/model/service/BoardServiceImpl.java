@@ -382,6 +382,27 @@ public class BoardServiceImpl implements BoardService {
       return result;
    }
 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    // 관리자(admin) 삭제된 게시글 상세조회 Service 구현
+	@Override
+	public Board selectDeleteBoard(int boardNo) {
+		return dao.selectDeleteBoard(boardNo);
+	}
+
 
 
 

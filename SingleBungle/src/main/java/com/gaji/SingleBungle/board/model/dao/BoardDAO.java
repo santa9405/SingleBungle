@@ -183,6 +183,24 @@ public class BoardDAO {
 		return sqlSession.insert("boardMapper.insertBoardReport", map);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 관리자(admin) 삭제된 게시글 상세조회 DAO
+	 * @param boardNo
+	 * @return
+	 */
+	public Board selectDeleteBoard(int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectDeleteBoard",boardNo);
+	}
+
 
 	
 	

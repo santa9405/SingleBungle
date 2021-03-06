@@ -207,6 +207,22 @@ public class CafeDAO {
 	public int insertCafeReport(Map<String, Object> map) {
 		return sqlSession.insert("cafeMapper.insertCafeReport", map);
 	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	/** 관리자(admin) 삭제된 게시글 상세조회 DAO
+	 * @param cafeNo
+	 * @return
+	 */
+	public Cafe selectDeleteCafe(int cafeNo) {
+		return sqlSession.selectOne("cafeMapper.selectDeleteCafe",cafeNo);
+	}
 	
 	
 
