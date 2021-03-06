@@ -26,6 +26,7 @@ import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewReport;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 import com.google.gson.Gson;
 
@@ -378,6 +379,46 @@ public class ReviewController {
 	
 	
 	
+	// 신고 페이지 연결
+	@RequestMapping("reviewReport/{boardNo}")
+	public String boardReport(@PathVariable int boardNo, Model model) {
+		model.addAttribute("boardNo", boardNo);
+		return "review/reviewReport";
+	}
+	
+	
+	// 게시글 신고 등록
+	@RequestMapping("reviewReportAction")
+	public String insertReviewReport(@ModelAttribute("report") ReviewReport reply , @RequestParam("boardNo") int boardNo,
+									@ModelAttribute("loginMember") Member loginMember, HttpServletRequest request, RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("boardNo", boardNo);
+		map.put("reportTitle", reply.getReportTitle());
+		map.put("reportContent", reply.getReportContent());
+		map.put("categoryCode", reply.getCategoryCode());
+		
+		int result = service.insertReviewReport(map);
+
+		String url = "redirect:" + request.getHeader("referer");
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "신고가 접수되었습니다.";
+		} else {
+			swalIcon = "error";
+			swalTitle = "신고 접수 실패";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+	}
+	
+	
+	
 	
 //--------------------------------------------------------------------------------------------------------------------------	
 	// 관리자 삭제된 게시글 상세조회
@@ -445,16 +486,7 @@ public class ReviewController {
 	
 	
 	
-	// 신고 페이지 연결
-	@RequestMapping("reviewReport/${boardNo}")
-	public String decreaseLike(@PathVariable("boardNo") int boardNo, Model model ) {
-		model.addAttribute("boardNo", boardNo);
-		return "review/reviewReport";
-	}
-	
-	
-	
-	// 게시글 신고 등록
+
 
 	
 

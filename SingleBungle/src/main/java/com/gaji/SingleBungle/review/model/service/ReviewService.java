@@ -139,7 +139,13 @@ public interface ReviewService {
 	 */
 	int selectLikePushed(Map<String, Integer> map);
 
-
+	
+	
+	/** 게시글 신고
+	 * @param map
+	 * @return result
+	 */
+	int insertReviewReport(Map<String, Object> map);
 	
 	
 	
@@ -150,6 +156,10 @@ public interface ReviewService {
 	 * @return
 	 */
 	Review selectDeleteReview(int boardNo);
+
+
+
+
 
 
 

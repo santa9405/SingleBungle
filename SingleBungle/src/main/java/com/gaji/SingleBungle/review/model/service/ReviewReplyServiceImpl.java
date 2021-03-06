@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.review.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,37 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 	@Override
 	public int insertChildReply(ReviewReply reply) {
 		return dao.insertChildReply(reply);
+	}
+
+	// 댓글 신고
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertReviewReplyReport(Map<String, Object> map) {
+		
+		int result =0;
+		
+		int reportNo = dao.selectReportNo();
+		
+		if (reportNo>0) {
+			map.put("reportNo",reportNo);
+			
+			String reportTitle = (String)map.get("reportTitle");
+			String reportContent = (String)map.get("reportContent");
+			
+			reportTitle = replaceParameter(reportTitle);
+			reportContent = replaceParameter(reportContent);
+			
+			map.put("reportTitle", reportTitle);
+			map.put("reportContent", reportContent);
+		}
+		
+		result = dao.insertReviewReplyReport(map);
+		
+		if(result>0) {
+			result = reportNo;
+		}
+		
+		return result;
 	}
 
 	
