@@ -54,6 +54,8 @@ public interface adminService {
 
 	List<ABoard> selectAllList(APageInfo pInfo);
 
+	int recoverBoard(int boardNo, int boardCode);
+
 	
 
 	

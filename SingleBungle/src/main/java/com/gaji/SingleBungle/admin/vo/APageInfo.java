@@ -26,6 +26,13 @@ public class APageInfo {
 	}
 
 
+	public APageInfo(int currentPage, int listCount) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		
+		makePageInfo();
+	}
 
 	public APageInfo(int currentPage, int listCount, int limit, int pageSize, int maxPage, int startPage, int endPage,
 			int boardType) {
@@ -40,11 +47,6 @@ public class APageInfo {
 		this.boardType = boardType;
 	}
 
-	public APageInfo(int currentPage, int listCount) {
-		super();
-		this.currentPage = currentPage;
-		this.listCount = listCount;
-	}
 
 
 

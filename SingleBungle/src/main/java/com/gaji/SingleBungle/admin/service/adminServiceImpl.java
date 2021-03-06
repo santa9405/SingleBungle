@@ -676,6 +676,20 @@ public class adminServiceImpl implements adminService{
 			return dao.selectAllList(pInfo);
 		}
 
+		@Override
+		public int recoverBoard(int boardNo, int boardCode) {
+			int result=0;
+			if(boardCode == 1) {result = dao.recoverBoard1(boardNo);}
+			if(boardCode == 2) {result = dao.recoverBoard2(boardNo);}
+			if(boardCode == 3) {result = dao.recoverBoard3(boardNo);}
+			if(boardCode == 4) {result = dao.recoverBoard4(boardNo);}
+			if(boardCode == 6) {result = dao.recoverBoard6(boardNo);}
+			if(boardCode == 7) {result = dao.recoverBoard7(boardNo);}
+			if(boardCode == 8) {result = dao.recoverBoard8(boardNo);}
+			
+			return result;
+		}
+
 		
 
 	

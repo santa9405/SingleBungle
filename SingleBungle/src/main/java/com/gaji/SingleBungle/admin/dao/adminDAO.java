@@ -119,9 +119,37 @@ public class adminDAO {
 
 	public List<ABoard> selectAllList(APageInfo pInfo) {
 		// RowBounds 객체 : offset과 limit를 이용하여 조회 내용 중 일부 행만 조회하는 마이바티스 객체
-		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
-		return sqlSession.selectList("adminMapper.selectAllList", rowBounds);
+		 int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	     RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+	      
+		return sqlSession.selectList("adminMapper.selectAllList", pInfo, rowBounds);
+	}
+
+	public int recoverBoard1(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard1", boardNo);
+	}
+
+	public int recoverBoard2(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard2", boardNo);
+	}
+
+	public int recoverBoard3(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard3", boardNo);
+	}
+
+	public int recoverBoard4(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard4", boardNo);
+	}
+
+	public int recoverBoard6(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard6", boardNo);
+	}
+
+	public int recoverBoard7(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard7", boardNo);
+	}
+
+	public int recoverBoard8(int boardNo) {
+		return sqlSession.update("adminMapper.recoverBoard8", boardNo);
 	}
 }
