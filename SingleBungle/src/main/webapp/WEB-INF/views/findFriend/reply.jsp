@@ -154,13 +154,12 @@
 				
 				// 댓글의 깊이가 1인 요소는 별도의 스타일을 지정할 수 있도록 클래스 추가
 				if(item.replyDepth == 1){
-					img.addClass("childReply");
-					mediaBody.addClass("childReply");
+					media.addClass("childReply");
 				}
 				
 				// 댓글의 깊이가 0인 요소 답글 버튼 추가
 				if(item.replyDepth == 0){
-					floatRight.append(reply2).append(report);
+					floatRight.append(reply2);
 				}
 				
 				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 신고 버튼 추가
