@@ -19,6 +19,8 @@ import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.board.model.vo.Board;
+import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 
@@ -673,6 +675,10 @@ public class adminServiceImpl implements adminService{
 		public List<ABoard> selectAllList(APageInfo pInfo) {
 			return dao.selectAllList(pInfo);
 		}
+
+		
+
+	
 
 
 
