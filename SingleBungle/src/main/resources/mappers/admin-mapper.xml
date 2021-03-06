@@ -11,7 +11,7 @@
 		<result property="boardContent" column="BOARD_CONTENT" />
 		<result property="readCount" column="READ_COUNT" />
 		<result property="boardCreateDate" column="CREATE_DT" />
-		<result property="status" column="STATUS" />
+		<result property="boardStatus" column="STATUS" />
 		<result property="boardCode" column="BOARD_CD" />
 		<result property="categoryCode" column="COTEGORY_CD" />
 		<result property="memberNo" column="MEM_NO" />
@@ -236,26 +236,59 @@
   	
   	<!-- 특정 게시판 전체 게시글 수 조회 -->
 	<select id="getAllListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM(
-		SELECT BOARD_NO FROM BOARD 
-		JOIN BOARD_TYPE USING (BOARD_CD) WHERE STATUS = 'Y'
-		UNION ALL
-		SELECT CAFE_NO FROM CAFE  WHERE STATUS = 'Y'
-		UNION ALL
-		SELECT FRIEND_NO FROM FRIEND WHERE BOARD_STATUS = 'Y'
-		UNION ALL
-		SELECT MARKET_NO FROM MARKET WHERE STATUS = 'Y')
+		SELECT COUNT(*) FROM V_DBOARD WHERE STATUS='Y'
 	</select>
 	
 	<!-- 게시글 목록 조회 -->
 	<select id="selectAllList" parameterType="_int" resultMap="board_rm">
-		SELECT BOARD_NO, BOARD_TITLE, BOARD_CD FROM BOARD 
-		JOIN BOARD_TYPE USING (BOARD_CD) WHERE STATUS = 'Y'
-		UNION ALL
-		SELECT CAFE_NO, CAFE_TITLE, 6 FROM CAFE  WHERE STATUS = 'Y'
-		UNION ALL
-		SELECT FRIEND_NO, FRIEND_TITLE, 7 FROM FRIEND WHERE BOARD_STATUS = 'Y'
-		UNION ALL
-		SELECT MARKET_NO, MARKET_TITLE , 8 FROM MARKET WHERE STATUS = 'Y'
+		SELECT * FROM V_DBOARD WHERE STATUS='Y'
 	</select>
+	
+	
+	
+	
+	
+	
+	
+  	<update id="recoverBoard1" parameterType="_int">
+  		UPDATE BOARD SET
+  		STATUS = 'N'
+  		WHERE BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	<update id="recoverBoard2" parameterType="_int">
+  		UPDATE BOARD SET
+  		STATUS = 'N'
+  		WHERE BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	<update id="recoverBoard3" parameterType="_int">
+  		UPDATE BOARD SET
+  		STATUS = 'N'
+  		WHERE BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	<update id="recoverBoard4" parameterType="_int">
+  		UPDATE BOARD SET
+  		STATUS = 'N'
+  		WHERE BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	<update id="recoverBoard6" parameterType="_int">
+  		UPDATE CAFE SET
+  		BOARD_STATUS = 'N'
+  		WHERE CAFE_NO = #{boardNo}
+  	</update>
+  	
+  	<update id="recoverBoard7" parameterType="_int">
+  		UPDATE FRIEND SET
+  		STATUS = 'N'
+  		WHERE FRIEND_NO = #{boardNo}
+  	</update>
+  	
+  	<update id="recoverBoard8" parameterType="_int">
+  		UPDATE MARKET SET
+  		STATUS = 'N'
+  		WHERE MARKET_NO = #{boardNo}
+  	</update>
 </mapper>

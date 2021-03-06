@@ -44,7 +44,6 @@ import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.google.gson.Gson;
 
-
 @Controller
 @SessionAttributes({ "loginMember" })
 @RequestMapping("/admin/*")
@@ -57,7 +56,6 @@ public class adminController {
 	private CafeService service6;
 	private FindFriendService service7;
 	private MarketService service8;
-	
 
 	private String swalIcon = null;
 	private String swalTitle = null;
@@ -68,7 +66,7 @@ public class adminController {
 
 		int type = 4;
 		APageInfo pInfo = service.getPageInfo(cp, type);
-		pInfo.setLimit(6);
+		pInfo.setLimit(9);
 		List<ABoard> eventList = service.selectList(pInfo, type);
 
 		if (eventList != null && !eventList.isEmpty()) { // 寃뚯떆湲� 紐⑸줉 議고쉶 �꽦怨� �떆
@@ -96,7 +94,7 @@ public class adminController {
 		String url = null;
 
 		if (board != null) { // 상세 조회 성공 시
-			
+
 			// 상세 조회 성공한 게시물의 이미지 목록을 조회하는 Service 호출
 			List<AAttachment> attachmentList = service.selectAttachmentList(boardNo);
 
@@ -384,64 +382,65 @@ public class adminController {
 		return url;
 
 	}
-	
-	//----------------------------------------------------------------------------------update
-	// 게시글 수정 화면 전환
-		@RequestMapping("{boardNo}/{boardCode}/update")
-		public String update(@PathVariable("boardNo") int boardNo, @PathVariable("boardCode") int boardCode, Model model) {
-			
-			ABoard board= service.selectBoard(boardNo, boardCode);
-			
-			model.addAttribute("board", board);
-			
-			String url = null;
-			if(boardCode == 3) url = "admin/noticeUpdate";
-			else if(boardCode==4) url="admin/eventUpdate";
 
-			return url;
-		}
-		
-		
-		// 게시글 수정
-		@RequestMapping("updateAction")
-		public String updateAction(@ModelAttribute ABoard updateBoard, Model model,
-									RedirectAttributes ra, HttpServletRequest request,
-									@RequestParam(value = "boardNo") int boardNo, @RequestParam(value = "boardCode") int boardCode) {
-			
-			updateBoard.setBoardNo(boardNo);
-			updateBoard.setBoardCode(boardCode);
+	// ----------------------------------------------------------------------------------update
+	// 게시글 수정 화면 전환
+	@RequestMapping("{boardNo}/{boardCode}/update")
+	public String update(@PathVariable("boardNo") int boardNo, @PathVariable("boardCode") int boardCode, Model model) {
+
+		ABoard board = service.selectBoard(boardNo, boardCode);
+
+		model.addAttribute("board", board);
+
+		String url = null;
+		if (boardCode == 3)
+			url = "admin/noticeUpdate";
+		else if (boardCode == 4)
+			url = "admin/eventUpdate";
+
+		return url;
+	}
+
+	// 게시글 수정
+	@RequestMapping("updateAction")
+	public String updateAction(@ModelAttribute ABoard updateBoard, Model model, RedirectAttributes ra,
+			HttpServletRequest request, @RequestParam(value = "boardNo") int boardNo,
+			@RequestParam(value = "boardCode") int boardCode) {
+
+		updateBoard.setBoardNo(boardNo);
+		updateBoard.setBoardCode(boardCode);
 //			System.out.println(updateBoard);
-			
+
 //			// 파일 저장 경로 얻어오기
 		String savePath = request.getSession().getServletContext().getRealPath("resources/adminImages");
-			
-			
-			int result = service.updateBoard(updateBoard, savePath);
-			
-			String url = null;
-			String boardType = null;
-			
-			if(boardCode == 3) boardType = "notice/";
-			else if(boardCode==4) boardType = "event/";
-			
-			if(result>0) {
-				swalIcon = "success";
-				swalTitle = "게시글 수정 성공";
-				url = "redirect:../admin/"+boardType+boardNo;
-				
-			}else {
-				swalIcon = "error";
-				swalTitle = "게시글 수정 실패";
-				url = "redirect:" + request.getHeader("referer");
-			}
-			
-			ra.addFlashAttribute("swalIcon", swalIcon);
-			ra.addFlashAttribute("swalTitle", swalTitle);
-			
-//			return url;
-			return url;
+
+		int result = service.updateBoard(updateBoard, savePath);
+
+		String url = null;
+		String boardType = null;
+
+		if (boardCode == 3)
+			boardType = "notice/";
+		else if (boardCode == 4)
+			boardType = "event/";
+
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../admin/" + boardType + boardNo;
+
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
 		}
-	
+
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+
+//			return url;
+		return url;
+	}
 
 	// ---------------------------------------------summernote에 업로드된 이미지 저장
 	// Controller
@@ -466,7 +465,7 @@ public class adminController {
 		// gson을 사용함.
 		return new Gson().toJson(at);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("{boardNo}/{boardCode}/insertImage")
 	public String insertImage2(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
@@ -617,12 +616,11 @@ public class adminController {
 		return "admin/adminMypage";
 	}
 
-	
-	//-------------------------------------삭제된 게시글 조회
+	// -------------------------------------삭제된 게시글 조회
 	@RequestMapping("boardManage")
 	public String boardManageView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model) {
-		
+
 		APageInfo pInfo = service.getAllPageInfo(cp);
 		pInfo.setLimit(10);
 		List<ABoard> boardList = service.selectAllList(pInfo);
@@ -632,21 +630,32 @@ public class adminController {
 
 		return "admin/boardManage";
 	}
-	
-	
-	
-	//삭제게시글 복구
+
+	// 삭제게시글 복구
 	@ResponseBody
 	@RequestMapping("recoverBoard")
-	public int recoverBoard(@RequestParam String numberList) {
-		int result=0;
-		System.out.println("numberList:" + numberList);
-		return result;
+	public boolean recoverBoard(@RequestParam(value = "boardNoList[]") int[] boardNoList,
+			@RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < boardNoList.length; i++) {
+			int boardNo = boardNoList[i];
+			int boardCode = boardCodeList[i];
+
+			result = service.recoverBoard(boardNo, boardCode);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+		
+	
+		return flag;
 	}
 
-	
-	
-	
 	@RequestMapping("boardReport")
 	public String boardReportView() {
 		return "admin/boardReport";

@@ -75,6 +75,11 @@
                 border: none;
                 border-radius: 50px
             }
+            
+            .col-md-4 {
+				flex: none !important;
+				max-width: none !important;
+			}
     
     
     
@@ -103,6 +108,10 @@
     
             .table {
                 margin-top: 10px;
+            }
+            
+            .hidden{
+            	display:none;
             }
 
 
@@ -182,7 +191,7 @@
 									<c:when test="${board.boardCode == 4}">이벤트</c:when>
 									<c:when test="${board.boardCode == 6}">맛집게시판</c:when>
 									<c:when test="${board.boardCode == 7}">친구찾기</c:when>
-									<c:when test="${board.boardCode == 7}">사고팔고</c:when>
+									<c:when test="${board.boardCode == 8}">사고팔고</c:when>
 								</c:choose>
                             </td>
                             <td class="boardTitle">${board.boardTitle }</td>
@@ -196,25 +205,73 @@
                 <div class="float-right">
                     <button  id="recoverBtn" class="btn btn-success">복구</button> 
                 </div>
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="col-md-4 col-sm-6 grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
-                            </div>
-                        </div>
-                    </div>
+
+				
+				<div class="padding">
+					<c:set var="firstPage" value="?cp=1" />
+					<c:set var="lastPage" value="?cp=${pInfo.maxPage}" />
+
+					<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+					<c:set var="prevPage" value="?cp=${prev}" />
 
 
-                    <div>
+					<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+						integerOnly="true" />
+					<c:set var="nextPage" value="?cp=${next}" />
+
+
+					<div class="container d-flex justify-content-center">
+						<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+							<nav>
+								<ul
+									class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+									<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+										<li class="page-item"><a class="page-link"
+											href="${firstPage }" data-abc="true">&laquo;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${prevPage }" data-abc="true">&lt;</a></li>
+									</c:if>
+
+
+									<!-- 페이지 목록 -->
+									<c:forEach var="page" begin="${pInfo.startPage}"
+										end="${pInfo.endPage}">
+										<c:choose>
+											<c:when test="${pInfo.currentPage == page }">
+												<li class="page-item active"><a class="page-link"
+													data-abc="true">${page}</a></li>
+											</c:when>
+
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													href="?cp=${page}" data-abc="true">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+
+									<c:if test="${next <= pInfo.maxPage}">
+										<li class="page-item"><a class="page-link"
+											href="${nextPage }" data-abc="true">&gt;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${lastPage }" data-abc="true">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</nav>
+
+						</div>
+					</div>
+				</div>
+
+				
+
+
+				<div>
                         <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
                          
                             <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
@@ -270,46 +327,38 @@
     	var boardNoList = [];
     	var boardCodeList = [];
     	
-    	if($("#checkall").prop("checked")){
-            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
             $("input:checkbox[name=chk]").each(function(){
 				if(this.checked){
-					boardNoList = $(this).parent().siblings().eq(0).text();
-					boardCodeList = $(this).parent().siblings().eq(1).text();
+					 boardNoList.push($(this).parent().siblings().eq(0).text());
+					 boardCodeList.push($(this).parent().siblings().eq(1).text());
 				}
-				
-			});
-            //클릭이 안되있으면
-            //console.log(list);
-        }else{
-        	
-        }
+        });
+            
+            
+
     	
-    	
-           /*  $.ajax({
+           $.ajax({
 				url : "${contextPath}/admin/recoverBoard",
-				data : {"numberList" : list.join()},
+				data : {"boardNoList" : boardNoList, "boardCodeList" : boardCodeList},
 				
 				type : "post",
 				
-				success : function(result){
-					 if(result > 0){ 
-						swal({icon : "success" , 
+				success : function(flag){
+					 if(flag){ 
+						swal({
+							icon : "success" , 
 				        	title : "복구 성공", 
-				        	buttons : {confirm : true}}
-				        ).then((result) => {
-					        	if(result) {
-									location.reload();
-					        	}	
-					        }
-				        );
+				        	buttons : {confirm : true}
+						}).then(function() {
+				        	location.href = "${contextPath}/admin/boardManage";
+						});
 						
 					} 
 				},
 				error : function(){
 					console.log("복구 실패");
 				}
-			});  */ 
+			}); 
         	
     });
 </script>
