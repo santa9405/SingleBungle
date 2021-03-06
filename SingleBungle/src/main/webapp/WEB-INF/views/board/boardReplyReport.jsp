@@ -78,15 +78,18 @@
          <div class="form-group row">
                <div class="col-sm-12" style="text-align:center; margin-top:30px;">
                 <button type="submit" class="btn maincolor">신고</button>
-                <button class="btn btn-secondary">취소</button>
+                <button type="button" class="btn btn-secondary" id="cancelBtn">취소</button>
              </div>
          </div>
      </form>
     </div>
 </body>
 
-   <script>   
-
-   </script>
+<script>   
+	// 취소버튼
+	$("#cancelBtn").on("click", function(){
+			window.close();
+	});
+</script>
 </body>
 </html>

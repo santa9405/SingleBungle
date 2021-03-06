@@ -136,7 +136,7 @@
 			// 댓글 List 반복 접근
 			$.each(rList, function(index, item){
 				
-				var media = $("<div>").addClass("media mt-2  replyBorder").css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"});
+				var media = $("<div>").addClass("media mt-2 replyBorder") /* .css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"}) */ ;
 				
 				// 이미지
 				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
@@ -156,7 +156,7 @@
 				var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport("+item.replyNo+")").text("신고");
 				
 				// 내용 영역
-				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
+				var replyText = $("<div>").addClass("replyText").html(item.replyContent).css({"margin-bottom":"5px"});
 				
 				var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
 				var replyUpdate = $("<a>").addClass("replyUpdate").css({"margin-right":"5px"}).attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
