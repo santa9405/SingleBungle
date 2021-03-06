@@ -165,4 +165,13 @@ public class FindFriendDAO {
 		return sqlSession.selectList("friendMapper.selectDBFileList");
 	}
 
+	
+	/** 친구찾기 삭제 게시글 관리자 상세 조회 DAO
+	 * @param friendNo
+	 * @return findFriend
+	 */
+	public FindFriend selectDeleteBoard(int friendNo) {
+		return sqlSession.selectOne("friendMapper.selectDeleteBoard", friendNo);
+	}
+
 }

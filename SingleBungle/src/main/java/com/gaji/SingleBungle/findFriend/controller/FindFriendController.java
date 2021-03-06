@@ -307,5 +307,57 @@ public class FindFriendController {
 		
 		return url;
 	}
-
+	
+	
+	// -------------------------------------------------------------------------------------------------------------------------
+	
+	// 친구찾기 삭제 게시글 관리자 상세 조회 Controller
+	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
+	public String adminView(@PathVariable("boardNo") int friendNo, Model model,
+							 @ModelAttribute("loginMember") Member loginMember,
+							 @RequestHeader(value = "referer", required = false) String referer,
+							 RedirectAttributes ra) {
+		
+		// 삭제 게시글 상세 조회
+		FindFriend findFriend = service.selectDeleteBoard(friendNo);
+		
+		int memNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", friendNo);
+		map.put("memNo", memNo);
+		
+		// 참여신청 여부 확인
+		int checkApply = service.checkApply(map);
+		model.addAttribute("checkApply", checkApply);
+		
+		String url = null;
+		
+		if(findFriend != null) { // 상세 조회 성공 시
+			
+			List<FindFriendAttachment> attachmentList = service.selectAttachmentList(friendNo);
+			
+			if(attachmentList != null && !attachmentList.isEmpty()) {
+				model.addAttribute("attachmentList", attachmentList);
+			}
+			
+			model.addAttribute("findFriend", findFriend);
+			url = "findFriend/findFriendView"; 
+			
+		}else {
+			
+			if(referer == null) { // 이전 요청 주소가 없는 경우
+				url = "redirect:../list";
+			}else { // 이전 요청 주소가 있는 경우
+				url = "redirect:" + referer;
+			}
+			
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+			
+		}
+		
+		return url;
+	}
+	
 }
