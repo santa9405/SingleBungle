@@ -106,8 +106,6 @@
             }
 
 
-
-
         </style>
             
         <script>
@@ -144,16 +142,17 @@
                         <option>공지사항</option>
                     </select>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
                             <th><input type="checkbox" name="ck" onclick='selectAll(this)'></th>
+                            <th class="hidden">번호</th>
                             <th>게시판명</th>
                             <th>제목</th>
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody>s
                     <c:if test="${empty boardList }">
                    			<tr>
 								<td colspan="6">존재하는 게시글이 없습니다.
@@ -161,15 +160,17 @@
                    </c:if>
                    <c:if test="${!empty boardList }">
                   	<c:forEach var="board" items="${boardList}" varStatus="vs">
+                  		<c:if test="${board.boardCode != 5 }">
                         <tr>
                             <td><input type="checkbox" name="ck"></td>
+                            <td class="hidden boardNo">${board.boardNo }</td>
+                            <td class="hidden">${board.boardCode }</td>
                             <td>
                             	<c:choose>
 									<c:when test="${board.boardCode == 1}">자유게시판</c:when>
 									<c:when test="${board.boardCode == 2}">후기게시판</c:when>
 									<c:when test="${board.boardCode == 3}">고객센터</c:when>
 									<c:when test="${board.boardCode == 4}">이벤트</c:when>
-									<c:when test="${board.boardCode == 5}">FAQ</c:when>
 									<c:when test="${board.boardCode == 6}">맛집게시판</c:when>
 									<c:when test="${board.boardCode == 7}">친구찾기</c:when>
 									<c:when test="${board.boardCode == 7}">사고팔고</c:when>
@@ -177,13 +178,14 @@
                             </td>
                             <td class="boardTitle">${board.boardTitle }</td>
                         </tr>
+                        </c:if>
                         </c:forEach>
                         </c:if>
                     </tbody>
                 </table>
 
                 <div class="float-right">
-                    <button id="deleteBtn" class="btn btn-success">복구</button> 
+                    <button  id="recoverBtn" class="btn btn-success">복구</button> 
                 </div>
                     <div class="padding">
                         <div class="container d-flex justify-content-center">
@@ -198,7 +200,6 @@
                                                 <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
                                             </ul>
                                         </nav>
-
                             </div>
                         </div>
                     </div>
@@ -226,6 +227,74 @@
     $(function(){
 		$("#boardManage").attr('class','nav-link px-4 active bg-primary text-white shadow-sm rounded-pill');
 	});
+    
+    
+  //게시글 상세보기 기능 (jquery를 통해 작업)
+	$("#list-table td:not(:first-child)").on("click",function(){
+			var boardNo = $(this).parent().children().eq(1).text();
+			
+			var boardCode = $(this).parent().children().eq(2).text();
+			
+		  var boardViewURL = null;
+		  if(boardCode == 1) boardViewURL = "${contextPath}/board/deleteManage/"+ boardCode + "/" + boardNo;
+		  else if(boardCode == 2) boardViewURL = "${contextPath}/review/deleteManage/"+ boardCode + "/" + boardNo;
+		  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/deleteManage/"+ boardCode + "/" + boardNo;
+		  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/deleteManage/"+ boardCode + "/" + boardNo;
+		  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/deleteManage/"+ boardCode + "/" + boardNo;
+		  else if(boardCode == 7) boardViewURL = "${contextPath}/findFriend/deleteManage/"+ boardCode + "/" + boardNo;
+		  else if(boardCode == 8) boardViewURL = "${contextPath}/market/deleteManage/"+ boardCode + "/" + boardNo;
+		  
+		  
+		  	  /* console.log("boardCode : " + boardCode)
+			  console.log(boardNo);
+			  console.log(boardViewURL); */
+		  
+			
+		location.href = boardViewURL; // 요청 전달
+	
+	});
+  
+  
+  
+  
+	$("#recoverBtn").on("click", function(){
+    	var list = [];
+    	
+    	$("input:checkbox[name='ck']:checked").length;
+        
+        $('input[type="checkbox"]:checked').each(function (index) {
+        		
+        		/* if($(this).val() != "on"){
+  					list.push($(this).val());
+        		} */
+        });
+    	
+            $.ajax({
+				url : "${contextPath}/admin/recoverBoard",
+				data : {"numberList" : list.join()},
+				
+				type : "post",
+				
+				success : function(result){
+					 if(result > 0){ 
+						swal({icon : "success" , 
+				        	title : "복구 성공", 
+				        	buttons : {confirm : true}}
+				        ).then((result) => {
+					        	if(result) {
+									location.reload();
+					        	}	
+					        }
+				        );
+						
+					} 
+				},
+				error : function(){
+					console.log("복구 실패");
+				}
+			});  
+        	
+    });
 </script>
 </body>
 </html>
