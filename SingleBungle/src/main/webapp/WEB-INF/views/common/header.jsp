@@ -46,8 +46,8 @@
     	text-decoration: none;
     }
 		
-	/* 메인 색--------------------------------------- */
-    /* 버튼 */
+	/* 메인 색(주황)--------------------------------------- */
+    /* 버튼(기본) : 주황 바탕, 흰 글씨 */
     .maincolor{
         color: #ffffff !important; 
         background-color:#ffaf18 !important;
@@ -59,27 +59,27 @@
         border: 1px solid #ffc823 !important;
     }
 
-    /* 버튼 반대로 */
+    /* 버튼 반대로 : 흰 바탕, 주황 테두리 */
     .maincolor-re{
-        color: #ffffff !important;
-        background-color: #ffffff !important;
-        border: 1px solid #ffaf18 !important;
+            color: #ff8500 !important;
+            background-color: #ffffff !important;
+            border: 1px solid #ffaf18 !important;
     }
-
     .maincolor-re:hover{
         color: #ffffff !important; 
         background-color:#ff8500 !important;
         border: 1px solid #ffc823 !important;
     }
 
-    /* a태그 폰트 */
+    /* 폰트 : 주황색, 호버시 더찐한 주황색 */
     .maincolor-font{
         color:#ffaf18;
     }
     .maincolor-font:hover{
         color:#ff8500;
     }
-
+	
+	/* 폰트 : 검정글씨, 호버시 주황색 */
     .maincolor-font-bk{
         color:#212529;
     }
@@ -89,9 +89,18 @@
 
     /* 별표 주황색 */
     .requiredInput{ color : #ff8500; }
-    /* 메인 색--------------------------------------- */
+    /* 메인 색(주황)--------------------------------------- */
+    
+    /* 세컨드 (파랑)--------------------------------------- */
+    /* 
+      700: #007bff
+      600: #008fff
+      500: #009eff
+    */
+    /* 세컨드 (파랑)--------------------------------------- */
 	
    	</style>
+   	
 </head>
 <body id="page-top">
 
