@@ -81,7 +81,8 @@
 }
 
 .like {
-	background-image: url('${contextPath}/resources/img/like2.png');
+	background-size : 15px;
+	background-image: url('${contextPath}/resources/images/like2.png');
 	background-repeat: no-repeat;
 }
 
@@ -180,7 +181,9 @@ body {
 
 						<img class="image" src="${contextPath}/resources/images/view.png"> ${findFriend.readCount}
 						<button type="button" id="likeBtn">
-							<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+							<img src="${contextPath}/resources/images/like1.png" 
+							width="15" height="15" id="heart" class='<c:if test="${findFriend.likes > 0}">like</c:if>'> 
+							<span class="likeCnt">${findFriend.likes}</span>
 						</button>
 					</div>
 				</div>
@@ -295,7 +298,57 @@ body {
 		});
 
 		// -------------------------------------------------------------------------------------------------------------------
-	
+		// 좋아요
+		$("#likeBtn").on("click", function(){
+			
+			if($("#heart").attr("class") == "like"){
+				
+				$.ajax({
+					
+					url : "${contextPath}/findFriend/decreaseLike/" + friendNo,
+					success : function(result){
+						
+						if(result > 0){
+							$(".likeCnt").text(Number($(".likeCnt").text()) - 1);
+							$("#heart").toggleClass("like");
+						}
+						
+					}, error : function(){
+						console.log("좋아요 취소 실패");
+					}
+					
+				});
+				
+			}else{
+				
+					$.ajax({
+					
+					url : "${contextPath}/findFriend/increaseLike/" + friendNo,
+					success : function(result){
+						
+						if(result > 0){
+							$(".likeCnt").text(Number($(".likeCnt").text()) + 1);
+							$("#heart").toggleClass("like");
+						}
+						
+					}, error : function(){
+						console.log("좋아요 등록 실패");
+					}
+					
+				});
+				
+			}
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		// -------------------------------------------------------------------------------------------------------------------
 		// 게시글 신고창 열기
 		$(".report")
 				.on(

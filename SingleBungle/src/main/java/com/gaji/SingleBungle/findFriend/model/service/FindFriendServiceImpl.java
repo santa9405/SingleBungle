@@ -144,7 +144,20 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public int deleteApply(Map<String, Object> map) {
 		return dao.deleteApply(map);
 	}
-
+	
+	// 친구찾기 게시글 좋아요 등록 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int increaseLike(Map<String, Object> map) {
+		return dao.increaseLike(map);
+	}
+	
+	// 친구찾기 게시글 좋아요 취소 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int decreaseLike(Map<String, Object> map) {
+		return dao.decreaseLike(map);
+	}
 
 	// 친구찾기 게시글 등록(+ 파일 업로드) Service 구현
 	@Transactional(rollbackFor = Exception.class)

@@ -172,6 +172,32 @@ public class FindFriendController {
 		
 	}
 	
+	// 친구찾기 게시글 좋아요 등록 Controller
+	@ResponseBody
+	@RequestMapping("increaseLike/{friendNo}")
+	public int insertLike(@PathVariable("friendNo") int friendNo, @ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", friendNo);
+		map.put("memNo", loginMember.getMemberNo());
+		
+		return service.increaseLike(map);
+		
+	}
+	
+	// 친구찾기 게시글 좋아요 취소 Controller
+	@ResponseBody
+	@RequestMapping("decreaseLike/{friendNo}")
+	public int decreaseLike(@PathVariable("friendNo") int friendNo, @ModelAttribute("loginMember") Member loginMember) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", friendNo);
+		map.put("memNo", loginMember.getMemberNo());
+		
+		return service.decreaseLike(map);
+		
+	}
+	
 	// 친구찾기 게시글 등록 화면 전환 Controller
 	@RequestMapping("insert")
 	public String insertView() {
@@ -208,10 +234,18 @@ public class FindFriendController {
 		
 		String url = null;
 		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", findFriend.getFriendNo());
+		map.put("memNo", loginMember.getMemberNo());
+		
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
+			
+			// 작성자 친구찾기 참여 등록
+			service.insertApply(map);
 			
 			// 새로 작성한 게시글 상세 조회시 목록으로 버튼 경로 지정하기
 			request.getSession().setAttribute("returnListURL", "list");
