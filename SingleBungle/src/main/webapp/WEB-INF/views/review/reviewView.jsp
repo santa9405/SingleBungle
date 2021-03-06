@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기 등록하기</title>
+<title>후기 상세조회</title>
 
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.3/css/bootstrap.min.css">
@@ -339,10 +339,12 @@ body {
 		location.href = boardViewURL;
 	});
 	
+	
 	// 게시글 신고창 열기
-	$(".report").on("click", function(){
-			window.open('${contextPath}/reviewReport/report', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-	});
+	   $(".report").on("click", function(){
+		   	window.name = "parentWindow";
+	       window.open('${contextPath}/review/reviewReport/${review.boardNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		 });
 	
 
 	// 목록으로 버튼

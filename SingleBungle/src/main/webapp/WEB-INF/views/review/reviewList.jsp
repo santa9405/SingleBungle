@@ -269,7 +269,7 @@
 		<!-- 등록하기 버튼 -->
 
 		<!-- 로그인이 되어있고, 회원 2등급 이상일 경우 !=T -->
-		<c:if test="${!empty loginMember && loginMember.memberGrade != 'F' }">
+		<c:if test="${!empty loginMember && loginMember.memberGrade != 'T' }">
 			<div class="row">
 				<div class="col-lg-12 mx-auto">
 					<button type="button" class="btn btn-success float-right" id="insertBoard">등록하기</button>
