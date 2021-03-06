@@ -39,6 +39,12 @@ public interface MarketService {
 	Market selectMarket(int marketNo);
 	
 	
+	/** 좋아요 여부 확인 Service
+	 * @param map
+	 * @return likeP
+	 */
+	int selectLikePushed(Map<String, Integer> map);
+	
 	/** 게시글 상세조회 이미지 Service
 	 * @param marketNo
 	 * @return attachmentList
@@ -71,6 +77,8 @@ public interface MarketService {
 	 * @return result
 	 */
 	int insertMarket(Market market, List<MultipartFile> images, String savePath);
+
+
 
 
 	

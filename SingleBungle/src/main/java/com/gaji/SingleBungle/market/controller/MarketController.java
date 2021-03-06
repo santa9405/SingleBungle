@@ -45,7 +45,7 @@ public class MarketController {
 								int cp, Model model, @ModelAttribute("loginMember") Member loginMember,
 								RedirectAttributes ra) {
 		String url = null;		
-		System.out.println(loginMember);
+		
 		if (loginMember != null) {
 			if (loginMember.getMemberGrade().charAt(0) != 'F') {
 				swalIcon = "error";
@@ -64,7 +64,7 @@ public class MarketController {
 				}
 				
 				List<MarketLike> likeInfo = service.selectLike(loginMember.getMemberNo());
-				System.out.println(likeInfo);
+				
 
 				model.addAttribute("mpInfo", mpInfo);
 				model.addAttribute("mList", mList);
@@ -96,7 +96,7 @@ public class MarketController {
 		
 		map.put("memberNo", loginMember.getMemberNo());
 		map.put("marketNo", marketNo);
-
+		
 		int result = service.increaseLike(map);
 		
 		return result;
@@ -121,18 +121,29 @@ public class MarketController {
 	@RequestMapping("{marketNo}") 
 	public String marketView(@PathVariable int marketNo,
 							Model model, @RequestHeader(value = "referer", required = false) String referer,
-							RedirectAttributes ra) {
+							RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
 		
 		Market market = service.selectMarket(marketNo);
 		String url = null;
 		
 		if (market != null) {
+			
+			// 해당 게시글에 좋아요를 눌렀는지 확인
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("marketNo", marketNo);
+			
+			int like = service.selectLikePushed(map);
+			model.addAttribute("likeCheck", like);
+			
+			
 			List<MarketAttachment> at = service.selectAttachmentList(marketNo);
 			
 			if(at != null & !at.isEmpty()) {
 				model.addAttribute("at", at);
 			}
 			
+			//model.addAttribute("loginMember", loginMember);
 			model.addAttribute("market", market);
 			url = "market/marketView";
 		} else {

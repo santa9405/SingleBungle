@@ -63,11 +63,6 @@ body {
 	color: #6c757d;
 }
 
-.like {
-	background-image: url('${contextPath}/resources/img/like2.png');
-	background-repeat: no-repeat;
-}
-
 .searchArea {
 	margin: auto;
 }
@@ -115,6 +110,8 @@ body {
 	color: black;
 }
 
+.page-item > a, .page-item > a:hover { color: black; }
+
 .pagination.pagination-rounded-flat .page-item {
 	margin: 0 .25rem;
 }
@@ -127,7 +124,7 @@ body {
 .pagination.pagination-rounded-flat .page-item .page-link {
 	border: none;
 	border-radius: 50px;
-	x
+	
 }
 
 .banner span {
@@ -290,10 +287,12 @@ body {
 						<nav>
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 
-								<c:if test="${mpInfo.currentPage > mpInfo.pageSize}">
-									<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
-									<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
-								</c:if>
+														<c:if test="${mpInfo.currentPage > mpInfo.pageSize}">
+															<!-- 첫 페이지로 이동(<<) -->
+															<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
+															<!-- 이전 페이지로 이동 (<) -->
+															<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
+														</c:if>
 
 
 								<!-- 페이지 목록 -->
@@ -310,10 +309,12 @@ body {
 								</c:forEach>
 
 
-								<c:if test="${next <= mpInfo.maxPage}">
-									<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
-									<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
-								</c:if>
+															<c:if test="${next <= mpInfo.maxPage}">
+															<!-- 다음 페이지로 이동 (>) -->
+															<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+															<!-- 마지막 페이지로 이동(>>) -->
+															<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
+														</c:if>
 							</ul>
 						</nav>
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,11 +153,6 @@
     border: 0px solid #ddd;
     background-color: rgba(255, 255, 255, 0);
   }
-
-  .like {
-    background-image: url('${contextPath}/resources/img/like2.png');
-    background-repeat: no-repeat;
-  }
   
    .text-dark {
   display:block;
@@ -200,12 +196,21 @@
 	.boardImg{
 		width : 100%;
 		height: 100%;
-		
-		max-width : 300px;
-		max-height: 300px;
-		
+		max-width : 460x;
+		max-height: 400px;
 		margin : auto;
 	}
+	
+	.btnW{
+		width: 145px;
+		height: 55px;
+	}
+	
+	.like2 {
+	background-size : 20px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
+}
   
 </style>
 </head>
@@ -282,25 +287,32 @@
 				
 				
 				
-				<div class="col-md-6">
+				<div class="col-md-6 no">
+				<span style='visibility: hidden;'>${market.marketNo}</span>
 					<div> <h3>[${market.categoryNm}]</h3> </div> 
 					<div> <h3 class="itemTitle">${market.marketTitle}</h3> </div>
-					<div> <h1 class="itemPrice float-left">${market.price} 원</h1> 
+					<div> <h1 class="itemPrice float-left"><fmt:formatNumber value="${market.price}" pattern="###,###,###,###"/>원</h1> 
 						
-						<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">예약중으로 변경</button></div>
-						<div class="badge badge-info px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">거래완료로 변경</button></div>					
+						 <!-- 본인의 글이면 버튼 나타나게 -->
+						 <c:if test="${market.memNo == loginMember.memberNo}"> 
+							<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">예약중으로 변경</button></div>
+							<div class="badge badge-info px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">거래완료로 변경</button></div>	
+						</c:if>				
 						<hr> 
 					</div>
 					
 					
 						<div>
-						 <img class="float-left likeImg smallImages" width="20" height="20" src="${contextPath}/resources/images/like1.png"> 
-						 <h5 class="likeCnt float-left cnt">${market.likes}</h5>
+						 <img class='float-left likeImg smallImages 
+						 		<c:forEach var="like" items="${likeInfo}"><c:if test="${like.marketNo == market.marketNo}">like2</c:if></c:forEach>'
+						 			 width="20" height="20" src="${contextPath}/resources/images/like1.png"> 
+						 <h5 class="likeCnt float-left cnt likes">${market.likes}</h5>
 							<h5 class="verticalBar float-left"> | </h5>
 						 </div> 
 						 
 							<div>
 						 <img class="float-left readCntImg smallImages" width="20" height="20" src="${contextPath}/resources/images/view.png"> 
+						 
 						 <h5 class="readCnt float-left cnt">${market.readCount}</h5> 
 						 <h5 class="verticalBar float-left"> | </h5>
 						 </div>
@@ -348,28 +360,42 @@
 							</ul>
 						</div>
 						
+						
+						<!-- 좋아요(찜하기) -->
  						<div>
-							<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
-								<img src="${contextPath}/resources/images/like1.png" width="20" height="20" id="heart">
-								<span class="likeCnt cnt">찜하기</span>
+							<a class="btn btn-primary btn-lg btnW likeBtn active" role="button" aria-pressed="true">
+								<img src="${contextPath}/resources/images/like1.png" width="20" height="20" id="heart"
+									class='likeImgs <c:if test="${likeCheck == 1}">like2</c:if>'>
+								<span class="likeCnt cnt">
+									<c:if test="${likeCheck == 1}">찜하기 취소</c:if>
+									<c:if test="${likeCheck != 1}">찜하기</c:if>
+								</span>
 							</a>
 							
-							<a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+							
+							
+							
+							
+							
+							
+							
+							<a href="#" class="btn btn-secondary btn-lg btnW active" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="message"> 
 								<span class="messageText">쪽지</span>
 							</a>
 						</div>
 						
-						
-						<div>
-							<a href="#" class="btn btn-warning btn-lg active" role="button" aria-pressed="true">
+						<c:if test="${market.memNo == loginMember.memberNo}"> 
+						<div style="margin-top : 10px;">
+							<a class="btn btn-warning btn-lg btnW active" role="button" aria-pressed="true">
 								<span>수정</span>
 							</a>
 							
-							<a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">
+							<a  class="btn btn-danger btn-lg btnW active" role="button" aria-pressed="true">
 								<span>삭제</span>
 							</a>
 						</div>
+						</c:if>
 				</div> 
 				
 		</div>
@@ -423,10 +449,10 @@
               
               
               
-            <!-- 좋아요 버튼 -->
+            <!-- 좋아요 -->
 							<span class="float-right">
 								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" > <span class="likeCnt">100</span>
 								</button>
 							</span>
 
@@ -455,7 +481,7 @@
             <!-- 좋아요 버튼 -->
 							<span class="float-right">
 								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
+									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt2">100</span>
 								</button>
 							</span>
 
@@ -498,8 +524,59 @@
 				</div>
 			</div>
 		</div>
-		
-		
 </div>
+
+	<script>
+	$(".likeBtn").on("click", function(){
+		var marketNo = $(this).closest('.no').children().eq(0).text();
+		var likeClassArray = $(this).children().attr('class').split(" ");
+		var likeClass = "like1";
+		var likeImg = $(this).children(".likeImgs");
+		var likeCnt = $(".likes");
+		var likedelete = $(this).children(".cnt");
+		
+	
+		if(likeClassArray[1] == "like2") {
+			likeClass = "like2"; 
+		}
+		
+		if(likeClass == "like1") {
+			$.ajax({
+				url : "increaseLike",
+				type : "post",
+				data : {"marketNo" : marketNo},
+				success : function(result){
+					if(result > 0) {
+						likeCnt.text(Number(likeCnt.text()) + 1);
+						likedelete.text("찜하기 취소");
+						likeImg.toggleClass("like2");
+					}
+				}, 
+				error : function(result){
+					console.log("ajax 통신 오류 발생1");
+				}
+			});
+		} else{
+			$.ajax({
+				url : "decreaseLike",
+				type : "post", 
+				data : {"marketNo" : marketNo},
+				success : function(result){
+					if(result > 0){ // 삭제 성공
+						likeCnt.text(Number(likeCnt.text()) - 1);
+						likeImg.removeClass("like2");
+						likedelete.text("찜하기");
+					}
+				},
+				error : function(result){
+					console.log("ajax 통신 오류 발생2");
+				}
+			});
+		}
+	});
+	
+
+	</script>
+		
 </body>
 </html>

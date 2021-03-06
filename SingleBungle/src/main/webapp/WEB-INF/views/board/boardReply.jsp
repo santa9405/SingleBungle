@@ -68,6 +68,14 @@
 	resize: none;
 	width: 100%;
 }
+
+/* 댓글, 답글 신고 부분 색상 변경 */
+.replyReport, .replyReport:hover {
+	text-decoration: none;
+	color: #ff5536;
+}
+
+
 </style>
 
 </head>
@@ -160,25 +168,24 @@
 				
 				// 댓글의 깊이가 1인 요소는 별도의 스타일을 지정할 수 있도록 클래스 추가
 				if(item.replyDepth == 1){
-					img.addClass("childReply");
-					mediaBody.addClass("childReply");
+					 media.addClass("childReply");
 				}
 				
-				// 댓글의 깊이가 0인 요소 신고 버튼 추가
-				if(item.replyDepth == 0){
-					reply2.append(report);
-				}
-				
-				// 로그인이 되어 있고, 자신의 글이 아닐 경우에 답글 버튼 추가
-				if(memNo != "" && item.memNo != memNo){
-					col8.append(nickname).append(createDt);
-					floatRight.append(reply2);
-					col4.append(floatRight);
-					row.append(col8).append(col4);
-					mediaBody.append(row);
-					mediaBody.append(replyText);
-					media.append(img).append(mediaBody);
-					replyListArea.append(media).append(hr);
+				// 댓글의 깊이가 0인 요소 답글 버튼 추가
+        if(item.replyDepth == 0){
+           floatRight.append(reply2);
+        }
+        
+        // 로그인이 되어 있고, 자신의 글이 아닐 경우에 신고 버튼 추가
+        if(memNo != "" && item.memNo != memNo){
+           col8.append(nickname).append(createDt);
+           floatRight.append(report);
+           col4.append(floatRight);
+           row.append(col8).append(col4);
+           mediaBody.append(row);
+           mediaBody.append(replyText);
+           media.append(img).append(mediaBody);
+           replyListArea.append(media).append(hr);
 			
 				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
 				}else if(item.memNo == memNo){

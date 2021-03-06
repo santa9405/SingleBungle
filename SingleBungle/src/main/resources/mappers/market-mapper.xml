@@ -85,6 +85,13 @@
 		ORDER BY FILE_LEVEL
 	</select>
 	
+	<!-- 좋아요 확인 여부 -->
+	<select id="selectLikePushed" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM MARKET_LIKE
+		WHERE MEM_NO = #{memberNo}
+		AND MARKET_NO = #{marketNo}
+	</select>
+	
 	<!-- 조회수 증가 -->
 	<update id="increaseReadCount" parameterType="_int">
 		UPDATE MARKET SET

@@ -54,6 +54,15 @@ public class MarketDAO {
 	public Market selectMarket(Market temp) {
 		return sqlSession.selectOne("marketMapper.selectMarket", temp);
 	}
+	
+	
+	/** 좋아요 여부 확인 DAO
+	 * @param map
+	 * @return likeP
+	 */
+	public int selectLikePushed(Map<String, Integer> map) {
+		return sqlSession.selectOne("marketMapper.selectLikePushed", map);
+	}
 
 
 	/** 조회수 증가 DAO
@@ -125,6 +134,9 @@ public class MarketDAO {
 	public List<MarketAttachment> selectAttachmentList(int marketNo) {
 		return sqlSession.selectList("marketMapper.selectAttachmentList", marketNo);
 	}
+
+
+
 
 
 
