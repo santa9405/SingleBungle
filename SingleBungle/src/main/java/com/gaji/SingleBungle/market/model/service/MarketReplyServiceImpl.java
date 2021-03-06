@@ -67,4 +67,11 @@ public class MarketReplyServiceImpl implements MarketReplyService{
 	public int deleteReply(int replyNo) {
 		return dao.deleteReply(replyNo);
 	}
+
+	// 대댓글 등록 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChildReply(MarketReply reply) {
+		return dao.insertChildReply(reply);
+	}
 }

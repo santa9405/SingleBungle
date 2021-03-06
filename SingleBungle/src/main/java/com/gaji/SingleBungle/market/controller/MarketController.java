@@ -193,7 +193,7 @@ public class MarketController {
 			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
 			
-			request.getSession().setAttribute("returnListURL", "list");
+			request.getSession().setAttribute("returnListURL", "../list");
 					
 		} else {
 			swalIcon = "error";

@@ -17,19 +17,6 @@ public class MarketReply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MarketReply(int replyNo, String replyContent, Timestamp replyCreateDt, String replyStatus, int replyDepth,
-			int parentMarketNo, int memNo, int parentReplyNo, String nickname) {
-		super();
-		this.replyNo = replyNo;
-		this.replyContent = replyContent;
-		this.replyCreateDt = replyCreateDt;
-		this.replyStatus = replyStatus;
-		this.replyDepth = replyDepth;
-		this.parentMarketNo = parentMarketNo;
-		this.memNo = memNo;
-		this.parentReplyNo = parentReplyNo;
-		this.nickname = nickname;
-	}
 
 	public int getReplyNo() {
 		return replyNo;

@@ -53,5 +53,14 @@
 		REPLY_STATUS = 'Y'
 		WHERE REPLY_NO = #{replyNo}
 	</update>
+	
+	<!-- 대댓글 삽입 DAO  -->
+	<insert id="insertChildReply" parameterType="MarketReply">
+		INSERT INTO MARKET_REPLY
+			(REPLY_NO, REPLY_CONTENT, PARENT_MARKET_NO,
+					 PARENT_REPLY_NO, MEM_NO, REPLY_DEPTH)
+		VALUES(SEQ_BRNO.NEXTVAL, #{replyContent}, #{parentMarketNo},
+					 #{parentReplyNo}, #{memNo}, 1)
+	</insert>
 </mapper>
 

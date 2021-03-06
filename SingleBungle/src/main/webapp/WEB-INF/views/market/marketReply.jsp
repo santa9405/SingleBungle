@@ -364,8 +364,111 @@ function updateCancel(el){
 			});
 		}
 	}
+	
+	
+	//-----------------------------------------------------------------------------------------
 
+	// 답글 버튼 동작 (대댓글 작성 영역 생성)
+	function addChildReplyArea(el, parentReplyNo){
+		
+		// 생성되어 있는 모든 답글 작성 영역을 화면에서 제거
+		var check = cancelChildReply();
+		
+		// 이전에 생성된 대댓글 영역이 모두 삭제된 경우에만 새로운 대댓글 영역 생성
+		if(check){
+			
+			// 댓글 작성자 닉네임 얻어오기
+			var writer = $(el).parent().parent().prev().children("h5").text();
+			
+			// 답글 작성 영역에 필요한 요소(textarea, button 2개) 생성
+			
+			var div = $("<div>").addClass("childReplyArea"); // 대댓글 작성 영역 전체를 감쌀 div
+			var textarea = $("<textarea rows='3'>").addClass("childReplyContent")
+											.attr("placeholder", writer + "님께 답글 작성하기");
+			
+			var btnArea = $("<div>").addClass("btnArea");
+			var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1").text("등록")
+			.attr("onclick", "addChildReply(this, " + parentReplyNo + ")");
+			
+			var cancelBtn = $("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")
+			.attr("onclick", "cancelChildReply()");
+			
+			btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼 추가
+			div.append(textarea).append(btnArea); // 대댓글 영역에 textarea, 버튼 영역 추가
+			
+			$(el).parent().parent().parent().parent().parent().after().after(div); // 답글 버튼 부모 요소 다음(이후)에 대댓글 영역 추가
+			
+			// 추가된 대댓글 영역으로 포커스 이동
+			$(".childReplyContent").focus();
+			
+		}
+		
+	}
+	
+	
+	//-----------------------------------------------------------------------------------------
+	
+	// 답글(대댓글) 취소
+	// 내용이 작성되어 있으면 취소버튼 클릭 시 confirm 창 띄우기
+	function cancelChildReply(){
+		
+		// 대댓글 영역에 작성된 내용 얻어오기
+		var tmp = $(".childReplyContent").val();
+		
+		// 대댓글 textarea에 아무것도 작성되지 않았거나, 대댓글 textarea가 없을 경우
+		// == 아무것도 작성되지 않으면 confirm창으로 확인하는 과정 없이 바로 닫히게 만듦.
+		if(tmp == "" || tmp == undefined){
+			// 대댓글 작성 영역 childReplyArea을 모두 제거
+			$(".childReplyArea").remove();
+		return true;
+		}
+		
+		else{ // 답글 textarea에 무언가 작성되어 있을 경우
+			
+			var cancelConfirm = confirm("작성된 댓글 내용이 사라집니다. 작성 취소 하시겠습니까?");
+		
+			if(cancelConfirm){
+				$(".childReplyArea").remove();
+			}
+			
+			return cancelConfirm;
+			
+		}
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------
 
+	// 답글(대댓글) 등록
+	function addChildReply(el, parentReplyNo){
+		
+		var replyContent =	$(el).parent().prev().val();
+		
+		if(replyContent.trim().length == 0){ // 대댓글 미작성 시
+			swal({icon : "info", title : "댓글 작성 후 클릭해주세요"});
+		}
+		
+		else{
+			$.ajax({
+				url : "${contextPath}/marketReply/insertChildReply/" + parentMarketNo,
+				data : {"parentReplyNo" : parentReplyNo,
+								"replyContent" : replyContent,
+								"memNo" : memNo},
+				
+								type : "post",
+				success : function(result){
+					
+					if(result > 0){
+						swal({icon : "success", title : "답글 등록 성공"});
+						selectReplyList();
+					}
+					
+				}, error : function(){
+					console.log("답글 등록 실패");
+				}
+			});		
+		}
+	}
 
 
 
