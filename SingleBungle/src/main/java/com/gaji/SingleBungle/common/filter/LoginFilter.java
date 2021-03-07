@@ -43,6 +43,11 @@ public class LoginFilter implements Filter {
 		ALLOWED_PATH.add("/member/idDupCheck"); // 아이디 중복검사 요청
 		ALLOWED_PATH.add("/member/nnDupCheck"); // 닉네임 중복검사 요청
 		ALLOWED_PATH.add("/member/SignUpMail"); // 회원가입 이메일 전송
+		ALLOWED_PATH.add("/member/findIdForm"); // 아이디찾기1
+		ALLOWED_PATH.add("/member/findIdResultForm"); // 아이디찾기2
+		ALLOWED_PATH.add("/member/findPwForm"); // 비밀번호찾기1
+		ALLOWED_PATH.add("/member/findPwChangeForm"); // 비밀번호찾기2
+		ALLOWED_PATH.add("/member/findPwResultForm"); // 비밀번호찾기3
 		
 		
 		HttpServletRequest req = (HttpServletRequest)request;

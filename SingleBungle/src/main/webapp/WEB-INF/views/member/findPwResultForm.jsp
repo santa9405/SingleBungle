@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -42,6 +43,59 @@
             text-decoration: none;
         }
 
+        /* -------------------------------------------------------------- */
+
+
+        /* 버튼 */
+        .maincolor {
+            color: #ffffff !important;
+            background-color: #ffaf18 !important;
+            border: 1px solid #ffaf18 !important;
+        }
+
+        .maincolor:hover {
+            color: #ffffff !important;
+            background-color: #ff8500 !important;
+            border: 1px solid #ffc823 !important;
+        }
+
+        /* 버튼 반대로 */
+        .maincolor-re {
+            color: #ff8500 !important;
+            background-color: #ffffff !important;
+            border: 1px solid #ffaf18 !important;
+        }
+
+        .maincolor-re:hover {
+            color: #ffffff !important;
+            background-color: #ff8500 !important;
+            border: 1px solid #ffc823 !important;
+        }
+
+        /* a태그 폰트 */
+        .maincolor-font {
+            color: #ffaf18;
+        }
+
+        .maincolor-font:hover {
+            color: #ff8500;
+        }
+
+        .maincolor-font-bk {
+            color: #212529;
+        }
+
+        .maincolor-font-bk:hover {
+            color: #ff8500;
+        }
+
+        /* 별표 주황색 */
+        .requiredInput {
+            color: #ff8500;
+        }
+
+        /* -------------------------------------------------------------- */
+
         .agree {
             border: 1px solid #ced4da;
             padding: 15px;
@@ -71,16 +125,23 @@
             width:50%;
         }
 
-        /* ---------------------------------------------------------- */
-        #time-area{
+        /* ------------------------------------------- */
+        
+        #complete-group{
+            clear: both;
+        }
+
+        .complete1{
+            font-size: 35px;
+            font-weight: 300;
+        }
+        .complete2{
             font-size: 20px;
             font-weight: 400;
         }
-        
-        
-        #time{
-            color:red;
-            font-size: 20px;
+
+        #complete-id{
+            color: red;
             font-weight: 700;
         }
 
@@ -101,36 +162,42 @@
                     <h3 class="text-center">로고,,ㄱ-</h3>
                     <br><br>
                     
-                    <h3 class="text-center">내 정보 수정</h3>
+                    <h3 class="text-center">비밀번호 찾기</h3>
                     <br>
                     
                     <div class="form-row" id="idpw-area">
                         <div class="form-group col-md-6" id="id-area">
-                            <button type="submit" class="btn btn-outline-primary btn-block">아이디 찾기</button>
+                            <button type="submit" class="btn btn-primary btn-block maincolor-re">아이디 찾기</button>
                         </div>
                         <div class="form-group col-md-6" id="pw-area">
-                            <button type="submit" class="btn btn-primary btn-block">비밀번호 찾기</button>
+                            <button type="submit" class="btn btn-outline-primary btn-block maincolor-re">비밀번호
+                                찾기</button>
                         </div>
                     </div>
                     <hr>
                     
                     <br>
 
-                    <div class="form-group">
-                        <label for="pw">* 비밀번호</label>
-                        <input type="password" class="form-control" id="pw" placeholder="비밀번호를 입력하세요.">
-                    </div>
+                    <div class="form-group" id="complete-group">
 
-                    <div class="form-group">
-                        <label for="pw2">* 비밀번호 확인</label>
-                        <input type="password" class="form-control" id="pw2" placeholder="비밀번호를 한번 더 입력하세요.">
-                    </div>
+                        <div class="complete1">
+                            비밀번호가<br>
+                            변경되었습니다.
+                        </div>
+                        
+                        <div class="complete2">
+                            새로운 비밀번호로  
+                            로그인해주세요.
+                        </div>
 
+                    </div>
 
                     <br>
                     <hr>
 
-                    <button type="submit" class="btn btn-primary btn-block">비밀번호 변경</button>
+                    <button type="submit" class="btn btn-primary btn-block maincolor">로그인</button>
+
+
                 </form>
             </div>
 

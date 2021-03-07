@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -41,6 +42,60 @@
         a:hover {
             text-decoration: none;
         }
+
+        /* -------------------------------------------------------------- */
+
+
+        /* 버튼 */
+        .maincolor {
+            color: #ffffff !important;
+            background-color: #ffaf18 !important;
+            border: 1px solid #ffaf18 !important;
+        }
+
+        .maincolor:hover {
+            color: #ffffff !important;
+            background-color: #ff8500 !important;
+            border: 1px solid #ffc823 !important;
+        }
+
+        /* 버튼 반대로 */
+        .maincolor-re {
+            color: #ff8500 !important;
+            background-color: #ffffff !important;
+            border: 1px solid #ffaf18 !important;
+        }
+
+        .maincolor-re:hover {
+            color: #ffffff !important;
+            background-color: #ff8500 !important;
+            border: 1px solid #ffc823 !important;
+        }
+
+        /* a태그 폰트 */
+        .maincolor-font {
+            color: #ffaf18;
+        }
+
+        .maincolor-font:hover {
+            color: #ff8500;
+        }
+
+        .maincolor-font-bk {
+            color: #212529;
+        }
+
+        .maincolor-font-bk:hover {
+            color: #ff8500;
+        }
+
+        /* 별표 주황색 */
+        .requiredInput {
+            color: #ff8500;
+        }
+
+        /* -------------------------------------------------------------- */
+
 
         .agree {
             border: 1px solid #ced4da;
@@ -95,15 +150,16 @@
                     <h3 class="text-center">로고,,ㄱ-</h3>
                     <br><br>
                     
-                    <h3 class="text-center">내 정보 수정</h3>
+                    <h3 class="text-center">비밀번호 찾기</h3>
                     <br>
                     
                     <div class="form-row" id="idpw-area">
                         <div class="form-group col-md-6" id="id-area">
-                            <button type="submit" class="btn btn-outline-primary btn-block">아이디 찾기</button>
+                            <button type="submit" class="btn btn-primary btn-block maincolor-re">아이디 찾기</button>
                         </div>
                         <div class="form-group col-md-6" id="pw-area">
-                            <button type="submit" class="btn btn-primary btn-block">비밀번호 찾기</button>
+                            <button type="submit" class="btn btn-outline-primary btn-block maincolor-re">비밀번호
+                                찾기</button>
                         </div>
                     </div>
                     <hr>
@@ -135,10 +191,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="col-md-5 verifyBtn">
+                            <button type="button" class="btn btn-primary form-control maincolor" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control email" id="verifyEmail" placeholder="인증번호 입력" required>
+                        </div>
+                        <!-- 인증 확인 체크 -->
+                        <div id="checkFl">
+                            <span id="checkKey">&nbsp;</span>
+                        </div>
+                    </div>
                     <br>
                     <hr>
 
-                    <button type="submit" class="btn btn-primary btn-block">이메일 인증 전송</button>
+                    <button type="submit" class="btn btn-primary btn-block maincolor">다음</button>
 
 
                 </form>

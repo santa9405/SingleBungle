@@ -250,31 +250,34 @@ public class memberController {
 		return "member/mypage";
 	}
 
-	// 아이디 찾기
-	@RequestMapping("mypageFindId1")
-	public String mypageFindId1() {
-		return "member/mypageFindId1";
+	// 아이디 찾기1
+	@RequestMapping("findIdForm")
+	public String findIdForm() {
+		return "member/findIdForm";
 	}
 
-	@RequestMapping("mypageFindId2")
-	public String mypageFindId2() {
-		return "member/mypageFindId2";
+	// 아이디 찾기2
+	@RequestMapping("findIdResultForm")
+	public String findIdResultForm() {
+		return "member/findIdResultForm";
 	}
 
-	// 비밀번호 찾기
-	@RequestMapping("mypageFindPw1")
-	public String mypageFindPw1() {
-		return "member/mypageFindPw1";
+	// 비밀번호 찾기1
+	@RequestMapping("findPwForm")
+	public String findPwForm() {
+		return "member/findPwForm";
 	}
-
-	@RequestMapping("mypageFindPw2")
-	public String mypageFindPw2() {
-		return "member/mypageFindPw2";
+	
+	// 비밀번호 찾기2
+	@RequestMapping("findPwChangeForm")
+	public String findPwChangeForm() {
+		return "member/findPwChangeForm";
 	}
-
-	@RequestMapping("mypageFindPw3")
-	public String mypageFindPw3() {
-		return "member/mypageFindPw3";
+	
+	// 비밀번호 찾기3
+	@RequestMapping("findPwResultForm")
+	public String findPwResultForm() {
+		return "member/findPwResultForm";
 	}
 
 	// 내 정보 수정
