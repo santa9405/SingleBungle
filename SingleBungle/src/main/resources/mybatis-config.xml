@@ -43,10 +43,6 @@
   	
   	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />
   	
-  	
-  	
-  	<typeAlias type="com.gaji.SingleBungle.main.model.vo.Main" alias="Main" />
-  	
 
   	
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.Market" alias="Market" />       
@@ -78,7 +74,6 @@
   	
   	<mapper resource="/mappers/member-mapper.xml" />
   	
-  	<mapper resource="/mappers/main-mapper.xml" />
 
   </mappers>
 </configuration>

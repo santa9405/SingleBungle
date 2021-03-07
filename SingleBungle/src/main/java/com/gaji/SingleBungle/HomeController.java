@@ -62,6 +62,9 @@ public class HomeController {
 	bpInfo.setLimit(5);
 	List<Board> bList = service1.selectList(bpInfo);
 	
+	model.addAttribute("bList", bList);
+	model.addAttribute("bpInfo", bpInfo);
+	
 	// 후기게시판
 //	ReviewPageInfo pInfo = service2.getPageInfo(cp);
 //	pInfo.setLimit(3);
@@ -77,11 +80,19 @@ public class HomeController {
 //		}
 //	
 //	}
+//	
+//	model.addAttribute("rList", rList);
+//	model.addAttribute("pInfo",pInfo);
+	
+	
 		
 	// 친구찾기
 //	FindFriendPageInfo pInfo = service7.getPageInfo(cp);
 //	pInfo.setLimit(5);
 //	List<FindFriend> fList = service7.selectList(pInfo);
+//	
+//	model.addAttribute("pInfo", pInfo);
+//	model.addAttribute("fList", fList);
 	
 		
 	// 맛집게시판
@@ -98,6 +109,12 @@ public class HomeController {
 //		}
 //
 //	}
+//	
+//	model.addAttribute("cList", cList);
+//	model.addAttribute("cpInfo", cpInfo);
+	
+	
+	
 	
 	// 사고팔고
 //	MarketPageInfo mpInfo = service8.getPageInfo(cp);
@@ -110,38 +127,15 @@ public class HomeController {
 //			model.addAttribute("thList", thumbnailList);
 //		}
 //	}	
-		
+//		
 //	model.addAttribute("mpInfo", mpInfo);
 //	model.addAttribute("mList", mList);	
 		
 	
-	model.addAttribute("bList", bList);
-	model.addAttribute("bpInfo", bpInfo);
-	
-//	model.addAttribute("rList", rList);
-//	model.addAttribute("pInfo",pInfo);
-		
-//	model.addAttribute("pInfo", pInfo);
-//	model.addAttribute("fList", fList);
-	
-//	model.addAttribute("cList", cList);
-//	model.addAttribute("cpInfo", cpInfo);
-	
-	
-	
 
-	
-	
-		
 		return "common/main";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
