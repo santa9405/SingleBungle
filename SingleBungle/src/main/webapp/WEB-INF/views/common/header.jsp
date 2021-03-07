@@ -38,6 +38,11 @@
 		margin: 0;
 	}
 	
+	button:focus {
+	border : none;
+	outline : none;
+}
+	
 	a {
         color: #212529;
     }
