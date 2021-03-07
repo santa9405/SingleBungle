@@ -15,6 +15,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
+/* 버튼 색상 */
+.maincolor1{
+    color: #ffffff !important; 
+    background-color:#4ab34a !important;
+    border: 1px solid #4ab34a !important;
+}
+.maincolor1:hover{
+    color: #ffffff !important; 
+    background-color:#4ca975 !important;
+    border: 1px solid #4ca975 !important;
+}
+
+.maincolor-re1{
+        color: #4ab34a !important;
+        background-color: #ffffff !important;
+        border: 1px solid #4ab34a !important;
+}
+.maincolor-re1:hover{
+    color: #ffffff !important; 
+    background-color:#4ca975 !important;
+    border: 1px solid #4ca975 !important;
+}
 
 .boardName { margin-right: 40px; }
 
@@ -300,7 +322,7 @@
 													<option value="writer">작성자</option>
 													<option value="titcont">제목+내용</option>
 												</select> <input type="text" name="sv" class="form-control " autocomplete="off" style="width: 25%; display: inline-block;">
-												<button class="form-control btn maincolor" id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+												<button class="form-control btn maincolor1" id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 											</div>
 										</div>
 										<input type="hidden" name="ct" value="${param.ct }">	<!-- 있으면 값 세팅  -->
@@ -385,7 +407,7 @@
 		
 		
 		// 검색 내용이 있을 경우 검색창에 해당 내용을 작성해두는 기능
-/* 		(function(){
+ 		(function(){
 			var sk = "${param.sk}";
 			var sv = "${param.sv}";
 			$("select[name=sk] > option").each(function(index, item){
@@ -394,7 +416,7 @@
 				}
 			});
 			$("input[name=sv]").val(sv);
-		})(); */
+		})();
 		
 		
 		

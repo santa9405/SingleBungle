@@ -3,6 +3,7 @@ package com.gaji.SingleBungle.cafe.controller;
 import java.util.HashMap;
 
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
 import com.gaji.SingleBungle.cafe.model.vo.CafeReport;
+import com.gaji.SingleBungle.cafe.model.vo.CafeSearch;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -98,22 +100,31 @@ public class CafeController {
 	
 	// 검색 Controller
 	@RequestMapping("search")
-	public String boardSearch(@RequestParam("sk") String searchKey,
-							  @RequestParam("sv") String searchValue,
-							  @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-							  Model model) {
+	public String boardSearch(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+								@RequestParam(value="sk",required = false) String sk, 
+								@RequestParam(value="sv",required = false) String sv,
+								@RequestParam(value="ct",required = false) String ct,
+								@RequestParam(value="sort",required = false) String sort, 
+								@ModelAttribute("cSearch") CafeSearch cSearch,
+								Model model) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("searchKey", searchKey);
-		map.put("searchValue", searchValue);
-		map.put("cp", cp);
+		cSearch.setSk(sk);
+		cSearch.setSv(sv);
+		cSearch.setCt(ct);
+		cSearch.setSort(sort);
 		
-		CafePageInfo cpInfo = service.getSearchPageInfo(map);
+		CafePageInfo cpInfo = service.getSearchPageInfo(cSearch, cp);
 		
-		List<Cafe> cList = service.selectSearchList(map, cpInfo);
+		List<Cafe> cList = service.selectSearchList(cSearch, cpInfo);
 		
-		model.addAttribute("cpInfo", cpInfo);
+		if(!cList.isEmpty()) {
+			List<CafeAttachment> thList = service.selectThumbnailList(cList);
+			model.addAttribute("thList", thList);
+		}
+		
 		model.addAttribute("cList", cList);
+		model.addAttribute("cpInfo", cpInfo);
+		model.addAttribute("cSearch", cSearch);
 		
 		return "cafe/cafeList";
 	}

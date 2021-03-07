@@ -88,7 +88,6 @@
     border: 1px solid #4ca975 !important;
 }
 
-/* 버튼 반대로 : 흰 바탕, 주황 테두리 */
 .maincolor-re1{
         color: #4ab34a !important;
         background-color: #ffffff !important;
