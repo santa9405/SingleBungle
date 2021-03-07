@@ -78,6 +78,10 @@ public interface MarketService {
 	 */
 	int insertMarket(Market market, List<MultipartFile> images, String savePath);
 
+	int reservation(Map<String, Integer> map);
+
+
+
 
 
 

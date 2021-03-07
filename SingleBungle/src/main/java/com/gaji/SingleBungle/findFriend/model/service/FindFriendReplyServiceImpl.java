@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.findFriend.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,13 @@ public class FindFriendReplyServiceImpl implements FindFriendReplyService {
 		
 	}
 
+	// 답글 삽입 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChildReply(FindFriendReply reply) {
+		return dao.insertChildReply(reply);
+	}
+
 	// 댓글 삭제 Service 구현
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -67,11 +75,39 @@ public class FindFriendReplyServiceImpl implements FindFriendReplyService {
 		return dao.deleteReply(replyNo);
 	}
 
-	// 답글 삽입 Service 구현
+	// 댓글 신고 등록 Service 구현
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertChildReply(FindFriendReply reply) {
-		return dao.insertChildReply(reply);
+	public int insertBoardReport(Map<String, Object> map) {
+		int result = 0;
+		
+		int reportNo = dao.selectReportNo();
+		
+		System.out.println(reportNo);
+		
+		if(reportNo > 0) {
+			map.put("reportNo", reportNo);
+			
+			String reportTitle = (String)map.get("reportTitle");
+			String reportContent = (String)map.get("reportContent");
+			
+			reportTitle = replaceParameter(reportTitle);
+			reportContent = replaceParameter(reportContent);
+			
+			map.put("reportTitle", reportTitle);
+			map.put("reportContent", reportContent);
+			
+		}
+				
+		result = dao.insertBoardReport(map);
+			
+		if(result > 0) {
+			
+			result = reportNo;
+		}
+		
+		return result;
+		
 	}
 
 	

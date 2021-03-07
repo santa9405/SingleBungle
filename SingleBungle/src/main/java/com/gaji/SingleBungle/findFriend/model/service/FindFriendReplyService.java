@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.findFriend.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.gaji.SingleBungle.findFriend.controller.FindFriendReplyController;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendReply;
@@ -36,5 +37,11 @@ public interface FindFriendReplyService {
 	 * @return
 	 */
 	int insertChildReply(FindFriendReply reply);
+
+	/** 댓글 신고 Service
+	 * @param map
+	 * @return
+	 */
+	int insertBoardReport(Map<String, Object> map);
 
 }

@@ -60,6 +60,12 @@
 	resize: none;
 	width: 100%;
 }
+
+/* 댓글, 답글 신고 부분 색상 변경 */
+.replyReport, .replyReport:hover {
+	text-decoration: none;
+	color: #212529;
+}
 </style>
 
 <!-- 부트스트랩 사용을 위한 css 추가 -->
@@ -140,7 +146,7 @@
 				var col4 = $("<div>").addClass("col-4");
 				var floatRight = $("<div>").addClass("reply float-right");
 				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글").css({"margin-right":"5px"});
-				var report = $("<a>").attr("href", "#").text("신고");
+				var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport(" + item.replyNo + ")").text("신고");
 				
 				// 내용 영역
 				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
@@ -454,9 +460,12 @@
 	}
 	
 	// 댓글 신고창 열기
-	$(".report").on("click", function(){
-			window.open('${contextPath}/findFriendReport/reportForm', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-	});
+	function openReport(replyNo){
+		event.preventDefault(); // a태그 기본 이벤트 제거
+		
+		window.name = "parentWindow";
+		window.open('${contextPath}/findFriendReply/friendReplyReport/' + replyNo + '?friendNo=${findFriend.friendNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+	}
 	
 	</script>
 

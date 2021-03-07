@@ -350,16 +350,14 @@ body {
 		
 		// -------------------------------------------------------------------------------------------------------------------
 		// 게시글 신고창 열기
-		$(".report")
-				.on(
-						"click",
-						function() {
-							window
-									.open(
-											'${contextPath}/findFriendReport/reportForm',
-											"popup",
-											"width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-						});
+		$(".report").on("click", function() {
+			
+			window.open(
+							'${contextPath}/findFriend/findFriendreport/${findFriend.friendNo}',
+							"popup",
+							"width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		
+		});
 
 		// 채팅창 열기
 		$(".chat")

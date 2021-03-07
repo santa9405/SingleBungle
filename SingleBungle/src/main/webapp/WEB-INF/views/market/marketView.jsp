@@ -296,8 +296,16 @@
 						
 						 <!-- 본인의 글이면 버튼 나타나게 -->
 						 <c:if test="${market.memNo == loginMember.memberNo}"> 
-							<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">예약중으로 변경</button></div>
-							<div class="badge badge-info px-1 rounded-pill font-weight-normal btnBadge"><button class="btnSoldOut">거래완료로 변경</button></div>	
+							<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge" <c:if test='${market.transactionStatus == 3}'>style='visibility: hidden;'</c:if>>
+								<button class="btnSoldOut reservationBtn" >
+									<c:if test="${market.transactionStatus == 1}">예약중으로 변경</c:if>
+									<c:if test="${market.transactionStatus == 2}">예약 취소</c:if>
+								</button></div>
+							<div class="badge badge-info px-1 rounded-pill font-weight-normal btnBadge">
+								<button class="btnSoldOut soldOutBtn" <c:if test="${market.transactionStatus == 3}">style='cursor: unset;'</c:if>>
+									<c:if test="${market.transactionStatus != 3}">거래완료로 변경</c:if>
+									<c:if test="${market.transactionStatus == 3}">거래완료</c:if>
+								</button></div>	
 						</c:if>				
 						<hr> 
 					</div>
@@ -391,7 +399,8 @@
 						
 						<c:if test="${market.memNo == loginMember.memberNo}"> 
 						<div style="margin-top : 10px;">
-							<a class="btn btn-warning btn-lg btnW active" role="button" aria-pressed="true">
+							<a class="btn btn-warning btn-lg btnW active" role="button" aria-pressed="true"
+								 href="${contextPath}/market/update/${market.marketNo}">
 								<span>수정</span>
 							</a>
 							
@@ -590,6 +599,69 @@
 			});
 		}
 	});
+	
+	console.log("");
+	var status = ${market.transactionStatus};
+	// 예약중으로 변경
+	$(".reservationBtn").on("click", function(){
+		var marketNo = ${market.marketNo};
+		
+		if(status == 1){
+		$.ajax({
+			url : "reservation/2",
+			data : {"marketNo" : marketNo},
+			type : "post",
+			success : function(result){
+				if(result > 0) {
+					$(".reservationBtn").text("예약 취소");
+					status = 2;
+				} 
+			}, error : function(result){
+				console.log("ajax 통신 실패");
+			}
+		});
+		}
+		
+		
+		if(status == 2){
+			$.ajax({
+				url : "reservation/1",
+				data : {"marketNo" : marketNo},
+				type : "post",
+				success : function(result){
+					if(result > 0) {
+						$(".reservationBtn").text("예약중으로 변경");
+						status = 1;
+					}
+				}, error : function(result){
+					console.log("ajax 통신 실패");
+				}
+			});
+			}
+	});
+
+		$(".soldOutBtn").on("click", function(){
+			var marketNo = ${market.marketNo};
+			
+			if(status == 1 || status == 2){
+				$.ajax({
+					url : "reservation/3",
+					data : {"marketNo" : marketNo},
+					type : "post",
+					success : function(result){
+						if(result > 0) {
+							//$(".reservationBtn").attr("disabled");
+							$(".reservationBtn").parent().remove();
+							$(".soldOutBtn").text("거래완료").css("cursor", "unset");
+							status = 3;
+						}
+					}, error : function(result){
+						console.log("ajax 통신 실패");
+					}
+				});
+				}
+		});
+	
 	
 
 	</script>

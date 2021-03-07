@@ -145,5 +145,11 @@
 			)A
 	</insert>
 	
+	<!-- 예약중으로 변경  -->
+	<update id="reservation" parameterType="map">
+		UPDATE MARKET SET 
+		TRANSACTION_STATUS = #{type}
+		WHERE MARKET_NO = #{marketNo}
+	</update>
 	
 </mapper>
