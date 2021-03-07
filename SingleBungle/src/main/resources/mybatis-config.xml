@@ -31,6 +31,7 @@
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReply" alias="BoardReply" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReport" alias="BoardReport" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardReplyReport" alias="BoardReplyReport" />
+  	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardSearch" alias ="BoardSearch"/>
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.Cafe" alias="Cafe" />
@@ -39,6 +40,7 @@
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReply" alias="CafeReply" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReport" alias="CafeReport" />
   	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeReplyReport" alias="CafeReplyReport" />
+  	<typeAlias type="com.gaji.SingleBungle.cafe.model.vo.CafeSearch" alias ="CafeSearch"/>
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />

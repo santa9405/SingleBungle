@@ -10,6 +10,7 @@ import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
+import com.gaji.SingleBungle.board.model.vo.BoardSearch;
 
 public interface BoardService {
 
@@ -31,7 +32,7 @@ public interface BoardService {
 	 * @param map
 	 * @return bpInfo
 	 */
-	public abstract BoardPageInfo getSearchPageInfo(Map<String, Object> map);
+	public abstract BoardPageInfo getSearchPageInfo(BoardSearch bSearch, int cp);
 
 
 	/** 게시글 검색 목록 조회 Service
@@ -39,7 +40,7 @@ public interface BoardService {
 	 * @param bpInfo
 	 * @return bList
 	 */
-	public abstract List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo);
+	public abstract List<Board> selectSearchList(BoardSearch bSearch, BoardPageInfo bpInfo);
 
 
 	/** 게시글 상세 조회 Service

@@ -100,7 +100,7 @@
 .pagination.pagination-rounded-flat .page-item { margin: 0 .25rem; }
 
 .pagination-success .page-item.active .page-link {
-    background: #00c689;
+    background: #4ab34a;
     border-color: #00c689;
 }
 
@@ -121,8 +121,8 @@
 	          <div class="text-black banner">
 	            <h1 class="boardName float-left">맛집게시판</h1>
 	                  <a class="category maincolor-font-bk" href="#">전체</a> | 
-	                  <a class="category maincolor-font-bk" href="#">맛집추천</a> | 
 	                  <a class="category maincolor-font-bk" href="#">혼밥식당</a> | 
+	                  <a class="category maincolor-font-bk" href="#">맛집추천</a> | 
 	                  <a class="category maincolor-font-bk" href="#">카페</a>
 	
 	            <div class="listTest float-right">
