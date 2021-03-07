@@ -15,6 +15,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
+/* 버튼 색상 */
+.maincolor1{
+    color: #ffffff !important; 
+    background-color:#4ab34a !important;
+    border: 1px solid #4ab34a !important;
+}
+.maincolor1:hover{
+    color: #ffffff !important; 
+    background-color:#4ca975 !important;
+    border: 1px solid #4ca975 !important;
+}
+
+.maincolor-re1{
+        color: #4ab34a !important;
+        background-color: #ffffff !important;
+        border: 1px solid #4ab34a !important;
+}
+.maincolor-re1:hover{
+    color: #ffffff !important; 
+    background-color:#4ca975 !important;
+    border: 1px solid #4ca975 !important;
+}
 
 	.insert-label {
 		display: inline-block;
@@ -87,10 +109,10 @@
                         <textarea class="form-control cafePlaceholder" id="summernote" name="cafeContent" rows="10" style="resize: none;" required>${cafe.cafeContent}</textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn maincolor mb-3">수정</button>
+                        <button type="submit" class="btn maincolor1 mb-3">수정</button>
                     </div>
                     <div class="text-right">
-                    		<button type="button" class="btn maincolor-re mb-3" id="insert-list">목록으로</button>
+                    		<button type="button" class="btn maincolor-re1 mb-3" id="insert-list">목록으로</button>
                     </div>
                 </form>
 

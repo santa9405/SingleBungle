@@ -12,6 +12,7 @@ import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
+import com.gaji.SingleBungle.cafe.model.vo.CafeSearch;
 
 @Repository
 public class CafeDAO {
@@ -104,8 +105,8 @@ public class CafeDAO {
 	 * @param map
 	 * @return 
 	 */
-	public int getSearchListCount(Map<String, Object> map) {
-		return sqlSession.selectOne("cafeMapper.getSearchListCount", map);
+	public int getSearchListCount(CafeSearch cSearch) {
+		return sqlSession.selectOne("cafeMapper.getSearchListCount", cSearch);
 	}
 
 	/** 게시글 검색 목록 조회 DAO
@@ -113,12 +114,12 @@ public class CafeDAO {
 	 * @param bpInfo
 	 * @return cList
 	 */
-	public List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo) {
+	public List<Cafe> selectSearchList(CafeSearch cSearch, CafePageInfo cpInfo) {
 		int offset = (cpInfo.getCurrentPage() -1) * cpInfo.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, cpInfo.getLimit());
 		
-		return sqlSession.selectList("cafeMapper.selectSearchList", map, rowBounds);
+		return sqlSession.selectList("cafeMapper.selectSearchList", cSearch, rowBounds);
 	}
 
  

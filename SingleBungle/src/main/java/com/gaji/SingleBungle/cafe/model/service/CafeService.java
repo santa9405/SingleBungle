@@ -9,6 +9,7 @@ import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
+import com.gaji.SingleBungle.cafe.model.vo.CafeSearch;
 
 public interface CafeService {
 
@@ -34,14 +35,14 @@ public interface CafeService {
 	 * @param map
 	 * @return cpInfo
 	 */
-	public abstract CafePageInfo getSearchPageInfo(Map<String, Object> map);
+	public abstract CafePageInfo getSearchPageInfo(CafeSearch cSearch, int cp);
  
 	/** 게시글 검색 목록 조회 Service
 	 * @param map
 	 * @param cpInfo
 	 * @return cList
 	 */
-	public abstract List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo);
+	public abstract List<Cafe> selectSearchList(CafeSearch cSearch, CafePageInfo cpInfo);
 	
 	/** 조회수 상위 3 게시글 조회 Service
 	 * @return list

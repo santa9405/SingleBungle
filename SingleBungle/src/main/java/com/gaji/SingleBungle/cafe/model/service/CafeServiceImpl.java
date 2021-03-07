@@ -21,6 +21,7 @@ import com.gaji.SingleBungle.cafe.model.vo.Cafe;
 import com.gaji.SingleBungle.cafe.model.vo.CafeAttachment;
 import com.gaji.SingleBungle.cafe.model.vo.CafeLike;
 import com.gaji.SingleBungle.cafe.model.vo.CafePageInfo;
+import com.gaji.SingleBungle.cafe.model.vo.CafeSearch;
 
 @Service
 public class CafeServiceImpl implements CafeService {
@@ -49,17 +50,17 @@ public class CafeServiceImpl implements CafeService {
 	
 	// 게시글 검색 목록 페이징 Service 구현
 	@Override
-	public CafePageInfo getSearchPageInfo(Map<String, Object> map) {
+	public CafePageInfo getSearchPageInfo(CafeSearch cSearch, int cp) {
 		
-		int listCount = dao.getSearchListCount(map);
+		int listCount = dao.getSearchListCount(cSearch);
 		
-		return new CafePageInfo((int)map.get("cp"), listCount);
+		return new CafePageInfo(cp, listCount);
 	}
 
 	// 게시글 검색 목록 조회 Service 구현
 	@Override
-	public List<Cafe> selectSearchList(Map<String, Object> map, CafePageInfo cpInfo) {
-		return dao.selectSearchList(map, cpInfo);
+	public List<Cafe> selectSearchList(CafeSearch cSearch, CafePageInfo cpInfo) {
+		return dao.selectSearchList(cSearch, cpInfo);
 	}
 
 	// 조회수 상위 3 게시글 조회 Service 구현
