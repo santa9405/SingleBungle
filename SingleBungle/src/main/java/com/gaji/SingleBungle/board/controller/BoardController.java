@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.board.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 import com.gaji.SingleBungle.board.model.vo.BoardReport;
+import com.gaji.SingleBungle.board.model.vo.BoardSearch;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -62,22 +64,28 @@ public class BoardController {
 	
 	// 검색 Controller
 	@RequestMapping("search")
-	public String boardSearch(@RequestParam("sk") String searchKey,
-							  @RequestParam("sv") String searchValue,
-							  @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-							  Model model) {
+	public String boardSearch(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+								@RequestParam(value="sk",required = false) String sk, 
+								@RequestParam(value="sv",required = false) String sv,
+								@RequestParam(value="ct",required = false) String ct,
+								@RequestParam(value="sort",required = false) String sort, 
+								@ModelAttribute("bSearch") BoardSearch bSearch,
+								Model model) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("searchKey", searchKey);
-		map.put("searchValue", searchValue);
-		map.put("cp", cp);
 		
-		BoardPageInfo bpInfo = service.getSearchPageInfo(map);
+		bSearch.setSk(sk);
+		bSearch.setSv(sv);
+		bSearch.setCt(ct);
+		bSearch.setSort(sort);
 		
-		List<Board> bList = service.selectSearchList(map, bpInfo);
+		BoardPageInfo bpInfo = service.getSearchPageInfo(bSearch, cp);
 		
-		model.addAttribute("bpInfo", bpInfo);
+		List<Board> bList = service.selectSearchList(bSearch, bpInfo);
+		
+		
 		model.addAttribute("bList", bList);
+		model.addAttribute("bpInfo", bpInfo);
+		model.addAttribute("bSearch", bSearch);
 		
 		return "board/boardList";
 	}

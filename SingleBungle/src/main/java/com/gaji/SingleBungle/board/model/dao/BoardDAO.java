@@ -12,6 +12,7 @@ import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
+import com.gaji.SingleBungle.board.model.vo.BoardSearch;
 
 @Repository
 public class BoardDAO {
@@ -44,8 +45,8 @@ public class BoardDAO {
 	 * @param map
 	 * @return 
 	 */
-	public int getSearchListCount(Map<String, Object> map) {
-		return sqlSession.selectOne("boardMapper.getSearchListCount", map);
+	public int getSearchListCount(BoardSearch bSearch) {
+		return sqlSession.selectOne("boardMapper.getSearchListCount", bSearch);
 	}
 
 	/** 게시글 검색 목록 조회 DAO
@@ -53,12 +54,12 @@ public class BoardDAO {
 	 * @param bpInfo
 	 * @return bList
 	 */
-	public List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo) {
+	public List<Board> selectSearchList(BoardSearch bSearch, BoardPageInfo bpInfo) {
 		int offset = (bpInfo.getCurrentPage() -1) * bpInfo.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, bpInfo.getLimit());
 		
-		return sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
+		return sqlSession.selectList("boardMapper.selectSearchList", bSearch, rowBounds);
 	}
 
 

@@ -22,6 +22,7 @@ import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.board.model.vo.BoardLike;
 import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
+import com.gaji.SingleBungle.board.model.vo.BoardSearch;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -46,17 +47,17 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 게시글 검색 목록 페이징 Service 구현
 	@Override
-	public BoardPageInfo getSearchPageInfo(Map<String, Object> map) {
+	public BoardPageInfo getSearchPageInfo(BoardSearch bSearch, int cp) {
 		
-		int listCount = dao.getSearchListCount(map);
+		int listCount = dao.getSearchListCount(bSearch);
 				
-		return new BoardPageInfo((int)map.get("cp"), listCount);
+		return new BoardPageInfo(cp, listCount, '1');
 	}
 
 	// 게시글 검색 목록 조회 Service 구현
 	@Override
-	public List<Board> selectSearchList(Map<String, Object> map, BoardPageInfo bpInfo) {
-		return dao.selectSearchList(map, bpInfo);
+	public List<Board> selectSearchList(BoardSearch bSearch, BoardPageInfo bpInfo) {
+		return dao.selectSearchList(bSearch, bpInfo);
 	}
 
 	// 게시글 상세 조회 Service 구현
