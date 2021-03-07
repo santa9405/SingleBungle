@@ -45,7 +45,7 @@ public class BoardController {
 	// 게시글 목록 조회 Controller
 	@RequestMapping("list")
 	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
-							@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
+							@ModelAttribute("loginMember") Member loginMember) {
 		
 		BoardPageInfo bpInfo = service.getPageInfo(cp);
 

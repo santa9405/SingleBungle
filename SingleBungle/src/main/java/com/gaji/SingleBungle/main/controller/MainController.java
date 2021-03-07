@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gaji.SingleBungle.board.model.vo.Board;
+import com.gaji.SingleBungle.board.model.vo.BoardPageInfo;
 import com.gaji.SingleBungle.main.model.service.MainService;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
@@ -26,16 +27,17 @@ public class MainController {
 	
 	// 게시글 목록 조회 Controller
 	@RequestMapping("list")
-	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
-							@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
+	public String boardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, 
+							@ModelAttribute("loginMember") Member loginMember) {
 		
-
-		// List<Board> bList = service.selectBoardList();
+		BoardPageInfo bpInfo = service.getPageInfo(cp);
+		bpInfo.setLimit(5);
+		List<Board> bList = service.selectList(bpInfo);
 		
+		model.addAttribute("bList", bList);
+		model.addAttribute("bpInfo", bpInfo);
 		
-		// model.addAttribute("bList", bList);
-		
-		return null;
+		return "main/list";
 	}
 	
 	
