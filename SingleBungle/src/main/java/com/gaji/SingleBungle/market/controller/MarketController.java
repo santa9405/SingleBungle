@@ -52,7 +52,7 @@ public class MarketController {
 		String url = null;		
 		
 		if (loginMember != null) {
-			if (loginMember.getMemberGrade().charAt(0) != 'F') {
+			if (loginMember.getMemberGrade().charAt(0) != 'F' || loginMember.getMemberGrade().charAt(0) != 'G') {
 				swalIcon = "error";
 				swalTitle = "사고팔고 게시판은 1등급부터 이용할 수 있습니다.";
 				url = "redirect:/";

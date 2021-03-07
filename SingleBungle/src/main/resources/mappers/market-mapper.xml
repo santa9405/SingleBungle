@@ -170,7 +170,7 @@
 		</if>
 		<if test="sv != null">
 			<bind name="val" value="'%' + sv + '%'" />
-			AND MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val}
+			AND (MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val})
 		</if>
 	</select>	
 	
@@ -193,7 +193,7 @@
 		</if>
 		<if test="sv != null">
 		<bind name="val" value="'%' + sv + '%'" />
-		AND MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val}
+		AND (MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val})
 		</if>
 
 		<if test="sort != null">
