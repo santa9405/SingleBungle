@@ -151,5 +151,74 @@
 		TRANSACTION_STATUS = #{type}
 		WHERE MARKET_NO = #{marketNo}
 	</update>
+
+	<!-- 검색 조건에 맞는 게시글 수 조회 -->
+	<select id="getSearchListCount" parameterType="MarketSearch"
+		resultType="_int">
+		SELECT COUNT(*) FROM V_MARKET
+		WHERE MARKET_FL = 'N'
+		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬) -->
+		<if test="ct != null">
+			<choose>
+				<when test="ct == 1">
+					AND TRANSACTION_CATEGORY = 2
+				</when>
+				<when test="ct== 2">
+					AND TRANSACTION_CATEGORY = 1
+				</when>
+			</choose>
+		</if>
+		<if test="sv != null">
+			<bind name="val" value="'%' + sv + '%'" />
+			AND MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val}
+		</if>
+	</select>	
+	
+	
+	<!--  검색 조건에 맞는 게시글 목록 -->
+	<select id="selectSearchList" parameterType="MarketSearch" resultMap="market_rm">
+		SELECT * FROM V_MARKET
+		WHERE MARKET_FL = 'N'
+
+		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬) -->
+		<if test="ct != null">
+			<choose>
+				<when test="ct == 1">
+					AND TRANSACTION_CATEGORY = 2
+				</when>
+				<when test="ct== 2">
+					AND TRANSACTION_CATEGORY = 1
+				</when>
+			</choose>
+		</if>
+		<if test="sv != null">
+		<bind name="val" value="'%' + sv + '%'" />
+		AND MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val}
+		</if>
+
+		<if test="sort != null">
+			<choose>
+				<when test="sort == 'like'">
+					ORDER BY LIKES DESC, MARKET_NO DESC
+				</when>
+				<when test="sort == 'new'">
+					ORDER BY MARKET_NO DESC
+				</when>
+				<when test="sort =='rowSort'">
+					ORDER BY PRICE DESC, MARKET_NO DESC
+				</when>
+				<otherwise>
+					ORDER BY PRICE ASC , MARKET_NO DESC
+				</otherwise>
+			</choose>
+		</if>
+		
+		<if test="sort == null">
+			ORDER BY MARKET_NO DESC
+		</if>
+	</select>
+	
+	
+	
 	
 </mapper>

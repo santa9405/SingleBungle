@@ -13,6 +13,7 @@ import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
+import com.gaji.SingleBungle.market.model.vo.MarketSearch;
 
 @Repository
 public class MarketDAO {
@@ -138,6 +139,29 @@ public class MarketDAO {
 
 	public int reservation(Map<String, Integer> map) {
 		return sqlSession.update("marketMapper.reservation", map);
+	}
+
+
+	/**	검색 조건이 포함된 페이징 처리 객체 생성 DAO
+	 * @param mSearch
+	 * @return
+	 */
+	public int getSearchListCount(MarketSearch mSearch) {
+		return sqlSession.selectOne("marketMapper.getSearchListCount", mSearch);
+	}
+
+
+	/** 검색 조건이 포함된 게시글 목록 조회 DAO
+	 * @param mSearch
+	 * @param pInfo
+	 * @return mList
+	 */
+	public List<Market> selectSearchList(MarketSearch mSearch, MarketPageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("marketMapper.selectSearchList", mSearch, rowBounds);
 	}
 
 

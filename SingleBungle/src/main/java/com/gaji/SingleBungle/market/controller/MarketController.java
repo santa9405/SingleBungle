@@ -26,7 +26,12 @@ import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
+import com.gaji.SingleBungle.market.model.vo.MarketSearch;
 import com.gaji.SingleBungle.member.model.vo.Member;
+import com.gaji.SingleBungle.review.model.vo.Review;
+import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -241,6 +246,42 @@ public class MarketController {
 		
 		model.addAttribute("market", market);
 		return "market/marketUpdate";
+	}
+	
+	
+	
+	// 게시글 검색
+	@RequestMapping("search")
+	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+			@RequestParam(value="sv",required = false) String sv,
+			@RequestParam(value="ct",required = false) String ct,
+			@RequestParam(value="sort",required = false) String sort, 
+			@ModelAttribute("mSearch") MarketSearch mSearch,
+			Model model) {
+		
+		mSearch.setSv(sv);
+		mSearch.setCt(ct);
+		mSearch.setSort(sort);
+		
+		System.out.println(mSearch);
+		
+		
+		MarketPageInfo pInfo = service.getSearchPageInfo(mSearch,cp);
+		
+		
+		List<Market> mList = service.selectSearchList(mSearch,pInfo);
+		
+		
+		if(!mList.isEmpty()) {
+			List<MarketAttachment> thList = service.selectThumbnailList(mList);
+			model.addAttribute("thList",thList);
+		}
+		
+		model.addAttribute("mList",mList);
+		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("mSearch", mSearch);
+		
+		return "market/marketList";
 	}
 	
 	@RequestMapping("mypage")

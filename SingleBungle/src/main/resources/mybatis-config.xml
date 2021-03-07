@@ -51,6 +51,7 @@
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketAttachment" alias="MarketAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketLike" alias="MarketLike" />
 		<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketReply" alias="MarketReply" />
+		<typeAlias type="com.gaji.SingleBungle.market.model.vo.MarketSearch" alias ="MarketSearch"/>
 		
   </typeAliases>
   

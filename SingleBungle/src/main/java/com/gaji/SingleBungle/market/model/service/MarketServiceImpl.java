@@ -19,6 +19,8 @@ import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
+import com.gaji.SingleBungle.market.model.vo.MarketSearch;
+import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
 @Service
 public class MarketServiceImpl implements MarketService {
@@ -198,6 +200,21 @@ public class MarketServiceImpl implements MarketService {
 	@Override
 	public int reservation(Map<String, Integer> map) {
 		return dao.reservation(map);
+	}
+	
+	// 검색 조건이 포함된 페이징 처리 객체 생성 Service 구현
+	@Override
+	public MarketPageInfo getSearchPageInfo(MarketSearch mSearch, int cp) {
+		
+		// 검색 조건에 맞는 게시글 수 조회
+		int listCount = dao.getSearchListCount(mSearch);
+		return new MarketPageInfo(cp, listCount, '2');
+	}
+	
+	// 검색 조건이 포함된 게시글 목록 조회 Service 구현
+	@Override
+	public List<Market> selectSearchList(MarketSearch mSearch, MarketPageInfo pInfo) {
+		return dao.selectSearchList(mSearch, pInfo);
 	}
 
 
