@@ -193,6 +193,12 @@ public class MarketServiceImpl implements MarketService {
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		return date + str + ext;
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int reservation(Map<String, Integer> map) {
+		return dao.reservation(map);
+	}
 
 
 

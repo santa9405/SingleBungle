@@ -125,6 +125,21 @@ public class FindFriendDAO {
 		return sqlSession.delete("friendMapper.deleteLike", map);
 	}
 	
+	/** 친구찾기 신고 등록 다음 게시글 번호 얻어오기 DAO
+	 * @return reportNo
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("friendMapper.selectReportNo");
+	}
+	
+	/** 친구찾기 신고 등록 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertFindFriendReport(Map<String, Object> map) {
+		return sqlSession.insert("friendMapper.insertFindFriendReport", map);
+	}
+	
 	/** 다음 게시글 번호 조회 DAO
 	 * @return nextBoardNo
 	 */

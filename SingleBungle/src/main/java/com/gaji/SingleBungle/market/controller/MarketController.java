@@ -161,12 +161,31 @@ public class MarketController {
 	}
 	
 	
+	
+	// 예약중으로 변경 Controller
+	@ResponseBody
+	@RequestMapping("reservation/{type}")
+	public int reservation(@PathVariable("type") int type,
+			@RequestParam("marketNo") int marketNo) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("marketNo", marketNo);
+		map.put("type", type);
+		
+		
+		return service.reservation(map);
+	}
+	
+	
+	
 	// 사고팔고 게시글 작성 view 
 	@RequestMapping("insert")
 	public String marketInsert() {
 		return "market/marketInsert"; 
 	}
 	
+	// 사고팔고 게시글 등록 Controller
 	@RequestMapping("insertAction")
 	public String marketInsertAction(@ModelAttribute Market market, RedirectAttributes ra,
 						@ModelAttribute("loginMember") Member loginMember, 
@@ -204,6 +223,24 @@ public class MarketController {
 		 ra.addFlashAttribute("swalTitle", swalTitle);
 		
 		return url;
+	}
+	
+	
+	// 게시글 수정 화면 전환 Controller
+	@RequestMapping("update/{marketNo}")
+	public String marketUpdate(@PathVariable("marketNo") int marketNo, Model model) {
+		
+		// 게시글 상세 조회 
+		Market market = service.selectMarket(marketNo);
+		
+		// 해당 게시글이 포함된 이미지 목록 조회
+		if(market != null) {
+			List<MarketAttachment> attachmentList = service.selectAttachmentList(marketNo);
+			model.addAttribute("at", attachmentList);
+		}
+		
+		model.addAttribute("market", market);
+		return "market/marketUpdate";
 	}
 	
 	@RequestMapping("mypage")

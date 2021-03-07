@@ -19,8 +19,23 @@
 </style>
 </head>
 <body>
+<c:if test="${swalIcon == 'success'}">
+	<script>
+		swal({icon : "${swalIcon}",
+		 title : "${swalTitle}",
+		 text : "${swalText}"}).then(function(){close()});
+	</script>
+</c:if>
+<c:if test="${swalIcon == 'error'}">
+	<script>
+		swal({icon : "${swalIcon}",
+		 title : "${swalTitle}",
+		 text : "${swalText}"});
+	</script>
+</c:if>
 	<div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
-     <form method="POST" action="reportAction" class="needs-validation" name="report">
+     <form method="POST" action="../findFriendReportAction" class="needs-validation" name="report">
+     <input type="hidden" value="${friendNo}" name="friendNo">
      <div class="form-group row">
       <label for="title" class="col-sm-3 col-form-label">신고 제목</label>
        <div class="col-sm-9">
@@ -31,7 +46,7 @@
          <div class="form-group row">
              <label for="category" class="input-group-addon col-sm-3 insert-label">신고 사유</label>
              <div class="col-sm-9">
-             <select   class="form-control div small" id="category" name="categoryName" required>
+             <select   class="form-control div small" id="category" name="categoryCd" required>
                  <option value="10">욕설, 비방, 차별, 혐오</option>
                  <option value="20">홍보, 영리목적</option>
                  <option value="30">불법 정보</option>
@@ -47,14 +62,14 @@
          <div class="form-group row">
              <label for="content" class="col-sm-3 col-form-label">신고 내용</label>
              <div class="col-sm-9">
-             <textarea class="form-control" id="content" name="boardContent"
+             <textarea class="form-control" id="reportContent" name="reportContent"
                  rows="10" style="resize: none;" required></textarea>
              </div>
          </div>
          <div class="form-group row">
 	         	<div class="col-sm-12" style="text-align:center; margin-top:30px;">
 	             <button type="submit" class="btn btn-primary">신고</button>
-	             <button type="submit" class="btn btn-outline-primary">취소</button>
+	             <button type="button" class="btn btn-outline-primary" onclick="window.close();">취소</button>
 	          </div>
          </div>
      </form>

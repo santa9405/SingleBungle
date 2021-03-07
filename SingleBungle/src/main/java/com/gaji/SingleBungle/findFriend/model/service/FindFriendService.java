@@ -78,6 +78,12 @@ public interface FindFriendService {
 	 */
 	int decreaseLike(Map<String, Object> map);
 	
+	/** 친구찾기 게시글 신고 등록 Service
+	 * @param map
+	 * @return result
+	 */
+	int insertFindFriendReport(Map<String, Object> map);
+	
 	/** summernote 업로드 이미지 저장 Service
 	 * @param uploadFile
 	 * @param savePath
@@ -114,6 +120,8 @@ public interface FindFriendService {
 	 * @return findFriend
 	 */
 	FindFriend selectDeleteBoard(int friendNo);
+
+	
 
 	
 	

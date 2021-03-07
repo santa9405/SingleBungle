@@ -148,6 +148,17 @@
    		AND FRIEND_NO = #{friendNo}
    </delete>
    
+   <!-- 신고 등록 다음 게시글 번호 얻어오기 -->
+   <select id="selectReportNo" resultType="_int">
+   		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+   </select>
+   
+   <!-- 신고 등록 -->
+   <insert id="insertFindFriendReport" parameterType="map">
+   		INSERT INTO REPORT_FRIEND
+   		VALUES(#{reportNo}, #{reportTitle}, #{reportContent}, #{memNo}, #{categoryCd}, #{friendNo})
+   </insert>
+   
    <!-- 다음 게시글 번호 조회 -->
    <select id="selectNextBoardNo" resultType="_int">
    		SELECT SEQ_FNO.NEXTVAL FROM DUAL
