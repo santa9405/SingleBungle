@@ -133,8 +133,8 @@ a:hover {
 					<button class="btn btn-primary btn-block btn-login text-uppercase mb-2 maincolor" type="submit">로그인</button>
 					<div>
 						<div class="idpw-left">
-							<a class="id maincolor-font-bk" href="#">아이디 찾기</a>
-							<a class="pw maincolor-font-bk" href="#">비밀번호 찾기</a>
+							<a class="id maincolor-font-bk" href="${contextPath}/member/findIdForm">아이디 찾기</a>
+							<a class="pw maincolor-font-bk" href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
 						</div>
 						<div class="idpw-right">
 							<a class="signup maincolor-font-bk" href="${contextPath}/member/signUp">회원가입</a>
