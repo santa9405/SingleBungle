@@ -151,8 +151,8 @@
 					                    <c:if test="${board.categoryCode == '15'}">background-color: #ef8694;</c:if>
 					                    <c:if test="${board.categoryCode == '16'}">background-color: #f6b06b;</c:if> '>${board.categoryName}</div>
 														</td>
-													</tr>
-													<tr>
+													<!-- </tr> -->
+													<!-- <tr> -->
 														<td><h7> <a href="#" class="text-dark">${board.boardTitle}</a></h7></td>
 													</tr>
 												</c:forEach>
@@ -407,7 +407,6 @@
 	</main>
 
 	<script>
-		// 게시판 조회수 Top 5(ajax)
 	
 	</script>
 

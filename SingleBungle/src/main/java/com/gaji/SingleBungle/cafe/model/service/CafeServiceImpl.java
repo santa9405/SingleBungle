@@ -31,9 +31,7 @@ public class CafeServiceImpl implements CafeService {
 	// 페이징 처리 객체 생성 Service 구현
 	@Override
 	public CafePageInfo getPageInfo(int cp) {
-		
 		int listCount = dao.getListCount();
-		
 		return new CafePageInfo(cp, listCount);
 	}
 
