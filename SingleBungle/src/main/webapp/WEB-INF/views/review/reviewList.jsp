@@ -315,7 +315,7 @@
 				<div class="row container d-flex justify-content-center">
 					<div class="col-md-4 col-sm-6 grid-margin stretch-card pg">
 						<nav>
-							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success" style="margin-left:40px">
 
 								
 
