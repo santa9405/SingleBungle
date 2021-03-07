@@ -75,4 +75,5 @@
 		#{memberNo}, #{categoryCode}, #{replyNo}, #{boardNo})
 	</insert>
 
+
 </mapper>

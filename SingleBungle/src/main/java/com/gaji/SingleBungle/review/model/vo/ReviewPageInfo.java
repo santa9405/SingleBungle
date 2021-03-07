@@ -27,6 +27,16 @@ public class ReviewPageInfo {
 		makePageInfo();
 	}
 	
+	
+	
+	
+
+	public ReviewPageInfo(int currentPage, int listCount) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		makePageInfo();		
+	}
 
 	public int getBoardType() {
 		return boardType;

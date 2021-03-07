@@ -87,14 +87,20 @@ public class ReviewReply {
 	public void setParentReplyNo(int parentReplyNo) {
 		this.parentReplyNo = parentReplyNo;
 	}
+	
+	
+
 
 	@Override
 	public String toString() {
 		return "ReviewReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
 				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memberNo=" + memberNo
 				+ ", nickName=" + nickName + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo
-				+ "]";
+				+  "]";
 	}
+
+
+	
 
 
 	
