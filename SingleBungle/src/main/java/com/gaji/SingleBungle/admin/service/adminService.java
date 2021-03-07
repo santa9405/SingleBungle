@@ -9,6 +9,7 @@ import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
+import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 
 
@@ -55,6 +56,8 @@ public interface adminService {
 	List<ABoard> selectAllList(APageInfo pInfo);
 
 	int recoverBoard(int boardNo, int boardCode);
+
+	List<Reply> selectAllReply();
 
 	
 

@@ -23,6 +23,7 @@
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.inquiry" alias="inquiry" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.IAttachment" alias="IAttachment" />
+  	<typeAlias type="com.gaji.SingleBungle.admin.vo.Reply" alias="Reply" />
   	
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.Board" alias="Board" />
   	<typeAlias type="com.gaji.SingleBungle.board.model.vo.BoardAttachment" alias="BoardAttachment" />

@@ -13,6 +13,7 @@ import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
+import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 
 @Repository
@@ -151,5 +152,9 @@ public class adminDAO {
 
 	public int recoverBoard8(int boardNo) {
 		return sqlSession.update("adminMapper.recoverBoard8", boardNo);
+	}
+
+	public List<Reply> selectAllReply() {
+		return sqlSession.selectList("adminMapper.selectAllReply");
 	}
 }

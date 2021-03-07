@@ -24,6 +24,7 @@ import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
+import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.board.model.vo.Board;
@@ -651,8 +652,7 @@ public class adminController {
 				flag = false;
 			}
 		}
-		
-	
+
 		return flag;
 	}
 
@@ -672,7 +672,10 @@ public class adminController {
 	}
 
 	@RequestMapping("replyManage")
-	public String replyManageView() {
+	public String replyManageView(Model model) {
+
+		List<Reply> replyList = service.selectAllReply();
+		model.addAttribute("replyList", replyList);
 		return "admin/replyManage";
 	}
 
