@@ -18,6 +18,7 @@ import com.gaji.SingleBungle.admin.vo.AAttachment;
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
+import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
@@ -688,6 +689,11 @@ public class adminServiceImpl implements adminService{
 			if(boardCode == 8) {result = dao.recoverBoard8(boardNo);}
 			
 			return result;
+		}
+
+		@Override
+		public List<Reply> selectAllReply() {
+			return dao.selectAllReply();
 		}
 
 		
