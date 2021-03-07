@@ -57,7 +57,11 @@ public interface adminService {
 
 	int recoverBoard(int boardNo, int boardCode);
 
-	List<Reply> selectAllReply();
+	List<Reply> selectAllReply(APageInfo pInfo);
+
+	APageInfo getReplyPageInfo(int cp);
+	
+	int recoverReply(int recoverReply, int boardCode);
 
 	
 

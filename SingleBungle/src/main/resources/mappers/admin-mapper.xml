@@ -56,6 +56,7 @@
 		<result property="memNo" column="MEM_NO" />
 		<result property="parentBoardNo" column="PARENT_BOARD_NO" />
 		<result property="parentReplyNo" column="PARENT_REPLY_NO" />
+		<result property="boardCode" column="BOARD_CD" />
 	</resultMap>
 
 	<!-- 특정 게시판 전체 게시글 수 조회 -->
@@ -304,7 +305,36 @@
   	</update>
   	
   	<!-- 게시글 목록 조회 -->
-	<select id="selectAllReply" resultMap="board_rm">
-		SELECT * FROM V_DBOARD WHERE STATUS='Y'
+	<select id="selectAllReply" parameterType="_int" resultMap="reply_rm">
+		SELECT * FROM V_REPLY WHERE REPLY_STATUS='Y'
 	</select>
+	
+	<!-- 특정 게시판 전체 게시글 수 조회 -->
+	<select id="getReplyListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_REPLY WHERE REPLY_STATUS='Y'
+	</select>
+	
+	<update id="recoverReply1" parameterType="_int">
+  		UPDATE BOARD_REPLY SET
+  		REPLY_STATUS = 'N'
+  		WHERE REPLY_NO = #{replyNo}
+  	</update>
+  	
+	<update id="recoverReply6" parameterType="_int">
+  		UPDATE CAFE_REPLY SET
+  		REPLY_STATUS = 'N'
+  		WHERE REPLY_NO = #{replyNo}
+  	</update>
+  	
+	<update id="recoverReply7" parameterType="_int">
+  		UPDATE FRIEND_REPLY SET
+  		REPLY_STATUS = 'N'
+  		WHERE REPLY_NO = #{replyNo}
+  	</update>
+  	
+	<update id="recoverReply8" parameterType="_int">
+  		UPDATE MARKET_REPLY SET
+  		REPLY_STATUS = 'N'
+  		WHERE REPLY_NO = #{replyNo}
+  	</update>
 </mapper>

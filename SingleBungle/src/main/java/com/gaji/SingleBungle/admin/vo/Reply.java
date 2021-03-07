@@ -13,11 +13,12 @@ public class Reply {
 	private String nickname;
 	private int parentBoardNo;
 	private int parentReplyNo;
+	private int boardCode;
 	
 	public Reply() {}
 
 	public Reply(int replyNo, String replyContent, Timestamp replyCreateDt, String replyStatus, int replyDepth,
-			int memNo, String nickname, int parentBoardNo, int parentReplyNo) {
+			int memNo, String nickname, int parentBoardNo, int parentReplyNo, int boardCode) {
 		super();
 		this.replyNo = replyNo;
 		this.replyContent = replyContent;
@@ -28,6 +29,7 @@ public class Reply {
 		this.nickname = nickname;
 		this.parentBoardNo = parentBoardNo;
 		this.parentReplyNo = parentReplyNo;
+		this.boardCode = boardCode;
 	}
 
 	public int getReplyNo() {
@@ -102,12 +104,23 @@ public class Reply {
 		this.parentReplyNo = parentReplyNo;
 	}
 
+	public int getBoardCode() {
+		return boardCode;
+	}
+
+	public void setBoardCode(int boardCode) {
+		this.boardCode = boardCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
 				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickname="
-				+ nickname + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ nickname + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + ", boardCode="
+				+ boardCode + "]";
 	}
+
+	
 	
 	
 }
