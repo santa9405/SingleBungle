@@ -11,6 +11,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.member.model.vo.Member;
 
 
 public interface adminService {
@@ -62,6 +63,20 @@ public interface adminService {
 	APageInfo getReplyPageInfo(int cp);
 	
 	int recoverReply(int recoverReply, int boardCode);
+
+	APageInfo getMemberPageInfo(int cp);
+
+	List<Member> selectAllMember(APageInfo pInfo);
+
+	int deleteMember(int memNo);
+
+	int recoverMember(int memNo);
+
+	APageInfo getGradePageInfo(int cp);
+
+	List<Member> selectGradeMember(APageInfo pInfo);
+
+	int gradeMember(int memNo, String grade);
 
 	
 
