@@ -151,17 +151,50 @@ body {
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-  <div class="container">
+	
+	<!-- 주소 조합 작업  -->
+	<c:choose>
+		<c:when test="${!empty mSearch}">
+\
+			<c:if test="${!empty mSearch.sort }">
+				<c:set var="sort" value="sort=${mSearch.sort}&" />
+			</c:if>
+
+
+			<c:if test="${!empty mSearch.sv}">
+				<c:set var="sv" value="sv=${mSearch.sv}" />
+
+				<c:set var="searchStr" value="${category}${sort}sv=${mSearch.sv}&" />
+			</c:if>
+
+			<c:url var="pageUrl" value="search?${searchStr}" />
+
+			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+			<c:set var="returnListURL" value="${contextPath}/market/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+		</c:when>
+
+		<c:otherwise>
+			<c:url var="pageUrl" value="?" />
+			
+			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
+			<c:set var="returnListURL" value="${contextPath}/review/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+		</c:otherwise>
+	</c:choose>
+
+
+
+	<div class="container">
   
     <div class="px-lg-5">
 				
-				<form action="#" method="GET">
+				<form action="search" method="GET" id="searchForm">
           <div class="input-group mb-4 col-md-8 searchArea">
-            <input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control">
+            <input type="text" id="searchInput" name="sv"  placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control" autocomplete="off">
             <div class="input-group-append">
               <button id="searchBtn" type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
             </div>
           </div>
+			<input type="hidden" name="sort" value="${param.sort }">
         </form>
 
 
@@ -170,15 +203,15 @@ body {
 				<div class="col-lg-12 mx-auto">
 					<div class="text-black banner">
 						<h1 class="boardName float-left">사고팔고</h1>
-						<a class="category cg" href="#">전체</a> <span> |</span> <a
-							class="category cg" href="#">팝니다</a> <span> |</span> <a
-							class="category cg" href="#">삽니다</a>
+						<a class="category cg" id="0" href="search?ct=0&${sort}${sv}">전체</a> <span> |</span> 
+						<a class="category cg" id="1" href="search?ct=1&${sort}${sv}">팝니다</a> <span> |</span> 
+						<a class="category cg" id="2" href="search?ct=2&${sort}${sv}">삽니다</a>
 
 						<div class="listTest float-right">
-							<a class="category sort" href="#">최신순</a> <span> |</span> <a
-								class="category sort" href="#">좋아요순</a> <span> |</span> <a
-								class="category sort" href="#">저가순</a> <span> |</span> <a
-								class="category sort" href="#">고가순</a>
+							<a class="category sort" id="newSort" href="search?${category}sort=new&${sv}">최신순</a> <span> |</span> 
+							<a class="category sort" id="likeSort" href="search?${category}sort=like&${sv}">좋아요순</a> <span> |</span> 
+							<a class="category sort" id="rowSort" href="search?${category}sort=rowSort&${sv}">저가순</a> <span> |</span> 
+							<a class="category sort" id="highSort" href="search?${category}sort=highSort&${sv}">고가순</a>
 						</div>
 						<hr>
 					</div>
@@ -323,36 +356,15 @@ body {
 			</div>
 
 
-			<div class="row">
-        <div class="col-md-12">
-          <div class="search">
-            <form action="#" method="GET">
-            <select  name="sk" id="searchOption" style="width:100px; height:36px; display:inline-block;">
-              <option value="title">제목</option>
-              <option value="writer">작성자</option>
-              <option value="titcont">제목+내용</option>
-                <option value="category">카테고리</option>
-            </select>
-            <input type="text" name="sv" class="form-control " style="width: 25%; display: inline-block;">
-            <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
-            </form>
-          </div>
-        </div>
-      </div>
+
 
     </div>
   </div>
 <jsp:include page="../common/footer.jsp"/>
 
 <script>
-	
-/* 	var temp =[];
-  temp[0] = "";
-  temp[1] = ""; */
-  
-  var cg;
-  var sort;
 
+	// 이미지 클릭 시 상세 조회 페이지로 이동
 	$(".marketNo").on("click", function(){
 		var marketNo = $(this).closest('.no').children().eq(0).text();
 		console.log(marketNo);
@@ -361,6 +373,7 @@ body {
 	});
 
 	
+	// 좋아요 
 	$(".likeBtns").on("click", function(){
 		var marketNo = $(this).closest('.no').children().eq(0).text();
 		var likeClassArray = $(this).children().attr('class').split(" ");
@@ -406,23 +419,32 @@ body {
 		}
 	});
 	
-	
-/* 	$(".cg").on("click", function(){
-		cg ="";
-		cg = $(this).text();
-		temp[0] = cg;
-		console.log(cg);
-		console.log(temp);
+	// 검색 파라미터 유지
+	$(function(){
+		if(${param.ct == '0'}){
+			$("#0").css({"color":"#ffc823", "font-weight":"bold"});
+		} else if(${param.ct == '1'}){
+			$("#1").css({"color":"#ffc823", "font-weight":"bold"});
+		} else {
+			$("#2").css({"color":"#ffc823", "font-weight":"bold"});
+		}
+		
+		// 정렬
+		if(${param.sort == 'like'}){
+			$("#likeSort").css({"color":"#ffc823", "font-weight":"bold"});
+		}else if(${param.sort == 'new'}){
+			$("#newSort").css({"color":"#ffc823", "font-weight":"bold"});
+		} else if(${param.sort == 'rowSort'}){
+			$("#rowSort").css({"color":"#ffc823", "font-weight":"bold"});
+		} else {
+			$("#highSort").css({"color":"#ffc823", "font-weight":"bold"});
+		}
+		
+		// 검색 내용
+		$("input[name=sv]").val("${mSearch.sv}");
 	});
 	
-	$(".sort").on("click", function(){
-		sort ="";
-		sort = $(this).text();
-		temp[1] = sort;
-		console.log(sort);
-		console.log(temp);
-	});
- */
+	
 
 
 
