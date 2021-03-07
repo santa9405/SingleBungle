@@ -692,10 +692,30 @@ public class adminServiceImpl implements adminService{
 		}
 
 		@Override
-		public List<Reply> selectAllReply() {
-			return dao.selectAllReply();
+		public APageInfo getReplyPageInfo(int cp) {
+			int listCount = dao.getReplyListCount();
+			return new APageInfo(cp, listCount);
+		}
+		
+		@Override
+		public List<Reply> selectAllReply(APageInfo pInfo) {
+			return dao.selectAllReply(pInfo);
 		}
 
+		@Override
+		public int recoverReply(int replyNo, int boardCode) {
+			int result=0;
+			if(boardCode == 1 || boardCode==2) {result = dao.recoverReply1(replyNo);}
+			if(boardCode == 6) {result = dao.recoverReply6(replyNo);}
+			if(boardCode == 7) {result = dao.recoverReply7(replyNo);}
+			if(boardCode == 8) {result = dao.recoverReply8(replyNo);}
+			
+			
+			return result;
+		}
+
+
+		
 		
 
 	

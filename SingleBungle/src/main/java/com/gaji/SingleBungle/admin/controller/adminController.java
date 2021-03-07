@@ -672,12 +672,41 @@ public class adminController {
 	}
 
 	@RequestMapping("replyManage")
-	public String replyManageView(Model model) {
+	public String replyManageView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 
-		List<Reply> replyList = service.selectAllReply();
+		APageInfo pInfo = service.getReplyPageInfo(cp);
+		pInfo.setLimit(10);
+		
+		List<Reply> replyList = service.selectAllReply(pInfo);
 		model.addAttribute("replyList", replyList);
+		model.addAttribute("pInfo", pInfo);
 		return "admin/replyManage";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("recoverReply")
+	public boolean recoverReply(@RequestParam(value = "replyNoList[]") int[] replyNoList, @RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < replyNoList.length; i++) {
+			int replyNo = replyNoList[i];
+			int boardCode = boardCodeList[i];
+
+			result = service.recoverReply(replyNo,boardCode);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+
+		return flag;
+	}
+	
+	
 
 	@RequestMapping("replyReport")
 	public String replyReportView() {

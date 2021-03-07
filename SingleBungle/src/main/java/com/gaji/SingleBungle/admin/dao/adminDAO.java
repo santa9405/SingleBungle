@@ -154,7 +154,32 @@ public class adminDAO {
 		return sqlSession.update("adminMapper.recoverBoard8", boardNo);
 	}
 
-	public List<Reply> selectAllReply() {
-		return sqlSession.selectList("adminMapper.selectAllReply");
+	public int getReplyListCount() {
+		return sqlSession.selectOne("adminMapper.getReplyListCount");
 	}
+	
+	public List<Reply> selectAllReply(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	     RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectAllReply", pInfo, rowBounds);
+	}
+
+	public int recoverReply1(int replyNo) {
+		return sqlSession.update("adminMapper.recoverReply1", replyNo);
+	}
+
+	public int recoverReply6(int replyNo) {
+		return sqlSession.update("adminMapper.recoverReply6", replyNo);
+	}
+
+	public int recoverReply7(int replyNo) {
+		return sqlSession.update("adminMapper.recoverReply7", replyNo);
+	}
+
+	public int recoverReply8(int replyNo) {
+		return sqlSession.update("adminMapper.recoverReply8", replyNo);
+	}
+
+	
+
 }
