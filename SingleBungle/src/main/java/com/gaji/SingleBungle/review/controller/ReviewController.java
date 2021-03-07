@@ -26,6 +26,7 @@ import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewReply;
 import com.gaji.SingleBungle.review.model.vo.ReviewReport;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 import com.google.gson.Gson;
@@ -70,13 +71,16 @@ public class ReviewController {
 			if(rList!=null && !rList.isEmpty()) {
 				List<ReviewAttachment> thumbnailList = service.selectThumbnailList(rList);
 				
-				
 				if(thumbnailList!=null) {
 					model.addAttribute("thList", thumbnailList);
 				}
 			
 			}
 			
+			List<ReviewLike> likeInfo = service.selectLike(loginMember.getMemberNo());
+
+			
+			model.addAttribute("likeInfo", likeInfo);
 			model.addAttribute("rList", rList);
 			model.addAttribute("pInfo",pInfo);
 			

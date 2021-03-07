@@ -12,6 +12,7 @@ import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewReply;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 @Repository
@@ -54,6 +55,9 @@ public class ReviewDAO {
 	public List<ReviewAttachment> selectThumbnailList(List<Review> rList) {
 		return sqlSession.selectList("reviewMapper.selectThumbnailList",rList);
 	}
+	
+
+
 
 
 
@@ -263,6 +267,9 @@ public class ReviewDAO {
 	public Review selectDeleteReview(int boardNo) {
 		return sqlSession.selectOne("reviewMapper.selectDeleteReview",boardNo);
 	}
+
+
+
 
 
 

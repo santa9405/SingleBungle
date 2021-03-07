@@ -19,6 +19,7 @@ import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewReply;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 @Service
@@ -47,6 +48,9 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewAttachment> selectThumbnailList(List<Review> rList) {
 		return dao.selectThumbnailList(rList);
 	}
+	
+	
+
 
 	
 	
@@ -417,6 +421,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return dao.selectDeleteReview(boardNo);
 	}
+
 
 
 

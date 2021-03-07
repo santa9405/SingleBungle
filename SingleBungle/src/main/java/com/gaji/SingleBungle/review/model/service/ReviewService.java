@@ -9,6 +9,7 @@ import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewReply;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 public interface ReviewService {
@@ -34,7 +35,11 @@ public interface ReviewService {
 	 * @return thList
 	 */
 	List<ReviewAttachment> selectThumbnailList(List<Review> rList);
-
+	
+	
+	
+	
+	
 	/** 게시글 상세 조회
 	 * @param boardNo
 	 * @return review
@@ -156,6 +161,10 @@ public interface ReviewService {
 	 * @return
 	 */
 	Review selectDeleteReview(int boardNo);
+
+
+
+
 
 
 

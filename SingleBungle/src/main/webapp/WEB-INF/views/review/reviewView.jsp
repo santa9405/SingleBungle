@@ -51,6 +51,11 @@
 	background-image: url('${contextPath}/resources/images/like2.png');
 	background-repeat: no-repeat;
 }
+.like3 {
+	background-size : 11px;
+	background-image: url('${contextPath}/resources/images/like2.png');
+	background-repeat: no-repeat;
+}
 
 /* TOP3 출력 */
 body {
@@ -298,7 +303,15 @@ body {
 									</div>								
 									<div class="viewArea mb-2 float-right">
 										<img class="icon" src="${contextPath}/resources/images/view.png" /> ${review.readCount }
-										<img class="icon" src="${contextPath}/resources/images/reply.png" /> 9999999
+											<span>
+													<img src="${contextPath}/resources/images/like1.png" 
+													width="11" height="11" id="heart" class='likeImgs 
+													<c:forEach var="like" items="${likeInfo}">
+													<c:if test="${like.boardNo == review.boardNo}">like3</c:if>
+													</c:forEach>'>
+													<span class="likeCnt" style="font-size:12px;">${review.likeCount}</span>
+												</button>					
+											</span>
 									</div>
 
 								</div>
