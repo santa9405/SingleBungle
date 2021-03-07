@@ -95,7 +95,7 @@
 				<when test="ct == 1">
 					AND CATEGORY_CD = 11
 				</when>
-				<when test="ct== 2">
+				<when test="ct == 2">
 					AND CATEGORY_CD = 12
 				</when>
 				<when test="ct == 3">
