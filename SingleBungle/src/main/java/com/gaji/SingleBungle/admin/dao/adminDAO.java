@@ -15,6 +15,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Repository
 public class adminDAO {
@@ -178,6 +179,38 @@ public class adminDAO {
 
 	public int recoverReply8(int replyNo) {
 		return sqlSession.update("adminMapper.recoverReply8", replyNo);
+	}
+
+	public int getMemberPageInfo() {
+		return sqlSession.selectOne("adminMapper.getMemberPageInfo");
+	}
+
+	public List<Member> selectAllMember(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	     RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectAllMember", pInfo, rowBounds);
+	}
+
+	public int deleteMember(int memNo) {
+		return sqlSession.update("adminMapper.deleteMember", memNo);
+	}
+
+	public int recoverMember(int memNo) {
+		return sqlSession.update("adminMapper.recoverMember", memNo);
+	}
+
+	public int getGradePageInfo() {
+		return sqlSession.selectOne("adminMapper.getGradePageInfo");
+	}
+
+	public List<Member> selectGradeMember(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectGradeMember", pInfo, rowBounds);
+	}
+
+	public int gradeMember(Map<String, Object> map) {
+		return sqlSession.update("adminMapper.gradeMember", map);
 	}
 
 	

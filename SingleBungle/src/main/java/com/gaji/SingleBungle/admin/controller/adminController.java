@@ -524,7 +524,7 @@ public class adminController {
 		if (result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
-			url = "redirect:inquiryView";
+			url = "redirect:inquiryList";
 
 			// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
 			request.getSession().setAttribute("returnListURL", "../");
@@ -609,6 +609,12 @@ public class adminController {
 		return url;
 
 	}
+	
+	
+	
+	
+	
+	
 
 	// ------------------------------------------------------------------------
 	// 관리자 컨트롤러
@@ -656,21 +662,106 @@ public class adminController {
 		return flag;
 	}
 
-	@RequestMapping("boardReport")
-	public String boardReportView() {
-		return "admin/boardReport";
-	}
-
 	@RequestMapping("levelList")
-	public String levelListView() {
+	public String levelListView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		
+		
+		APageInfo pInfo = service.getGradePageInfo(cp);
+		pInfo.setLimit(10);
+		
+		List<Member> memberList = service.selectGradeMember(pInfo);
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("pInfo", pInfo);
+
 		return "admin/levelList";
 	}
 
+	
+	
+	@ResponseBody
+	@RequestMapping("gradeMember")
+	public boolean gradeMember(@RequestParam(value = "memberNoList[]") int[] memberNoList, @RequestParam(value = "gradeList[]") String[] gradeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < memberNoList.length; i++) {
+			int memNo = memberNoList[i];
+			String grade = gradeList[i];
+
+			result = service.gradeMember(memNo,grade);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+
+		return flag;
+	}	
+	
+	
+	
 	@RequestMapping("memberList")
-	public String memberListView() {
+	public String memberListView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		APageInfo pInfo = service.getMemberPageInfo(cp);
+		pInfo.setLimit(10);
+		
+		List<Member> memberList = service.selectAllMember(pInfo);
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("pInfo", pInfo);
+		
 		return "admin/memberList";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("deleteMember")
+	public boolean deleteMember(@RequestParam(value = "memberNoList[]") int[] memberNoList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < memberNoList.length; i++) {
+			int memNo = memberNoList[i];
 
+			result = service.deleteMember(memNo);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+
+		return flag;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("recoverMember")
+	public boolean recoverMember(@RequestParam(value = "memberNoList[]") int[] memberNoList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < memberNoList.length; i++) {
+			int memNo = memberNoList[i];
+
+			result = service.recoverMember(memNo);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+
+		return flag;
+	}
+
+	
+	
 	@RequestMapping("replyManage")
 	public String replyManageView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 
@@ -707,6 +798,10 @@ public class adminController {
 	}
 	
 	
+	@RequestMapping("boardReport")
+	public String boardReportView() {
+		return "admin/boardReport";
+	}
 
 	@RequestMapping("replyReport")
 	public String replyReportView() {

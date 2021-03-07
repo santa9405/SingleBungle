@@ -3,6 +3,7 @@ package com.gaji.SingleBungle.admin.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -23,6 +24,7 @@ import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
+import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 
 @Repository
@@ -712,6 +714,51 @@ public class adminServiceImpl implements adminService{
 			
 			
 			return result;
+		}
+
+		@Override
+		public APageInfo getMemberPageInfo(int cp) {
+			int listCount = dao.getMemberPageInfo();
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<Member> selectAllMember(APageInfo pInfo) {
+			return dao.selectAllMember(pInfo);
+		}
+
+		@Override
+		public int deleteMember(int memNo) {
+			return dao.deleteMember(memNo);
+		}
+
+		@Override
+		public int recoverMember(int memNo) {
+			return dao.recoverMember(memNo);
+		}
+
+		@Override
+		public APageInfo getGradePageInfo(int cp) {
+			int listCount = dao.getGradePageInfo();
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<Member> selectGradeMember(APageInfo pInfo) {
+			return dao.selectGradeMember(pInfo);
+		}
+
+		@Override
+		public int gradeMember(int memNo, String grade) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("memNo", memNo);
+			
+			if(grade.equals("F")) {map.put("grade", "S");}
+			if(grade.equals("S")) {map.put("grade", "T");}
+			if(grade.equals("T")) {map.put("grade", "T");}
+
+			return dao.gradeMember(map);
 		}
 
 
