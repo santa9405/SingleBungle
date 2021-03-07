@@ -160,9 +160,9 @@ body {
 				<h8> 후기게시판 </h8>
 				<div class="float-right">
 					<span class="bn" style="visibility: hidden">${review.boardNo}</span>
-					<button type="button" class="btn btn-primary ml-2 returnBtn">목록</button>
+					<button type="button" class="btn btn-primary ml-2 returnBtn maincolor">목록</button>
 					<c:if test="${loginMember.memberNo != review.memberNo }">
-						<button type="button" class="btn btn-primary ml-2 report">신고</button>
+						<button type="button" class="btn btn-primary ml-2 report maincolor">신고</button>
 					</c:if>
 				</div>
 
@@ -233,8 +233,8 @@ body {
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-12">
-							<a href="${updateUrl }" type="button" class="btn btn-success">수정</a>
-							<button type="button" id="deleteBtn" class="btn btn-danger">삭제</button>
+							<a href="${updateUrl }" type="button" class="btn btn-success maincolor-re">수정</a>
+							<button type="button" id="deleteBtn" class="btn btn-danger maincolor-re">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -248,7 +248,7 @@ body {
 				<c:if test="${empty sessionScope.returnListURL }">
 					<c:set var="returnListURL" value="../" scope="session" />
 				</c:if>
-				<button type="button" class="btn btn-success returnBtn" style="width: 100px; height: 40px;">목록으로</button>
+				<button type="button" class="btn btn-success returnBtn maincolor" style="width: 100px; height: 40px;">목록으로</button>
 			</div>
 		</div>
 

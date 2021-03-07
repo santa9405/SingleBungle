@@ -128,6 +128,17 @@
 	background-repeat: no-repeat;
 }
 
+.maincolor-re1{
+    color: #4ab34a !important;
+    background-color: #ffffff !important;
+    border: none !important;
+}
+
+.maincolor-re1:hover{
+    color: #ffffff !important; 
+    background-color:#4ab34a !important;
+    border: 1px solid #4ab34a !important;
+}
 
 </style>
 
@@ -292,7 +303,7 @@
 		<c:if test="${!empty loginMember && loginMember.memberGrade != 'T' }">
 			<div class="row">
 				<div class="col-lg-12 mx-auto">
-					<button type="button" class="btn btn-success float-right" id="insertBoard">등록하기</button>
+					<button type="button" class="btn btn-success float-right maincolor-re" id="insertBoard">등록하기</button>
 				</div>
 			</div>
 		</c:if>
@@ -324,8 +335,8 @@
 								<c:set var="nextPage" value="${pageUrl}cp=${next}" />
 
 								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-									<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
-									<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
+									<li class="page-item"><a class="page-link maincolor-re1" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
+									<li class="page-item"><a class="page-link maincolor-re1" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 								</c:if>
 
 								<c:forEach var="page" begin="${pInfo.startPage }" end="${pInfo.endPage }">
@@ -338,7 +349,7 @@
 
 										<c:otherwise>
 											<li class="page-item">
-												<a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+												<a class="page-link maincolor-re1" href="${pageUrl}cp=${page}">${page}</a>
 											</li>
 										</c:otherwise>
 
@@ -349,8 +360,8 @@
 
 
 								<c:if test="${next <=pInfo.maxPage }">
-										<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
-										<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
+										<li class="page-item"><a class="page-link maincolor-re1" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+										<li class="page-item"><a class="page-link maincolor-re1" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 								</c:if>
 							</ul>
 						</nav>
@@ -370,7 +381,7 @@
 						<option value="writer">작성자</option>
 						<option value="titcont">제목+내용</option>
 					</select> <input type="text" name="sv" class="form-control " autocomplete="off" style="width: 25%; display: inline-block;">
-					<button class="form-control btn btn-success" id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+					<button class="form-control btn btn-success maincolor " id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 				</div>
 			</div>
 			<input type="hidden" name="ct" value="${param.ct }">	<!-- 있으면 값 세팅  -->
@@ -409,24 +420,24 @@
 			
 			// 카테고리
 			if(${param.ct == '0'}){
-				$("#0").css({"color":"orange", "font-weight":"bold"});
+				$("#0").css({"color":"#ffc823", "font-weight":"bold"});
 			}else if(${param.ct == '1'}){
-				$("#1").css({"color":"orange", "font-weight":"bold"});
+				$("#1").css({"color":"#ffc823", "font-weight":"bold"});
 			}else if(${param.ct == '2'}){
-				$("#2").css({"color":"orange", "font-weight":"bold"});
+				$("#2").css({"color":"#ffc823", "font-weight":"bold"});
 			}else if(${param.ct == '3'}){
-				$("#3").css({"color":"orange", "font-weight":"bold"});
+				$("#3").css({"color":"#ffc823", "font-weight":"bold"});
 			}else if(${param.ct == '4'}){
-				$("#4").css({"color":"orange", "font-weight":"bold"});
+				$("#4").css({"color":"#ffc823", "font-weight":"bold"});
 			}else{ // 선택 안된 경우,,
-				$("#0").css({"color":"orange", "font-weight":"bold"});
+				$("#0").css({"color":"#ffc823", "font-weight":"bold"});
 			}
 			
 			// 정렬
 			if(${param.sort == 'like'}){
-				$("#likeSort").css({"color":"orange", "font-weight":"bold"});
+				$("#likeSort").css({"color":"#ffc823", "font-weight":"bold"});
 			}else {
-				$("#newSort").css({"color":"orange", "font-weight":"bold"});
+				$("#newSort").css({"color":"#ffc823", "font-weight":"bold"});
 			}
 			
 			
