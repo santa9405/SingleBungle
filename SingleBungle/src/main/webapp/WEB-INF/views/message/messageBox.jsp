@@ -57,6 +57,8 @@
 }
 
 
+
+
 </style>
 
 
@@ -67,7 +69,10 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" style="padding-left : 26px">
+				<span>
+					<input type="checkbox" id="allCheck">
+				</span>
 				<div class="messageBox" style="display: inline-block;">
 					<a href="#">받은 쪽지</a>
 				</div>
@@ -75,7 +80,7 @@
 					<a href="#">보낸 쪽지</a>
 				</div>
 				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
-					<button>삭제</button>
+					<button class="maincolor-re">삭제</button>
 				</div>
 			</div>
 		</div>
@@ -87,21 +92,21 @@
 							<td><input type="checkbox" /></td>
 							<td><b>며네</b></td>
 							<td><b>훠궈 먹을때만 친구지???</b></td>
-							<td><b>읽지않음</b></td>
+							<td><i class="far fa-envelope"></i><b>읽지않음</b></td>
 							<td><b>15:20</b></td>
 						</tr>
 						<tr>
 							<td><input type="checkbox" /></td>
 							<td>솔쨩</td>
 							<td>이미 신고 들어감. ㅈㅅ</td>
-							<td>읽음</td>
+							<td><i class="far fa-envelope-open"></i>읽음</td>
 							<td>2021-02-22</td>
 						</tr>
 						<tr>
 							<td><input type="checkbox" /></td>
 							<td>애긔한솔</td>
 							<td>누구세요?</td>
-							<td>읽음</td>
+							<td><i class="far fa-envelope-open"></i>읽음</td>
 							<td>2021-02-22</td>
 						</tr>
 					</tbody>
