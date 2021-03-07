@@ -26,11 +26,13 @@ import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
 import com.gaji.SingleBungle.market.model.vo.MarketLike;
 import com.gaji.SingleBungle.market.model.vo.MarketPageInfo;
+import com.gaji.SingleBungle.market.model.vo.MarketReport;
 import com.gaji.SingleBungle.market.model.vo.MarketSearch;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewReport;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 
 @Controller
@@ -215,7 +217,7 @@ public class MarketController {
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
-			url = "redirect:" + result;
+			url = "redirect:../market/" + result;
 			
 			request.getSession().setAttribute("returnListURL", "../list");
 					
@@ -277,11 +279,52 @@ public class MarketController {
 			model.addAttribute("thList",thList);
 		}
 		
-		model.addAttribute("mList",mList);
+		model.addAttribute("mList", mList);
 		model.addAttribute("pInfo",pInfo);
 		model.addAttribute("mSearch", mSearch);
 		
 		return "market/marketList";
+	}
+	
+	
+	// 신고 페이지 연결
+	@RequestMapping("marketReport/{marketNo}")
+	public String marketReport(@PathVariable int marketNo, Model model) {
+		model.addAttribute("marketNo", marketNo);
+		return "market/marketReport";
+	}
+	
+	
+	
+	// 게시글 신고 등록
+	@RequestMapping("marketReportAction") 
+	public String insertReviewReport(@ModelAttribute("report") MarketReport report , @RequestParam("marketNo") int marketNo,
+			@ModelAttribute("loginMember") Member loginMember, HttpServletRequest request, RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("marketNo", marketNo);
+		map.put("reportTitle", report.getReportTitle());
+		map.put("reportContent", report.getReportContent());
+		map.put("categoryCode", report.getCategoryCode());
+		
+		int result = service.insertReviewReport(map);
+
+		String url = "redirect:" + request.getHeader("referer");
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "신고가 접수되었습니다.";
+		} else {
+			swalIcon = "error";
+			swalTitle = "신고 접수 실패";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
+		
 	}
 	
 	@RequestMapping("mypage")

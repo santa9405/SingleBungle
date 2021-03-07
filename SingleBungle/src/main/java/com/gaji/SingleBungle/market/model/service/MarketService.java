@@ -95,7 +95,13 @@ public interface MarketService {
 	 */
 	List<Market> selectSearchList(MarketSearch mSearch, MarketPageInfo pInfo);
 
+	/** 게시글 신고
+	 * @param map
+	 * @return result
+	 */
+	int insertReviewReport(Map<String, Object> map);
 
+	
 
 
 

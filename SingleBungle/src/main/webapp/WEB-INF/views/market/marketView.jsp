@@ -335,11 +335,11 @@
 						 </div> 
 						 
 						
-							
-							<a href="#" class="btn float-right active" id="report" role="button" aria-pressed="true">
+
+							<button  type="button" class="btn float-right btn-sm mb-3 report" id="report" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">
-								<span class="siren float-right">신고하기</span> 
-							</a>
+								신고하기
+							</button>
 						
 						 
 			
@@ -662,7 +662,13 @@
 				}
 		});
 	
-	
+		
+		
+		// 신고하기
+		$(".report").on("click", function(){
+			window.name = "parentWindow";
+			 window.open('${contextPath}/market/marketReport/${market.marketNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
+		});
 
 	</script>
 		

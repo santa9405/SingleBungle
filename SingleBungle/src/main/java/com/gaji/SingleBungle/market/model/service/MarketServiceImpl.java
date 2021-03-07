@@ -216,7 +216,37 @@ public class MarketServiceImpl implements MarketService {
 	public List<Market> selectSearchList(MarketSearch mSearch, MarketPageInfo pInfo) {
 		return dao.selectSearchList(mSearch, pInfo);
 	}
-
+	
+	// 게시글 신고 등록
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertReviewReport(Map<String, Object> map) {
+		int result = 0;
+		
+		int reportNo = dao.selectReportNo();
+		
+		if(reportNo>0) {
+			
+			map.put("reportNo", reportNo);
+			
+			String reportTitle = (String)map.get("reportTitle");
+			String reportContent = (String)map.get("reportContent");
+			
+			reportTitle = replaceParameter(reportTitle);
+			reportContent = replaceParameter(reportContent);
+			
+			map.put("reportTitle", reportTitle);
+			map.put("reportContent", reportContent);			
+		}
+		
+		result = dao.insertReviewReport(map);
+		if(result > 0) {
+			
+			result = reportNo;
+		}
+		
+		return result;
+	}
 
 
 

@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.market.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.gaji.SingleBungle.market.model.vo.MarketReply;
 
@@ -35,5 +36,11 @@ public interface MarketReplyService {
 	 * @return result
 	 */
 	int insertChildReply(MarketReply reply);
+
+	/** 댓글 신고 Service
+	 * @param map
+	 * @return
+	 */
+	int insertBoardReport(Map<String, Object> map);
 	
 }
