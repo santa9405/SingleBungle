@@ -208,7 +208,7 @@ public class MarketServiceImpl implements MarketService {
 		
 		// 검색 조건에 맞는 게시글 수 조회
 		int listCount = dao.getSearchListCount(mSearch);
-		return new MarketPageInfo(cp, listCount, '2');
+		return new MarketPageInfo(cp, listCount);
 	}
 	
 	// 검색 조건이 포함된 게시글 목록 조회 Service 구현

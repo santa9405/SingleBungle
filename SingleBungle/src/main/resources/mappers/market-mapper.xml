@@ -172,6 +172,7 @@
 			<bind name="val" value="'%' + sv + '%'" />
 			AND (MARKET_TITLE like #{val} OR MARKET_CONTENT like #{val})
 		</if>
+		
 	</select>	
 	
 	
@@ -184,10 +185,10 @@
 		<if test="ct != null">
 			<choose>
 				<when test="ct == 1">
-					AND TRANSACTION_CATEGORY = 2
+					AND TRANSACTION_CATEGORY = 1
 				</when>
 				<when test="ct== 2">
-					AND TRANSACTION_CATEGORY = 1
+					AND TRANSACTION_CATEGORY = 2
 				</when>
 			</choose>
 		</if>
