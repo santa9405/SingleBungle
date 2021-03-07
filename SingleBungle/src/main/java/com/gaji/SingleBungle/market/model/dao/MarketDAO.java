@@ -164,6 +164,22 @@ public class MarketDAO {
 		return sqlSession.selectList("marketMapper.selectSearchList", mSearch, rowBounds);
 	}
 
+	
+	/** 게시글 신고 다음 번호 가져오기
+	 * @return
+	 */
+	public int selectReportNo() {
+		return sqlSession.selectOne("marketMapper.selectReportNo");
+	}
+	
+	/** 게시글 신고
+	 * @param map
+	 * @return
+	 */
+	public int insertReviewReport(Map<String, Object> map) {
+		return sqlSession.insert("marketMapper.insertReviewReport",map);
+	}	
+	
 
 
 

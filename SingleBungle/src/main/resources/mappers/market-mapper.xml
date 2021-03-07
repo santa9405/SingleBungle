@@ -42,6 +42,27 @@
 		<result property="parentMarketNo" column="PARENT_MARKET_NO" />
 	</resultMap>
 
+
+	<resultMap type="MarketReport" id="report_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<id property="reportTitle" column="REPORT_TITLE" />
+		<id property="reportContent" column="REPORT_CONTENT" />
+		<id property="memberNo" column="MEM_NO" />
+		<id property="categoryCode" column="CATEGORY_CD" />
+		<id property="marketNo" column="MARKET_NO" />
+	</resultMap>
+	
+	<resultMap type="MarketReplyReport" id="replyReport_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<id property="reportTitle" column="REPORT_TITLE" />
+		<id property="reportContent" column="REPORT_CONTENT" />
+		<id property="memberNo" column="MEM_NO" />
+		<id property="categoryCode" column="CATEGORY_CD" />
+		<id property="replyNo" column="REPLY_NO" />
+		<id property="marketNo" column="MARKET_NO" />
+	</resultMap>
+
+
 	<!-- 전체 게시글 수 조회 -->
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM V_MARKET
@@ -219,6 +240,18 @@
 		</if>
 	</select>
 	
+	
+	<!-- 게시글 신고 다음 번호 조회 -->
+	<select id="selectReportNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 게시글 신고  -->
+	<insert id="insertReviewReport" parameterType="map">
+		INSERT INTO REPORT_MARKET
+		VALUES (#{reportNo}, #{reportTitle}, #{reportContent}, 
+		#{memberNo}, #{categoryCode}, #{marketNo})
+	</insert>
 	
 	
 	
