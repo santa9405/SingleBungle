@@ -23,6 +23,7 @@ import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
+import com.gaji.SingleBungle.findFriend.model.vo.FriendReport;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -196,6 +197,45 @@ public class FindFriendController {
 		
 		return service.decreaseLike(map);
 		
+	}
+	
+	// 친구찾기 게시글 신고 연결 Controller
+	@RequestMapping("findFriendreport/{friendNo}")
+	public String reportForm(@PathVariable int friendNo, Model model) {
+		model.addAttribute("friendNo", friendNo);
+		return "findFriend/findFriendReport";
+	}
+	
+	// 친구찾기 게시글 신고 등록 Controller
+	@RequestMapping("findFriendReportAction")
+	public String insertFindFriendReport(@ModelAttribute FriendReport report, @RequestParam("friendNo") int friendNo,
+										 @ModelAttribute("loginMember") Member loginMember,
+										 HttpServletRequest request, RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memNo", loginMember.getMemberNo());
+		map.put("friendNo", friendNo);
+		
+		map.put("reportTitle", report.getReportTitle());
+		map.put("reportContent", report.getReportContent());
+		map.put("categoryCd", report.getCategoryCd());
+		
+		int result = service.insertFindFriendReport(map);
+		
+		String url = "redirect:" + request.getHeader("referer");
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "신고가 접수되었습니다.";
+		}else {
+			swalIcon = "error";
+			swalTitle = "신고 접수 실패";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return url;
 	}
 	
 	// 친구찾기 게시글 등록 화면 전환 Controller

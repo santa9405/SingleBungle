@@ -62,5 +62,17 @@
 		VALUES(SEQ_BRNO.NEXTVAL, #{replyContent}, #{parentFriendNo},
 					 #{parentReplyNo}, #{memNo}, 1)
 	</insert>
+	
+	<!-- 댓글 신고 다음 번호 조회 -->
+	<select id="selectReportNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 댓글 신고 등록 -->
+	<insert id="insertBoardReport" parameterType="map">
+		INSERT INTO FRIEND_REPORT_REPLY VALUES 
+		(#{reportNo}, #{reportTitle}, 
+		 #{reportContent}, #{memNo}, #{categoryCd}, #{friendNo}, #{replyNo})
+  </insert>
 
 </mapper>

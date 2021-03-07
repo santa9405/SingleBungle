@@ -136,6 +136,11 @@ public class MarketDAO {
 	}
 
 
+	public int reservation(Map<String, Integer> map) {
+		return sqlSession.update("marketMapper.reservation", map);
+	}
+
+
 
 
 
