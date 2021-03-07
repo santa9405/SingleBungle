@@ -155,7 +155,11 @@ body {
 	<!-- 주소 조합 작업  -->
 	<c:choose>
 		<c:when test="${!empty mSearch}">
-\
+
+			<c:if test="${!empty mSearch.ct }">
+				<c:set var="category" value="ct=${mSearch.ct}&" />
+			</c:if>
+			
 			<c:if test="${!empty mSearch.sort }">
 				<c:set var="sort" value="sort=${mSearch.sort}&" />
 			</c:if>
@@ -177,7 +181,7 @@ body {
 			<c:url var="pageUrl" value="?" />
 			
 			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-			<c:set var="returnListURL" value="${contextPath}/review/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+			<c:set var="returnListURL" value="${contextPath}/market/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
 		</c:otherwise>
 	</c:choose>
 
@@ -194,7 +198,8 @@ body {
               <button id="searchBtn" type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
             </div>
           </div>
-			<input type="hidden" name="sort" value="${param.sort }">
+          <input type="hidden" name="ct" value="${param.ct}">
+			<input type="hidden" name="sort" value="${param.sort}">
         </form>
 
 
@@ -204,8 +209,8 @@ body {
 					<div class="text-black banner">
 						<h1 class="boardName float-left">사고팔고</h1>
 						<a class="category cg" id="0" href="search?ct=0&${sort}${sv}">전체</a> <span> |</span> 
-						<a class="category cg" id="1" href="search?ct=1&${sort}${sv}">팝니다</a> <span> |</span> 
-						<a class="category cg" id="2" href="search?ct=2&${sort}${sv}">삽니다</a>
+						<a class="category cg" id="2" href="search?ct=2&${sort}${sv}">팝니다</a> <span> |</span> 
+						<a class="category cg" id="1" href="search?ct=1&${sort}${sv}">삽니다</a>
 
 						<div class="listTest float-right">
 							<a class="category sort" id="newSort" href="search?${category}sort=new&${sv}">최신순</a> <span> |</span> 
@@ -300,18 +305,20 @@ body {
 				<button type="button" class="btn btn-info float-right"><a href="${contextPath}/market/insert" class="writeBtn">글쓰기</a></button>
 			</c:if>
 
+
+	<!--  페이징  -->
 			<div class="padding">
-				<c:set var="firstPage" value="?cp=1" />
-				<c:set var="lastPage" value="?cp=${mpInfo.maxPage}" />
+				<c:set var="firstPage" value="${pageUrl}cp=1" />
+				<c:set var="lastPage"  value="${pageUrl}cp=${mpInfo.maxPage}" />
 
 				<fmt:parseNumber var="c1" value="${(mpInfo.currentPage - 1) / 10 }" integerOnly="true" />
 				<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
-				<c:set var="prevPage" value="?cp=${prev}" />
+				<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
 
 
 				<fmt:parseNumber var="c2" value="${(mpInfo.currentPage + 9) / 10 }" integerOnly="true" />
 				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-				<c:set var="nextPage" value="?cp=${next}" />
+				<c:set var="nextPage" value="${pageUrl}cp=${next}" />
 
 
 
@@ -336,7 +343,7 @@ body {
 										</c:when>
 
 										<c:otherwise>
-											<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+											<li class="page-item"><a class="page-link" href="${pageUrl}cp=${page}" data-abc="true">${page}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
