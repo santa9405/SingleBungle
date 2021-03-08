@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<form action="insertAction" method="post">
+				<form action="insertAction" method="post" onsubmit="return meetingDateValidate();">
 
 					<div class="form-group row">
 						<label for="title" class="input-group-addon col-sm-1 col-form-label">제목</label>
@@ -163,6 +163,26 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
+// 날짜 유효성 검사
+function meetingDateValidate(){
+	
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth()+1;
+	var day = date.getDate();
+	
+	if ((month+"").length < 2) month = "0" + month;
+	if ((day+"").length < 2) day = "0" + day;
+	
+	var getToday = year + "-" + month + "-" + day;
+	
+	if(getToday > $("#meetingDate").val()){
+		swal("모임 날짜는 오늘 이후만 가능합니다.");
+		$("#meetingDate").focus();
+		return false;
+	}
+	
+}
 	
 </script>
 </body>

@@ -130,17 +130,17 @@
 								<label for="gender" class="input-group-addon col-sm-1 col-form-label">성별</label>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="gender" id="female" value="W"
-											<c:if test="${findFriend.gender == 'W'}">checked</c:if>>
+											<c:if test="${findFriend.gender == 'W'}"> checked</c:if>>
 												<label class="form-check-label" for="female">여자</label>
 										</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender" id="male" value="M"
-												<c:if test="${findFriend.gender == 'M'}">checked</c:if>>
+												<c:if test="${findFriend.gender == 'M'}"> checked</c:if>>
 												<label class="form-check-label" for="male">남자</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender" id="irrelevant" value="F"
-												<c:if test="${findFriend.gender == 'F'}">checked</c:if>>
+												<c:if test="${findFriend.gender == 'F'}"> checked</c:if>>
 												<label class="form-check-label" for="irrelevant">무관</label>
 											</div>
 							</div>
@@ -166,6 +166,25 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
+	//날짜 유효성 검사
+	function meetingDateValidate(){
+	
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var day = date.getDate();
+		
+		if ((month+"").length < 2) month = "0" + month;
+		if ((day+"").length < 2) day = "0" + day;
+		
+		var getToday = year + "-" + month + "-" + day;
+		
+		if(getToday > $("#meetingDate").val()){
+			swal("모임 날짜는 오늘 이후만 가능합니다.");
+			$("#meetingDate").focus();
+			return false;
+	}
+
  // 카테고리 선택
  (function(){
 	 $("#category > option").each(function(index, item){

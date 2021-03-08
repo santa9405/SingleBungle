@@ -1,7 +1,13 @@
 package com.gaji.SingleBungle.findFriend.websocket;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -13,6 +19,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -44,8 +51,35 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 		
 		JsonObject obj = new Gson().fromJson(message.getPayload(), JsonObject.class);
 		
-		logger.info("채팅 작성자 : " + obj.get("nickname").toString());
+		logger.info("게시글 번호 : " + obj.get("friendNo").toString());
+		logger.info("회원 번호 : " + obj.get("memberNo").toString());
+		logger.info("작성자 닉네임 : " + obj.get("nickname").toString());
 		logger.info("채팅 내용 : " + obj.get("chat").toString());
+		
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//	    Date date = dateFormat.parse(obj.get("time").toString());
+//	    Timestamp timeStampDate = new Timestamp(date.getTime());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNo", obj.get("friendNo").toString());
+		map.put("memberNo", obj.get("memberNo").toString());
+		map.put("chat", obj.get("chat").toString());
+		
+		System.out.println(map);
+		
+		
+//		String friendNo = obj.get("friendNo").toString();
+//		String memNo = obj.get("memberNo").toString();
+//		FindFriendChatting fChat = new FindFriendChatting();
+//		fChat.setFriendNo(Integer.parseInt(friendNo));
+//		fChat.setMemNo(Integer.parseInt(memNo));
+//		fChat.setMessage(obj.get("chat").toString());
+		//fChat.setCreateDate(timeStampDate);
+		
+//		System.out.println(fChat);
+		
+		// 채팅 DB 저장
+		int result = service.insertChat(map);
 		
 		for(WebSocketSession s : sessions) {
 			

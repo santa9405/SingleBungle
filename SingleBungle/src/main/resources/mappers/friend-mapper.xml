@@ -229,5 +229,11 @@
    		WHERE BOARD_STATUS = 'Y'
    		AND FRIEND_NO = #{friendNo}
    </select>
+   
+   <!-- 친구찾기 채팅 삽입 -->
+   <insert id="insertChat" parameterType="map">
+   		INSERT INTO CHATTING VALUES
+   		(SEQ_FCNO.NEXTVAL, #{chat}, DEFAULT, #{friendNo}, #{memberNo})
+   </insert>
 
 </mapper>
