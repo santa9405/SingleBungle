@@ -34,4 +34,11 @@ public interface MessageService {
 	 */
 	List<Message> selectReceiveList(Map<String, Object> map);
 
+	
+	/** 메세지 보내기
+	 * @param map
+	 * @return
+	 */
+	int sendMessage(Map<String, Object> map);
+
 }
