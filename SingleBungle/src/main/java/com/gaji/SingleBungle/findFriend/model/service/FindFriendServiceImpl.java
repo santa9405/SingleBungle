@@ -430,6 +430,12 @@ public class FindFriendServiceImpl implements FindFriendService {
 		
 		return dao.insertChat(map);
 	}
+
+	// 친구찾기 채팅 조회 Service
+	@Override
+	public List<FindFriendChatting> selectChatList(int friendNo) {
+		return dao.selectChatList(friendNo);
+	}
 	
 
 }

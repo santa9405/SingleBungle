@@ -128,6 +128,12 @@ public interface FindFriendService {
 	 */
 	int insertChat(Map<String, Object> map);
 
+	/** 친구찾기 채팅 조회 Service
+	 * @param friendNo
+	 * @return cList
+	 */
+	List<FindFriendChatting> selectChatList(int friendNo);
+
 	
 
 	

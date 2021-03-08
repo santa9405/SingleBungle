@@ -211,4 +211,12 @@ public class FindFriendDAO {
 		return sqlSession.insert("friendMapper.insertChat", map);
 	}
 
+	/** 친구찾기 채팅 조회 DAO
+	 * @param friendNo
+	 * @return cList
+	 */
+	public List<FindFriendChatting> selectChatList(int friendNo) {
+		return sqlSession.selectList("friendMapper.selectChatList", friendNo);
+	}
+
 }
