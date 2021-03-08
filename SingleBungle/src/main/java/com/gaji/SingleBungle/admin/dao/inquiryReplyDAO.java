@@ -15,23 +15,19 @@ public class inquiryReplyDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	public List<inquiryReply> selectReplyList(int parentBoardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("inquiryReplyMapper.selectReplyList", parentBoardNo);
 	}
 	
 	public int insertReply(inquiryReply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("inquiryReplyMapper.insertReply", reply);
 	}
 
 	public int updateReply(inquiryReply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("inquiryReplyMapper.updateReply", reply);
 	}
 
 	public int deleteReply(int replyNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("inquiryReplyMapper.deleteReply", replyNo);
 	}
 
 
