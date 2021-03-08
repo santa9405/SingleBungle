@@ -28,4 +28,19 @@ public class MessageServiceImpl implements MessageService {
 		return dao.selectSendList(map);
 	}
 
+	// 받은 쪽지 수 조회
+	@Override
+	public MessagePageInfo getReceivePageInfo(int cp, int memberNo) {
+			
+		int listCount = dao.getReceivePageInfo(memberNo);
+		
+		return new MessagePageInfo(cp, listCount);
+	}
+
+	// 받은 쪽지 목록 조회
+	@Override
+	public List<Message> selectReceiveList(Map<String, Object> map) {
+		return dao.selectReceiveList(map);
+	}
+
 }

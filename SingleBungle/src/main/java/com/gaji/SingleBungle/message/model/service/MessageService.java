@@ -21,4 +21,17 @@ public interface MessageService {
 	 */
 	List<Message> selectSendList(Map<String, Object> map);
 
+	/** 받은 쪽지 수 조회
+	 * @param cp
+	 * @param memberNo
+	 * @return
+	 */
+	MessagePageInfo getReceivePageInfo(int cp, int memberNo);
+
+	/** 받은 쪽지 목록 조회
+	 * @param map
+	 * @return
+	 */
+	List<Message> selectReceiveList(Map<String, Object> map);
+
 }

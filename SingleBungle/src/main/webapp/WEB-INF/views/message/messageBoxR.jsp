@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,45 +73,62 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12" style="padding-left : 26px">
-				<span>
-					<input type="checkbox" id="allCheck">
-				</span>
+
 				<div class="messageBox" style="display: inline-block;">
 					<span>받은 쪽지</span>
 				</div>
 				<div class="messageBox" style="display: inline-block;">
-					<a href="${contextPath}/message/messageBoxS">보낸 쪽지</a>
+					<a href="#">보낸 쪽지</a>
 				</div>
 				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
-					<button id="deleteMsg" class="maincolor-re">삭제</button>
+					<button class="maincolor-re">삭제</button>
 				</div>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-stripped">
+				<table class="table table-stripped" style="text-align : center;">
+					<thead>
+						<tr>
+							<th><input type="checkbox"/></th>
+							<th>보낸 사람</th>
+							<th>내용</th>
+							<th>상태</th>
+							<th>보낸 시간</th>
+						</tr>
+					</thead>
 					<tbody>
-						<tr>
-							<td><input type="checkbox" /></td>
-							<td><b>며네</b></td>
-							<td><b>훠궈 먹을때만 친구지???</b></td>
-							<td><i class="far fa-envelope"></i><b>읽지않음</b></td>
-							<td><b>15:20</b></td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" /></td>
-							<td>솔쨩</td>
-							<td>이미 신고 들어감. ㅈㅅ</td>
-							<td><i class="far fa-envelope-open"></i>읽음</td>
-							<td>2021-02-22</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" /></td>
-							<td>애긔한솔</td>
-							<td>누구세요?</td>
-							<td><i class="far fa-envelope-open"></i>읽음</td>
-							<td>2021-02-22</td>
-						</tr>
+						<c:if test="${empty mList }">
+							<tr>
+								<td colspan="5"> 받은 쪽지가 없습니다.</td>
+							</tr>
+						</c:if>
+						
+						<c:if test="${!empty mList }">
+							<c:forEach var="message" items="${mList}" varStatus="vs">
+								<tr>
+									<td>${message.receiveNickName}<td>
+									<td>${message.messageContent}</td>
+									<td>${message.readMessage}</td>
+									<td>
+									<%-- 날짜 출력 모양 지정 --%>
+									<fmt:formatDate var="createDate" value="${message.createDt }" pattern="yyyy-MM-dd"/>
+									<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd"/> 
+									<c:choose>
+										<c:when test="${createDate != now}">
+											${createDate }
+										</c:when>
+										<c:otherwise>
+											<fmt:formatDate value="${message.createDt }" pattern="HH:mm"/>
+										</c:otherwise>
+									</c:choose>									
+									
+									</td>
+									
+								</tr>							
+							</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -122,22 +142,55 @@
 					<div class="col-md-4 col-sm-6 grid-margin stretch-card">
 						<nav>
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-								<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
-								<li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-								<li class="page-item"><a class="page-link" href="#" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+								<c:url var="pageUrl" value="?"/>
+								<c:set var="firstPage" value="${pageUrl}cp=1" />
+								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage }" />
+
+								<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
+								<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+								<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+
+
+								<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+								<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+								<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+
+								<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+									<li class="page-item"><a class="page-link maincolor-re1" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
+									<li class="page-item"><a class="page-link maincolor-re1" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
+								</c:if>
+
+								<c:forEach var="page" begin="${pInfo.startPage }" end="${pInfo.endPage }">
+									<c:choose>
+										<c:when test="${pInfo.currentPage == page }">
+											<li class="page-item active">
+												<a class="page-link">${page}</a> <!-- 같은 페이지일때는 클릭이 안 된다.  -->
+											</li>
+										</c:when>
+
+										<c:otherwise>
+											<li class="page-item">
+												<a class="page-link maincolor-re1" href="${pageUrl}cp=${page}">${page}</a>
+											</li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+
+								<c:if test="${next <=pInfo.maxPage }">
+										<li class="page-item"><a class="page-link maincolor-re1" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+										<li class="page-item"><a class="page-link maincolor-re1" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
+								</c:if>
+								
+
 							</ul>
 						</nav>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- 페이징 END  -->		
-		
-	</div>	
-
+	</div>
+	
 
 
 <!-- 쪽지 읽기  -->		
@@ -155,5 +208,14 @@
 <!-- 쪽지 읽기 -->		
 
 		<jsp:include page="../common/footer.jsp" />
+		
+		<script>
+		// 메세지 읽기
+		$(".modal-content").load("${contextPath}/message/readMessageModal");
+
+
+		
+		</script>
+		
 </body>
 </html>

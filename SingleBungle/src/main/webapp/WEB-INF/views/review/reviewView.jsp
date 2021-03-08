@@ -337,8 +337,41 @@ body {
 
 	</div>
 
+<c:if test="${loginMember.memberNo != review.memberNo }">
+<!-- 쪽지 보내기 임시   -->
+<div class="text-center">
+	<!-- Button HTML (to Trigger Modal) -->
+	<button id="send" class="btn" data-toggle="modal" data-target="#sendMessage" >쪽지 보내기</button>
+</div>
+<!-- Modal HTML -->
 
-
+<form  action="">
+	<div id="sendMessage" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">받는사람 : ${review.nickName }</h5>
+					</div>
+					<div class="modal-body">
+						<textarea class="messageText" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+					</div>
+					<div class="modal-footer">
+						<div class="col">
+							<button type="submit" class="btn btn-success btn-block" data-dismiss="modal">
+								<span class="plan">전송</span>
+							</button>
+						</div>
+						<div class="col">
+							<button type="button" class="btn btn-reset btn-block" data-dismiss="modal">
+								<span class="plan">닫기</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>  
+</form> 
+</c:if>
 	<jsp:include page="../common/footer.jsp" />
 
 

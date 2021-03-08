@@ -36,7 +36,21 @@
 		AND SEND_MEMBER = #{memberNo}
 		ORDER BY MSG_NO DESC
 	</select>
-
-
+	
+	<!-- 받은 쪽지 수 조회  -->
+	<select id="getReceivePageInfo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_MESSAGE
+		WHERE RECEIVE_STATUS ='N'
+		AND RECEIVE_MEMBER = #{memberNo}  
+	</select>
+	
+	
+	<!-- 받은 쪽지 목록 조회  -->
+	<select id="selectReceiveList" parameterType="map" resultMap="message_rm">
+		SELECT * FROM V_MESSAGE
+		WHERE RECEIVE_STATUS = 'N'
+		AND RECEIVE_MEMBER = #{memberNo}
+		ORDER BY MSG_NO DESC		
+	</select>
 
 </mapper>

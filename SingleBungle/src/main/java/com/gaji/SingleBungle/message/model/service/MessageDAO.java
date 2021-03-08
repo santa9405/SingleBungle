@@ -48,4 +48,30 @@ public class MessageDAO {
 		return sqlSession.selectList("messageMapper.selectSendList", map, rowBounds);
 	}
 
+
+	/** 받은 쪽지 수 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public int getReceivePageInfo(int memberNo) {
+		return sqlSession.selectOne("messageMapper.getReceivePageInfo", memberNo);
+	}
+
+
+	/** 받은 쪽지 목록 조회
+	 * @param map
+	 * @return
+	 */
+	public List<Message> selectReceiveList(Map<String, Object> map) {
+		MessagePageInfo pInfo = (MessagePageInfo)map.get("pInfo");
+		
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset , pInfo.getLimit());
+		
+		map.put("pInfo",pInfo);		
+		
+		return  sqlSession.selectList("messageMapper.selectReceiveList", map);
+	}
+
 }
