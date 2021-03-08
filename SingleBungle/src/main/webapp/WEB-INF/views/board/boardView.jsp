@@ -84,7 +84,9 @@
                 <h8>자유게시판</h8>
 								<div class="float-right">
 									<button type="button" class="btn maincolor-re btn-sm mb-3 insert-list1">목록</button>
+									<c:if test="${loginMember.memberNo != board.memberNo }">
 									<button type="button" class="btn btn-sm mb-3 report"><img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">신고</button>
+									</c:if>
 								</div>
 								<span id="boardNo">${board.boardNo}</span>
                 <div id="board-area">
