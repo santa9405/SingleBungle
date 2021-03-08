@@ -443,9 +443,9 @@
 		<!-- 목록버튼 -->
 		<div class="row  py-3" style="clear: both;">
 			<div class="col-md-12 text-center ">
-				<c:if test="${empty sessionScope.returnListURL}">
+				<c:if test="${empty sessionScope.returnListURL}"> 
 					<c:set var="returnListURL" value="/list" scope="session"/>
-				</c:if>
+				</c:if>   
 				<button type="button" class="btn btn-success returnBtn">목록으로</button>
 				
 			</div>

@@ -20,7 +20,7 @@ public interface MarketService {
 	MarketPageInfo getPageInfo(int cp);
 
 	/** 게시글 목록 조회 Service
-	 * @param mpInfo
+	 * @param mpInfo 
 	 * @return mList
 	 */
 	List<Market> selectList(MarketPageInfo mpInfo);

@@ -152,12 +152,12 @@ public class MarketDAO {
 
 
 	/** 검색 조건이 포함된 게시글 목록 조회 DAO
-	 * @param mSearch
+	 * @param mSearch 
 	 * @param pInfo
 	 * @return mList
 	 */
 	public List<Market> selectSearchList(MarketSearch mSearch, MarketPageInfo pInfo) {
-		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit(); 
 		
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		
