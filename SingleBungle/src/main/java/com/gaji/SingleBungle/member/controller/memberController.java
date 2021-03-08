@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -155,15 +156,15 @@ public class memberController {
 	
 	
 	// 닉네임 중복 체크 Controller (AJAX)
-	// 로그인 필터에 걸려서 그런거임,,,,, nnDupCheck2 는 회원가입용 ,,, 
-	@RequestMapping(value={"nnDupCheck","nnDupCheck2"})
+	// nnDupCheck:회원가입용(로그인필터O), nnDupCheckUpdate:내정보수정(로그인필터X)
+	@RequestMapping(value={"nnDupCheck","nnDupCheckUpdate"})
 	@ResponseBody
 	public int nnDupCheck(@RequestParam("memberNickname") String memberNickname) {
 		// System.out.println(memberId);
 		int result = service.nnDupCheck(memberNickname);
 		
-		System.out.println(result);
-		System.out.println(memberNickname);
+		//System.out.println(result);
+		//System.out.println(memberNickname);
 		return result;
 	}
 	
@@ -393,26 +394,109 @@ public class memberController {
 	}
 	
 	// 내 정보 수정 Controller
-	@RequestMapping("mypageInfoUpdateAction")
-	public String mypageInfoUpdateAction() {
+	@RequestMapping(value="mypageInfoUpdateAction", method=RequestMethod.POST)
+	public String mypageInfoUpdateAction(@ModelAttribute Member updateMember,
+								Model model,
+								@ModelAttribute(name="loginMember", binding=false) Member loginMember,
+								// binding 속성 : 요청 파라미터를 해당 객체에 반영할 것인가? 
+								RedirectAttributes ra ) { // redirect시 데이터 전달용 객체
+		// updateMember : 이메일, 전화번호, 주소, 관심분야 
+		
+		// 세션에서 회원 정보를 얻어오는 방법
+		// 1) HttpSession의 getAttribute("loginMember")
+		// 2) Model, @SessionAttributes 로 세션에 등록된 값은 반대로 얻어오는 것도 가능함. 
+		//Member loginMember = (Member)model.getAttribute("loginMember");
+		
+		// 3) @ModelAttribute 를 이용하여 Model로 세팅한 값을 반대로 얻어오는 것도 가능함. 
+		// 매개변수에 @ModelAttribute("모델로 등록한 key값") 자료형 변수명
+		//System.out.println(loginMember);
 		
 		
+		// 로그인 정보에서 회원 번호를 얻어와 updateMember에 세팅
+		updateMember.setMemberNo( loginMember.getMemberNo() );
 		
-		// 어쩌고 저쩌고 기능 ~~~~~~~~~~~~~~~~
+		// 수정된 회원정보 + 로그인된 회원의 번호를 가지고 Service 수행
+		int result = service.mypageInfoUpdateAction(updateMember);
 		
 		
+		// 성공/실패 관계없이 다시 마이페이지 재요청
+		// 성공 시 : success, 회원 정보 수정 성공
+		//        session에 저장된 변경 전 회원정보를 수정된 내용으로 변경
+		if(result > 0) { // 성공
+		swalIcon = "success";
+		swalTitle = "내 정보 수정 성공";
 		
-		return "redirect:/"; // 메인화면으로 돌아가게 재요청
+		
+		// 변경된 정보를 loginMember 변수에 저장
+		loginMember.setMemberNickname(updateMember.getMemberNickname());
+		loginMember.setMemberPhone(updateMember.getMemberPhone());
+		
+		// 변경된 정보가 담긴 loginMember 변수를 다시 Session에 추가 
+		model.addAttribute("loginMember", loginMember);
+		
+		}
+		// 실패 시 : error, 회원 정보 수정 실패
+		else { // 실패
+		swalIcon = "error";
+		swalTitle = "내 정보 수정 실패";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+	
+	
+	return "redirect:mypageInfoUpdate";
+			// redirect:/member/mypageInfoUpdate 라고 적어도 됨
 	}
-
 	
+	// ---------------------------------------------------------------
 	
-	
-	// 비밀번호 수정
+	// 비밀번호 수정 화면 전환 Controller
 	@RequestMapping("mypagePwUpdate")
 	public String mypagePwUpdate() {
 		return "member/mypagePwUpdate";
 	}
+	
+	// 비밀번호 수정 화면 Controller
+	@RequestMapping(value="mypagePwUpdateAction", method=RequestMethod.POST) // 비밀번호와 관련된 것은 POST로 
+	public String mypagePwUpdateAction(@RequestParam("memberPwd") String memberPwd,
+			@RequestParam("newPwd1") String newPwd,
+			@ModelAttribute(name="loginMember", binding=false) Member loginMember,
+			RedirectAttributes ra ) { // redirect시 데이터 전달용 객체
+
+		// Map을 이용하여 필요한 데이터를 하나로 묶어둠
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberPwd", memberPwd);
+		map.put("newPwd", newPwd);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		// 비밀번호 변경 Service 호출
+		int result = service.mypagePwUpdate(map);
+		
+		// 재요청할 주소 저장 변수 선언
+		String returnUrl = null; 
+		
+		// 비밀번호 수정 성공 시
+		// success, 비밀번호 수정 성공, 마이페이지 재요청
+		if(result > 0) {
+		swalIcon = "success";
+		swalTitle = "비밀번호 수정 성공";
+		returnUrl = "mypage";
+		}
+		// 비밀번호 변경 실패 시
+		// error, 비밀번호 수정 실패, 비밀번호 수정 페이지 재요청
+		else {
+		swalIcon = "error";
+		swalTitle = "비밀 번호 수정 실패";
+		returnUrl = "changePwd";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return "redirect:" + returnUrl;
+	}
+	
 	
 	
 	

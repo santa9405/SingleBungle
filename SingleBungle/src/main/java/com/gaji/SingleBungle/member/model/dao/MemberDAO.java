@@ -61,4 +61,33 @@ public class MemberDAO {
 	}
 
 
+	/** 내 정보 수정 DAO 
+	 * @param updateMember
+	 * @return result 
+	 */
+	public int mypageInfoUpdateAction(Member updateMember) {
+		return sqlSession.update("memberMapper.mypageInfoUpdateAction", updateMember);
+	}
+
+
+	/** 비밀번호 조회 DAO 
+	 * @param memberNo
+	 * @return savePwd
+	 */
+	public String selectPwd(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectPwd", memberNo);
+	}
+
+
+	/** 비밀번호 수정 DAO
+	 * @param map
+	 * @return result 
+	 */
+	public int mypagePwUpdate(Map<String, Object> map) {
+		return sqlSession.update("memberMapper.mypagePwUpdate", map);
+	}
+	
+	
+
+
 }

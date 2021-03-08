@@ -110,4 +110,49 @@ public class MemberServiceImpl implements MemberService {
 		return dao.nameMailCheck(map);
 	}
 
+	// 내 정보 수정 Service 구현 
+    @Transactional(rollbackFor = Exception.class)
+	@Override
+	public int mypageInfoUpdateAction(Member updateMember) {
+		return dao.mypageInfoUpdateAction(updateMember);
+	}
+
+    
+    // 비밀번호 수정 Service 구현
+    @Transactional(rollbackFor = Exception.class)
+	@Override
+	public int mypagePwUpdate(Map<String, Object> map) {
+		// 현재 비밀번호, 새 비밀번호, 회원 번호
+		  
+	  // 1. 현재 비밀번호가 일치하는지 확인(본인 확인)
+	  // bcrypt 암호화가 적용되어 있기 때문에
+	  // DB에서 비밀번호를 조회해서 비교해야 함. == 현재 비밀번호 조회 dao 필요
+	  String savePwd = dao.selectPwd((int)map.get("memberNo"));
+	  
+	  // 결과 저장용 변수 선언
+	  int result = 0;
+	  
+	  if(savePwd != null) { // 비밀번호 조회 성공 시
+		  
+		  // 비밀번호 확인
+		  				// map은 Object라 String으로 형변환
+		  if(enc.matches( (String)map.get("memberPwd"), savePwd) ) {
+			  // 비밀번호가 일치할 경우 
+			  
+			  // 2. 현재 비밀번호 일치 확인 시 새 비밀번호로 변경
+			  //  == 비밀번호를 수정할 dao 필요
+			  
+			  // 새 비밀번호 암호화 진행
+			  String encPwd = enc.encode( (String)map.get("newPwd") );
+			  
+			  // 암호화된 비밀번호를 다시 map에 세팅
+			  map.put("newPwd", encPwd);
+			  
+			  // 비밀번호 수정 DAO 호출
+			  result = dao.mypagePwUpdate(map);
+		  }
+	  }
+	  return result;
+	}
+
 }
