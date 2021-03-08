@@ -160,7 +160,7 @@
 			</c:if>
 
 			<c:if test="${!empty fSearch.sort}">
-				<c:set var="sort" value="sort=${fSearch.sort}" />
+				<c:set var="sort" value="sort=${fSearch.sort}&" />
 				<c:set var="searchStr" value="${category}${sort}" />
 			</c:if>
 
@@ -300,12 +300,12 @@
 
 			<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
 			<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
-			<c:set var="prevPage" value="?cp=${prev}${searchStr}" />
+			<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
 
 
 			<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
 			<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-			<c:set var="nextPage" value="?cp=${next}${searchStr}" />
+			<c:set var="nextPage" value="${pageUrl}cp=${next}" />
 
 
 
@@ -315,27 +315,31 @@
 						<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 
 							<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-								<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
-								<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
+								<li class="page-item"><a class="page-link" href="${firstPage}" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
+								<li class="page-item"><a class="page-link" href="${prevPage}" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 							</c:if>
 
 
 							<!-- 페이지 목록 -->
 							<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}">
 								<c:choose>
-									<c:when test="${pInfo.currentPage == page }">
-										<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+									<c:when test="${pInfo.currentPage == page}">
+										<li class="page-item active">
+											<a class="page-link" data-abc="true">${page}</a>
+										</li>
 									</c:when>
 
 									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="?cp=${page}${searchStr}" data-abc="true">${page}</a></li>
+										<li class="page-item">
+											<a class="page-link" href="${pageUrl}cp=${page}" data-abc="true">${page}</a>
+										</li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 
 							<c:if test="${next <= pInfo.maxPage}">
-								<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
-								<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
+								<li class="page-item"><a class="page-link" href="${nextPage}" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+								<li class="page-item"><a class="page-link" href="${lastPage}" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 							</c:if>
 						</ul>
 					</nav>
