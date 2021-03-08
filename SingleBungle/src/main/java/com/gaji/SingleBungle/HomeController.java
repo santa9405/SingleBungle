@@ -43,10 +43,17 @@ public class HomeController {
 	
 	@Autowired
 	private BoardService service1; // 자유게시판 서비스
+	
+	@Autowired
 	private ReviewService service2; // 후기게시판 서비스
-
+	
+	@Autowired
 	private CafeService service6; // 맛집게시판 서비스
+	
+	@Autowired
 	private FindFriendService service7; // 친구찾기 서비스
+	
+	@Autowired
 	private MarketService service8; // 사고팔고 서비스
 	
 	
@@ -59,77 +66,77 @@ public class HomeController {
 
 	// 자유게시판
 	BoardPageInfo bpInfo = service1.getPageInfo(cp);
-	bpInfo.setLimit(5);
+	bpInfo.setLimit(7);
 	List<Board> bList = service1.selectList(bpInfo);
 	
 	model.addAttribute("bList", bList);
 	model.addAttribute("bpInfo", bpInfo);
 	
 	// 후기게시판
-//	ReviewPageInfo pInfo = service2.getPageInfo(cp);
-//	pInfo.setLimit(3);
-//	List<Review> rList = service2.selectList(pInfo);
-//	
-//	/* 썸네일 출력 */
-//	if(rList!=null && !rList.isEmpty()) {
-//		List<ReviewAttachment> thumbnailList = service2.selectThumbnailList(rList);
-//		
-//		
-//		if(thumbnailList!=null) {
-//			model.addAttribute("thList", thumbnailList);
-//		}
-//	
-//	}
-//	
-//	model.addAttribute("rList", rList);
-//	model.addAttribute("pInfo",pInfo);
+	ReviewPageInfo pInfo2 = service2.getPageInfo(cp);
+	pInfo2.setLimit(3);
+	List<Review> rList = service2.selectList(pInfo2);
+	
+	/* 썸네일 출력 */
+	if(rList!=null && !rList.isEmpty()) {
+		List<ReviewAttachment> thumbnailList = service2.selectThumbnailList(rList);
+		
+		
+		if(thumbnailList!=null) {
+			model.addAttribute("thumbnailList", thumbnailList);
+		}
+	
+	}
+	
+	model.addAttribute("rList", rList);
+	model.addAttribute("pInfo2", pInfo2);
 	
 	
 		
 	// 친구찾기
-//	FindFriendPageInfo pInfo = service7.getPageInfo(cp);
-//	pInfo.setLimit(5);
-//	List<FindFriend> fList = service7.selectList(pInfo);
-//	
-//	model.addAttribute("pInfo", pInfo);
-//	model.addAttribute("fList", fList);
+	FindFriendPageInfo pInfo = service7.getPageInfo(cp);
+	pInfo.setLimit(7);
+	List<FindFriend> fList = service7.selectList(pInfo);
+	
+	model.addAttribute("pInfo", pInfo);
+	model.addAttribute("fList", fList);
 	
 		
 	// 맛집게시판
-//	CafePageInfo cpInfo = service6.getPageInfo(cp);
-//	cpInfo.setLimit(3);
-//	List<Cafe> cList = service6.selectList(cpInfo);
-//	
-//	// 썸네일
-//	if (cList != null && !cList.isEmpty()) {
-//		List<CafeAttachment> thumbnailList = service6.selectThumbnailList(cList);
-//
-//		if (thumbnailList != null) {
-//			model.addAttribute("thList", thumbnailList);
-//		}
-//
-//	}
-//	
-//	model.addAttribute("cList", cList);
-//	model.addAttribute("cpInfo", cpInfo);
+	CafePageInfo cpInfo = service6.getPageInfo(cp);
+	cpInfo.setLimit(3);
+	List<Cafe> cList = service6.selectList(cpInfo);
+	
+	// 썸네일
+	if (cList != null && !cList.isEmpty()) {
+		List<CafeAttachment> thumbnailList3 = service6.selectThumbnailList(cList);
+
+		if (thumbnailList3 != null) {
+			model.addAttribute("thumbnailList3", thumbnailList3);
+		}
+
+	}
+	
+	model.addAttribute("cList", cList);
+	model.addAttribute("cpInfo", cpInfo);
 	
 	
 	
 	
 	// 사고팔고
-//	MarketPageInfo mpInfo = service8.getPageInfo(cp);
-//	mpInfo.setLimit(3);
-//	List<Market> mList = service8.selectList(mpInfo);
-//	
-//	if(mList != null && !mList.isEmpty()) {
-//		List<MarketAttachment> thumbnailList = service8.selectThumbnailList(mList);
-//		if(thumbnailList != null) {
-//			model.addAttribute("thList", thumbnailList);
-//		}
-//	}	
-//		
-//	model.addAttribute("mpInfo", mpInfo);
-//	model.addAttribute("mList", mList);	
+	MarketPageInfo mpInfo = service8.getPageInfo(cp);
+	mpInfo.setLimit(2);
+	List<Market> mList = service8.selectList(mpInfo);
+	
+	if(mList != null && !mList.isEmpty()) {
+		List<MarketAttachment> thumbnailList2 = service8.selectThumbnailList(mList);
+		if(thumbnailList2 != null) {
+			model.addAttribute("thumbnailList2", thumbnailList2);
+		}
+	}	
+		
+	model.addAttribute("mpInfo", mpInfo);
+	model.addAttribute("mList", mList);	
 		
 	
 

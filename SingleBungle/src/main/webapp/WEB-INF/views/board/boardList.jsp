@@ -126,10 +126,12 @@
 		
 				<c:if test="${!empty bSearch.ct }">
 					<c:set var="category" value="ct=${bSearch.ct}&"/>
+					<c:set var="searchStr" value="${category}"/>
 				</c:if>
 			
 				<c:if test="${!empty bSearch.sort }">
 					<c:set var="sort" value="sort=${bSearch.sort}&"/>
+					<c:set var="searchStr" value="${category}${sort}"/>
 				</c:if>
 			
 			
