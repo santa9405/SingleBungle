@@ -23,6 +23,7 @@ import com.gaji.SingleBungle.findFriend.model.service.FindFriendService;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendSearch;
 import com.gaji.SingleBungle.findFriend.model.vo.FriendReport;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.google.gson.Gson;
@@ -64,26 +65,30 @@ public class FindFriendController {
 	
 	// 친구찾기 검색 Controller
 	@RequestMapping("search")
-	public String friendSearch(@RequestParam("sk") String searchKey, 
-							   @RequestParam("sv") String searchValue, 
-							   @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+	public String friendSearch(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+							   @RequestParam(value = "sk", required = false) String sk, 
+							   @RequestParam(value = "sv", required = false) String sv,
+							   @RequestParam(value = "ct", required = false) String ct,
+							   @RequestParam(value = "sort", required = false) String sort,
+							   @ModelAttribute("fSearch") FindFriendSearch fSearch,
 							   Model model) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("searchKey", searchKey);
-		map.put("searchValue", searchValue);
-		map.put("cp", cp);
+		fSearch.setSk(sk);
+		fSearch.setSv(sv);
+		fSearch.setCt(ct);
+		fSearch.setSort(sort);
 		
 		// 1) 페이징 처리를 위한 객체 PageInfo 생성
-		FindFriendPageInfo pInfo = service.getSearchPageInfo(map);
+		FindFriendPageInfo pInfo = service.getSearchPageInfo(fSearch, cp);
 		
 		//System.out.println(pInfo);
 		
 		// 2) 게시글 목록 조회
-		List<FindFriend> fList = service.selectSearchList(map, pInfo);
+		List<FindFriend> fList = service.selectSearchList(fSearch, pInfo);
 		
 		model.addAttribute("pInfo", pInfo);
 		model.addAttribute("fList", fList);
+		model.addAttribute("fSearch", fSearch);
 		
 		return "findFriend/findFriendList";
 	}

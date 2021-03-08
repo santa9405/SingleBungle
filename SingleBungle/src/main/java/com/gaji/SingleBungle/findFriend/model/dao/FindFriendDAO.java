@@ -12,6 +12,7 @@ import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendSearch;
 
 @Repository
 public class FindFriendDAO {
@@ -40,11 +41,11 @@ public class FindFriendDAO {
 	}
 	
 	/** 검색 게시글 수 조회 DAO
-	 * @param map
+	 * @param fSearch
 	 * @return
 	 */
-	public int getSearchListCount(Map<String, Object> map) {
-		return sqlSession.selectOne("friendMapper.getSearchListCount", map);
+	public int getSearchListCount(FindFriendSearch fSearch) {
+		return sqlSession.selectOne("friendMapper.getSearchListCount", fSearch);
 	}
 
 	/** 게시글 검색 목록 조회 DAO
@@ -52,13 +53,13 @@ public class FindFriendDAO {
 	 * @param pInfo
 	 * @return
 	 */
-	public List<FindFriend> selectSearchList(Map<String, Object> map, FindFriendPageInfo pInfo) {
+	public List<FindFriend> selectSearchList(FindFriendSearch fSearch, FindFriendPageInfo pInfo) {
 		
 		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		
-		return sqlSession.selectList("friendMapper.selectSearchList", map, rowBounds);
+		return sqlSession.selectList("friendMapper.selectSearchList", fSearch, rowBounds);
 	}
 
 	/** 게시글 상세 조회 DAO
