@@ -9,6 +9,7 @@ import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendSearch;
 
 public interface FindFriendService {
 	
@@ -28,14 +29,14 @@ public interface FindFriendService {
 	 * @param map
 	 * @return pInfo
 	 */
-	FindFriendPageInfo getSearchPageInfo(Map<String, Object> map);
+	FindFriendPageInfo getSearchPageInfo(FindFriendSearch fSearch, int cp);
 	
 	/** 게시글 검색 목록 조회 Service
-	 * @param map 
+	 * @param fSearch 
 	 * @param pInfo
 	 * @return fList
 	 */
-	List<FindFriend> selectSearchList(Map<String, Object> map, FindFriendPageInfo pInfo);
+	List<FindFriend> selectSearchList(FindFriendSearch fSearch, FindFriendPageInfo pInfo);
 	
 	/** 친구찾기 게시글 상세 조회 Service
 	 * @param friendNo
