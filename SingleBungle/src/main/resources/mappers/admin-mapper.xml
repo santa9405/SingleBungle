@@ -79,6 +79,19 @@
 		<result property="memberCertifiedFl" column="CERTIFIED_FL" /> <!-- 동네인증 여부 -->
 
 	</resultMap>
+	
+	<resultMap type="reportBoard" id="rboard_rm">
+		<id property="boardNo" column="BOARD_NO" />
+
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="boardCode" column="BOARD_CD" />
+		<result property="status" column="STATUS" />
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="reportTitle" column="REPORT_TITLE" />
+		<result property="reportContent" column="REPORT_CONTENT" />
+		<result property="reportCategoryNm" column="CATEGORY_NM" />
+	</resultMap>
 
 	<!-- 특정 게시판 전체 게시글 수 조회 -->
 	<select id="getListCount" parameterType="_int" resultType="_int">
@@ -409,4 +422,60 @@
   		MEM_GRADE = #{grade}
   		WHERE MEM_NO = #{memNo}
   	</update>
+  	
+  	<!-- 신고게시글 목록갯수 조회 -->
+  	<select id="getReportBoardPageInfo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_RBOARD WHERE STATUS = 'N'
+	</select>
+	
+	<!-- 신고게시글 목록 조회 -->
+	<select id="selectReportBoard" parameterType="_int" resultMap="rboard_rm">
+		SELECT * FROM V_RBOARD WHERE STATUS = 'N'
+	</select>
+	
+	<!-- 신고게시글 복구 -->
+	<update id="recoverReportBoard" parameterType="map">
+		DELETE FROM
+		<choose>
+			<when test="boardCode == 1">
+				REPORT_BOARD
+			</when>
+			<when test="boardCode == 2">
+				REPORT_BOARD
+			</when>
+			<when test="boardCode == 6">
+				REPORT_CAFE
+			</when>
+			<when test="boardCode == 7">
+				REPORT_FRIEND
+			</when>
+			<when test="boardCode == 8">
+				REPORT_MARKET
+			</when>
+		</choose>
+  		WHERE REPORT_NO = #{reportNo}
+	</update>
+	
+	<!-- 신고게시글 삭제 -->
+	<update id="deleteReportBoard" parameterType="map">
+		UPDATE
+		<choose>
+			<when test="boardCode == 1">
+				BOARD SET STATUS = 'Y' WHERE BOARD_NO = #{boardNo}
+			</when>
+			<when test="boardCode == 2">
+				BOARD SET STATUS = 'Y' WHERE BOARD_NO = #{boardNo}
+			</when>
+			<when test="boardCode == 6">
+				CAFE SET STATUS = 'Y' WHERE CAFE_NO = #{boardNo}
+			</when>
+			<when test="boardCode == 7">
+				FRIEND SET BOARD_STATUS = 'Y' WHERE FRIEND_NO = #{boardNo}
+			</when>
+			<when test="boardCode == 8">
+				MARKET SET MARKET_FL = 'Y' WHERE MARKET_NO = #{boardNo}
+			</when>
+		</choose>
+  		
+	</update>
 </mapper>

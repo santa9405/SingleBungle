@@ -25,7 +25,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Controller
-@SessionAttributes({"loginMember"})
 @RequestMapping("/adminReply/*")
 public class inquiryReplyController {
 	
