@@ -63,39 +63,23 @@
 	
 <!-- 댓글 목록 조회  -->
 	<select id="selectReplyList" parameterType="_int" resultMap="reply_rm">
-		SELECT * FROM V_BOARD_REPLY
-		WHERE REPLY_STATUS = 'N'
-		AND PARENT_BOARD_NO = #{parentBoardNo}
-		AND PARENT_REPLY_NO IN ( SELECT REPLY_NO FROM	V_BOARD_REPLY
-															WHERE REPLY_STATUS = 'N'
-															AND REPLY_DEPTH = 0
-															AND PARENT_BOARD_NO = #{parentBoardNo})
-		ORDER BY PARENT_REPLY_NO DESC,
-	            CASE WHEN PARENT_REPLY_NO = REPLY_NO THEN 99999999
-	            ELSE REPLY_NO END DESC
+		SELECT * FROM INQUIRY_REPLY
+		WHERE INQUIRY_NO = #{parentBoardNo}
 	</select>
 	
 	<!-- 댓글 등록  -->
 	<insert id="insertReply" parameterType="inquiryReply">
-		INSERT INTO BOARD_REPLY(REPLY_NO, REPLY_CONTENT, MEM_NO, PARENT_BOARD_NO, PARENT_REPLY_NO)
-		VALUES(SEQ_BRNO.NEXTVAL, #{replyContent}, #{memberNo}, #{parentBoardNo} , SEQ_BRNO.CURRVAL)
+		INSERT INTO INQUIRY_REPLY
+		VALUES(#{inquiryNo}, #{inquiryContent}, DEFAULT, 4)
 	</insert>
   	
-  	
-  <!-- 댓글 수정 -->	
-  <update id="updateReply" parameterType="inquiryReply">
-  	UPDATE BOARD_REPLY SET
-  	REPLY_CONTENT = #{replyContent}
-  	WHERE REPLY_NO = #{replyNo}
-  </update>
+	<update id="updateInquiryFl">
+		UPDATE INQUIRY SET
+		INQUIRY_FL = 'Y'
+		WHERE INQUIRY_NO = #{parentBoardNo}
+	</update>
   
   
-  <!-- 댓글 삭제  -->
-  <update id="deleteReply" parameterType="_int">
-		UPDATE BOARD_REPLY SET
-		REPLY_STATUS = 'Y'
-		WHERE REPLY_NO = #{replyNo}
-  </update>
 	
 	
 </mapper>

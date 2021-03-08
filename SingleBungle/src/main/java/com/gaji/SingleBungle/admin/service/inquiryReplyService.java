@@ -10,8 +10,8 @@ public interface inquiryReplyService {
 
 	int insertReply(inquiryReply reply);
 
-	int updateReply(inquiryReply reply);
+	int updateInquiryFl(int parentBoardNo);
 
-	int deleteReply(int replyNo);
+
 
 }

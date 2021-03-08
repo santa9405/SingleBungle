@@ -22,13 +22,10 @@ public class inquiryReplyDAO {
 		return sqlSession.insert("inquiryReplyMapper.insertReply", reply);
 	}
 
-	public int updateReply(inquiryReply reply) {
-		return sqlSession.update("inquiryReplyMapper.updateReply", reply);
+	public int updateInquiryFl(int parentBoardNo) {
+		return sqlSession.update("inquiryReplyMapper.updateInquiryFl", parentBoardNo);
 	}
 
-	public int deleteReply(int replyNo) {
-		return sqlSession.update("inquiryReplyMapper.deleteReply", replyNo);
-	}
 
 
 }

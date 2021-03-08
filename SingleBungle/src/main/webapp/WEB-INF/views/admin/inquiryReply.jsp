@@ -114,29 +114,30 @@
 						
 						var media = $("<div>").addClass("media mt-2").css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"});
 						
-						
+						var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
+						.css({"width": "30px;","height": "30px;"});
 						
 						
 						// 작성자, 작성일 영역
 						var mediaBody = $("<div>").addClass("media-body");
 						var row = $("<div>").addClass("row");
 						var col8 = $("<div>").addClass("col-8 d-flex");
-						var createDt = $("<span>").css({"color":"gray", "font-size": "12px"}).html(item.replyCreateDt);
+						var nickname = $("<h6>").css({"margin-right":"5px", "font-weight":"5px"}).html("관리자");
+						var createDt = $("<span>").css({"color":"gray", "font-size": "12px"}).html(item.createDt);
 						
 						
 						// 내용 영역
-						var replyText = $("<div>").addClass("replyText").css({"margin-bottom":"5px"}).html(item.replyContent);
+						var replyText = $("<div>").addClass("replyText").css({"margin-bottom":"5px"}).html(item.inquiryContent);
 						
 						var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
-						var replyUpdate = $("<a>").addClass("replyUpdate maincolor2").css({"margin-right":"5px"}).attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
-						var replyDelete = $("<a>").addClass("replyDelete maincolor-re2").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
-					
-						
 
-						// 댓글의 깊이가 0인 요소 답글 버튼 추가
-						/* if(item.replyDepth == 0){
-							floatRight.append(reply2);
-						} */
+						col8.append(nickname).append(createDt);
+						row.append(col8);
+						mediaBody.append(row);
+						mediaBody.append(replyText);
+						media.append(img).append(mediaBody);
+						replyListArea.append(media);
+
 						
 					});
 					
@@ -191,93 +192,6 @@
 			$("#replyContent").val("");
 		});
 
-
-		
-		
-	//------------------------------------------------------------------------------------		
-		
-		// 댓글 수정 폼
-		
-		var beforeReplyRow;
-		
-		function showUpdateReply(replyNo,el){
-			
-			
-			// 이미 열려있는 댓글 수정 창이 있을 경우 닫아주기
-			if($(".replyUpdateContent").length > 0){
-				$(".replyUpdateContent").eq(0).parent().html(beforeReplyRow);
-			}		
-
-			
-			// 댓글 수정화면 출력 전 요소 저장
-			beforeReplyRow = $(el).parent().parent().html();
-			
-			// 작성되어있던 내용
-			var beforeContent = $(el).parent().prev().html();
-
-			// 이전 댓글 내용의 크로스사이트 스크립트 처리 해제, 개행문자 변경
-		  // -> 자바스크립트에는 replaceAll() 메소드가 없으므로 정규 표현식을 이용하여 변경
-		  beforeContent = beforeContent.replace(/&amp;/g, "&");   
-		  beforeContent = beforeContent.replace(/&lt;/g, "<");   
-		  beforeContent = beforeContent.replace(/&gt;/g, ">");   
-		  beforeContent = beforeContent.replace(/&quot;/g, "\"");   
-		  
-		  beforeContent = beforeContent.replace(/<br>/g, "\n");   		
-
-		  
-		  // 기존 댓글 영역을 삭제하고 textarea를 추가
-		  $(el).parent().prev().remove();
-		  var textarea = $("<textarea>").addClass("replyUpdateContent").attr("rows", "3").val(beforeContent);
-		  $(el).parent().before(textarea);
-		  
-			// 수정 버튼
-		  var updateReply = $("<button>").addClass("btn btn-sm ml-1 mb-4 maincolor1").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
-		  
-		  // 취소 버튼
-		  var cancelBtn = $("<button>").addClass("btn btn-sm ml-1 mb-4 maincolor-re1").text("취소").attr("onclick", "updateCancel(this)");
-		  
-		  var replyBtnArea = $(el).parent();
-		  
-		  $(replyBtnArea).empty(); 
-		  $(replyBtnArea).append(updateReply); 
-		  $(replyBtnArea).append(cancelBtn); 	  
-			
-		}
-
-
-		// 댓글 수정
-		function updateReply(replyNo, el){
-			
-			var replyContent = $(el).parent().prev().val();
-			
-			if(replyContent.trim().length == 0){
-				swal({icon : "info", title : "댓글을 입력해주세요."});
-			}else{
-				$.ajax({
-					url : "${contextPath}/adminReply/updateReply/" + replyNo,
-					type : "post",
-					data : {"replyContent" : replyContent},
-					success : function(result){
-						
-						if(result > 0){
-							swal({icon : "success", title : "댓글 수정 성공"});
-							selectReplyList();
-						}
-						
-					}, error : function(){
-						console.log("댓글 수정 실패");
-					}
-					
-				});
-			}
-			
-		}
-		
-		
-		// 댓글 수정 취소 시 원래대로 돌아가기
-		function updateCancel(el){
-			$(el).parent().parent().html(beforeReplyRow);
-		}
 
 	</script>
 </body>
