@@ -36,4 +36,16 @@ public interface MemberService {
 	 */
 	public abstract int nameMailCheck(Map<String, Object> map);
 
+	/** 내 정보 수정 Service
+	 * @param updateMember
+	 * @return result
+	 */
+	public abstract int mypageInfoUpdateAction(Member updateMember);
+
+	/** 비밀번호 수정 Service 
+	 * @param map
+	 * @return result
+	 */
+	public abstract int mypagePwUpdate(Map<String, Object> map);
+
 }

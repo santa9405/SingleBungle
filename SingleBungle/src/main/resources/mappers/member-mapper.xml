@@ -59,14 +59,38 @@
 	     DEFAULT, DEFAULT, DEFAULT, DEFAULT )
 	</insert>
 	
+	<!-- 이건 아직 하는중..! -->
 	<!-- 이름, 메일 일치 검사 -->
 	<select id="nameMailCheck" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEM_NM = #{name}
 		AND EMAIL = #{mail}
 	</select>
-
-
+	
+	
+	<!-- 내 정보 수정 -->
+	<update id="mypageInfoUpdateAction" parameterType="Member"> <!-- update에서 resultType은 int로 고정이기 때문에 생략해도 된다. -->
+		UPDATE MEMBER SET
+		NICKNAME = #{memberNickname},
+		PHONE = #{memberPhone}
+		WHERE MEM_NO = #{memberNo}
+	</update>
+	
+	
+	<!-- 비밀번호 조회 -->
+	<!-- parameterType: 넘겨 받아온 값(매개변수), resultType : 조회해서 나온 결과물의 타입 -->
+	<select id="selectPwd" parameterType="_int" resultType="string">
+		SELECT MEM_PW FROM MEMBER
+	    WHERE MEM_NO = #{memberNo}
+	</select>
+	
+	<!-- 비밀번호 수정 -->
+	<update id="mypagePwUpdate" parameterType="map">
+		UPDATE MEMBER SET
+		MEM_PW = #{newPwd} <!-- map에 저장된 데이터의 key값을 직접 작성 -->
+		WHERE MEM_NO = #{memberNo}
+	</update>
+	
 
 
 

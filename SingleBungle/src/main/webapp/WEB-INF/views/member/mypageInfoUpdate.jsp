@@ -121,7 +121,7 @@ a:hover {
 				
 				
 				
-				<form action="mypageInfoUpdateAction" method="post" name="mypageInfoUpdate" onsubmit="return memberJoinvalidate();">
+				<form action="mypageInfoUpdateAction" method="post" name="mypageInfoUpdateForm" onsubmit="return updateValidate();">
 				
 					<div class="form-group">
 						<div>
@@ -140,7 +140,8 @@ a:hover {
 						</div>
 
 						<label for="nickname"><span class="requiredInput">*</span> 닉네임</label>
-						 <input type="text" class="form-control" id="nickname" name="memberNickname" value="${loginMember.memberNickname}" placeholder="닉네임을 입력하세요." required>
+						 <input type="text" class="form-control" id="nickname" name="memberNickname" value="${loginMember.memberNickname}"
+						 	placeholder="닉네임을 입력하세요." autocomplete='off' required>
 						 <input type="hidden" name="nnDup" id="nnDup" value="false">
 						<div>
 							<!-- userName을 Nickname으로 바꾸기 -->
@@ -155,18 +156,20 @@ a:hover {
 							<div class="ph">
 								<!-- 전화번호 앞자리 불러오기 ㄱ- -->
 								<select class="form-control phone" id="phone1" name="phone1" value="${phone[0]}">
-									<option>010</option>
-									<option>011</option>
-									<option>016</option>
-									<option>017</option>
-									<option>019</option>
+									<option <c:if test="${phone[0] == '010'}"> selected </c:if> >010</option> <!-- 010이었으면..여길선택해라.. -->
+									<option <c:if test="${phone[0] == '011'}"> selected </c:if> >011</option>
+									<option <c:if test="${phone[0] == '016'}"> selected </c:if> >016</option>
+									<option <c:if test="${phone[0] == '017'}"> selected </c:if> >017</option>
+									<option <c:if test="${phone[0] == '019'}"> selected </c:if> >019</option>
 								</select>
 							</div>
 							<div class="ph">
-								<input type="text" class="form-control phone" id="phone2" name="phone2" value="${phone[1]}" maxlength="4" size="4" required>
+								<input type="text" class="form-control phone" id="phone2" name="phone2" value="${phone[1]}"
+									maxlength="4" size="4" autocomplete='off' required>
 							</div>
 							<div class="ph ph-end">
-								<input type="text" class="form-control phone" id="phone3" name="phone3" value="${phone[2]}" maxlength="4" size="4" required>
+								<input type="text" class="form-control phone" id="phone3" name="phone3" value="${phone[2]}"
+									maxlength="4" size="4" autocomplete='off' required>
 							</div>
 						</div>
 						<div>
@@ -246,7 +249,7 @@ $("#nickname").on("input", function(){
     } else{
         // ajax를 이용한 실시간 닉네임 중복 검사 ----------------------------------------------------
         $.ajax({
-            url : "nnDupCheck2",
+            url : "nnDupCheckUpdate",
             data : {"memberNickname" : value},
             type : "POST",
             success : function(result){
@@ -296,7 +299,8 @@ $(".phone").on("input", function(){
 
 /* ------------------------------------------------------------- */
         
-function memberJoinvalidate(){
+// submit 동작
+function updateValidate(){
 
 	
        // 유효성 검사 여부 확인
@@ -325,7 +329,7 @@ function memberJoinvalidate(){
 		});
 		
 		
-		$("form[name='mypageInfoUpdate']").append($memberPhone);
+		$("form[name='mypageInfoUpdateForm']").append($memberPhone);
 }
 
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -96,15 +98,32 @@ a:hover {
 
 
 
-				<form>
+				<form action="mypagePwUpdateAction" method="post" name="mypagePwUpdateForm" onsubmit="return updateValidate();">
+				
 					<div class="form-group">
-						<label for="pw">* 현재 비밀번호</label> <input type="password" class="form-control" id="nickname" placeholder="현재 비밀번호를 입력하세요.">
-					</div>
-					<div class="form-group">
-						<label for="newPw1">* 새 비밀번호</label> <input type="password" class="form-control" id="nickname" placeholder="새로운 비밀번호를 입력하세요.">
-					</div>
-					<div class="form-group">
-						<label for="newPw2">* 새 비밀번호 확인</label> <input type="password" class="form-control" id="nickname" placeholder="새로운 비밀번호를 한번 더 입력하세요.">
+						<div>
+							<label for="id"><span class="requiredInput">*</span> 아이디</label>
+							 <br> ${loginMember.memberId} <br> <br>
+						</div>
+						
+						<div>
+							<label for="pw">* 현재 비밀번호</label>
+							<input type="password" class="form-control" id="memberPwd" name="memberPwd"
+								placeholder="현재 비밀번호를 입력하세요." required>
+						</div>
+						
+						<div>
+							<label for="newPw1">* 새 비밀번호</label>
+							<input type="password" class="form-control" id="newPwd1" name="newPwd1"
+								placeholder="새로운 비밀번호를 입력하세요." required>
+						</div>		
+										
+						<div>
+							<label for="newPw2">* 새 비밀번호 확인</label>
+							<input type="password" class="form-control" id="newPwd2" name="newPwd2"
+								placeholder="새로운 비밀번호를 한번 더 입력하세요." required>
+						</div>
+						
 					</div>
 
 					<br>
@@ -112,7 +131,8 @@ a:hover {
 					<br>
 
 					<button type="submit" class="btn btn-block maincolor">비밀번호 수정</button>
-
+					
+	
 					<br>
 					<br>
 					<br>
@@ -132,10 +152,31 @@ a:hover {
 </body>
 
  <script>
- 	/* 내가 선택한 메뉴에 색 고정하기 */
+ 	/* 사이드메뉴를 내가 선택한 메뉴에 색 고정하기 */
     $(function(){
 			$("#mypagePwUpdate").attr('class','nav-link px-4 active text-white shadow-sm rounded-pill maincolor');
 	});
+ 	
+ 	
+ 	// submit 동작
+	function updateValidate() {
+		// 비밀번호  유효성 검사
+		//영어 대,소문자 + 숫자, 총 6~12글자
+		var regExp = /^[A-Za-z0-9]{6,12}$/;
+		if(!regExp.test($("#newPwd1").val())){ 
+			alert("유효하지 않은 비밀번호 입니다.");
+			$("#newPwd1").focus();
+			
+			return false;
+        }
+		
+		if($("#newPwd1").val() != $("#newPwd2").val()){
+			alert("새 비밀번호가 일치하지 않습니다.");
+			$("#newPwd2").focus();
+			
+			return false;
+		}
+	}
 </script>
 
 </html>
