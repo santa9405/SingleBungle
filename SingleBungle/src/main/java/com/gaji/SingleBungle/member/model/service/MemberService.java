@@ -1,5 +1,7 @@
 package com.gaji.SingleBungle.member.model.service;
 
+import java.util.Map;
+
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 public interface MemberService {
@@ -27,5 +29,11 @@ public interface MemberService {
 	 * @return result
 	 */
 	public abstract int signUp(Member signUpMember);
+
+	/** 이름, 메일 일치 검사 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int nameMailCheck(Map<String, Object> map);
 
 }

@@ -58,7 +58,13 @@
 	     #{memberGender}, DEFAULT,
 	     DEFAULT, DEFAULT, DEFAULT, DEFAULT )
 	</insert>
-
+	
+	<!-- 이름, 메일 일치 검사 -->
+	<select id="nameMailCheck" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEM_NM = #{name}
+		AND EMAIL = #{mail}
+	</select>
 
 
 

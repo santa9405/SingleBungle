@@ -155,7 +155,7 @@
                 <form action="signUpAction" method="post" name="signUpForm" onsubmit="return memberJoinvalidate();">
 
                     <!-- required : 필수 입력 속성 -->
-                    
+                     
                     <div class="form-group">
                         <label for="userId"><span class="requiredInput">*</span> 아이디</label>
                         <div>
@@ -253,8 +253,9 @@
                                     <option>nate.com</option>
                                 </select>
                             </div>
-                            <div><!-- 이메일 유효성 검사 -->
-                                <!-- <span id="sendMailBtn" ></span> -->
+                            <div>
+                            <!-- 이메일 유효성 검사 -->
+                               <span id="checkEmail" ></span>
                             </div>
 
                         </div>
@@ -525,7 +526,7 @@
         
 
         // 이메일 유효성 검사
-/*         $("#email1").on("input", function(){
+         $("#email1").on("input", function(){
             var e1 = $("#email1").val();
             var regExp = /^[a-zA-Z\d_]{4,10}$/;
                 if(!regExp.test(e1)){
@@ -537,7 +538,7 @@
                     .css("color", "green");
                     validateCheck.email = true;
                 }
-        }); */
+        }); 
 
         /* ------------------------------------------------------------- */
 
@@ -546,8 +547,12 @@
         
         $("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
          var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
-
-         if (mail == "") {
+			
+         var mailId =$("#email1").val();
+         
+         console.log(mail);
+         
+         if (mailId == "") { // 아이디가 입력되지 않았다면
             alert("메일 주소가 입력되지 않았습니다.");
          } else {
             $.ajax({

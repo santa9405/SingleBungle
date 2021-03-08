@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 페이지</title>
+    <title>내 정보</title>
 
 
     <!-- 부트스트랩 사용을 위한 css 추가 -->
@@ -106,7 +106,8 @@
 
         .profile-area-left{
             /* text-align: center; */
-            color: red;
+            color: #ffaf18;
+            font-weight: 500;
         }
 
         .boardTitle>img {
@@ -136,7 +137,7 @@
 
                 <div class="myBoard form-group row">
                     <div class="col-sm-3">
-                        <img class="img-thumbnail" src="img/sns_kakao.jpg">
+                        <img class="img-thumbnail" src="${contextPath}/resources/images/profile.png">
                     </div>
                     <div class="col-sm-9">
                         <!-- <div style="margin-bottom:10px;">
@@ -150,29 +151,36 @@
                             
                                     <tr>
                                         <td class="profile-area-left">닉네임</td>
-                                        <td class="boardTitle">소리아</td>
+                                        <td class="boardTitle">${loginMember.memberNickname}</td>
                                         <td class="profile-area-left">이메일</td>
-                                        <td class="boardTitle">soria@naver.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="profile-area-left">관심사</td>
-                                        <td class="boardTitle">댓글입니다</td>
-                                        <td class="profile-area-left">전화번호</td>
-                                        <td class="boardTitle">010-1111-22222</td>
+                                        <td class="boardTitle">${loginMember.memberEmail}</td>
                                     </tr>
                                     <tr>
                                         <td class="profile-area-left">성별</td>
-                                        <td class="boardTitle">여자</td>
-                                        <td class="profile-area-left">매너온도</td>
-                                        <td class="boardTitle">100C</td>
+                                        <td class="boardTitle">${loginMember.memberGender}</td>
+                                        <td class="profile-area-left">전화번호</td>
+                                        <td class="boardTitle">${loginMember.memberPhone}</td>
                                     </tr>
                                     <tr>
+                                        <td class="profile-area-left">매너온도</td>
+                                        <td class="boardTitle">${loginMember.memberRating}</td>
+                                        <td class="profile-area-left"></td>
+                                        <td class="boardTitle"></td>
+                                    </tr>
+                                    <%-- 
+                                    <tr>
                                         <td colspan="4">
-                                            동네인증이 되지 않았습니다. 
+					                        <c:if test="${loginMember.memberCertifiedFl == 'N'}">
+					                                                 동네인증이 되지 않았습니다. 
+					                        </c:if>
+					                        <c:if test="${loginMember.memberCertifiedFl == 'Y'}">
+					                                                 동네인증이 되었습니다.
+					                        </c:if>
+					                                           
                                             <button type="submit" class="btn btn-primary">동네인증</button>
                                         </td>
                                     </tr>
-                            
+                                    --%>
                         </table>
                     </div>
                     <!-- <div class="col-sm-4">
@@ -436,11 +444,15 @@
     </div>
     </div>
 
-    
+    <jsp:include page="../common/header.jsp"/>
   
-    <script>
-
-    </script>
+ <script>
+ 
+	/* 내가 선택한 메뉴에 색 고정하기 */
+    $(function(){
+			$("#myPage").attr('class','nav-link px-4 active text-white shadow-sm rounded-pill maincolor');
+	});
+</script>
 </body>
 
 </html>
