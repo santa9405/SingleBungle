@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -407,4 +408,62 @@ public class MarketController {
 	public String marketModal() {
 		return "market/marketModal";
 	}
+	
+	
+	// ------------------------------------------------------------------------------------------------------
+	
+	// 관리자 삭제된 게시글 상세 조회
+	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
+	public String deleteManageMarket(@PathVariable("boardCode") int boardCode,
+									@PathVariable("boardNo") int marketNo,
+									@RequestHeader(value="referer", required=false) String referer,
+									RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember
+									, Model model) {
+		
+		Market market = service.selectDeleteMarket(marketNo);
+		String url = null;
+		
+		if(market != null) {
+			List<Market> marketList = service.marketListTop3();
+			
+			if(marketList != null && !marketList.isEmpty()) {
+				List<MarketAttachment> thList = service.selectThumbnailList(marketList);
+				
+				if(thList != null) {
+					model.addAttribute("thList", thList);
+				}
+			}
+			
+			// 좋아요 정보 출력
+			
+			int memberNo = loginMember.getMemberNo();
+			
+			List<MarketLike> likeInfo = service.selectLike(memberNo);
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("memberNo", memberNo);
+			map.put("boardNo", marketNo);
+			
+			int like = service.selectLikePushed(map);
+			
+			model.addAttribute("market", market);
+			model.addAttribute("marketList", marketList);
+			model.addAttribute("likeInfo", likeInfo);
+			model.addAttribute("like", like);
+			
+			url = "market/marketView";
+			
+		} else {
+			if(referer == null) { //이전 요청주소가 없는 경우
+				url = "${contextPath}/admin/boardManage";
+			}else {
+				url="redirect:"+referer;
+			}
+			
+			ra.addFlashAttribute("swalicon","error");
+			ra.addFlashAttribute("swalTitle","존재하지 않는 게시글입니다.");
+		}
+		return url;
+	}
+	
 }
