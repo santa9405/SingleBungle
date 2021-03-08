@@ -158,10 +158,12 @@
 		
 				<c:if test="${!empty rSearch.ct }">
 					<c:set var="category" value="ct=${rSearch.ct}&"/>
+					<c:set var="searchStr"  value= "${category}"/>
 				</c:if>
 			
 				<c:if test="${!empty rSearch.sort }">
 					<c:set var="sort" value="sort=${rSearch.sort}&"/>
+					<c:set var="searchStr" value="${category }${sort }"/>
 				</c:if>
 			
 			
@@ -171,8 +173,6 @@
 			
 				<c:set var="searchStr" value="${category}${sort}sk=${rSearch.sk}&sv=${rSearch.sv}&"/>
 			</c:if>
-			
-			
 			
 			<c:url var="pageUrl" value="search?${searchStr}"/>
 			
@@ -317,11 +317,7 @@
 						<nav>
 							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success" style="margin-left:40px">
 
-								
-
-								
-								
-								
+							
 								<c:set var="firstPage" value="${pageUrl}cp=1" />
 								<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage }" />
 
