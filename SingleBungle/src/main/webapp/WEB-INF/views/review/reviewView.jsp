@@ -145,6 +145,8 @@ body {
 	border: none;
 	border-radius: 50px;
 }
+
+
 </style>
 
 </head>
@@ -345,33 +347,40 @@ body {
 </div>
 <!-- Modal HTML -->
 
-<form  action="">
 	<div id="sendMessage" class="modal fade">
 		<div class="modal-dialog modal-confirm">
+			
+			<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">받는사람 : ${review.nickName }</h5>
+						<h5 class="modal-title">받는사람 :  ${review.nickName } </h5> 
+						<input type="hidden" name="memberNo" value="${review.memberNo}">
+						<input type="hidden"  name="nickName" value="${review.nickName }">
 					</div>
 					<div class="modal-body">
-						<textarea class="messageText" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+						<textarea class="messageText" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
 					</div>
 					<div class="modal-footer">
 						<div class="col">
-							<button type="submit" class="btn btn-success btn-block" data-dismiss="modal">
+							<button type="submit" class="btn maincolor btn-block" data-dismiss="modal">
 								<span class="plan">전송</span>
 							</button>
 						</div>
 						<div class="col">
-							<button type="button" class="btn btn-reset btn-block" data-dismiss="modal">
+							<button type="button" class="btn maincolor-re btn-block" data-dismiss="modal">
 								<span class="plan">닫기</span>
 							</button>
 						</div>
 					</div>
 				</div>
+			</form> 
 			</div>
 	</div>  
-</form> 
 </c:if>
+
+
+
+
 	<jsp:include page="../common/footer.jsp" />
 
 
@@ -451,6 +460,20 @@ body {
 			});
 		}
 	});
+	
+	
+	
+	
+	//----------------------------------------------------------------------------
+	// 메세지 유효성 검사
+	function messageValidate(){
+		
+		if($(".messageText").val().trim().length ==0){
+			swal("내용을 입력해 주세요");
+			$(".messageText").focus();
+			return false;
+		}
+	}
 	
 	
 

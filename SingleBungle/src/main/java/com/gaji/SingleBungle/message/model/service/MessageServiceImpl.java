@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gaji.SingleBungle.message.model.vo.Message;
 import com.gaji.SingleBungle.message.model.vo.MessagePageInfo;
@@ -41,6 +42,24 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public List<Message> selectReceiveList(Map<String, Object> map) {
 		return dao.selectReceiveList(map);
+	}
+	
+	
+	// 쪽지 보내기
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int sendMessage(Map<String, Object> map) {
+		// 쪽지번호 얻어오기
+		int msgNo = dao.selectNextNo();
+		
+		
+		map.put("msgNo",msgNo);
+		
+		
+		int result =  dao.sendMessage(map);
+		
+		
+		return result;
 	}
 
 }
