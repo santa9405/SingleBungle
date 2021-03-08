@@ -32,7 +32,8 @@ public class MessageController {
 		
 		// 보낸 쪽지함
 		@RequestMapping("messageBoxS")
-		public String message(@RequestParam(value="cp", required=false, defaultValue="1") int cp, @ModelAttribute("loginMember") Member loginMember,
+		public String message(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
+							  @ModelAttribute("loginMember") Member loginMember,
 							  Model model) {
 			
 			int memberNo = loginMember.getMemberNo();
@@ -46,7 +47,7 @@ public class MessageController {
 			map.put("pInfo", pInfo);
 			
 			
-			// 쪽지 목록 조회
+			// 보낸 쪽지 목록 조회
 			List<Message> mList = service.selectSendList(map);
 			
 			model.addAttribute("mList",mList);
@@ -59,9 +60,31 @@ public class MessageController {
 		
 		// 받은 쪽지함
 		@RequestMapping("messageBoxR")
-		public String messageBox() {
+		public String messageBox(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
+								@ModelAttribute("loginMember") Member loginMember,
+								Model model) {
+			
+			int memberNo = loginMember.getMemberNo();
+			
+			// 페이징 처리 : 받은 쪽지 수 조회
+			MessagePageInfo pInfo = service.getReceivePageInfo(cp,memberNo);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo",memberNo);
+			map.put("pInfo", pInfo);
+			
+			// 받은 쪽지 목록 조회
+			List<Message> mList = service.selectReceiveList(map);
+		
 			return "/message/messageBoxR";
 		}
+		
+		
+
+		
+		
+
+		
 		
 
 }

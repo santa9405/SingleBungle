@@ -348,9 +348,6 @@
 												<a class="page-link maincolor-re1" href="${pageUrl}cp=${page}">${page}</a>
 											</li>
 										</c:otherwise>
-
-
-
 									</c:choose>
 								</c:forEach>
 
@@ -384,7 +381,7 @@
 			<input type="hidden" name="sort" value="${param.sort }">
 		</form>
 
-	<jsp:include page="../message/sendMessageButton.jsp"/>
+
 	<jsp:include page="../common/footer.jsp" />
 
 
@@ -448,8 +445,6 @@
 			
 			// 검색 내용
 			$("input[name=sv]").val("${rSearch.sv}");
-			
-			
 			
 		});
 		
