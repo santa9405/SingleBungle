@@ -52,5 +52,16 @@
 		AND RECEIVE_MEMBER = #{memberNo}
 		ORDER BY MSG_NO DESC		
 	</select>
-
+	
+	
+	<!-- 쪽지번호 얻어오기  -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_MSGNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 쪽지 보내기  -->
+	<insert id="sendMessage" parameterType="map">
+		INSERT INTO MESSAGE (MSG_NO, MEM_NO1, MEM_NO2, MSG_CONTENT)
+		VALUES(#{msgNo}, #{sendMember}, #{receiveMember}, #{content})
+	</insert>
 </mapper>

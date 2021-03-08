@@ -73,5 +73,25 @@ public class MessageDAO {
 		
 		return  sqlSession.selectList("messageMapper.selectReceiveList", map);
 	}
+	
+	
+	/** 쪽지번호 얻어오기
+	 * @return
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("messageMapper.selectNextNo");
+	}
+
+
+
+	/** 쪽지 보내기
+	 * @param map
+	 * @return
+	 */
+	public int sendMessage(Map<String, Object> map) {
+		return sqlSession.insert("messageMapper.sendMessage", map);
+	}
+
+
 
 }
