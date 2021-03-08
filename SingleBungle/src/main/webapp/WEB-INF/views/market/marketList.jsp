@@ -434,19 +434,21 @@ body {
 			$("#0").css({"color":"#ffc823", "font-weight":"bold"});
 		} else if(${param.ct == '1'}){
 			$("#1").css({"color":"#ffc823", "font-weight":"bold"});
-		} else {
+		} else if(${param.ct == '2'}) {
 			$("#2").css({"color":"#ffc823", "font-weight":"bold"});
+		}else{ // 선택 안된 경우,,
+			$("#0").css({"color":"#ffc823", "font-weight":"bold"});
 		}
 		
 		// 정렬
 		if(${param.sort == 'like'}){
 			$("#likeSort").css({"color":"#ffc823", "font-weight":"bold"});
-		}else if(${param.sort == 'new'}){
-			$("#newSort").css({"color":"#ffc823", "font-weight":"bold"});
+		}else if(${param.sort == 'highSort'}){
+			$("#highSort").css({"color":"#ffc823", "font-weight":"bold"});
 		} else if(${param.sort == 'rowSort'}){
 			$("#rowSort").css({"color":"#ffc823", "font-weight":"bold"});
 		} else {
-			$("#highSort").css({"color":"#ffc823", "font-weight":"bold"});
+			$("#newSort").css({"color":"#ffc823", "font-weight":"bold"});
 		}
 		
 		// 검색 내용
