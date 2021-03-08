@@ -373,7 +373,8 @@
 			$(".display-chatting").append(chatBody);
 			
 			// 채팅 입력 시 스크롤을 가장 아래로 내리기
-			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);			
+			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);	
+			
 		};
 		
 		
@@ -390,10 +391,46 @@
 				url : "${contextPath}/findFriendChat/selectChatList/" + friendNo,
 				type : "post",
 				dataType : "json",
-				seccess : function(cList){
+				success : function(cList){
 					
+					//console.log(cList);
 					
+					$.each(cList, function(index, item){
+						
+						var chatBody = $("<div>").addClass("chat-body");
+						
+						var answerRight = $("<div>").addClass("answer right");
+						
+						var answerLeft = $("<div>").addClass("answer Left");
+						
+						var avatar = $("<div>").addClass("avatar");
+						
+						var image = $("<img>").attr("src", "${contextPath}/resources/images/profile.png")
+												.attr("alt", "User name");
+						
+						avatar.append(image);
+						
+						var chat = item.message;
+						var time = item.createDate;
+						
+						var name = $("<div>").addClass("name").text(nickname);
+						var text = $("<div>").addClass("text").text(chat);
+						var time = $("<div>").addClass("time").text(time);
+						
+						if(item.memNo == loginMemberNo){
+							answerRight.append(avatar).append(name).append(text).append(time);
+							chatBody.append(answerRight)
+						}else{
+							answerLeft.append(avatar).append(name).append(text).append(time);
+							chatBody.append(answerLeft)
+						}
+						
+						$(".display-chatting").append(chatBody);
+						
+						// 채팅 입력 시 스크롤을 가장 아래로 내리기
+						$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);	
 					
+					});
 					
 				}, error : function(){
 					console.log("채팅 목록 조회 실패")

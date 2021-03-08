@@ -246,7 +246,8 @@
    
    <!-- 친구찾기 채팅 조회 -->
    <select id="selectChatList" parameterType="_int" resultMap="chat_rm">
-   
+   		SELECT * FROM CHATTING
+   		WHERE FRIEND_NO = #{friendNo}
    </select>
 
 </mapper>
