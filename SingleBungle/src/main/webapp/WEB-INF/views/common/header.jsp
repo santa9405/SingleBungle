@@ -152,7 +152,8 @@
 
 
 	<a class="nav-link" href="${contextPath}/review/list" style="color:green;">후기게시판 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;">쪽지함(임시)</a>
+	<a class="nav-link" href="${contextPath}/message/messageBoxS" style="color:green;">보낸쪽지함(임시)</a>
+	<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;">받은쪽지함(임시)</a>
 	
 	
 	<a class="nav-link" href="${contextPath}/admin/adminMypage">관리자마이페이지</a>

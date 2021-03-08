@@ -84,6 +84,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col-md-12">
 				<table class="table table-stripped">
@@ -137,6 +138,8 @@
 		
 		
 	</div>
+	
 		<jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>
