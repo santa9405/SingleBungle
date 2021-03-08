@@ -215,6 +215,24 @@ public class MarketDAO {
 	 */
 	public int deleteAttachmentList(List<MarketAttachment> removeFileList) {
 		return sqlSession.delete("marketMapper.deleteAttachmentList", removeFileList);
+	}
+
+
+	/** 관리자 삭제된 페이지 상세 조회
+	 * @param marketNo
+	 * @return
+	 */
+	public Market selectDeleteMarket(int marketNo) {
+		return sqlSession.selectOne("marketMapper.selectDeleteReview",marketNo);
+	}
+
+
+
+	/** 조회수 상위 3 게시글
+	 * @return list
+	 */
+	public List<Market> marketListTop3() {
+		return sqlSession.selectList("marketMapper.reviewListTop3");
 	}	
 	
 

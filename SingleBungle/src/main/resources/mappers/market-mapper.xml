@@ -292,6 +292,25 @@
 	
 	</delete>
 	
+	<!-- 조회수 상위 3 게시글 -->
+	<select id="reviewListTop3" resultMap="market_rm">
+			SELECT * FROM
+		(SELECT ROWNUM RNUM, R.* FROM
+		(SELECT * FROM V_MARKET
+		WHERE MARKET_FL='N'
+		ORDER BY READ_COUNT DESC) R)
+		WHERE RNUM BETWEEN 1 AND 3
+		ORDER BY READ_COUNT DESC
+	</select>
+	
+	
+	
+	<!--  관리자  : 삭제된 게시글 상세 조회 -->
+	<select id="selectDeleteReview" parameterType="_int" resultMap="market_rm">
+		SELECT * FROM V_MARKET
+		WHERE MARKET_FL = 'Y'
+		AND MARKET_NO = #{marketNo}
+	</select>
 	
 	
 	
