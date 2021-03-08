@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,17 +110,28 @@
             }
 
 
-
+			.col-md-4 {
+				flex: none !important;
+				max-width: none !important;
+			}
 
         </style>
             
         <script>
-            function selectAll(selectAll) {
-            const selectReply = document.getElementsByName('ck');
-            selectReply.forEach((checkbox) => {
-            checkbox.checked = selectAll.checked;
-            }) 
-        }
+        $(document).ready(function(){
+            //최상단 체크박스 클릭
+            $("#checkall").click(function(){
+                //클릭되었으면
+                if($("#checkall").prop("checked")){
+                    //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                    $("input[name=chk]").prop("checked",true);
+                    //클릭이 안되있으면
+                }else{
+                    //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                    $("input[name=chk]").prop("checked",false);
+                }
+            })
+        });
         </script>
 </head>
 <body>
@@ -148,69 +161,111 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" name="ck" onclick='selectAll(this)'></th>
+                            <th><input type="checkbox" id="checkall"></th>
                             <th>번호</th>
                             <th>게시판명</th>
                             <th>글번호</th>
                             <th>신고카테고리</th>
                             <th>신고내용</th>
-                            <th>신고회원</th>
                         </tr>
                     </thead>
 
                     <tbody>
+                     <c:if test="${empty boardList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+                   </c:if>
+                   <c:if test="${!empty boardList }">
+                  	<c:forEach var="board" items="${boardList}" varStatus="vs">
                         <tr>
-                            <td><input type="checkbox" name="ck"></td>
-                            <td>3</td>
-                            <td>사고팔고</td>
-                            <td>23</td>
-                            <td>부적절한 게시글</td>
-                            <td>게시판이랑 글내용이 서로 다르네요</td>
-                            <td>달마고</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="ck"></td>
-                            <td>2</td>
-                            <td>후기</td>
-                            <td>4</td>
-                            <td>홍보</td>
-                            <td>불법으로 홍보해요ㅡㅡ</td>
-                            <td>신이동특</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="ck"></td>
-                            <td>1</td>
-                            <td>친구찾기</td>
-                            <td>13</td>
-                            <td>음란성 게시글</td>
-                            <td>이상한 음란성 게시글을 올렷어요</td>
-                            <td>솔이이</td>
-                        </tr>
-
+                            <td><input type="checkbox" name="chk"></td>
+                            <td>${board.reportNo }</td>
+                            <td class="hidden">${board.boardCode }</td>
+                            <td>
+                            	<c:choose>
+									<c:when test="${board.boardCode == 1}">자유게시판</c:when>
+									<c:when test="${board.boardCode == 2}">후기게시판</c:when>
+									<c:when test="${board.boardCode == 3}">고객센터</c:when>
+									<c:when test="${board.boardCode == 4}">이벤트</c:when>
+									<c:when test="${board.boardCode == 6}">맛집게시판</c:when>
+									<c:when test="${board.boardCode == 7}">친구찾기</c:when>
+									<c:when test="${board.boardCode == 8}">사고팔고</c:when>
+								</c:choose>
+                            </td>
+                            <td>${board.boardNo }</td>
+                            <td>${board.reportCategoryNm }</td>
+                            <td>${board.reportTitle}</td>
+                         </tr>
+                     </c:forEach>
+                   </c:if>
                     </tbody>
                 </table>
 
                 <div class="float-right">
-                    <button id="deleteBtn" class="btn btn-success">복구</button> 
-                    <button id="deleteBtn" class="btn btn-success">삭제</button> 
+                    <button id="deleteReport" class="btn btn-success">신고 취소</button> 
+                    <button id="deleteBtn" class="btn btn-success">게시글 삭제</button> 
                 </div>
                     <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="col-md-4 col-sm-6 grid-margin stretch-card">
-                                        <nav>
-                                            <ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a></li>
-                                            </ul>
-                                        </nav>
+					<c:set var="firstPage" value="?cp=1" />
+					<c:set var="lastPage" value="?cp=${pInfo.maxPage}" />
 
-                            </div>
-                        </div>
-                    </div>
+					<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+					<c:set var="prevPage" value="?cp=${prev}" />
+
+
+					<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+						integerOnly="true" />
+					<c:set var="nextPage" value="?cp=${next}" />
+
+
+					<div class="container d-flex justify-content-center">
+						<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+							<nav>
+								<ul
+									class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+									<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+										<li class="page-item"><a class="page-link"
+											href="${firstPage }" data-abc="true">&laquo;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${prevPage }" data-abc="true">&lt;</a></li>
+									</c:if>
+
+
+									<!-- 페이지 목록 -->
+									<c:forEach var="page" begin="${pInfo.startPage}"
+										end="${pInfo.endPage}">
+										<c:choose>
+											<c:when test="${pInfo.currentPage == page }">
+												<li class="page-item active"><a class="page-link"
+													data-abc="true">${page}</a></li>
+											</c:when>
+
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													href="?cp=${page}" data-abc="true">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+
+									<c:if test="${next <= pInfo.maxPage}">
+										<li class="page-item"><a class="page-link"
+											href="${nextPage }" data-abc="true">&gt;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${lastPage }" data-abc="true">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</nav>
+
+						</div>
+					</div>
+				</div>
 
 
                     <div>
@@ -236,6 +291,83 @@
     $(function(){
 			$("#boardReport").attr('class','nav-link px-4 active bg-primary text-white shadow-sm rounded-pill');
 	});
+    
+    
+    
+    $("#deleteReport").on("click", function(){
+    	var reportNoList = [];
+    	var boardCodeList = [];
+    	
+            $("input:checkbox[name=chk]").each(function(){
+				if(this.checked){
+					reportNoList.push($(this).parent().siblings().eq(0).text());
+					boardCodeList.push($(this).parent().siblings().eq(1).text());
+				}
+        });
+            
+           $.ajax({
+				url : "${contextPath}/admin/recoverReportBoard",
+				data : {"reportNoList" : reportNoList, "boardCodeList" : boardCodeList},
+				
+				type : "post",
+				
+				success : function(flag){
+					 if(flag){ 
+						swal({
+							icon : "success" , 
+				        	title : "신고취소 성공", 
+				        	buttons : {confirm : true}
+						}).then(function() {
+				        	location.href = "${contextPath}/admin/boardReport";
+						});
+						
+					} 
+				},
+				error : function(){
+					console.log("신고취소 실패");
+				}
+			}); 
+        	
+    });
+    
+    
+    $("#deleteBtn").on("click", function(){
+    	var boardNoList = [];
+    	var boardCodeList = [];
+    	var reportNoList = [];
+    	
+            $("input:checkbox[name=chk]").each(function(){
+				if(this.checked){
+					boardNoList.push($(this).parent().siblings().eq(3).text());
+					reportNoList.push($(this).parent().siblings().eq(0).text());
+					boardCodeList.push($(this).parent().siblings().eq(1).text());
+				}
+        });
+            
+           $.ajax({
+				url : "${contextPath}/admin/deleteReportBoard",
+				data : {"boardNoList" : boardNoList, "boardCodeList" : boardCodeList, "reportNoList" : reportNoList,},
+				
+				type : "post",
+				
+				success : function(flag){
+					 if(flag){ 
+						swal({
+							icon : "success" , 
+				        	title : "게시글 삭제 성공", 
+				        	buttons : {confirm : true}
+						}).then(function() {
+				        	location.href = "${contextPath}/admin/boardReport";
+						});
+						
+					} 
+				},
+				error : function(){
+					console.log("게시글 삭제 실패");
+				}
+			}); 
+        	
+    });
 </script>
 </body>
 </html>

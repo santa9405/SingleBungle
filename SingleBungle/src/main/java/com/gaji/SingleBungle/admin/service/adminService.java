@@ -11,6 +11,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 
@@ -81,6 +82,14 @@ public interface adminService {
 	APageInfo getInquiryAllPageInfo(int cp);
 
 	List<inquiry> inquiryAllList(APageInfo pInfo);
+
+	APageInfo getReportBoardPageInfo(int cp);
+
+	List<reportBoard> selectReportBoard(APageInfo pInfo);
+
+	int recoverReportBoard(Map<String, Integer> map);
+
+	int deleteReportBoard(Map<String, Integer> map);
 
 	
 

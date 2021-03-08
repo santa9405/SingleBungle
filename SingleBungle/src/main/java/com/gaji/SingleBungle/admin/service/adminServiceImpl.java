@@ -21,6 +21,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
@@ -693,6 +694,7 @@ public class adminServiceImpl implements adminService{
 			return dao.selectAllList(pInfo);
 		}
 
+		@Transactional(rollbackFor = Exception.class)
 		@Override
 		public int recoverBoard(int boardNo, int boardCode) {
 			int result=0;
@@ -741,11 +743,13 @@ public class adminServiceImpl implements adminService{
 			return dao.selectAllMember(pInfo);
 		}
 
+		@Transactional(rollbackFor = Exception.class)
 		@Override
 		public int deleteMember(int memNo) {
 			return dao.deleteMember(memNo);
 		}
 
+		@Transactional(rollbackFor = Exception.class)
 		@Override
 		public int recoverMember(int memNo) {
 			return dao.recoverMember(memNo);
@@ -762,6 +766,7 @@ public class adminServiceImpl implements adminService{
 			return dao.selectGradeMember(pInfo);
 		}
 
+		@Transactional(rollbackFor = Exception.class)
 		@Override
 		public int gradeMember(int memNo, String grade) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -774,6 +779,29 @@ public class adminServiceImpl implements adminService{
 
 			return dao.gradeMember(map);
 		}
+
+		@Override
+		public APageInfo getReportBoardPageInfo(int cp) {
+			int listCount = dao.getReportBoardPageInfo();
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<reportBoard> selectReportBoard(APageInfo pInfo) {
+			return dao.selectReportBoard(pInfo);
+		}
+
+		@Transactional(rollbackFor = Exception.class)
+		@Override
+		public int recoverReportBoard(Map<String, Integer> map) {
+			return dao.recoverReportBoard(map);
+		}
+
+		@Override
+		public int deleteReportBoard(Map<String, Integer> map) {
+			return dao.deleteReportBoard(map);
+		}
+
 
 		
 

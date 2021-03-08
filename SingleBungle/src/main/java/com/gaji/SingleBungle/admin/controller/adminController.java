@@ -26,6 +26,7 @@ import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
+import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
@@ -809,10 +810,86 @@ public class adminController {
 	
 	
 	@RequestMapping("boardReport")
-	public String boardReportView() {
+	public String boardReportView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		APageInfo pInfo = service.getReportBoardPageInfo(cp);
+		pInfo.setLimit(10);
+		
+		List<reportBoard> boardList = service.selectReportBoard(pInfo);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pInfo", pInfo);
+		
 		return "admin/boardReport";
 	}
 
+	
+	@ResponseBody
+	@RequestMapping("recoverReportBoard")
+	public boolean recoverReportBoard(@RequestParam(value = "reportNoList[]") int[] reportNoList, @RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < reportNoList.length; i++) {
+			int reportNo = reportNoList[i];
+			int boardCode = boardCodeList[i];
+
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("reportNo", reportNo);
+			map.put("boardCode", boardCode);
+			
+			result = service.recoverReportBoard(map);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+
+		return flag;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("deleteReportBoard")
+	public boolean deleteReportBoard(@RequestParam(value = "reportNoList[]") int[] reportNoList, @RequestParam(value = "boardNoList[]") int[] boardNoList, @RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < boardNoList.length; i++) {
+			int boardNo = boardNoList[i];
+			int boardCode = boardCodeList[i];
+			int reportNo = reportNoList[i];
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("boardNo", boardNo);
+			map.put("boardCode", boardCode);
+			
+			Map<String, Integer> map2 = new HashMap<String, Integer>();
+			map2.put("reportNo", reportNo);
+			map2.put("boardCode", boardCode);
+			
+			result = service.deleteReportBoard(map);
+			System.out.println("boardCode : " + boardCode);
+			
+			if(result>0) {
+				result = service.recoverReportBoard(map2);
+				if(result>0) {
+					flag = true;
+				}else {
+					flag = false;
+					System.out.println("목록 삭제 안됨");
+				}	
+			}else {
+				flag = false;
+				System.out.println("아예 삭제처리가 안됨");
+			}
+		}
+		return flag;
+	}
+	
+	
+	
 	@RequestMapping("replyReport")
 	public String replyReportView() {
 		return "admin/replyReport";
