@@ -385,6 +385,18 @@ public class MarketServiceImpl implements MarketService {
 		return result;
 	}
 
+	//	관리자 삭제된 게시글 상세조회
+	@Override
+	public Market selectDeleteMarket(int marketNo) {
+		return dao.selectDeleteMarket(marketNo);
+	}
+
+	// 조회수 상위 3 게시글 조회
+	@Override
+	public List<Market> marketListTop3() {
+		return dao.marketListTop3();
+	}
+
 
 	
 	

@@ -1,5 +1,7 @@
 package com.gaji.SingleBungle.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -39,6 +41,9 @@ public class memberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
+
+	
+	
 
 	
 	// 로그인 화면 전환용 Controller
@@ -150,11 +155,15 @@ public class memberController {
 	
 	
 	// 닉네임 중복 체크 Controller (AJAX)
-	@RequestMapping("nnDupCheck")
+	// 로그인 필터에 걸려서 그런거임,,,,, nnDupCheck2 는 회원가입용 ,,, 
+	@RequestMapping(value={"nnDupCheck","nnDupCheck2"})
 	@ResponseBody
 	public int nnDupCheck(@RequestParam("memberNickname") String memberNickname) {
 		// System.out.println(memberId);
 		int result = service.nnDupCheck(memberNickname);
+		
+		System.out.println(result);
+		System.out.println(memberNickname);
 		return result;
 	}
 	
@@ -217,6 +226,11 @@ public class memberController {
 		String title = "[싱글벙글] 회원 가입에 필요한 이메일 인증 키값 전송"; // 제목
 		String content = "키 값을 인증번호 확인영역에 입력해주세요."; // 내용
 		String key = "";
+		
+		//String mailId = request.getParameter("mailId"); // 받는 사람 이메일
+		
+		System.out.println("tomail :" + tomail);
+		//System.out.println("mailId : " + mailId);
 
 		try {
 			Random random = new Random();
@@ -243,12 +257,50 @@ public class memberController {
 
 		return key;
 	}
+	
+	// ---------------------------------------------------
+	// 이름, 메일 일치 검사 Controller (AJAX)
+	// ---------------------------------------------------
+	@RequestMapping("nameMailCheck")
+	@ResponseBody
+	public int nameMailCheck(@RequestParam("name") String name,
+							@RequestParam("mail") String mail) {
+		// System.out.println(memberId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("name", name);
+		map.put("mail", mail);
+		
+		System.out.println(name);
+		System.out.println(mail);
+		
+		int result = service.nameMailCheck(map);
+		
+		System.out.println(result);
+		
+		return result;
+	}
+	
+	
+	
+	// ---------------------------------------------------
+	// 아이디 찾기 이메일 발송 Controller (AJAX)
+	// ---------------------------------------------------
+	@RequestMapping("FindIdMail")
+	public String FindIdMail() {
+		return "member/FindIdMail";
+	}
+	
+	// 마이페이지 ------------------------------------------------------------------------
 
 	// 마이페이지
 	@RequestMapping("mypage")
 	public String mypage() {
 		return "member/mypage";
 	}
+	
+	// 아이디 찾기 ------------------------------------------------------------------------
 
 	// 아이디 찾기1
 	@RequestMapping("findIdForm")
@@ -262,35 +314,109 @@ public class memberController {
 		return "member/findIdResultForm";
 	}
 
-	// 비밀번호 찾기1
+	// 비밀번호 찾기 ------------------------------------------------------------------------
+	
+	// 비밀번호 찾기 화면 전환 Controller 
 	@RequestMapping("findPwForm")
 	public String findPwForm() {
 		return "member/findPwForm";
 	}
 	
-	// 비밀번호 찾기2
+	// 비밀번호 찾기 조회 Controller 
+	@RequestMapping("findPwReady")
+	public String findPwReady() {
+		return "member/findPwChangeForm";
+	}
+	
+	// 비밀번호 찾기 인증(이메일 발송) Controller (ajax) 
+	@RequestMapping("CheckPwMail")
+	@ResponseBody
+	public String CheckPwMail(HttpServletRequest request) {
+		
+		String setfrom = "singlebungle.dev@gmail.com";
+		String tomail = request.getParameter("mail"); // 받는 사람 이메일
+		String title = "[싱글벙글] 비밀번호 찾기에 필요한 이메일 인증 키값 전송"; // 제목
+		String content = "키 값을 인증번호 확인영역에 입력해주세요."; // 내용
+		String key = "";
+		
+		//String mailId = request.getParameter("mailId"); // 받는 사람 이메일
+		
+		System.out.println("tomail :" + tomail);
+		// 얘가 안나옴 ㄱ- 이게 실행이 안됨. 
+		//System.out.println("mailId : " + mailId);
+		
+		try {
+			Random random = new Random();
+			
+			for (int i = 0; i < 3; i++) {
+				int index = random.nextInt(25) + 65; // A~Z까지 랜덤 알파벳 생성
+				key += (char) index;
+			}
+			int numIndex = random.nextInt(8999) + 1000; // 4자리 정수를 생성
+			key += numIndex;
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+			messageHelper.setTo(tomail); // 받는사람 이메일
+			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			messageHelper.setText(content + key); // 메일 내용
+			
+			mailSender.send(message);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return key;
+	}
+	
+	// 비밀번호 찾기 변경(?) Controller
 	@RequestMapping("findPwChangeForm")
 	public String findPwChangeForm() {
 		return "member/findPwChangeForm";
 	}
 	
-	// 비밀번호 찾기3
+	// 비밀번호 찾기 변경 Controller
 	@RequestMapping("findPwResultForm")
 	public String findPwResultForm() {
 		return "member/findPwResultForm";
 	}
+	
 
-	// 내 정보 수정
+	// ---------------------------------------------------------------
+	
+	// 내 정보 수정 화면 전환 Controller
 	@RequestMapping("mypageInfoUpdate")
 	public String mypageInfoUpdate() {
 		return "member/mypageInfoUpdate";
 	}
+	
+	// 내 정보 수정 Controller
+	@RequestMapping("mypageInfoUpdateAction")
+	public String mypageInfoUpdateAction() {
+		
+		
+		
+		// 어쩌고 저쩌고 기능 ~~~~~~~~~~~~~~~~
+		
+		
+		
+		return "redirect:/"; // 메인화면으로 돌아가게 재요청
+	}
 
+	
+	
+	
 	// 비밀번호 수정
 	@RequestMapping("mypagePwUpdate")
 	public String mypagePwUpdate() {
 		return "member/mypagePwUpdate";
 	}
+	
+	
+	
+	
 
 	@ExceptionHandler(Exception.class) // 모든 예외를 처리하겠다
 	public String etcException(Exception e, Model model) {

@@ -61,7 +61,10 @@
 	border-radius: 50px;
 }
 
-
+.messageBox{
+	border-radius : 15px;
+	margin : 0 0 10px 20px;
+}
 
 
 </style>
@@ -76,10 +79,10 @@
 		<div class="row">
 			<div class="col-md-12" style="padding-left : 26px">
 
-				<div class="messageBox" style="display: inline-block;">
+				<div class="messageBox" style="display: inline-block; color: #ffaf18;	border:1px solid #ffaf18; ">
 					<a href="#">받은 쪽지</a>
 				</div>
-				<div class="messageBox" style="display: inline-block;">
+				<div class="messageBox" style="display: inline-block; background-color :#ffaf18 ; ">
 					<span>보낸 쪽지</span>
 				</div>
 				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
@@ -96,23 +99,22 @@
 							<th><input type="checkbox"/></th>
 							<th>받는 사람</th>
 							<th>내용</th>
-							<th>상태</th>
 							<th>보낸 시간</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:if test="${empty mList }">
 							<tr>
-								<td colspan="5"> 보낸 쪽지가 없습니다.</td>
+								<td colspan="4"> 보낸 쪽지가 없습니다.</td>
 							</tr>
 						</c:if>
 						
 						<c:if test="${!empty mList }">
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
-									<td>${message.receiveNickName}<td>
+									<td><input type="checkbox"></td>
+									<td>${message.receiveNickName}</td>
 									<td>${message.messageContent}</td>
-									<td>${message.readMessage}</td>
 									<td>
 									<%-- 날짜 출력 모양 지정 --%>
 									<fmt:formatDate var="createDate" value="${message.createDt }" pattern="yyyy-MM-dd"/>
@@ -125,7 +127,6 @@
 											<fmt:formatDate value="${message.createDt }" pattern="HH:mm"/>
 										</c:otherwise>
 									</c:choose>									
-									
 									</td>
 									
 								</tr>							

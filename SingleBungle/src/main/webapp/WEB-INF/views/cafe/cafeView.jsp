@@ -109,7 +109,9 @@ color: #FFFFFF !important; }
                 <h8>맛집게시판</h8>
 								<div class="float-right">
 									<button type="button" class="btn maincolor-re mb-3 btn-sm insert-list">목록</button>
+									<c:if test="${loginMember.memberNo != cafe.memberNo }">
 									<button type="button" class="btn btn-sm mb-3 report"><img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">신고</button>
+									</c:if>
 								</div>
 								
 								<span id="cafeNo2">${cafe.cafeNo}</span>

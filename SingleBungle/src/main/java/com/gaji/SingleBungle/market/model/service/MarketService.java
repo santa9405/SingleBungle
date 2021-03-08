@@ -117,6 +117,17 @@ public interface MarketService {
 	 */
 	int updateMarket(Market market, List<MultipartFile> images, String savePath, int[] beforImages);
 
+	/** 관리자 삭제된 게시글 상세 조회
+	 * @param marketNo
+	 * @return
+	 */
+	Market selectDeleteMarket(int marketNo);
+
+	/** 조회수 상위 3 게시글 조회
+	 * @return list
+	 */
+	List<Market> marketListTop3();
+
 	
 
 
