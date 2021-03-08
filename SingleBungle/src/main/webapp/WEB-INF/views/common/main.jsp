@@ -37,6 +37,10 @@
       height : 350px;
    } */
    
+   #market{
+      height : 179.2px;
+   }
+   
    #cafeNo { display: none; }
    
   .text-dark {
@@ -78,6 +82,27 @@
 	
 	.more:hover { color: black; }
 	
+	.board-table{
+    table-layout: fixed;
+    width: 300px;
+	}
+	
+	.board-table > tbody > tr > td:nth-child(1){
+		width: 50px;
+	}
+	.board-table > tbody > tr > td:nth-child(2){
+		word-break: break-all;
+    width: 100px;
+	}
+	
+	.nickNameArea{ clear: both; }
+	
+	/* 좋아요/댓글 */
+.viewArea,.replyArea{
+  display: inline-block;
+  font-size: 11px;
+  margin-right: 5px;
+}
 
 </style>
 <!-- Custom styles for this template -->
@@ -123,16 +148,12 @@
 
 
 		    <div class="container">
-<!--    				<div class="row"> -->
-   			
-<!-- 					<div class="row py-2"> -->
-<!--  						<div class="col-md-10"> -->
 							<!-- 자유게시판 -->
 							<div class="row">
 								<div class="col-md-4">
 									<h4>??을 말해봐</h4>
 									<div class="wrapper p-1" id="freeBoard">
-										<table class="table-hover">
+										<table class="table-hover board-table">
 											<c:if test="${empty bList }">
 												<tr>
 													<td style="text-align: center;">존재하는 게시글이 없습니다.</td>
@@ -150,27 +171,22 @@
 					                    <c:if test="${board.categoryCode == '15'}">background-color: #ef8694;</c:if>
 					                    <c:if test="${board.categoryCode == '16'}">background-color: #f6b06b;</c:if> '>${board.categoryName}</div>
 														</td>
-														<!-- </tr> -->
-														<!-- <tr> -->
-														<td><h7> <a href="#" class="text-dark">${board.boardTitle}</a></h7></td>
+														<td><h7><a href="board/${board.boardNo}" class="text-dark">${board.boardTitle}</a></h7></td>
 													</tr>
 												</c:forEach>
 											</c:if>
 										</table>
-										<div><a href="#" class="float-right more">더보기</a></div>
+										<div><a href="board/list" class="float-right more">더보기</a></div>
 									</div>
 								</div>
-							<!-- </div> -->
 
 
 							<!-- 친구찾기 -->
-							<!-- <div class="row" style="margin-top: 10px;"> -->
 								<div class="col-md-4">
 									<h4>칭구칭긔</h4>
 
 									<div class="wrapper p-1" id="findFriend">
-
-										<table class="table-hover">
+										<table class="table-hover board-table">
 											<c:choose>
 												<c:when test="${empty fList}">
 													<tr>
@@ -189,14 +205,14 @@
 																<c:if test="${friend.categoryNm == '문화생활'}">background-color: skyblue;</c:if>	
 																<c:if test="${friend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${friend.categoryNm}</div>
 															</td>
-															<td><h7> <a href="#" class="text-dark">${friend.friendTitle}</a></h7></td>
+															<td><h7> <a href="findFriend/${friend.friendNo}" class="text-dark">${friend.friendTitle}</a></h7></td>
 														</tr>
 
 													</c:forEach>
 												</c:otherwise>
 											</c:choose>
 										</table>
-										<div><a href="#" class="float-right more">더보기</a></div>
+										<div><a href="findFriend/list" class="float-right more">더보기</a></div>
 									</div>
 								</div>
 								
@@ -222,9 +238,9 @@
 																<c:if test="${market.transactionCategory == 2}">팝니다</c:if></div>
 					                    
 														</td>
-														<tr>
+														<tr style="height:60px;">
 														<td>
-														<span style='visibility: hidden;'>${market.marketNo}</span>
+														<span style='display : none;'>${market.marketNo}</span>
 														<div class="embed-responsive embed-responsive-4by3">
 													
 															<c:forEach items="${thumbnailList2}" var="th">
@@ -236,61 +252,18 @@
 															</c:forEach>
 														</div>
 														</td>
-														<!-- </tr> -->
-														<!-- <tr> -->
-														<td><h7> <a href="#" class="text-dark">${market.marketTitle}</a></h7></td>
+														<td style="padding-left: 10px;">
+														<h7> <a href="market/${market.marketNo}" class="text-dark">${market.marketTitle}</a></h7></td>
 													</tr>
 												</c:forEach>
 											</c:if>
 										</table>
-										<div><a href="#" class="float-right more">더보기</a></div>
 									</div>
+									<div><a href="market/list" class="float-right more">더보기</a></div>
 								</div>
 								
 							</div> <!-- 자유게시판 row 닫는 div -->
 						</div> <!-- 자유게시판 컨테이너 닫는 div -->
-
-					<!-- 사고팔고 -->
-<%-- 					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
-								<h4>마켓벙글</h4>
-								<div class="col-md-12" id="market">
-								<c:if test="${empty mList}">존재하는 게시글이 없습니다!</c:if></div>
-								<c:if test="${!empty mList}">
-									<c:forEach var="market" items="${mList}" varStatus="vs">
-										<div class="row" id="market">
-											<div class="col-xl-4 col-lg-4 col-md-6 mb-4" style="margin-top: 5px;">
-												<div class="bg-white">
-													<div class="embed-responsive embed-responsive-4by3">
-														<c:forEach items="${thumbnailList2}" var="th">
-														<c:if test="${th.parentMarketNo == market.marketNo}">
-														<img src="${contextPath}/${th.filePath}/${th.fileName}" 
-															class="img-fluid card-img-top embed-responsive-item marketNo"
-															<c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>>
-														</c:if>
-														</c:forEach>
-													</div>
-													<div class="p-2">
-														<div class="categoryDetail float-left row_2">
-															<p class="small text-muted mb-0">
-																<c:if test="${market.transactionCategory == 1}">[삽니다]</c:if>
-																<c:if test="${market.transactionCategory == 2}">[팝니다]</c:if>
-															</p>
-															<p class="small text-muted mb-0">${market.categoryNm}</p>
-															<div style="clear: both;">
-																<a href="#" class="text-dark">${market.marketTitle}</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:forEach>
-								</c:if>
-							</div>
-					</div>
-			</div> --%>
 
 						<!-- 맛집게시판 -->
 						<div class="container">
@@ -310,19 +283,19 @@
 															<c:set var="flag" value="true" />
 															<c:forEach var="th" items="${thumbnailList3}">
 																<c:if test="${th.cafeNo == cafe.cafeNo}">
-																	<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-fluid card-img-top embed-responsive-item" id="img-list">
+																	<a href="cafe/${cafe.cafeNo}"><img src="${contextPath}${th.filePath}/${th.fileName}" class="img-fluid card-img-top embed-responsive-item" id="img-list"></a>
 																	<c:set var="flag" value="false" />
 																</c:if>
 															</c:forEach>
 															<c:if test="${flag == 'true'}">
-																<img src="${contextPath}/resources/images/cafeNoImg.jpg" id="img-list2" class="mg-fluid card-img-top embed-responsive-item">
+																<a href="cafe/${cafe.cafeNo}"><img src="${contextPath}/resources/images/cafeNoImg.jpg" id="img-list2" class="mg-fluid card-img-top embed-responsive-item"></a>
 															</c:if>
 														</div>
 
 														<div class="p-4">
 															<span id="cafeNo">${cafe.cafeNo}</span>
 															<h5>
-																<a href="#" class="text-dark cafeTitle">${cafe.cafeTitle}</a>
+																<a href="cafe/${cafe.cafeNo}" class="text-dark cafeTitle">${cafe.cafeTitle}</a>
 															</h5>
 
 															<div class="infoArea float-right">
@@ -347,7 +320,7 @@
 												</div>
 											</c:forEach>
 										</c:if>
-										<div><a href="#" class="float-right more">더보기</a></div>
+										<div style="width: 100%; text-align: right;"><a href="cafe/list" class="more">더보기</a></div>
 										<!-- End -->
 									</div>
 								</div>
@@ -378,19 +351,19 @@
 															<c:set var="flag" value="true" />
 															<c:forEach var="thumbnail" items="${thumbnailList}">
 																<c:if test="${review.boardNo == thumbnail.parentBoardNo }">
-																	<img src="${contextPath}${thumbnail.filePath}/${thumbnail.fileName}" class="img-fluid card-img-top embed-responsive-item">
+																	<a href="review/view/${review.boardNo}"><img src="${contextPath}${thumbnail.filePath}/${thumbnail.fileName}" class="img-fluid card-img-top embed-responsive-item"></a>
 																	<c:set var="flag" value="false" />
 																</c:if>
 															</c:forEach>
 
 															<c:if test="${flag=='true'}">
-																<img src="${contextPath}/resources/images/ReviewNonImages.png" class="img-fluid card-img-top embed-responsive-item">
+																<a href="review/view/${review.boardNo}"><img src="${contextPath}/resources/images/ReviewNonImages.png" class="img-fluid card-img-top embed-responsive-item"></a>
 															</c:if>
 														</div>
 
 														<div class="infoAreaWrapper">
 															<h5>
-																<a href="#" class="text-dark">${review.boardTitle }</a>
+																<a href="review/view/${review.boardNo}" class="text-dark">${review.boardTitle }</a>
 															</h5>
 															<div class="infoArea ">
 																<div class="viewArea float-left">
@@ -436,7 +409,7 @@
 
 											</c:forEach>
 										</c:if>
-										<div><a href="#" class="float-right more">더보기</a></div>
+										<div style="width: 100%; text-align: right;"><a href="review/list" class="more">더보기</a></div>
 										<!-- End -->
 									</div>
 								</div>
@@ -448,16 +421,7 @@
 	<jsp:include page="footer.jsp" />
 
 	<script>
-	// 게시글 상세보기 기능 (jquery를 통해 작업)
 	
-	$("#list-table td").on("click", function(){
-		var boardNo = $(this).parent().children().eq(0).text();
-
-		var boardViewURL = "${contextPath}/board/" + boardNo;
-		
-		location.href = boardViewURL;
-		
-	});
 	</script>
 
 </body>
