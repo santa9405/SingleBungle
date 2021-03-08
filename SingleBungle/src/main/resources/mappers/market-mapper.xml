@@ -297,11 +297,34 @@
 			SELECT * FROM
 		(SELECT ROWNUM RNUM, R.* FROM
 		(SELECT * FROM V_MARKET
-		WHERE MARKET_FL='N'
+		WHERE MARKET_FL='N' AND TRANSACTION_STATUS = 1
 		ORDER BY READ_COUNT DESC) R)
 		WHERE RNUM BETWEEN 1 AND 3
 		ORDER BY READ_COUNT DESC
 	</select>
+	
+	<!-- 닉네임 조회 -->
+	<select id="getNickname" resultType="string" parameterType="_int">
+		SELECT NICKNAME FROM MEMBER
+        WHERE MEM_NO = #{memberNo}
+	</select>
+	
+	<!-- 판매내역 게시글 수 조회 -->
+	<select id="getMyPageInfo" resultType="_int">
+		SELECT COUNT(*) FROM V_MARKET
+		WHERE MARKET_FL = 'N' AND MEM_NO = #{memberNo}
+	</select>
+	
+
+	
+		<!-- 판매내역 조회 -->
+		<select id="selectMypageList" parameterType="_int" resultMap="market_rm">
+		SELECT MARKET_NO, MARKET_TITLE, CATEGORY_NM,  PRICE, TRANSACTION_STATUS, TRANSACTION_CATEGORY
+		FROM V_MARKET
+		WHERE MARKET_FL = 'N' AND MEM_NO = #{memberNo}
+		ORDER BY MARKET_NO DESC
+	</select>
+	
 	
 	
 	

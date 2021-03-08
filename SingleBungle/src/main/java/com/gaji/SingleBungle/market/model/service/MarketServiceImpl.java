@@ -397,6 +397,30 @@ public class MarketServiceImpl implements MarketService {
 		return dao.marketListTop3();
 	}
 
+	
+	// 닉네임 조회
+	@Override
+	public String getNickname(int memberNo) {
+		return dao.getNickname(memberNo);
+	}
+	
+	// 판매내역 게시글 수 조회
+	@Override
+	public MarketPageInfo getMyPageInfo(int cp, int memberNo) {
+		int listCount = dao.getMyPageInfo(memberNo);
+		return new MarketPageInfo(cp, listCount);
+	}
+	
+	// 판매 내역 조회
+	@Override
+	public List<Market> selectMypageList(Map<String, Object> map) {
+		return dao.selectMypageList(map);
+	}
+
+
+
+	
+	
 
 	
 	

@@ -233,7 +233,40 @@ public class MarketDAO {
 	 */
 	public List<Market> marketListTop3() {
 		return sqlSession.selectList("marketMapper.reviewListTop3");
+	}
+
+
+	/** 닉네임 조회
+	 * @param memberNo
+	 * @return nickname
+	 */
+	public String getNickname(int memberNo) {
+		return sqlSession.selectOne("marketMapper.getNickname", memberNo);
+	}
+
+	/** 판매내역 게시글 수 조회
+	 * @param memberNo 
+	 * @return listCount
+	 */
+	public int getMyPageInfo(int memberNo) {
+		return sqlSession.selectOne("marketMapper.getMyPageInfo", memberNo);
 	}	
+	
+	
+	/** 판매내역 조회
+	 * @param map
+	 * @return mList
+	 */
+	public List<Market> selectMypageList(Map<String, Object> map) {
+		
+		MarketPageInfo temp = (MarketPageInfo) map.get("mpInfo");
+		int offset = (temp.getCurrentPage() - 1) *temp.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, temp.getLimit());
+		return sqlSession.selectList("marketMapper.selectMypageList", map, rowBounds);
+	}
+
+	
+
 	
 
 	
