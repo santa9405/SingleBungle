@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.message.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class MessageController {
 		// 보낸 쪽지함
 		@RequestMapping("messageBoxS")
 		public String message(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
-							  @ModelAttribute("loginMember") Member loginMember,
+							  @ModelAttribute(name="loginMember", binding=false) Member loginMember,
 							  Model model) {
 			
 			int memberNo = loginMember.getMemberNo();
@@ -64,7 +65,7 @@ public class MessageController {
 		// 받은 쪽지함
 		@RequestMapping("messageBoxR")
 		public String messageBox(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
-								@ModelAttribute("loginMember") Member loginMember,
+								@ModelAttribute(name="loginMember", binding=false) Member loginMember,
 								Model model) {
 			
 			int memberNo = loginMember.getMemberNo();
@@ -78,6 +79,9 @@ public class MessageController {
 			
 			// 받은 쪽지 목록 조회
 			List<Message> mList = service.selectReceiveList(map);
+
+			model.addAttribute("mList",mList);
+			model.addAttribute("pInfo", pInfo);
 		
 			return "/message/messageBoxR";
 		}
@@ -87,8 +91,8 @@ public class MessageController {
 		
 		// 메세지 전송
 		@RequestMapping("sendMessage")
-		public String sendMessage(@RequestParam("memberNo") int memberNo, @RequestParam("nickName") String nickName,
-									@RequestParam("content") String content, @ModelAttribute("loginMember") Member loginMember,	
+		public String sendMessage(@RequestParam("memberNo") int memberNo,
+									@RequestParam("content") String content, @ModelAttribute(name="loginMember", binding=false) Member loginMember,	
 									RedirectAttributes ra, HttpServletRequest request) {
 			
 			
@@ -96,12 +100,14 @@ public class MessageController {
 			
 			//  메세지 받는 사람
 			map.put("receiveMember", memberNo);
-			map.put("receiveNickName", nickName);
+			
+			System.out.println(memberNo);
 			
 			
 			// 메세지 보내는 사람
 			map.put("sendMember", loginMember.getMemberNo());
-			map.put("sendNickName", loginMember.getMemberNickname());
+			
+			System.out.println(loginMember.getMemberNo());
 			
 			
 			// 쪽지내용

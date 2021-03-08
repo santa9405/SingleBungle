@@ -107,7 +107,7 @@ public class ReviewReplyController {
 	// 댓글 신고 등록 Controller
 	@RequestMapping("reviewReplyReportAction")
 	public String insertReplyReport(@ModelAttribute ReviewReplyReport report, @RequestParam("replyNo") int replyNo,
-									@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember,
+									@RequestParam("boardNo") int boardNo, @ModelAttribute(name="loginMember", binding=false) Member loginMember,
 									HttpServletRequest request, RedirectAttributes ra) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();

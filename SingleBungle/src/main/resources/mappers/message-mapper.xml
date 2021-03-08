@@ -31,7 +31,7 @@
 	
 	<!-- 보낸 쪽지 목록 조회  -->
 	<select id="selectSendList" parameterType="map" resultMap="message_rm">
-		SELECT * FROM V_MESSAGE
+		SELECT * FROM V_SMESSAGE
 		WHERE SEND_STATUS = 'N'
 		AND SEND_MEMBER = #{memberNo}
 		ORDER BY MSG_NO DESC
@@ -41,13 +41,13 @@
 	<select id="getReceivePageInfo" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM V_MESSAGE
 		WHERE RECEIVE_STATUS ='N'
-		AND RECEIVE_MEMBER = #{memberNo}  
+		AND RECEIVE_MEMBER = #{memberNo}
 	</select>
 	
 	
 	<!-- 받은 쪽지 목록 조회  -->
 	<select id="selectReceiveList" parameterType="map" resultMap="message_rm">
-		SELECT * FROM V_MESSAGE
+		SELECT * FROM V_RMESSAGE
 		WHERE RECEIVE_STATUS = 'N'
 		AND RECEIVE_MEMBER = #{memberNo}
 		ORDER BY MSG_NO DESC		

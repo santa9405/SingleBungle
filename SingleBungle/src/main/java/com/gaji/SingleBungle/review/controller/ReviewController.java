@@ -48,7 +48,7 @@ public class ReviewController {
 	// 목록 조회
 	@RequestMapping("list")
 	public String reviewList(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
-							@ModelAttribute("loginMember") Member loginMember, Model model,
+							@ModelAttribute(name="loginMember", binding=false) Member loginMember, Model model,
 							RedirectAttributes ra) {
 		
 		String url = null;
@@ -98,7 +98,7 @@ public class ReviewController {
 	// 상세조회
 	@RequestMapping("view/{boardNo}")
 	public String reviewView(@PathVariable("boardNo") int boardNo, Model model, @RequestHeader(value="referer",required=false) String referer,
-							RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
+							RedirectAttributes ra, @ModelAttribute(name="loginMember", binding=false) Member loginMember) {
 		
 		Review review = service.selectReview(boardNo);
 		
@@ -157,7 +157,7 @@ public class ReviewController {
 	// 좋아요 증가 Controller
 	@ResponseBody
 	@RequestMapping("view/increaseLike")
-	public int increaseLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+	public int increaseLike(@RequestParam("boardNo") int boardNo, @ModelAttribute(name="loginMember", binding=false) Member loginMember) {
 		
 		int memberNo = loginMember.getMemberNo();
 		
@@ -199,7 +199,7 @@ public class ReviewController {
 	
 	// 게시글 등록
 	@RequestMapping("reviewInsert")
-	public String reviewInsert(@ModelAttribute Review review, @ModelAttribute("loginMember") Member loginMember,
+	public String reviewInsert(@ModelAttribute Review review, @ModelAttribute(name="loginMember", binding=false) Member loginMember,
 							    HttpServletRequest request, RedirectAttributes ra) {
 		
 		
@@ -391,7 +391,7 @@ public class ReviewController {
 	// 게시글 신고 등록
 	@RequestMapping("reviewReportAction")
 	public String insertReviewReport(@ModelAttribute("report") ReviewReport reply , @RequestParam("boardNo") int boardNo,
-									@ModelAttribute("loginMember") Member loginMember, HttpServletRequest request, RedirectAttributes ra) {
+									@ModelAttribute(name="loginMember", binding=false) Member loginMember, HttpServletRequest request, RedirectAttributes ra) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", loginMember.getMemberNo());
@@ -425,7 +425,7 @@ public class ReviewController {
 	// 관리자 삭제된 게시글 상세조회
 	@RequestMapping("deleteManage/{boardCode}/{boardNo}")
 	public String deleteManageBoard(@PathVariable("boardCode") int boardCode, @PathVariable("boardNo") int boardNo, Model model,
-			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember) {
+			@RequestHeader(value="referer",required=false) String referer, RedirectAttributes ra, @ModelAttribute(name="loginMember", binding=false) Member loginMember) {
 
 
 		Review review = service.selectDeleteReview(boardNo);

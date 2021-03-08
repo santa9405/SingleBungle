@@ -296,7 +296,7 @@
 					data : {"memberNo":memberNo, "replyContent":replyContent},
 					success : function(result){
 						if(result>0){
-							$(".replyContent").val("");
+							$("#replyContent").val("");
 							swal({icon:"success", title:"댓글이 작성되었습니다."});
 							selectReplyList();
 						}
