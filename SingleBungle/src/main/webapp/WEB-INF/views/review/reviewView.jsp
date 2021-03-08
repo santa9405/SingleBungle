@@ -347,22 +347,21 @@ body {
 </div>
 <!-- Modal HTML -->
 
+			<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
 	<div id="sendMessage" class="modal fade">
 		<div class="modal-dialog modal-confirm">
 			
-			<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">받는사람 :  ${review.nickName } </h5> 
 						<input type="hidden" name="memberNo" value="${review.memberNo}">
-						<input type="hidden"  name="nickName" value="${review.nickName }">
 					</div>
 					<div class="modal-body">
 						<textarea class="messageText" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
 					</div>
 					<div class="modal-footer">
 						<div class="col">
-							<button type="submit" class="btn maincolor btn-block" data-dismiss="modal">
+							<button type="submit" class="btn maincolor btn-block">
 								<span class="plan">전송</span>
 							</button>
 						</div>
@@ -373,9 +372,9 @@ body {
 						</div>
 					</div>
 				</div>
-			</form> 
 			</div>
 	</div>  
+			</form> 
 </c:if>
 
 
