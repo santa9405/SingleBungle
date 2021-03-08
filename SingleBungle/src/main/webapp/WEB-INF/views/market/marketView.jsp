@@ -212,7 +212,17 @@
 	background-image: url('${contextPath}/resources/images/like2.png');
 	background-repeat: no-repeat;
 }
+
+.seller a {
+	text-decoration: none;
+	color : orange;
+}
   
+  
+.viewdetail:hover {
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -223,36 +233,17 @@
       <div class="row py-5 no-gutters">
 							<div class="col-md-12">
 							
-			<form action="#" method="GET">
-          <div class="input-group mb-4 col-md-8 searchArea">
-            <input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control">
-            <div class="input-group-append">
-              <button id="searchBtn" type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
-            </div>
-          </div>
-        </form>
-      
-							
-							
-							
 			<button type="button" class="btn btn-success float-right returnBtn">목록</button>
 		</div>
         <div class="col-lg-12 mx-auto">
         	      
           <div class="text-black  banner">
-								<h1 class="boardName float-left">사고팔고</h1>
-								<a class="category" href="#">전체</a> <span>|</span> <a class="category" href="#">팝니다</a> <span>|</span> <a class="category" href="#">삽니다</a>
-
-								<div class="listTest float-right">
-									<a class="category" href="#">최신순</a> <span>|</span> <a class="category" href="#">좋아요순</a> <span>|</span> <a class="category" href="#">저가순</a> <span>|</span> <a class="category" href="#">고가순</a>
-								</div>
-        <hr>
+								<h1 class="boardName ">사고팔고</h1>
+								<hr>
           </div>
         </div>
       </div>
       <!-- End -->
-      
-
       
 
 
@@ -346,8 +337,9 @@
 					
 						<div class="itemInfoList">
 							<ul >
-								<li class="sellerManor ">
-										<label>매너온도</label> <span>${market.rating}℃</span>
+								<li class="seller">
+										<label>판매자</label> <a href='${contextPath}/market/mypage/${market.memNo}'>${market.nickname}</a>
+										
 								</li>
 								
 								<li class="itemStatus">
@@ -385,15 +377,14 @@
 							</a>
 							
 							
-							
-							
-							
-							
-							
-							
 							<a href="#" class="btn btn-secondary btn-lg btnW active" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="message"> 
 								<span class="messageText">쪽지</span>
+							</a>
+							
+							<a href="#" class="btn btn-info btn-lg btnW" role="button" aria-pressed="true">
+								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="deal"> 
+								<span class="messageText">거래신청</span>
 							</a>
 						</div>
 						
@@ -456,98 +447,102 @@
 		
 		<h5 class="popularItemTitle">사고팔고 인기 게시글</h5>
 		<hr>
-		<div class="row" style="margin-bottom: 25px;">
-			<div class="col-md-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
-					</div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" > <span class="likeCnt">100</span>
-								</button>
-							</span>
 
 
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-				</div>
+			<div class="row itemArea">
+				<!-- Gallery item -->
+
+				<c:if test="${empty marketList}">존재하는 게시글이 없습니다!</c:if>
+				<c:if test="${!empty marketList}">
+					<c:forEach var="market" items="${marketList}" varStatus="vs">
+						<div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+							<div class="bg-white rounded shadow-sm viewdetail">
+								<span style='visibility: hidden;'>${market.marketNo}</span>
+								<div class="embed-responsive embed-responsive-4by3">
+							
+									<c:forEach items="${thList}" var="th">
+									<c:if test="${th.parentMarketNo == market.marketNo}">
+									<img src="${contextPath}/${th.filePath}/${th.fileName}" 
+										class="img-fluid card-img-top embed-responsive-item marketNo"
+										<c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>>
+									</c:if>
+									</c:forEach>
+								</div>
+								<div class="p-4">
+									<h5>
+										<a class="text-dark marketNo">${market.marketTitle}</a>
+									</h5>
+									<div class="categoryDetail float-left row_2">
+										<p class="small text-muted mb-0">
+											<c:if test="${market.transactionCategory == 1}">삽니다</c:if>
+											<c:if test="${market.transactionCategory == 2}">팝니다</c:if>
+										</p>
+										<p class="small text-muted mb-0">${market.categoryNm}</p>
+									</div>
+
+										
+
+									<!-- 좋아요 버튼 -->
+									<span class="float-right">
+								
+											<img src="${contextPath}/resources/images/like1.png"
+												width="20" height="20" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.marketNo == market.marketNo}">like2</c:if></c:forEach>'>
+											<span class="likeCnt">${market.likes}</span>
+					
+									</span>
+									
+									
+									
+									
+
+									<div
+										class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
+										<p class="small mb-0">
+											<i class="mr-2"></i><span class="font-weight-bold price"> <fmt:formatNumber value="${market.price}" pattern="###,###,###,###"/>
+												원</span>
+										</p>
+										<c:if test="${market.transactionStatus == 1}">
+											<div
+												class="badge badge-info px-3 rounded-pill font-weight-normal"
+												style="background-color: #deb887;">거래중</div>
+										</c:if>
+										<c:if test="${market.transactionStatus == 2}">
+											<div
+												class="badge badge-info px-3 rounded-pill font-weight-normal"
+												style="background-color: #e01515ad;">예약중</div>
+										</c:if>
+										<c:if test="${market.transactionStatus == 3}">
+											<div
+												class="badge badge-info px-3 rounded-pill font-weight-normal"
+												style="background-color: #3596ead6;">거래완료</div>
+										</c:if>
+
+									</div>
+								</div>
+								<span id="marketNo"  style="visibility: hidden">${market.marketNo}</span>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
+				<!-- End -->
 			</div>
-			<div class="col-md-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
-					</div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt2">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="bg-white rounded shadow-sm">
-					<div class="embed-responsive embed-responsive-4by3">
-						<img src="${contextPath}/resources/images/reviewTestImg.png"  class="img-fluid card-img-top embed-responsive-item">
-					</div>
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">mcm 장지갑 팝니다.</a></h5>
-              <div class="categoryDetail float-left row_2">
-                <p class="small text-muted mb-0">전자기기</p>
-              </div>
-              
-              
-              
-            <!-- 좋아요 버튼 -->
-							<span class="float-right">
-								<button type="button" id="likeBtn">
-									<img src="${contextPath}/resources/images/like1.png" width="15" height="15" id="heart" class='<c:if test="${likes > 0}">like</c:if>'> <span class="likeCnt">100</span>
-								</button>
-							</span>
-
-
-							<div
-                class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 priceArea">
-                <p class="small mb-0"><i class="mr-2"></i><span class="font-weight-bold price">60,000원</span></p>
-                <div class="badge badge-info px-3 rounded-pill font-weight-normal">거래완료</div>
-              </div>
-            </div>
-				</div>
-			</div>
-		</div>
-</div>
+		
+		
+		
+		
 
 	<script>
+	
+	// 인기 게시글 상세 조회
+		$(".viewdetail").on("click",function(){
+		var marketNo = $(this).children("span#marketNo").text();
+		
+		var marketViewURL = marketNo;
+		
+		location.href = marketViewURL;
+	});
+	
+	
 	
 	// 목록으로 버튼
 	$(".returnBtn").on("click", function(){
@@ -561,7 +556,9 @@
 	
 	// 삭제버튼
 	$(".MdeleteBtn").on("click", function(){
-		if(confirm("삭제 하시겠습니까?")){
+		var result = confirm("삭제 하시겠습니까?");
+		
+		if(result==true){
 			location.href = "${contextPath}/market/delete/${market.marketNo}";
 		}
 	});

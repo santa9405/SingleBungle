@@ -128,6 +128,27 @@ public interface MarketService {
 	 */
 	List<Market> marketListTop3();
 
+	/** 닉네임 조회
+	 * @param memberNo
+	 * @return nickname
+	 */
+	String getNickname(int memberNo);
+
+	/** 판매내역 게시글 카운트 
+	 * @param cp
+	 * @param memberNo 
+	 * @return listCount
+	 */
+	MarketPageInfo getMyPageInfo(int cp, int memberNo);
+
+	
+	/** 판매내역 조회
+	 * @param map
+	 * @return mList
+	 */ 
+	List<Market> selectMypageList(Map<String, Object> map);
+
+
 	
 
 

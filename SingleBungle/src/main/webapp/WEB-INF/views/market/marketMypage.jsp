@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +31,7 @@
 
 
 #mainMenu li:not(:last-of-type) {
-  margin-right: 50px;
+  margin-right: 10px;
 }
 
 #mainMenu li > a::before {
@@ -233,6 +236,19 @@
 	color : rgb(102, 102, 102);
 }
 
+.navbar-nav a {
+	cursor: pointer;
+}
+
+.navbar-nav span {
+	font-size: 20px;
+	font-weight: initial;
+}
+
+.spec{
+	float : left;
+}
+
 
 
   </style>
@@ -256,14 +272,11 @@
                     </button>
         <div class="m-auto" id="mainMenu">
           <ul class="navbar-nav ml-auto text-uppercase f1">
-            <li>
-              <a href="#about">구매 내역</a>
+          	 <li>
+              <span>${nickname} 님의</span>
             </li>
             <li>
-              <a href="#service">판매 내역</a>
-            </li>
-            <li>
-              <a href="#project">거래 후기</a>
+              <a >판매 내역</a>
             </li>
           </ul>
         </div>
@@ -271,23 +284,40 @@
     </div>
     <!-- /.container -->
   </header>
+					
+					<c:if test="${empty mList}">존재하는 게시글이 없습니다!</c:if>
+					<c:if test="${!empty mList}">
+						<c:forEach var="market" items="${mList}" varStatus="vs">
 					<div class="row text-center">
 					<div class="col-md-6" style="width: 30%; float:none; margin:0 auto">
-					<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded ">
-                        <div class="d-flex flex-row"><img class="rounded" src="https://i.imgur.com/QRwjbm5.jpg" width="60" >
-                            <div class="ml-2"><span class="font-weight-bold d-block">Iphone 11 pro</span><span class="spec">256GB, Navy Blue</span></div>
+					<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded view">
+                        <div class="d-flex flex-row ">
+                        <span class="viewMarketNo" style='visibility: hidden;'>${market.marketNo}</span>
+                        <c:forEach items="${thList}" var="th">
+                        <c:if test="${ th.parentMarketNo == market.marketNo}">
+                        <img class="rounded" src="${contextPath}/${th.filePath}/${th.fileName}"  width="70" >
+                        </c:if>
+                        </c:forEach>
+                            <div class="ml-2"><span class="font-weight-bold d-block">${market.marketTitle}</span>
+                            <span class="spec"><fmt:formatNumber value="${market.price}" pattern="###,###,###,###"/>원</span></div>
                         </div>
                     </div>
-                    
-                    
-                    <div class="btnArea">
+                    <hr>
+         <!--            <div class="btnArea">
                         <button type="button" id="reportBtn" class="reviewBtn btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">후기 남기기</button>
-                    </div>
-                    </div>
+                    </div> -->
                     </div>
                     
+  
                     
-          <div class="row">
+           </div>
+           </c:forEach>
+           </c:if>
+           
+           
+                    
+                    
+    <%--       <div class="row">
 					<div class="col-md-8" style="width: 30%; float:none; margin:0 auto">
 					<hr>
          	<div class="reviewArea">
@@ -313,14 +343,68 @@
 						<hr>
 						</div>
 						
-					</div>   
+					</div>    --%>
             
-					
-				</div>
-								<div class="col-md-2">
+							                  <div class="padding">
+				<c:set var="firstPage" value="?cp=1" />
+				<c:set var="lastPage" value="?cp=${mpInfo.maxPage}" />
+
+				<fmt:parseNumber var="c1" value="${(mpInfo.currentPage - 1) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+				<c:set var="prevPage" value="?cp=${prev}" />
+
+
+				<fmt:parseNumber var="c2" value="${(mpInfo.currentPage + 9) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+				<c:set var="nextPage" value="?cp=${next}" />
+
+
+
+				<div class="container d-flex justify-content-center">
+					<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+						<nav>
+							<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+								<c:if test="${mpInfo.currentPage > mpInfo.pageSize}">
+									<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
+									<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+								</c:if>
+
+
+								<!-- 페이지 목록 -->
+								<c:forEach var="page" begin="${mpInfo.startPage}" end="${mpInfo.endPage}">
+									<c:choose>
+										<c:when test="${mpInfo.currentPage == page }">
+											<li class="page-item active"><a class="page-link" data-abc="true">${page}</a></li>
+										</c:when>
+
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" href="?cp=${page}" data-abc="true">${page}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+
+								<c:if test="${next <= mpInfo.maxPage}">
+									<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+									<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+								</c:if>
+							</ul>
+						</nav>
+
+					</div>
 				</div>
 			</div>
+				</div>
+				
+				
+								<div class="col-md-2">
+								
+				</div>
+			</div>
+	
 		</div>
+		
 	</div>
 </div>
 <jsp:include page="../common/footer.jsp"/>
@@ -341,7 +425,10 @@
   <script src="scripts/index.js"></script>
   
   <script>
-
+	
+  $(".view").on("click", function(){
+	  location.href = "../" + ${market.marketNo};
+  });
   </script>
 </body>
 </html>

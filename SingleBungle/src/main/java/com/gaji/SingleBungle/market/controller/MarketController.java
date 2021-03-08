@@ -32,6 +32,7 @@ import com.gaji.SingleBungle.market.model.vo.MarketSearch;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewLike;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 import com.gaji.SingleBungle.review.model.vo.ReviewReport;
 import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
@@ -136,10 +137,24 @@ public class MarketController {
 		
 		if (market != null) {
 			
+			// 조회수 상위 3 썸네일
+			List<Market> marketList = service.marketListTop3();
+			
+			if(marketList != null && !marketList.isEmpty()) {
+				List<MarketAttachment> thList = service.selectThumbnailList(marketList);
+				
+				if(thList != null) {
+					model.addAttribute("thList", thList);
+				}
+			}
+			
+			
 			// 해당 게시글에 좋아요를 눌렀는지 확인
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("memberNo", loginMember.getMemberNo());
 			map.put("marketNo", marketNo);
+			
+			List<MarketLike> likeInfo = service.selectLike(loginMember.getMemberNo());			
 			
 			int like = service.selectLikePushed(map);
 			model.addAttribute("likeCheck", like);
@@ -153,6 +168,9 @@ public class MarketController {
 			
 			//model.addAttribute("loginMember", loginMember);
 			model.addAttribute("market", market);
+			model.addAttribute("marketList",marketList);
+			model.addAttribute("likeInfo",likeInfo);
+			model.addAttribute("like", like);
 			url = "market/marketView";
 		} else {
 			
@@ -399,8 +417,36 @@ public class MarketController {
 	}
 	
 	
-	@RequestMapping("mypage")
-	public String marketMypage() {
+	@RequestMapping("mypage/{memberNo}")
+	public String marketMypage(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+								@PathVariable("memberNo") int memberNo,
+								Model model) {
+		
+		// 닉네임 
+		String nickname = service.getNickname(memberNo);
+		
+		if(nickname != null) {
+			
+			MarketPageInfo mpInfo = service.getMyPageInfo(cp, memberNo);
+			
+			
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("mpInfo", mpInfo); 
+			
+			List<Market> mList = service.selectMypageList(map);
+			
+			if(mList != null && !mList.isEmpty()) {
+				List<MarketAttachment> thList = service.selectThumbnailList(mList);
+				if(thList != null) {
+					model.addAttribute("thList", thList);
+				}
+			}
+			model.addAttribute("mpInfo", mpInfo);
+			model.addAttribute("mList", mList);
+			model.addAttribute("nickname", nickname);
+		}
 		return "market/marketMypage";
 	}
 	

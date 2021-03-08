@@ -266,16 +266,6 @@
 				<div class="px-lg-5">
 				
 				
-					<form action="#" method="GET" >
-						<div class="input-group mb-4 col-md-8 searchArea">
-							<input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control" >
-							<div class="input-group-append">
-								<button id="searchBtn" type="submit" class="btn btn-info">
-									<i class="fa fa-search"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 
 
 					<!-- 게시판 이름/카테고리 -->
