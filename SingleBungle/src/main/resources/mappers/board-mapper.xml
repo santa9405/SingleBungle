@@ -329,5 +329,7 @@
 		AND BOARD_CD = '1'
 	</select>
 	
+	
+	<select id="deleteMarket" parameterType="Market"></select>
 
 </mapper>

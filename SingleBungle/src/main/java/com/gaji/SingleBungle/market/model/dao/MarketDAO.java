@@ -178,9 +178,47 @@ public class MarketDAO {
 	 */
 	public int insertReviewReport(Map<String, Object> map) {
 		return sqlSession.insert("marketMapper.insertReviewReport",map);
+	}
+
+
+	/** 게시글 신고 DAO
+	 * @param market
+	 * @return result
+	 */
+	public int deleteMarket(Market market) {
+		return sqlSession.update("marketMapper.deleteMarket", market);
+	}
+
+	
+
+	/** 사고 팔고 글 부분 수정 DAO
+	 * @param market
+	 * @return result
+	 */
+	public int updateMarket(Market market) {
+		return sqlSession.update("marketMapper.updateMarket", market);
+	}
+
+
+	/** 이전 파일의 레벨을 변경시키는 DAO
+	 * @param newAt
+	 * @return result
+	 */ 
+	public int updateOldFile(MarketAttachment newAt) {
+		return sqlSession.update("marketMapper.updateOldFile", newAt);
+	}
+
+
+	/** 삭제된 이전 파일 정보 삭제 DAO
+	 * @param removeFileList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<MarketAttachment> removeFileList) {
+		return sqlSession.delete("marketMapper.deleteAttachmentList", removeFileList);
 	}	
 	
 
+	
 
 
 

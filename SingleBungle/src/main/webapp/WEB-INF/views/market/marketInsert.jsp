@@ -468,6 +468,7 @@
 
 	<script>
 	var imgCnt = 0;
+	var imgId = 0;
 	
 	if(imgCnt <= 10) {
 		function LoadImg(value) {
@@ -475,9 +476,11 @@
 				var reader = new FileReader();
 				reader.readAsDataURL(value.files[0]);
 
+				imgId++;
+				
 				reader.onload = function(e) {
-					var img = '<li class="itemImage"> <img id="img' + imgCnt + '" class="image" name="test1" src="' + e.target.result + '">' +
-						'<button type="button" class="deleteBtn" onclick="deleteImg(this);"></button>' + '</li>';
+					var img = '<li class="itemImage"> <img id="img' + (imgId) + '" class="image" name="test1" src="' + e.target.result + '">' +
+						'<button type="button" class="deleteBtn" onclick="deleteImg(this, '+imgId+');"></button>' + '</li>';
 					$(".itemImages").append(img);
 					$("#imgCnt").text(++imgCnt); 
 					addImgInput();
@@ -487,17 +490,21 @@
 	}
 	
 	function addImgInput(){
-		var input = '<label for="images' + imgCnt +'" class="imgLabel">' +
+		var input = '<label for="images' + (imgId) +'" class="imgLabel">' +
 								'<span>이미지 등록</span></label>'+
-								'<input type="file" id="images' + imgCnt + '" name="images" style="display:none;" onchange="LoadImg(this);">';
+								'<input type="file" id="images' + (imgId) + '" name="images" style="display:none;" onchange="LoadImg(this);">';
 		$(".itemImageInsert label").css("display", "none");
 		$('.itemImageInsert').append(input);
 	}
 	
-    function deleteImg(value) {
+    function deleteImg(value, num) {
     		$("#imgCnt").text(--imgCnt);
         $(value).parent().remove();
-        $(value).remove();
+        var id = "images" + num;
+        $("label[for="+id+"]").remove();
+        $("input[id="+id+"]").remove();
+        
+        $(".imgLabel").eq($(".imgLabel").length - 1).show();
      }
     
     
