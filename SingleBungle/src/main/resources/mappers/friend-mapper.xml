@@ -32,6 +32,14 @@
          <result property="fileName" column="FILE_NAME"/>  
          <result property="friendNo" column="FRIEND_NO"/>
    </resultMap>
+	
+	<resultMap type="FriendChat" id="chat_rm">
+         <id property="chattingNo" column="CHATTING_NO"/>
+         <result property="message" column="MESSAGE"/>
+         <result property="createDate" column="CREATE_DATE"/>  
+         <result property="friendNo" column="FRIEND_NO"/>
+         <result property="memNo" column="MEM_NO"/>
+   </resultMap>
    
    <!-- 전체 게시글 수 조회 -->
    <select id="getListCount" resultType="_int">
@@ -228,6 +236,18 @@
    		SELECT * FROM V_FBOARD
    		WHERE BOARD_STATUS = 'Y'
    		AND FRIEND_NO = #{friendNo}
+   </select>
+   
+   <!-- 친구찾기 채팅 삽입 -->
+   <insert id="insertChat" parameterType="map">
+   		INSERT INTO CHATTING VALUES
+   		(SEQ_FCNO.NEXTVAL, #{chat}, DEFAULT, #{friendNo}, #{memberNo})
+   </insert>
+   
+   <!-- 친구찾기 채팅 조회 -->
+   <select id="selectChatList" parameterType="_int" resultMap="chat_rm">
+   		SELECT * FROM CHATTING
+   		WHERE FRIEND_NO = #{friendNo}
    </select>
 
 </mapper>

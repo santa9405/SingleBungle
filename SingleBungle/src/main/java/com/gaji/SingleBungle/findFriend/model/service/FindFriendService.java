@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
 
@@ -120,6 +121,18 @@ public interface FindFriendService {
 	 * @return findFriend
 	 */
 	FindFriend selectDeleteBoard(int friendNo);
+
+	/** 친구찾기 채팅 삽입 Service
+	 * @param map
+	 * @return result
+	 */
+	int insertChat(Map<String, Object> map);
+
+	/** 친구찾기 채팅 조회 Service
+	 * @param friendNo
+	 * @return cList
+	 */
+	List<FindFriendChatting> selectChatList(int friendNo);
 
 	
 

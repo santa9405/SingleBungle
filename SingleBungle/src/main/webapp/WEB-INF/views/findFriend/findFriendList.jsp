@@ -133,7 +133,21 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-<body>
+	
+	<!-- 주소 조합 작업 -->
+	<c:choose>
+		<c:when test="${!empty rSearch}">
+		
+				<c:if test="${!empty rSearch.ct}">
+					<c:set var="category" value="ct=${rSearch.ct}&"/>
+				</c:if>
+				
+				<c:if test="${!empty rSearch.sort}">
+					<c:set var="sort" value="sort=${rSearch.sort}"/>
+				</c:if>
+				
+		</c:when>
+	</c:choose>
 
 	<div class="container my-5">
 
@@ -219,10 +233,10 @@
 			</table>
 		</div>
 
-		<%-- 로그인이 되어있는 경우 --%>
-		<c:if test="${!empty loginMember}">
+		<%-- 로그인이 되어있고 3등급 이상일 경우 --%>
+		<c:if test="${!empty loginMember && loginMember.memberGrade == 'T'}">
 			<div class="text-right">
-				<a class="btn btn-success float-right" href="#">글쓰기</a>
+				<a class="btn float-right maincolor" href="${contextPath}/findFriend/insert">글쓰기</a>
 			</div>
 		</c:if>
 
@@ -307,7 +321,6 @@
 		</div>
 	</div>
 
-</body>
 <jsp:include page="../common/footer.jsp" />
 
 <script>

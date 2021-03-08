@@ -92,7 +92,7 @@
 						</div>
 						<div class="mt-2 text-right">
 							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
-							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">취소</button>
+							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" id="cancelBtn" type="button">취소</button>
 						</div>
 					</div>
 				</div>
@@ -201,6 +201,13 @@
 		});
 		
 	}
+	
+	//-----------------------------------------------------------------------------------------
+	
+	// 댓글 입력 취소
+	$("#cancelBtn").on("click", function(){
+		$("#replyContent").val("");
+	});
 	
 	//-----------------------------------------------------------------------------------------
 	

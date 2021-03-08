@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
 
@@ -200,6 +201,22 @@ public class FindFriendDAO {
 	 */
 	public FindFriend selectDeleteBoard(int friendNo) {
 		return sqlSession.selectOne("friendMapper.selectDeleteBoard", friendNo);
+	}
+
+	/** 친구찾기 채팅 삽입 DAO
+	 * @param fChat
+	 * @return result
+	 */
+	public int insertChat(Map<String, Object> map) {
+		return sqlSession.insert("friendMapper.insertChat", map);
+	}
+
+	/** 친구찾기 채팅 조회 DAO
+	 * @param friendNo
+	 * @return cList
+	 */
+	public List<FindFriendChatting> selectChatList(int friendNo) {
+		return sqlSession.selectList("friendMapper.selectChatList", friendNo);
 	}
 
 }
