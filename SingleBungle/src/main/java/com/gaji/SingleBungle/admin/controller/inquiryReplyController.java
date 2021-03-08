@@ -47,6 +47,8 @@ public class inquiryReplyController {
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm:ss").create();
 		
+		System.out.println(rList);
+		
 		return gson.toJson(rList);
 	}
 	
@@ -55,33 +57,21 @@ public class inquiryReplyController {
 	// 댓글 등록
 	@ResponseBody
 	@RequestMapping("insertReplyList/{parentBoardNo}")
-	public int insertReply(@PathVariable("parentBoardNo") int parentBoardNo, @ModelAttribute("reply") inquiryReply reply) {
+	public int insertReply(@PathVariable("parentBoardNo") int parentBoardNo, @RequestParam("replyContent") String replyContent, @ModelAttribute("reply") inquiryReply reply) {
 		
-		reply.setParentBoardNo(parentBoardNo);
+		reply.setInquiryNo(parentBoardNo);
+		reply.setInquiryContent(replyContent);
+		System.out.println("reply : " + reply);
+		int result = service.insertReply(reply);
+		
+		if(result > 0) {
+			result = service.updateInquiryFl(parentBoardNo);
+		}
 		
 		return service.insertReply(reply);
 	}
 	
-	
-	
-	// 댓글 수정
-	@ResponseBody
-	@RequestMapping("updateReply/{replyNo}")
-	public int updateReply(@PathVariable("replyNo") int replyNo, 
-						   @ModelAttribute("reply") inquiryReply reply) {
-		
-		reply.setReplyNo(replyNo);
-		
-		return service.updateReply(reply);
-	}
-	
-	
-	// 댓글 삭제
-	@ResponseBody
-	@RequestMapping("deleteReply/{replyNo}")
-	public int deleteReply(@PathVariable("replyNo") int replyNo) {
-		return service.deleteReply(replyNo);
-	}
+
 	
 	
 	

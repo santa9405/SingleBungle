@@ -27,8 +27,8 @@ public class inquiryReplyServiceImpl implements inquiryReplyService{
 		@Transactional(rollbackFor = Exception.class)
 		@Override
 		public int insertReply(inquiryReply reply) {
-			reply.setReplyContent(replaceParameter (reply.getReplyContent()));
-			reply.setReplyContent(reply.getReplyContent().replaceAll("\n", "<br>"));
+			reply.setInquiryContent(replaceParameter (reply.getInquiryContent()));
+			reply.setInquiryContent(reply.getInquiryContent().replaceAll("\n", "<br>"));
 			
 			return dao.insertReply(reply);
 		}
@@ -49,24 +49,14 @@ public class inquiryReplyServiceImpl implements inquiryReplyService{
 			
 		}
 
-		
-		
-	// 댓글 수정
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int updateReply(inquiryReply reply) {
-		reply.setReplyContent( replaceParameter( reply.getReplyContent() ) );
-		reply.setReplyContent( reply.getReplyContent().replaceAll("\n", "<br>"));		
-		
-		return dao.updateReply(reply);
-	}
 
-	
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int deleteReply(int replyNo) {
-		return dao.deleteReply(replyNo);
-	}
+		@Override
+		public int updateInquiryFl(int parentBoardNo) {
+			return dao.updateInquiryFl(parentBoardNo);
+			
+		}
+
+
 
 	
 }
