@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageMapper">
+	
+	<resultMap type="ReviewReply" id="reply_rm">
+		<id property="messageNo" column="MSG_NO"/>
+		
+		<result property="sendMember" column="SEND_MEMBER"/>
+		<result property="receiveMember" column="RECEIVE_MEMBER"/>
+		<result property="sendNickName" column="SEND_NICK"/>
+		<result property="receiveNickName" column="RECEIVE_NICK"/>
+		<result property="messageContent" column="MSG_CONTENT"/>
+		<result property="createDt" column="CREATE_DT"/>
+		<result property="messageStatus" column="MESSAGE_STATUS"/>
+	</resultMap>
+
+
+
+</mapper>

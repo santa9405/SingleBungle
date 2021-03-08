@@ -19,6 +19,8 @@
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewSearch" alias ="ReviewSearch"/>
   	<typeAlias type="com.gaji.SingleBungle.review.model.vo.ReviewLike" alias ="ReviewLike"/>
   			 
+  	<typeAlias type="com.gaji.SingleBungle.message.model.vo.Message" alias ="Message"/>
+  			 
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.ABoard" alias="ABoard" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.AAttachment" alias="AAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.admin.vo.inquiry" alias="inquiry" />
@@ -76,6 +78,9 @@
 
   	<mapper resource="/mappers/review-mapper.xml"/>
   	<mapper resource="/mappers/reviewReply-mapper.xml"/>
+  	
+  	
+  	<mapper resource="/mappers/message-mapper.xml"/>
   	
   	<mapper resource="/mappers/admin-mapper.xml" />
   	<mapper resource="/mappers/inquiryReply-mapper.xml" />
