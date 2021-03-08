@@ -108,7 +108,20 @@ color: #FFFFFF !important; }
             <div class="col-md-12">
                 <h8>맛집게시판</h8>
 								<div class="float-right">
-									<button type="button" class="btn maincolor-re mb-3 btn-sm insert-list">목록</button>
+									<c:set var="referer" value="${header.referer}"/>
+										<c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+										<c:set var="l" value="${fn:length(referer)}"/>
+										<c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
+										
+										<c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+										<c:set var="l" value="${fn:length(referer)}"/>
+										<c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
+										
+										<c:if test="${referer == contextPath}">
+										 <c:set var="returnListUrl" value="list"/>
+										</c:if>
+									<a type="button" class="btn maincolor-re mb-3 btn-sm insert-list" href="${returnListUrl }">목록</a>
+									<!-- <button type="button" class="btn maincolor-re mb-3 btn-sm insert-list">목록</button> -->
 									<c:if test="${loginMember.memberNo != cafe.memberNo }">
 									<button type="button" class="btn btn-sm mb-3 report"><img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">신고</button>
 									</c:if>
@@ -198,10 +211,13 @@ color: #FFFFFF !important; }
 								<!-- 목록버튼 -->
 								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<button type="button" class="btn maincolor-re1 insert-list">목록으로</button>
+									
+								<a type="button" class="btn maincolor-re1 insert-list" href="${returnListUrl }">목록으로</a>
+										
 									</div>
 								</div>
-                
+								<!-- <button type="button" class="btn maincolor-re1 insert-list">목록으로</button> -->
+                <p></p>
                 
                 
                 
