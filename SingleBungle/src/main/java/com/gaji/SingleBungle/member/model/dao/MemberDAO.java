@@ -1,5 +1,7 @@
 package com.gaji.SingleBungle.member.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,6 +49,15 @@ public class MemberDAO {
 	 */
 	public int signUp(Member signUpMember) {
 		return sqlSession.insert("memberMapper.signUp", signUpMember);
+	}
+
+
+	/** 이름, 메일 일치 검사 DAO 
+	 * @param map
+	 * @return result 
+	 */
+	public int nameMailCheck(Map<String, Object> map) {
+		return sqlSession.selectOne("memberMapper.nameMailCheck", map);
 	}
 
 

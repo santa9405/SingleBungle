@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비밀번호 찾기</title>
+    <title>2비밀번호 찾기</title>
 
     <!-- 구글 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
@@ -159,11 +159,14 @@
                     
                     <div class="form-row" id="idpw-area">
                         <div class="form-group col-md-6" id="id-area">
-                            <button type="submit" class="btn btn-primary btn-block maincolor-re">아이디 찾기</button>
+                        	<a href="${contextPath}/member/findIdForm">
+	                            <button type="button" class="btn btn-primary btn-block maincolor-re">아이디 찾기</button>
+                        	</a>
                         </div>
                         <div class="form-group col-md-6" id="pw-area">
-                            <button type="submit" class="btn btn-outline-primary btn-block maincolor-re">비밀번호
-                                찾기</button>
+	                        <a href="${contextPath}/member/findPwForm">
+	                            <button type="button" class="btn btn-outline-primary btn-block maincolor-re">비밀번호                                찾기</button>
+	                        </a>
                         </div>
                     </div>
                     <hr>
@@ -194,7 +197,7 @@
                     <br>
                     <hr>
 
-                    <button type="submit" class="btn btn-primary btn-block maincolor">비밀번호 변경</button>
+                    <button type="submit" id="changeBtn" class="btn btn-primary btn-block maincolor">비밀번호 변경</button>
                 </form>
             </div>
 
@@ -203,6 +206,8 @@
         <div class="col-md-4">
         </div>
     </div>
+    
+    <jsp:include page="../common/header.jsp"/>
 </body>
 
 </html>

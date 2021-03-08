@@ -1,5 +1,7 @@
 package com.gaji.SingleBungle.member.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -100,6 +102,12 @@ public class MemberServiceImpl implements MemberService {
 		return dao.signUp(signUpMember);
 
 		// 해당 서비스 메소드에서 예외가 발생하지 않으면 마지막에 commit이 수행됨.
+	}
+
+	// 이름, 메일 일치 검사 Service
+	@Override
+	public int nameMailCheck(Map<String, Object> map) {
+		return dao.nameMailCheck(map);
 	}
 
 }
