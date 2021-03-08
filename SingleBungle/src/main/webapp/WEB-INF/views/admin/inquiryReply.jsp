@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,9 +63,10 @@
 					<!-- 댓글 출력 부분 -->
 					<div class="replyListArea">
 					</div>
-				
+
+				<c:if test="${empty replyList }">
 					<!-- 댓글 작성창 -->
-					<div class="p-2">
+					<div class="p-2" id="rInsert">
 						<div class="d-flex flex-row align-items-start">
 							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="35">
 							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
@@ -73,6 +76,8 @@
 							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none maincolor-re1" id="resetReply" type="button">취소</button>
 						</div>
 					</div>
+				</c:if>
+					
 				</div>
 			</div>
 		</div>
@@ -108,6 +113,12 @@
 
 					// 기존 정보 초기화
 					replyListArea.html("");
+					console.log(rList);
+					
+					if(rList.length!=0 || memberNo != 4){
+						var parent = document.getElementById("rInsert");
+						parent.style.display = 'none';
+					}
 					
 					// 댓글 List 반복 접근
 					$.each(rList, function(index, item){

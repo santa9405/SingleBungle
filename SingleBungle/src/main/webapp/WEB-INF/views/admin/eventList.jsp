@@ -218,7 +218,9 @@ body {
 
 
 			</div>
+			<c:if test="${loginMember.memberNo == 4 }">
 			<a class="btn btn-success float-right" href="../admin/eventInsert">글쓰기</a>
+			</c:if>
 
 			<div class="padding">
 				<c:set var="firstPage" value="?cp=1" />

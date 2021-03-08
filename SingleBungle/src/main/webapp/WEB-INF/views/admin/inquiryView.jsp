@@ -99,8 +99,10 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col-md-12">
+											<c:if test="${loginMember.memberNo == inquiry.memberNo}">
 												<a href="#" class="btn btn-success ml-1 mr-1">수정</a>
 												<a href="../${inquiry.inquiryNo}/inquiryDelete" class="btn btn-success ml-1 mr-1">삭제</a>
+											</c:if>
 											</div>
 										</div>
 									</div>

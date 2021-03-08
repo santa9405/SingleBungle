@@ -41,13 +41,13 @@ public class inquiryReplyController {
 	// 댓글 목록 조회
 	@ResponseBody
 	@RequestMapping("selectReplyList/{parentBoardNo}")
-	public String selectReplyList(@PathVariable("parentBoardNo") int parentBoardNo) {
+	public String selectReplyList(@PathVariable("parentBoardNo") int parentBoardNo, Model model) {
 		
 		List<inquiryReply> rList = service.selectReplyList(parentBoardNo);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm:ss").create();
 		
-		System.out.println(rList);
+		model.addAttribute("replyList", rList);
 		
 		return gson.toJson(rList);
 	}
@@ -57,7 +57,8 @@ public class inquiryReplyController {
 	// 댓글 등록
 	@ResponseBody
 	@RequestMapping("insertReplyList/{parentBoardNo}")
-	public int insertReply(@PathVariable("parentBoardNo") int parentBoardNo, @RequestParam("replyContent") String replyContent, @ModelAttribute("reply") inquiryReply reply) {
+	public int insertReply(@PathVariable("parentBoardNo") int parentBoardNo, @RequestParam("replyContent") String replyContent, @ModelAttribute("reply") inquiryReply reply
+			) {
 		
 		reply.setInquiryNo(parentBoardNo);
 		reply.setInquiryContent(replyContent);
@@ -68,7 +69,7 @@ public class inquiryReplyController {
 			result = service.updateInquiryFl(parentBoardNo);
 		}
 		
-		return service.insertReply(reply);
+		return result;
 	}
 	
 

@@ -545,10 +545,20 @@ public class adminController {
 	public String inquiryList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
 			@ModelAttribute("loginMember") Member loginMember) {
 
-		APageInfo pInfo = service.getInquiryPageInfo(cp);
-		pInfo.setLimit(10);
 		int memberNo = loginMember.getMemberNo();
-		List<inquiry> inquiryList = service.inquiryList(pInfo, memberNo);
+		
+		APageInfo pInfo = null;
+		List<inquiry> inquiryList = null;
+		
+		if(memberNo != 4) {
+			pInfo = service.getInquiryPageInfo(cp);
+			pInfo.setLimit(10);
+			inquiryList = service.inquiryList(pInfo, memberNo);
+		}else {
+			pInfo = service.getInquiryPageInfo(cp);
+			pInfo.setLimit(10);
+			inquiryList = service.inquiryAllList(pInfo);
+		}
 
 		model.addAttribute("inquiryList", inquiryList);
 		model.addAttribute("pInfo", pInfo);

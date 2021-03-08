@@ -191,7 +191,9 @@
                 </div>
                 <hr>
                 <br>
-                <a class="btn btn-success float-right" href="../admin/faqInsert">글쓰기</a><br><br>
+                <c:if test="${loginMember.memberNo == 4 }">
+                	<a class="btn btn-success float-right" href="../admin/faqInsert">글쓰기</a><br><br>
+                </c:if>
                 <div>
                     <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
                      
