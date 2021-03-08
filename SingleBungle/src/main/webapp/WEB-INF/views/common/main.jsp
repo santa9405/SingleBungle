@@ -245,9 +245,9 @@
 													
 															<c:forEach items="${thumbnailList2}" var="th">
 															<c:if test="${th.parentMarketNo == market.marketNo}">
-															<img src="${contextPath}/${th.filePath}/${th.fileName}" 
+															<a href="market/${market.marketNo}"><img src="${contextPath}${th.filePath}/${th.fileName}" 
 																class="img-fluid card-img-top embed-responsive-item marketNo"
-																<c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>>
+																<c:if test="${market.transactionStatus != 1}"> style="opacity: 0.5;" </c:if>></a>
 															</c:if>
 															</c:forEach>
 														</div>
