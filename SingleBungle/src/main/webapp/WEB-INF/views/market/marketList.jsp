@@ -158,10 +158,12 @@ body {
 
 			<c:if test="${!empty mSearch.ct }">
 				<c:set var="category" value="ct=${mSearch.ct}&" />
+				<c:set var="searchStr" value="${category}" />
 			</c:if>
 			
 			<c:if test="${!empty mSearch.sort }">
 				<c:set var="sort" value="sort=${mSearch.sort}&" />
+				<c:set var="searchStr" value="${category}${sort}" />
 			</c:if>
 
 
@@ -174,14 +176,14 @@ body {
 			<c:url var="pageUrl" value="search?${searchStr}" />
 
 			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-			<c:set var="returnListURL" value="${contextPath}/market/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+			<c:set var="returnListURL" value="${contextPath}/market/${pageUrl}cp=${mpInfo.currentPage}" scope="session" />
 		</c:when>
 
 		<c:otherwise>
 			<c:url var="pageUrl" value="?" />
 			
 			<!-- 목록으로 버튼에 사용할 URL저장 변수   session scope에 올리기-->
-			<c:set var="returnListURL" value="${contextPath}/market/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+			<c:set var="returnListURL" value="${contextPath}/market/list${pageUrl}cp=${mpInfo.currentPage}" scope="session" />
 		</c:otherwise>
 	</c:choose>
 

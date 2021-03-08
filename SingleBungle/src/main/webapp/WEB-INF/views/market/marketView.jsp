@@ -431,8 +431,10 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-12">
-						<button type="button" class="btn btn-success">수정</button>
+					<c:if test="${market.memNo == loginMember.memberNo}"> 
+						<button type="button" class="btn btn-success updateBtn">수정</button>
 						<button type="button" class="btn btn-danger">삭제</button>
+					</c:if>
 					</div>
 				</div>
 			</div>
@@ -551,6 +553,10 @@
 		location.href = "${sessionScope.returnListURL}"
 	});
 	
+	// 수정 버튼
+	$(".updateBtn").on("click", function(){
+		location.href = "${contextPath}/market/update/${market.marketNo}"
+	});
 	
 	$(".likeBtn").on("click", function(){
 		var marketNo = $(this).closest('.no').children().eq(0).text();

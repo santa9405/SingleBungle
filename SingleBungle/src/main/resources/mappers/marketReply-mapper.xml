@@ -70,8 +70,8 @@
 	</select>
 	
 	<!-- 댓글 신고 등록 -->
-	<insert id="insertBoardReport" parameterType="map">
-		INSERT INTO REPORT_REPLY_MARKET VALUES 
+	<insert id="insertMarketReport" parameterType="map">
+		INSERT INTO MARKET_REPORT_REPLY VALUES 
 		(#{reportNo}, #{reportTitle}, 
 		 #{reportContent}, #{memberNo}, #{categoryCode}, #{replyNo}, #{marketNo})
   </insert>

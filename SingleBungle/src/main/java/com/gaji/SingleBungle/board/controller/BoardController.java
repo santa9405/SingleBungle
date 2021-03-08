@@ -62,7 +62,7 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	// 검색 Controller
+	// ㅊ Controller
 	@RequestMapping("search")
 	public String boardSearch(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 								@RequestParam(value="sk",required = false) String sk, 
