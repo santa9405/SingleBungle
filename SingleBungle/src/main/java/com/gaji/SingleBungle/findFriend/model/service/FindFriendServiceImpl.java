@@ -19,6 +19,7 @@ import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendSearch;
 
 @Service
 public class FindFriendServiceImpl implements FindFriendService {
@@ -44,18 +45,18 @@ public class FindFriendServiceImpl implements FindFriendService {
 	
 	// 게시글 검색 목록 페이징처리 Service 구현
 	@Override
-	public FindFriendPageInfo getSearchPageInfo(Map<String, Object> map) {
+	public FindFriendPageInfo getSearchPageInfo(FindFriendSearch fSearch, int cp) {
 		
 		// 검색 게시글 수 조회
-		int listCount = dao.getSearchListCount(map);
+		int listCount = dao.getSearchListCount(fSearch);
 		
-		return new FindFriendPageInfo((int)map.get("cp"), listCount);
+		return new FindFriendPageInfo(cp, listCount);
 	}
 
 	// 게시글 검색 목록 조회 Service 구현
 	@Override
-	public List<FindFriend> selectSearchList(Map<String, Object> map, FindFriendPageInfo pInfo) {
-		return dao.selectSearchList(map, pInfo);
+	public List<FindFriend> selectSearchList(FindFriendSearch fSearch, FindFriendPageInfo pInfo) {
+		return dao.selectSearchList(fSearch, pInfo);
 	}
 	
 	// 친구찾기 게시글 상세 조회 Service 구현

@@ -10,6 +10,7 @@
   
   <typeAliases>
   	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriend" alias="Friend" /> 
+  	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendSearch" alias="FindFriendSearch" /> 
   	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment" alias="FriendAttachment" />
   	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendReply" alias="FriendReply" /> 
   	<typeAlias type="com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting" alias="FriendChat" /> 

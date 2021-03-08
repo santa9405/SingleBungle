@@ -11,7 +11,7 @@
 .boardName {
 	margin-right: 10px;
 }
- 
+
 .category {
 	text-decoration: none;
 	color: black;
@@ -34,6 +34,22 @@
 	text-decoration: none;
 	color: black;
 	line-height: 54px;
+}
+
+.category:click {
+	color: orange;
+	text-weight: bold;
+}
+
+.category, .array {
+	text-decoration: none;
+	color: black;
+	line-height: 54px;
+	margin-right: 5px;
+}
+
+.icon {
+	width: 13px;
 }
 
 /* 검색창 */
@@ -133,21 +149,41 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-	
+
 	<!-- 주소 조합 작업 -->
 	<c:choose>
-		<c:when test="${!empty rSearch}">
-		
-				<c:if test="${!empty rSearch.ct}">
-					<c:set var="category" value="ct=${rSearch.ct}&"/>
-				</c:if>
-				
-				<c:if test="${!empty rSearch.sort}">
-					<c:set var="sort" value="sort=${rSearch.sort}"/>
-				</c:if>
-				
+		<c:when test="${!empty fSearch}">
+
+			<c:if test="${!empty fSearch.ct}">
+				<c:set var="category" value="ct=${fSearch.ct}&" />
+				<c:set var="searchStr" value="${category}" />
+			</c:if>
+
+			<c:if test="${!empty fSearch.sort}">
+				<c:set var="sort" value="sort=${fSearch.sort}" />
+				<c:set var="searchStr" value="${category}${sort}" />
+			</c:if>
+
+			<c:if test="${!empty fSearch.sv}">
+				<c:set var="sk" value="sk=${fSearch.sk}&" />
+				<c:set var="sv" value="sk=${fSearch.sv}" />
+
+				<c:set var="searchStr" value="${category}${sort}sk=${fSearch.sk}&sv=${fSearch.sv}" />
+			</c:if>
+
+			<c:url var="pageUrl" value="search?${searchStr}" />
+
+			<!-- 목록으로 버튼에 사용할 URL 저장 변수 session scope에 올리기 -->
+			<c:set var="returnListURL" value="${contextPath}/findFriend/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
 		</c:when>
+
+		<c:otherwise>
+			<c:url var="pageUrl" value="?" />
+			<!-- 목록으로 버튼에 사용할 URL 저장 변수 session scope에 올리기 -->
+			<c:set var="returnURL" value="${contextPath}/findFriend/list${pageUrl}cp=${pInfo.currentPage}" scope="session" />
+		</c:otherwise>
 	</c:choose>
+
 
 	<div class="container my-5">
 
@@ -156,10 +192,14 @@
 			<div class="col-lg-12 mx-auto">
 				<div class="text-black banner">
 					<h1 class="boardName float-left">친구찾기</h1>
-					<a class="category" href="#">전체</a> | <a class="category" href="#">맛집</a> | <a class="category" href="#">문화생활</a> | <a class="category" href="#">동네친구</a>
+					<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a>
+					<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">맛집</a>
+					<a class="category" id="2" href="search?ct=2&${sort}${sk}${sv}">문화생활</a>
+					<a class="category" id="3" href="search?ct=3&${sort}${sk}${sv}">동네친구</a>
 
 					<div class="listTest float-right">
-						<a class="category" href="#">최신순</a> | <a class="category" href="#">좋아요순</a>
+						<a class="array" id="newSort" href="search?${category}sort=new&${sk}${sv}">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
+						<a class="array" id="likeSort" href="search?${category}sort=like&${sk}${sv}">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
 					</div>
 					<hr>
 				</div>
@@ -203,7 +243,7 @@
 										<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='	
 										<c:if test="${friend.categoryNm == '맛집'}">background-color: burlywood;</c:if>	
 										<c:if test="${friend.categoryNm == '문화생활'}">background-color: skyblue;</c:if>	
-										<c:if test="${friend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${friend.categoryNm}</div>	
+										<c:if test="${friend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${friend.categoryNm}</div>
 									</td>
 									<%-- 제목 --%>
 									<td>${friend.friendTitle}</td>
@@ -213,11 +253,8 @@
 									<td>${friend.nickname}</td>
 									<%-- 작성일 --%>
 									<td>
-										<%-- 날짜 출력 모양 지정 --%> 
-										<fmt:formatDate var="createDt" value="${friend.createDt}" pattern="yyyy-MM-dd" /> 
-										<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /> 
-											<c:choose>
-												<c:when test="${createDt != now}">
+										<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDt" value="${friend.createDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /> <c:choose>
+											<c:when test="${createDt != now}">
 													${createDt}
 												</c:when>
 											<c:otherwise>
@@ -241,25 +278,25 @@
 		</c:if>
 
 		<%-- --------------------------------------------- pagination --------------------------------------------- --%>
-		
+
 		<%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
-		<c:choose>
+		<%-- <c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/search"/>
-				
-				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
+				<c:url var="pageUrl" value="/search" />
+
+				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
-			
+
 			<c:otherwise>
-				<c:url var="pageUrl" value="/list"/>
+				<c:url var="pageUrl" value="/list" />
 			</c:otherwise>
-		</c:choose>
-		
-		 
+		</c:choose> --%>
+
+
 		<div class="padding">
 			<%-- 화살표에 들어갈 주소를 변수로 생성 --%>
-			<c:set var="firstPage" value="?cp=1${searchStr}" />
-			<c:set var="lastPage" value="?cp=${pInfo.maxPage}${searchStr}" />
+			<c:set var="firstPage" value="${pageUrl}cp=1" />
+			<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}" />
 
 			<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
 			<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
@@ -278,8 +315,8 @@
 						<ul class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
 
 							<c:if test="${pInfo.currentPage > pInfo.pageSize}">
-								<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true">&laquo;</a></li>
-								<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true">&lt;</a></li>
+								<li class="page-item"><a class="page-link" href="${firstPage }" data-abc="true"><i class="fas fa-angle-double-left"></i></a></li>
+								<li class="page-item"><a class="page-link" href="${prevPage }" data-abc="true"><i class="fa fa-angle-left"></i></a></li>
 							</c:if>
 
 
@@ -297,8 +334,8 @@
 							</c:forEach>
 
 							<c:if test="${next <= pInfo.maxPage}">
-								<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
-								<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&raquo;</a></li>
+								<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
+								<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 							</c:if>
 						</ul>
 					</nav>
@@ -317,23 +354,27 @@
 					<option value="category">카테고리</option>
 				</select> <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
 				<button class="form-control btn btn-success" id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
+				
+				<!-- 있으면 값 세팅 -->
+				<input type="hidden" name="ct" value="${param.ct}">
+				<input type="hidden" name="sort" value="${param.ct}">
+				
 			</form>
 		</div>
 	</div>
 
-<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../common/footer.jsp" />
 
-<script>
-	// 게시글 상세보기 기능(jquery를 통해 작업)
-	$("#list-table td").on("click", function(){
-		
-		var friendViewURL = $(this).parent().children().eq(0).text();
-		
-		location.href = friendViewURL;
-		
-	});
-	
-</script>
+	<script>
+		// 게시글 상세보기 기능(jquery를 통해 작업)
+		$("#list-table td").on("click", function() {
+
+			var friendViewURL = $(this).parent().children().eq(0).text();
+
+			location.href = friendViewURL;
+
+		});
+	</script>
 
 </body>
 </html>
