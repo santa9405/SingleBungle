@@ -384,6 +384,25 @@
 			selectChatList();
 		});
 		
+		function selectChatList(){
+			
+			$.ajax({
+				url : "${contextPath}/findFriendChat/selectChatList/" + friendNo,
+				type : "post",
+				dataType : "json",
+				seccess : function(cList){
+					
+					
+					
+					
+				}, error : function(){
+					console.log("채팅 목록 조회 실패")
+				}
+				
+			});
+			
+		}
+		
 	</script>
 </body>
 </html>
