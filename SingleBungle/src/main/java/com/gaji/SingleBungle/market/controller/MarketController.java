@@ -253,6 +253,50 @@ public class MarketController {
 	
 	
 	
+	
+
+	// 게시글 수정 화면 전환 Controller
+	@RequestMapping("updateAction/{marketNo}")
+	public String marketUpdateAction(@PathVariable("marketNo") int marketNo, Model model, RedirectAttributes ra,
+									@ModelAttribute Market market, HttpServletRequest request,
+									@RequestParam("beforeImages") int[] beforeImages,
+									@RequestParam(value="images", required=true) List<MultipartFile> images) {
+		
+		// marketNo를 market에 세팅
+		market.setMarketNo(marketNo);
+		
+		// 실제 파일 저장 경로
+		String savePath = request.getSession().getServletContext().getRealPath("resources/marketImages");
+		
+		int result = service.updateMarket(market, images, savePath, beforeImages);
+		
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "사고팔고 수정 성공";
+			url = "redirect:../" + marketNo;
+		}else {
+			swalIcon = "error";
+			swalTitle = "사고팔고 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+
+		return url;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 게시글 검색
 	@RequestMapping("search")
 	public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
@@ -327,6 +371,32 @@ public class MarketController {
 		return url;
 		
 	}
+	
+	// 게시글 삭제
+	@RequestMapping("delete/{marketNo}")
+	public String deleteMarket(@PathVariable("marketNo") int marketNo,
+							 @ModelAttribute Market market,HttpServletRequest request, RedirectAttributes ra ) {
+		market.setMarketNo(marketNo);
+		
+		int result = service.deleteMarket(market);
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "삭제 성공";
+			url = "redirect:../list";
+		} else {
+			swalIcon = "error";
+			swalTitle = "삭제 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon",swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		return url;
+	}
+	
 	
 	@RequestMapping("mypage")
 	public String marketMypage() {

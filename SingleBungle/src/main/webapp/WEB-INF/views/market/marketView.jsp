@@ -404,7 +404,8 @@
 								<span>수정</span>
 							</a>
 							
-							<a  class="btn btn-danger btn-lg btnW active" role="button" aria-pressed="true">
+							<a  class="btn btn-danger btn-lg btnW active MdeleteBtn" role="button" aria-pressed="true"
+									href="${contextPath}/market/delete/${market.marketNo}">
 								<span>삭제</span>
 							</a>
 						</div>
@@ -433,7 +434,7 @@
 					<div class="col-md-12">
 					<c:if test="${market.memNo == loginMember.memberNo}"> 
 						<button type="button" class="btn btn-success updateBtn">수정</button>
-						<button type="button" class="btn btn-danger">삭제</button>
+						<button type="button" class="btn btn-danger MdeleteBtn">삭제</button>
 					</c:if>
 					</div>
 				</div>
@@ -556,6 +557,13 @@
 	// 수정 버튼
 	$(".updateBtn").on("click", function(){
 		location.href = "${contextPath}/market/update/${market.marketNo}"
+	});
+	
+	// 삭제버튼
+	$(".MdeleteBtn").on("click", function(){
+		if(confirm("삭제 하시겠습니까?")){
+			location.href = "${contextPath}/market/delete/${market.marketNo}";
+		}
 	});
 	
 	$(".likeBtn").on("click", function(){
