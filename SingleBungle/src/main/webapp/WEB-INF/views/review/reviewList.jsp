@@ -384,7 +384,7 @@
 			<input type="hidden" name="sort" value="${param.sort }">
 		</form>
 
-	</div>
+	<jsp:include page="../message/sendMessageButton.jsp"/>
 	<jsp:include page="../common/footer.jsp" />
 
 
@@ -407,7 +407,7 @@
 
 			location.href = "insert";
 
-		}); 
+		});
 
 		
 		// -------------검색 파라미터 유지-------------
@@ -453,6 +453,7 @@
 			
 		});
 		
+
 		
 	</script>
 </body>

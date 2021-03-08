@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>받은 쪽지함</title>
 
 <!-- 부트스트랩 사용을 위한 css 추가 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -74,13 +74,13 @@
 					<input type="checkbox" id="allCheck">
 				</span>
 				<div class="messageBox" style="display: inline-block;">
-					<a href="#">받은 쪽지</a>
+					<span>받은 쪽지</span>
 				</div>
 				<div class="messageBox" style="display: inline-block;">
-					<a href="#">보낸 쪽지</a>
+					<a href="${contextPath}/message/messageBoxS">보낸 쪽지</a>
 				</div>
 				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
-					<button class="maincolor-re">삭제</button>
+					<button id="deleteMsg" class="maincolor-re">삭제</button>
 				</div>
 			</div>
 		</div>
@@ -134,9 +134,26 @@
 				</div>
 			</div>
 		</div>
+		<!-- 페이징 END  -->		
 		
-		
+	</div>	
+
+
+
+<!-- 쪽지 읽기  -->		
+<div class="text-center">
+	<!-- Button HTML (to Trigger Modal) -->
+	<button class="btn" data-toggle="modal" data-target="#readMessage" >쪽지 읽기</button>
+</div>
+
+<div id="readMessage" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+		</div>
 	</div>
+</div>
+<!-- 쪽지 읽기 -->		
+
 		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
