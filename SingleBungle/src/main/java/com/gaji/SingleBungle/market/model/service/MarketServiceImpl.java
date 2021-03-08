@@ -148,7 +148,7 @@ public class MarketServiceImpl implements MarketService {
 
 					
 					 int size = uploadImages.size();;
-					 
+					  
 					 
 					 
 //					 if(!images.get(0).getOriginalFilename().equals("")) { size = images.size(); }

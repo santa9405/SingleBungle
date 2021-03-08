@@ -184,7 +184,7 @@ public class MarketController {
 		return service.reservation(map);
 	}
 	
-	
+	 
 	
 	// 사고팔고 게시글 작성 view 
 	@RequestMapping("insert")

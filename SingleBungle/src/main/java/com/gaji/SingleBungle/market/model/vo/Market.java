@@ -52,7 +52,7 @@ public class Market {
 	}
 
 
-	public int getLikes() {
+	public int getLikes() { 
 		return likes;
 	}
 

@@ -308,7 +308,7 @@
 							</div>
 							
 							<div class="formContent">
-								<ul class="itemImages">
+								<ul class="itemImages"> 
 									<li class="itemImageInsert" id="imgInput">
 										<label for="images0" class="imgLabel">
 											<span>이미지 등록</span></label>
