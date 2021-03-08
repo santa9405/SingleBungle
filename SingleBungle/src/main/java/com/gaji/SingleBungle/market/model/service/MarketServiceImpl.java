@@ -3,6 +3,7 @@ package com.gaji.SingleBungle.market.model.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -282,16 +283,16 @@ public class MarketServiceImpl implements MarketService {
 			List<MarketAttachment> removeFileList = new ArrayList<MarketAttachment>();
 			
 			int lv = 0; // 파일 레벨을 지정하기 위한 변수
-			
 			for(MarketAttachment old : oldFiles) {
 				
 				for(int i=0; i<beforImages.length ; i++) {
 					
 					if(old.getFileNo() == beforImages[i] && old.getFileLevel() != i) {
-						
-						if(i == 0) lv = 0;
-						else	   lv = i;
-						
+						//if(i == 0) lv = 0;
+						//else	   
+							lv = i;
+						System.out.println(beforImages[i] + " / " + old);
+						System.out.println("lv : " + lv);
 						MarketAttachment newAt = new MarketAttachment(old.getFilePath(), old.getFileName(), lv, market.getMarketNo());
 						newAt.setFileNo(old.getFileNo());
 						
@@ -317,6 +318,12 @@ public class MarketServiceImpl implements MarketService {
 				}
 			}
 			
+			if(lv == 0) {
+				lv = beforImages.length;
+			}else {
+				lv++;
+			}
+			
 			
 			
 			// DB에 저장할 웹상 이미지 접근 경로
@@ -336,41 +343,23 @@ public class MarketServiceImpl implements MarketService {
 				}
 			}
 			
-			for(MultipartFile m : images) {
-				System.out.println("i : " +m.getOriginalFilename());
-			}
-			
-			System.out.println("\nuploadImages");
-			for(MarketAttachment at : uploadImages) {
-				System.out.println(at);
-			}
-			
 			
 			// 새롭게 삽입된 이미지 모두 삽입.
-			result = dao.insertAttachmentList(uploadImages);
-			
+			if(!uploadImages.isEmpty()) {
+				result = dao.insertAttachmentList(uploadImages);
+			}
 			
 		
 			
 			if(result > 0 && !removeFileList.isEmpty()) {
 				result = dao.deleteAttachmentList(removeFileList);
-				
-			}else {
-				throw new RuntimeException("파일 정보 삭제 중 오류 발생");
+				if(result <= 0) {
+					throw new RuntimeException("파일 정보 삭제 중 오류 발생");
+				}
 			}
 			
 			
 			if(result > 0) {
-				/*for(int i=0 ; i<images.size(); i++) {
-					
-					try {
-						images.get(i)
-							.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()) );                                             
-					}catch (Exception e) {
-						e.printStackTrace();
-						throw new RuntimeException("파일 정보 수정 실패");
-					}
-				}*/
 				
 				for(int i=0 ; i<uploadImages.size(); i++) {
 					

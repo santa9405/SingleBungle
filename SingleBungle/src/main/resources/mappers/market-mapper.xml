@@ -269,7 +269,8 @@
 		PRICE = #{price},
 		TRANSACTION_CATEGORY = #{transactionCategory},
 		STATUS = #{status},
-		ITEMCOUNT = #{itemCount}
+		ITEMCOUNT = #{itemCount},
+		CATEGORY_CD = #{categoryCd} 
 		WHERE MARKET_NO = #{marketNo}
 	</update>
 	

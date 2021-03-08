@@ -339,7 +339,7 @@
 									<c:forEach items="${at}" var="image" varStatus="vs">
 										<li class="itemImage">
 											<img id="images${vs.count}" name="test1" src="${contextPath}${image.filePath}/${image.fileName}">
-											<button type="button" class="deleteBtn" onclick="deleteImg(this, ${image.fileNo});"></button>
+											<button type="button" class="deleteBtn" onclick="deleteImg(this, ${vs.count}, ${image.fileNo});"></button>
 										</li>
 									</c:forEach>
 									
@@ -547,7 +547,7 @@
 				
 				reader.onload = function(e) {
 					var img = '<li class="itemImage"> <img id="images' + imgId + '" class="image" name="test1" src="' + e.target.result + '">' +
-						'<button type="button" class="deleteBtn" onclick="deleteImg(this);"></button>' + '</li>';
+						'<button type="button" class="deleteBtn" onclick="deleteImg(this,'+imgId+');"></button>' + '</li>';
 					$(".itemImages").append(img);
 					$("#imgCnt").text(++imgCnt); 
 					addImgInput();
@@ -564,11 +564,11 @@
 		$('.itemImageInsert').append(input);
 	}
 	
-    function deleteImg(value, num) {
+    function deleteImg(value, num, fileNo) {
     	console.log("파일 번호 : " + num);
     	
-    	if(num != undefined){ // 전달된 파일 번호가 있다면
-    		var idx = beforeImages.indexOf(num);
+    	if(fileNo != undefined){ // 전달된 파일 번호가 있다면
+    		var idx = beforeImages.indexOf(fileNo);
     		if (idx > -1) beforeImages.splice(idx, 1)
     	}
     	
