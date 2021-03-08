@@ -115,6 +115,10 @@
 				max-width: none !important;
 			}
 
+
+			.hidden{
+				display:none;
+			}
         </style>
             
         <script>

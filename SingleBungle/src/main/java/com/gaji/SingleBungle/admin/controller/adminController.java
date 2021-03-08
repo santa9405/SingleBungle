@@ -27,6 +27,7 @@ import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
+import com.gaji.SingleBungle.admin.vo.reportReply;
 import com.gaji.SingleBungle.board.model.service.BoardService;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
@@ -870,7 +871,6 @@ public class adminController {
 			map2.put("boardCode", boardCode);
 			
 			result = service.deleteReportBoard(map);
-			System.out.println("boardCode : " + boardCode);
 			
 			if(result>0) {
 				result = service.recoverReportBoard(map2);
@@ -891,8 +891,84 @@ public class adminController {
 	
 	
 	@RequestMapping("replyReport")
-	public String replyReportView() {
+	public String replyReportView(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		APageInfo pInfo = service.getReportReplyPageInfo(cp);
+		pInfo.setLimit(10);
+		
+		List<reportReply> replyList = service.selectReportReply(pInfo);
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("pInfo", pInfo);
+		
+		System.out.println(replyList);
+		
 		return "admin/replyReport";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("recoverReportReply")
+	public boolean recoverReportReply(@RequestParam(value = "reportNoList[]") int[] reportNoList, @RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < reportNoList.length; i++) {
+			int reportNo = reportNoList[i];
+			int boardCode = boardCodeList[i];
+
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("reportNo", reportNo);
+			map.put("boardCode", boardCode);
+			
+			result = service.recoverReportReply(map);
+
+			if(result>0) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		}
+
+		return flag;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("deleteReportReply")
+	public boolean deleteReportReply(@RequestParam(value = "replyNoList[]") int[] replyNoList, @RequestParam(value = "reportNoList[]") int[] reportNoList, @RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
+		int result = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < replyNoList.length; i++) {
+			int replyNo = replyNoList[i];
+			int boardCode = boardCodeList[i];
+			int reportNo = reportNoList[i];
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("replyNo", replyNo);
+			map.put("boardCode", boardCode);
+			
+			Map<String, Integer> map2 = new HashMap<String, Integer>();
+			map2.put("reportNo", reportNo);
+			map2.put("boardCode", boardCode);
+			
+			result = service.deleteReportReply(map);
+			System.out.println("boardCode : " + boardCode);
+			
+			if(result>0) {
+				result = service.recoverReportReply(map2);
+				if(result>0) {
+					flag = true;
+				}else {
+					flag = false;
+					System.out.println("목록 삭제 안됨");
+				}	
+			}else {
+				flag = false;
+				System.out.println("아예 삭제처리가 안됨");
+			}
+		}
+		return flag;
 	}
 
 }

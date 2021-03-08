@@ -16,6 +16,7 @@ import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
+import com.gaji.SingleBungle.admin.vo.reportReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Repository
@@ -246,6 +247,24 @@ public class adminDAO {
 
 	public int deleteReportBoard(Map<String, Integer> map) {
 		return sqlSession.update("adminMapper.deleteReportBoard", map);
+	}
+
+	public int getReportReplyPageInfo() {
+		return sqlSession.selectOne("adminMapper.getReportReplyPageInfo");
+	}
+
+	public List<reportReply> selectReportReply(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectReportReply", pInfo, rowBounds);
+	}
+
+	public int recoverReportReply(Map<String, Integer> map) {
+		return sqlSession.update("adminMapper.recoverReportReply", map);
+	}
+
+	public int deleteReportReply(Map<String, Integer> map) {
+		return sqlSession.update("adminMapper.deleteReportReply", map);
 	}
 
 	

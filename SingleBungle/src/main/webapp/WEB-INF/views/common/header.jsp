@@ -156,21 +156,11 @@
 	<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;">받은쪽지함(임시)</a>
 	
 	
-	<a class="nav-link" href="${contextPath}/admin/adminMypage">관리자마이페이지</a>
-	<a class="nav-link" href="${contextPath}/admin/boardManage">게시글 관리</a>
-	<a class="nav-link" href="${contextPath}/admin/boardReport">신고 게시글관리</a>
-	<a class="nav-link" href="${contextPath}/admin/levelList">회원 등급 관리</a>
-	<a class="nav-link" href="${contextPath}/admin/memberList">회원 관리</a>
-	<a class="nav-link" href="${contextPath}/admin/replyManage">댓글관리</a>
-	<a class="nav-link" href="${contextPath}/admin/replyReport">신고댓글관리</a>
-	
+	<a class="nav-link" href="${contextPath}/admin/adminMypage" style="color:pink;">관리자마이페이지</a>
 	<a class="nav-link" href="${contextPath}/admin/eventList" style="color:pink;">이벤트 게시판</a>
 	<a class="nav-link" href="${contextPath}/admin/noticeList" style="color:pink;">공지사항 게시판</a>
-	<a class="nav-link" href="${contextPath}/admin/faqInsert">자주묻는 질문 작성</a>
-	<a class="nav-link" href="${contextPath}/admin/faqView">자주묻는 질문</a>
-	<a class="nav-link" href="${contextPath}/admin/inquiryInsert">1:1 문의 작성</a>
-	<a class="nav-link" href="${contextPath}/admin/inquiryList">1:1 문의 목록</a>
-	<a class="nav-link" href="${contextPath}/admin/inquiryView">1:1 문의 상세조회</a>
+	<a class="nav-link" href="${contextPath}/admin/faqView" style="color:pink;">자주묻는 질문</a>
+	<a class="nav-link" href="${contextPath}/admin/inquiryList" style="color:pink;">1:1 문의 목록</a>
 	
 	<a class="nav-link" href="${contextPath}/member/login">로그인</a>
 	<a class="nav-link" href="${contextPath}/member/signUp">회원가입</a>
