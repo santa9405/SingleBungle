@@ -22,6 +22,7 @@ import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
+import com.gaji.SingleBungle.admin.vo.reportReply;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
@@ -800,6 +801,27 @@ public class adminServiceImpl implements adminService{
 		@Override
 		public int deleteReportBoard(Map<String, Integer> map) {
 			return dao.deleteReportBoard(map);
+		}
+
+		@Override
+		public APageInfo getReportReplyPageInfo(int cp) {
+			int listCount = dao.getReportReplyPageInfo();
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<reportReply> selectReportReply(APageInfo pInfo) {
+			return dao.selectReportReply(pInfo);
+		}
+
+		@Override
+		public int recoverReportReply(Map<String, Integer> map) {
+			return dao.recoverReportReply(map);
+		}
+
+		@Override
+		public int deleteReportReply(Map<String, Integer> map) {
+			return dao.deleteReportReply(map);
 		}
 
 

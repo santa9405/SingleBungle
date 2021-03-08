@@ -12,6 +12,7 @@ import com.gaji.SingleBungle.admin.vo.IAttachment;
 import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
+import com.gaji.SingleBungle.admin.vo.reportReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 
@@ -90,6 +91,14 @@ public interface adminService {
 	int recoverReportBoard(Map<String, Integer> map);
 
 	int deleteReportBoard(Map<String, Integer> map);
+
+	APageInfo getReportReplyPageInfo(int cp);
+
+	List<reportReply> selectReportReply(APageInfo pInfo);
+
+	int recoverReportReply(Map<String, Integer> map);
+
+	int deleteReportReply(Map<String, Integer> map);
 
 	
 
