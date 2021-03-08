@@ -34,9 +34,9 @@
 	</script>
 </c:if>
    <div class="container my-5" style="padding-left: 40px; padding-right: 40px;">
-     <form method="POST" action="../boardReplyReportAction" class="needs-validation" name="report">
+     <form method="POST" action="../marketReplyReportAction" class="needs-validation" name="report">
      <input type="hidden" name="replyNo" value="${replyNo }">
-     <input type="hidden" name="boardNo" value="${param.marketNo }">
+     <input type="hidden" name="marketNo" value="${param.marketNo}">
      <div class="form-group row">
       <label for="recipient-name" class="col-sm-3 col-form-label">신고 제목</label>
        <div class="col-sm-9">

@@ -325,10 +325,10 @@
 							<div class="formList">
 								<span>분류<span class="star">*</span></span>
 							</div>
-
 							<div class="formContent radioArea">
 								<div class="itemStatusArea form-check">
-									<input type="radio" name="transactionCategory" value="1" class="itemRadio form-check-input" id="buy" checked> <label for="buy" class="radioM">삽니다</label>
+									<input  type="radio" name="transactionCategory" value="1" class="itemRadio form-check-input" id="buy"> 
+										<label for="buy" class="radioM">삽니다</label>
 									<input type="radio" name="transactionCategory" value="2" class="itemRadio form-check-input" id="sell"> <label for="sell" class="radioM">팝니다</label>
 								</div>
 							</div>
@@ -342,7 +342,7 @@
 							
 							<div class="formContent titleFlex">
 								<div class="titleArea ">
-									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="marketTitle" required maxlength="40" minlength="2" required>
+									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="marketTitle" required maxlength="40" minlength="2" value="${market.marketTitle }"required>
 									<button id="cancelBtn" type="button"></button>
 									<div class="titleCnt">
 									<span id="currCnt">0</span>
@@ -401,7 +401,9 @@
 
 							<div class="formContent radioArea">
 								<div class="itemStatusArea form-check">
-									<input type="radio" name="status" value="U" class="itemRadio form-check-input" id="usedStatus" checked> <label for="usedStatus" class="radioM">중고</label>
+									<input type="radio" name="status" value="U" class="itemRadio form-check-input" id="usedStatus" > <label for="usedStatus" class="radioM">중고</label>
+									
+									
 									<input type="radio" name="status" value="N" class="itemRadio form-check-input" id="newStatus"> <label for="newStatus" class="radioM">새상품</label>
 								</div>
 							</div>
@@ -415,7 +417,8 @@
 
 							<div class="formContent">
 								<div class="priceArea">
-									<input type="text" name="price" id="itemPrice" class="priceInput itemInputs" placeholder="숫자만 입력해주세요." required> 원
+									<input type="text" name="price" id="itemPrice" class="priceInput itemInputs" placeholder="숫자만 입력해주세요." value="${market.price}" required> 원
+									
 										<span class="errorMsg" id="priceMsg"></span>
 									<input type="radio" name="deliveryCharge" value="F" class="itemRadio" id="including" checked> <label for="including" class="radioM" >택배비 포함</label>
 									<input type="radio" name="deliveryCharge" value="N" class="itemRadio" id="noincluding"> <label for="noincluding" class="radioM">택배비 미포함</label>
@@ -431,7 +434,7 @@
 							</div>
 							
 							<div class="formContent titleFlex">
-								<textarea rows="6" name="marketContent" placeholder="상품 설명을 입력해주세요.(최소 5글자)" class="itemInfoText" maxlength="2000" minlength="5" required></textarea>
+								<textarea rows="6" name="marketContent" placeholder="상품 설명을 입력해주세요.(최소 5글자)" class="itemInfoText" maxlength="2000" minlength="5" required >${market.marketContent }</textarea>
 									<div class="titleCnt float-right">
 									<span id="ContentCurrCnt">0</span>
 									<span id="ContentMaxCnt">/ 2000</span>
@@ -447,16 +450,15 @@
 
 							<div class="formContent">
 								<div class="priceArea">
-									<input type="text" name="itemCount" id="itemCount" class="countInput itemInputs"  required /> 개
+									<input type="text" name="itemCount" id="itemCount" class="countInput itemInputs" value="${market.itemCount}" required /> 개
 									<span class="errorMsg" id="countMsgq"></span>
 								</div>
 							</div>
 						</li>
 						</ul>
 						<div id="sumbitArea">
-								<button id="submitBtn" type="submit" class="btn-lg btn-info">등록하기</button>
+								<button id="submitBtn" type="submit" class="btn-lg btn-info" >수정하기</button>
 						</div>
-	
 					</form>
 
 				</div>
@@ -467,6 +469,36 @@
 	
 
 	<script>
+
+	
+	(function() {
+        if("${market.transactionCategory}" == '1')
+           $("#buy").prop("checked", true);
+        else 
+           $("#sell").prop("checked", true);
+     })();
+	
+	(function() {
+        if("${market.status}" == 'U')
+           $("#usedStatus").prop("checked", true);
+        else 
+           $("#newStatus").prop("checked", true);
+     })();
+	
+	(function() {
+        if("${market.deliveryCharge}" == 'N')
+           $("#noincluding").prop("checked", true);
+        else 
+           $("#including").prop("checked", true);
+     })();
+	
+	// 카테고리
+	$.each($("#SelectCategory > option"), function(index, item){
+		if($(item).text() == "${market.categoryNm}"){
+			$(item).prop("selected", "true");
+		}
+	});
+	
 	var imgCnt = 0;
 	
 	if(imgCnt <= 10) {
@@ -590,6 +622,14 @@
            return false;
         }
      }
+      
+      
+		// 유효성 검사에서 문제가 없을 경우 서버에 제출 전
+      // deleteImages배열의 내용을 hidden 타입으로 하여 form태그 마지막에 추가하여 파라미터로 전달
+      for(var i=0 ; i<deleteImages.length ; i++){
+         $deleteImages = $("<input>", {type : "hidden", name : "deleteImages", value : deleteImages[i]});
+         $("form[name=updateForm]").append($deleteImages);
+      }
 	
       
 	</script>

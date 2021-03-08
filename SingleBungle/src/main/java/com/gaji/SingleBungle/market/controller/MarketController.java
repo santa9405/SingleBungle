@@ -217,9 +217,9 @@ public class MarketController {
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
-			url = "redirect:../market/" + result;
+			url = "redirect:" + result;
 			
-			request.getSession().setAttribute("returnListURL", "../list");
+			request.getSession().setAttribute("returnListURL", "list");
 					
 		} else {
 			swalIcon = "error";
@@ -239,6 +239,7 @@ public class MarketController {
 		
 		// 게시글 상세 조회 
 		Market market = service.selectMarket(marketNo);
+		System.out.println(market);
 		
 		// 해당 게시글이 포함된 이미지 목록 조회
 		if(market != null) {
@@ -268,10 +269,10 @@ public class MarketController {
 		System.out.println(mSearch);
 		
 		
-		MarketPageInfo pInfo = service.getSearchPageInfo(mSearch,cp);
+		MarketPageInfo mpInfo = service.getSearchPageInfo(mSearch,cp);
 		
 		
-		List<Market> mList = service.selectSearchList(mSearch,pInfo);
+		List<Market> mList = service.selectSearchList(mSearch,mpInfo);
 		
 		
 		if(!mList.isEmpty()) {
@@ -280,7 +281,7 @@ public class MarketController {
 		}
 		
 		model.addAttribute("mList", mList);
-		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("mpInfo",mpInfo);
 		model.addAttribute("mSearch", mSearch);
 		
 		return "market/marketList";

@@ -25,6 +25,8 @@
 		<result property="categoryNm" column="CATEGORY_NM" />
 		<result property="likes" column="LIKES" />
 		<result property="rating" column="RATING" />
+		<result property="itemCount" column="ITEMCOUNT" />
+		
 	</resultMap>
 	
 	
@@ -174,8 +176,7 @@
 	</update>
 
 	<!-- 검색 조건에 맞는 게시글 수 조회 -->
-	<select id="getSearchListCount" parameterType="MarketSearch"
-		resultType="_int">
+	<select id="getSearchListCount" resultType="_int">
 		SELECT COUNT(*) FROM V_MARKET
 		WHERE MARKET_FL = 'N'
 		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬) -->
