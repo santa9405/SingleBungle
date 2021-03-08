@@ -359,9 +359,6 @@ public class ReviewController {
 		rSearch.setCt(ct);
 		rSearch.setSort(sort);
 		
-		System.out.println(rSearch);
-		
-		
 		ReviewPageInfo pInfo = service.getSearchPageInfo(rSearch,cp);
 		
 		
