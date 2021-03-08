@@ -78,6 +78,10 @@ public interface adminService {
 
 	int gradeMember(int memNo, String grade);
 
+	APageInfo getInquiryAllPageInfo(int cp);
+
+	List<inquiry> inquiryAllList(APageInfo pInfo);
+
 	
 
 	

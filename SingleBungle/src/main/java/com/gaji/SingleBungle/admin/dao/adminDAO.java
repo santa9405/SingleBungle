@@ -71,6 +71,7 @@ public class adminDAO {
 		return sqlSession.selectList("adminMapper.selectFaqList", type);
 	}
 
+	//1:1게시판 이용자 리스트 조회
 	public List<inquiry> inquiryList(APageInfo pInfo, int memberNo) {
 		// RowBounds 객체 : offset과 limit를 이용하여 조회 내용 중 일부 행만 조회하는 마이바티스 객체
 		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
@@ -81,6 +82,16 @@ public class adminDAO {
 		map.put("memberNo", memberNo);
 		
 		return sqlSession.selectList("adminMapper.inquiryList", map, rowBounds);
+	}
+	
+	//1:1게시판 관리자 리스트 조회
+	public List<inquiry> inquiryAllList(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardType", pInfo.getBoardType());
+		return sqlSession.selectList("adminMapper.inquiryAllList", map, rowBounds);
 	}
 
 	public int selecinquirytNextNo() {
@@ -94,6 +105,7 @@ public class adminDAO {
 	public inquiry selectInquiry(inquiry temp) {
 		return sqlSession.selectOne("adminMapper.selectInquiry", temp);
 	}
+	
 
 	public List<IAttachment> selectIAttachmentList(int inquiryNo) {
 		return sqlSession.selectList("adminMapper.selectIAttachmentList", inquiryNo);
@@ -101,6 +113,10 @@ public class adminDAO {
 
 	public int getInquiryListCount() {
 		return sqlSession.selectOne("adminMapper.getInquiryListCount");
+	}
+	
+	public int getAllInquiryListCount() {
+		return sqlSession.selectOne("adminMapper.getAllInquiryListCount");
 	}
 
 	public int deleteInquiry(int inquiryNo) {
@@ -212,6 +228,10 @@ public class adminDAO {
 	public int gradeMember(Map<String, Object> map) {
 		return sqlSession.update("adminMapper.gradeMember", map);
 	}
+
+	
+
+	
 
 	
 

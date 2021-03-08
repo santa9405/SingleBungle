@@ -163,12 +163,12 @@
                     </thead>
 
                     <tbody>
-                    <c:if test="${empty inquiryList }">
+                    <c:if test="${empty inquiryList}">
                    			<tr>
 								<td colspan="6">존재하는 게시글이 없습니다.
 							</tr>
                    </c:if>
-                    <c:if test="${!empty inquiryList }">
+                    <c:if test="${!empty inquiryList || loginMember.memberNo == 4}">
                     	<c:forEach var="board" items="${inquiryList}" varStatus="vs">
                         <tr>
                         	<td id="inquiryNo">${board.inquiryNo}</td>

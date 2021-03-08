@@ -181,9 +181,9 @@ a:hover {
 						</c:if>
 					</tbody>
 				</table>
-
-				<a class="btn btn-success float-right" href="../admin/noticeInsert">글쓰기</a>
-
+				<c:if test="${loginMember.memberNo == 4 }">
+					<a class="btn btn-success float-right" href="../admin/noticeInsert">글쓰기</a>
+				</c:if>
 				<div class="padding">
 					<c:set var="firstPage" value="?cp=1" />
 					<c:set var="lastPage" value="?cp=${pInfo.maxPage}" />
@@ -201,7 +201,7 @@ a:hover {
 					<c:set var="nextPage" value="?cp=${next}" />
 
 
-					<span>${pInfo }</span>
+					
 					<div class="container d-flex justify-content-center">
 						<div class="col-md-4 col-sm-6 grid-margin stretch-card">
 							<nav>

@@ -440,12 +440,30 @@ public class adminServiceImpl implements adminService{
 			return result;
 		}
 
+		//1:1게시판 회원별 리스트 조회
 		@Override
 		public List<inquiry> inquiryList(APageInfo pInfo, int memberNo) {
 			return dao.inquiryList(pInfo, memberNo);
 		}
 
+		//1:1게시판 관리자 리스트 조회
+		@Override
+		public List<inquiry> inquiryAllList(APageInfo pInfo) {
+			return dao.inquiryAllList(pInfo);
+		}
 		
+		
+		@Override
+		public APageInfo getInquiryPageInfo(int cp) {
+			int listCount = dao.getInquiryListCount();
+			return new APageInfo(cp, listCount);
+		}
+		
+		@Override
+		public APageInfo getInquiryAllPageInfo(int cp) {
+			int listCount = dao.getAllInquiryListCount();
+			return new APageInfo(cp, listCount);
+		}
 		
 		
 		@Override
@@ -580,11 +598,7 @@ public class adminServiceImpl implements adminService{
 			return dao.selectIAttachmentList(inquiryNo);
 		}
 
-		@Override
-		public APageInfo getInquiryPageInfo(int cp) {
-			int listCount = dao.getInquiryListCount();
-			return new APageInfo(cp, listCount);
-		}
+		
 
 		@Override
 		public int deleteInquiry(int inquiryNo) {
@@ -760,6 +774,10 @@ public class adminServiceImpl implements adminService{
 
 			return dao.gradeMember(map);
 		}
+
+		
+
+		
 
 
 		
