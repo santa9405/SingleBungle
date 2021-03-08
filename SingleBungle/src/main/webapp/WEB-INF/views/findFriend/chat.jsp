@@ -15,18 +15,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.6.8-fix/jquery.nicescroll.min.js"></script>
 
 <style>
-body {
-	background: #eee;
-}
-
-.decor-default {
-	background-color: #ffffff;
-}
-
 .chat .avatar {
 	width: 40px;
 	height: 40px;
-	position: absolute;
 }
 
 .chat .avatar img {
@@ -35,55 +26,10 @@ body {
 	height: 100%;
 }
 
-.chat .avatar .status.off {
-	border: 1px solid #5a5a5a;
-	background: #ffffff;
-}
-
-.chat .avatar .status.online {
-	background: #4caf50;
-}
-
-.chat .avatar .status.busy {
-	background: #ffc107;
-}
-
-.chat .avatar .status.offline {
-	background: #ed4e6e;
-}
-
-.chat-users .user .status {
-	bottom: 0;
-	left: 28px;
-}
-
-.chat .avatar .status {
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	position: absolute;
-}
-
-.chat-users .user .name {
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 20px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.chat-users .user .mood {
-	font: 200 14px/20px "Raleway", sans-serif;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
 /*****************CHAT BODY *******************/
-.chat-body h6 {
-	font-size: 20px;
-	margin: 0 0 20px;
+.display-chatting{
+   width : 100%;
+   height : 600px;
 }
 
 .chat-body {
@@ -211,79 +157,21 @@ body {
 }
 
 /**************ADD FORM ***************/
-.chat-body .answer-add {
-	clear: both;
-	position: relative;
-	margin: 20px -20px -20px;
-	padding: 20px;
-	background: burlywood;
-}
-
-.chat-body .answer-add input {
-	border: none;
-	background: none;
-	display: block;
-	width: 88%;
-	float: left;
-	font-size: 16px;
-	line-height: 40px;
-	padding: 0;
-	color: #ffffff;
-}
-
-.chat input {
+.chat textarea {
 	-webkit-appearance: none;
 	border-radius: 0;
 }
 
-.chat-body .answer-add .answer-btn-1 {
-	background:
-		url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-40.png")
-		50% 50% no-repeat;
-	right: 56px;
-}
-
-.chat-body .answer-add .answer-btn {
-	display: block;
-	cursor: pointer;
-	width: 36px;
-	height: 36px;
-	position: absolute;
-	top: 50%;
-	margin-top: -18px;
-}
-
-.chat-body .answer-add .answer-btn-2 {
-	background:
-		url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-41.png")
-		50% 50% no-repeat;
-	right: 20px;
-}
-
-.chat input::-webkit-input-placeholder {
-	color: #fff;
-}
-
-.chat input:-moz-placeholder { /* Firefox 18- */
-	color: #fff;
-}
-
-.chat input::-moz-placeholder { /* Firefox 19+ */
-	color: #fff;
-}
-
-.chat input:-ms-input-placeholder {
-	color: #fff;
-}
-
-.chat input {
-	-webkit-appearance: none;
-	border-radius: 0;
+.input-area, #inputChatting{
+   width: 100%;
+   height: 70px;
+   display: flex;
 }
 
 #inputChatting{
-   width : 90%;
+   width : 80%;
    resize : none;
+   margin-left: 20px;
 }
 </style>
 </head>
@@ -292,11 +180,11 @@ body {
 	<div>
 		<div class="row no-gutters">
 			<div class="content col-sm-12">
-				<div class="chat" style="overflow: hidden; outline: none;" tabindex="5001">
-					<div class="decor-default">
+				<div class="chat">
+					<div class="display-chatting">
 						<div class="chat-body">
-							<h6>참여인원</h6>
-							<div class="answer left">
+							<h5>참여인원</h5>
+							<%-- <div class="answer left">
 								<div class="avatar">
 									<img src="${contextPath}/resources/images/profile.png" alt="User name">
 									<div class="status offline"></div>
@@ -349,20 +237,19 @@ body {
 								<div class="name">며네</div>
 								<div class="text">좋아요</div>
 								<div class="time">2분 전</div>
-							</div>
+							</div> --%>
 
-							<div class="answer-add">
-								<div class="input-area">
-									<textarea id="inputChatting" rows="3"></textarea>
-									<!-- <input id="inputChatting" placeholder="메세지를 입력해주세요."> -->
-								</div>
-								<div align="right">
-									<button id="send" class="btn btn-light">전송</button>
-								</div>
-							</div>
 
 						</div>
 					</div>
+						<div class="col-lg-8">
+							<div class="answer-add">
+								<div class="input-area">
+									<textarea id="inputChatting" rows="3" placeholder="메세지를 입력해주세요."></textarea>
+									<button id="send" class="btn btn-success">전송</button>
+								</div>
+							</div>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -383,22 +270,20 @@ body {
 		</c:if>
 		
 		// 로그인한 회원이 채팅 입력 후 보내기 버튼을 클릭한 경우 채팅 내용이 서버로 전달됨
-		// (전달할 내용 : 로그인한 회원의 닉네임 + 입력한 채팅 + 채팅 시간 )
-	
+		// (전달할 내용 : 게시글 번호 + 로그인한 회원의 닉네임 + 입력한 채팅 + 채팅 시간 )
 		var nickname = "${loginMember.memberNickname}";
-		var memberNo = "${loginMember.memberNo}";
+		var loginMemberNo = "${loginMember.memberNo}";
+		var friendNo = "${friendNo}";
 		
-		/* $("#inputChatting").keyup(function(e){
+		$("#inputChatting").keyup(function(e){
 			if(e.keyCode == 13){
 				if(e.shiftKey === false){
 					$("#send").click();
 				}
 			}
-		}); */
+		});
 		
 		$("#send").on("click", function(){
-			
-			console.log(nickname);
 			
 			if(nickname == ""){
 				alert("로그인 후 이용해주세요");
@@ -408,14 +293,31 @@ body {
 				
 				if(chat.trim().length == 0){
 					alert("채팅을 입력해 주세요.");
+					
 				}else{
 					
 					var obj = {};
+					obj.friendNo = friendNo;
+					obj.memberNo = loginMemberNo;
 					obj.nickname = nickname;
 					obj.chat = chat;
 					
 					var date = new Date();
-					var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+					
+					var year = date.getFullYear();
+			    var month = date.getMonth()+1;
+			    var day = date.getDate(); 
+			    var hours = date.getHours(); 
+			    var minutes = date.getMinutes();
+			    var seconds = date.getSeconds();
+			    
+			    if ((month+"").length < 2) month = "0" + month;
+			    if ((day+"").length < 2) day = "0" + day;
+			    if ((hours+"").length < 2) hours = "0" + hours;
+			    if ((minutes+"").length < 2) minutes = "0" + minutes;
+			    if ((seconds+"").length < 2) seconds = "0" + seconds;
+					
+					var time = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 					obj.time = time;
 					
 					
@@ -435,35 +337,52 @@ body {
 			
 			var obj = JSON.parse(event.data);
 			
+			var chatBody = $("<div>").addClass("chat-body");
+			
 			var answerRight = $("<div>").addClass("answer right");
 			
 			var answerLeft = $("<div>").addClass("answer Left");
 			
 			var avatar = $("<div>").addClass("avatar");
 			
-			var image = $("imag").attr("src", "${contextPath}/resources/images/profile.png")
+			var image = $("<img>").attr("src", "${contextPath}/resources/images/profile.png")
 									.attr("alt", "User name");
 			
 			avatar.append(image);
 			
-			//var writer = obj.memberName;
-			var chat = obj.chat.replace(/\n/g, "<br>");
-			var time = obj.createDt;
+			// -> 자바스크립트에는 replaceAll() 메소드가 없으므로 정규 표현식을 이용하여 변경
+			
+			obj.chat =	obj.chat.replace(/\n/g, "<br>"); 
+			
+			var chat = obj.chat;
+			var time = obj.time;
 			
 			var name = $("<div>").addClass("name").text(nickname);
 			var text = $("<div>").addClass("text").text(chat);
 			var time = $("<div>").addClass("time").text(time);
 			
-			if(obj.memberNo == memberNo){
+			
+			if(obj.memberNo == loginMemberNo){
 				answerRight.append(avatar).append(name).append(text).append(time);
+				chatBody.append(answerRight)
 			}else{
 				answerLeft.append(avatar).append(name).append(text).append(time);
+				chatBody.append(answerLeft)
 			}
 			
-			// 채팅 입력 시 스크롤을 가장 아래로 내리기
-			$(".chat-body").scrollTop($(".chat-body")[0].scrollHeight);
+			$(".display-chatting").append(chatBody);
 			
+			// 채팅 입력 시 스크롤을 가장 아래로 내리기
+			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);			
 		};
+		
+		
+		// ------------------------------------------------------------------------
+		
+		// 페이지 로딩 완료 시 채팅 목록 호출
+		$(function(){
+			selectChatList();
+		});
 		
 	</script>
 </body>

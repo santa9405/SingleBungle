@@ -366,7 +366,7 @@ body {
 						function() {
 							window
 									.open(
-											'${contextPath}/findFriendChat/chatView',
+											'${contextPath}/findFriendChat/chatView/${findFriend.friendNo}',
 											"popup",
 											"width=600, height=700, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 						});

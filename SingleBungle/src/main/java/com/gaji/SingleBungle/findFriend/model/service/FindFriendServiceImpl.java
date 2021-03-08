@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 import com.gaji.SingleBungle.findFriend.model.dao.FindFriendDAO;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
+import com.gaji.SingleBungle.findFriend.model.vo.FindFriendChatting;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriend;
 import com.gaji.SingleBungle.findFriend.model.vo.FindFriendPageInfo;
 
@@ -416,6 +417,19 @@ public class FindFriendServiceImpl implements FindFriendService {
 		return dao.selectDeleteBoard(friendNo);
 	}
 
+	// 친구찾기 채팅 삽입 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChat(Map<String, Object> map) {
+		
+		map.put( "friendNo", ((String) map.get("friendNo")).replaceAll("\"", " ").trim());
+		map.put( "memberNo", ((String) map.get("memberNo")).replaceAll("\"", " ").trim());
+		map.put( "chat", ((String) map.get("chat")).replaceAll("\"", " ").trim());
+		
+		map.put( "chat", ((String) map.get("chat")).replaceAll("\n", "<br>"));
+		
+		return dao.insertChat(map);
+	}
 	
 
 }

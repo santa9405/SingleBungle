@@ -47,13 +47,13 @@
              <label for="category" class="input-group-addon col-sm-3 insert-label">신고 사유</label>
              <div class="col-sm-9">
              <select   class="form-control div small" id="category" name="categoryCd" required>
-                 <option value="10">욕설, 비방, 차별, 혐오</option>
-                 <option value="20">홍보, 영리목적</option>
-                 <option value="30">불법 정보</option>
-                 <option value="40">음란, 청소년 유해</option>
-                 <option value="50">개인 정보 노출, 유포, 거래</option>
-                 <option value="60">도배, 스팸</option>
-                 <option value="70">기타</option>
+                 <option value="1">욕설, 비방, 차별, 혐오</option>
+                 <option value="2">홍보, 영리목적</option>
+                 <option value="3">불법 정보</option>
+                 <option value="4">음란, 청소년 유해</option>
+                 <option value="5">개인 정보 노출, 유포, 거래</option>
+                 <option value="6">도배, 스팸</option>
+                 <option value="7">기타</option>
              </select>
              </div>
          </div>
