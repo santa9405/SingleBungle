@@ -101,6 +101,22 @@ public interface MarketService {
 	 */
 	int insertReviewReport(Map<String, Object> map);
 
+	/** 게시글 삭제
+	 * @param market
+	 * @return result
+	 */
+	int deleteMarket(Market market);
+
+	
+	/** 사고 팔고 수정 Service
+	 * @param market
+	 * @param images
+	 * @param savePath
+	 * @param beforImages 
+	 * @return result
+	 */
+	int updateMarket(Market market, List<MultipartFile> images, String savePath, int[] beforImages);
+
 	
 
 

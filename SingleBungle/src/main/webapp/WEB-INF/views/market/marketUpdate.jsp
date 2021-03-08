@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,6 +257,16 @@
 		margin-top : 8px;
 	}
 
+	.itemImage{
+		margin-bottom : 8px;
+		width: 202px;
+		height: 202px;
+		border: 1px solid rgb(230, 229, 239);
+		margin-right: 12px;
+		list-style-type: none;
+		position : relative;
+		display: flex;
+	}
 </style>
 </head>
 <body>
@@ -298,23 +310,38 @@
 					<h2>기본정보  <span id="requiredText">*필수정보</span> </h2> 
 				
 					
-					<form action="insertAction" method="POST" enctype="multipart/form-data" role="form" onsubmit= "return validate();">
+					<form action="../updateAction/${market.marketNo}" name="updateForm" method="POST" enctype="multipart/form-data" role="form" onsubmit= "return validate();">
 					<ul class="insertForm">
-					
 					<!-- 이미지 -->
 						<li class="formRow row borderTop">
 							<div class="formList">
-								<span>상품이미지<span class="star">*</span> (<span id="imgCnt">0</span>/10) </span>
+								<span>상품이미지<span class="star">*</span> (<span id="imgCnt">${fn:length(at) }
+
+								</span>/10) </span>
 							</div>
 							
 							<div class="formContent">
 								<ul class="itemImages"> 
 									<li class="itemImageInsert" id="imgInput">
-										<label for="images0" class="imgLabel">
-											<span>이미지 등록</span></label>
-											<input type="file" id="images0" name="images"  style="display: none;" onchange="LoadImg(this);">
+										<label for="images0" class="imgLabel"   <c:if test="${!vs.last}"> style="display:none;"  </c:if>     >
+											<span>이미지 등록</span>
+										</label>
+										<input type="file" id="images0" name="images"  style="display: none;" onchange="LoadImg(this);">
+	
+										<c:forEach items="${at}" var="image" varStatus="vs">
+											<label for="images${vs.count}" class="imgLabel"   <c:if test="${!vs.last}"> style="display:none;"  </c:if>     >
+												<span>이미지 등록</span>
+											</label>
+											<input type="file" id="images${vs.count}" name="images"  style="display: none;" onchange="LoadImg(this);">
+										</c:forEach>								
 									</li>
 									
+									<c:forEach items="${at}" var="image" varStatus="vs">
+										<li class="itemImage">
+											<img id="images${vs.count}" name="test1" src="${contextPath}${image.filePath}/${image.fileName}">
+											<button type="button" class="deleteBtn" onclick="deleteImg(this, ${image.fileNo});"></button>
+										</li>
+									</c:forEach>
 									
 								</ul>
 							</div>
@@ -469,6 +496,14 @@
 	
 
 	<script>
+	
+	// 이전 이미지의 fileNo를 하나의 배열에 모아둠
+	var beforeImages = [];
+	<c:forEach items="${at}" var="image">
+		beforeImages.push(${image.fileNo});
+	</c:forEach>
+	
+	
 
 	
 	(function() {
@@ -499,7 +534,8 @@
 		}
 	});
 	
-	var imgCnt = 0;
+	var imgCnt = ${fn:length(at)};
+	var imgId = ${fn:length(at)};
 	
 	if(imgCnt <= 10) {
 		function LoadImg(value) {
@@ -507,8 +543,10 @@
 				var reader = new FileReader();
 				reader.readAsDataURL(value.files[0]);
 
+				imgId++;
+				
 				reader.onload = function(e) {
-					var img = '<li class="itemImage"> <img id="img' + imgCnt + '" class="image" name="test1" src="' + e.target.result + '">' +
+					var img = '<li class="itemImage"> <img id="images' + imgId + '" class="image" name="test1" src="' + e.target.result + '">' +
 						'<button type="button" class="deleteBtn" onclick="deleteImg(this);"></button>' + '</li>';
 					$(".itemImages").append(img);
 					$("#imgCnt").text(++imgCnt); 
@@ -519,17 +557,30 @@
 	}
 	
 	function addImgInput(){
-		var input = '<label for="images' + imgCnt +'" class="imgLabel">' +
+		var input = '<label for="images' + imgId +'" class="imgLabel">' +
 								'<span>이미지 등록</span></label>'+
-								'<input type="file" id="images' + imgCnt + '" name="images" style="display:none;" onchange="LoadImg(this);">';
+								'<input type="file" id="images' + imgId + '" name="images" style="display:none;" onchange="LoadImg(this);">';
 		$(".itemImageInsert label").css("display", "none");
 		$('.itemImageInsert').append(input);
 	}
 	
-    function deleteImg(value) {
-    		$("#imgCnt").text(--imgCnt);
+    function deleteImg(value, num) {
+    	console.log("파일 번호 : " + num);
+    	
+    	if(num != undefined){ // 전달된 파일 번호가 있다면
+    		var idx = beforeImages.indexOf(num);
+    		if (idx > -1) beforeImages.splice(idx, 1)
+    	}
+    	
+    	
+   		$("#imgCnt").text(--imgCnt);  
         $(value).parent().remove();
-        $(value).remove();
+        
+        var id = "images" + num;
+        $("label[for="+id+"]").remove();
+        $("input[id="+id+"]").remove();
+        
+        $(".imgLabel").eq($(".imgLabel").length - 1).show();
      }
     
     
@@ -621,16 +672,19 @@
            $(".itemCount").focus();
            return false;
         }
-     }
-      
       
 		// 유효성 검사에서 문제가 없을 경우 서버에 제출 전
-      // deleteImages배열의 내용을 hidden 타입으로 하여 form태그 마지막에 추가하여 파라미터로 전달
-      for(var i=0 ; i<deleteImages.length ; i++){
-         $deleteImages = $("<input>", {type : "hidden", name : "deleteImages", value : deleteImages[i]});
-         $("form[name=updateForm]").append($deleteImages);
+      // beforeImages배열의 내용을 hidden 타입으로 하여 form태그 마지막에 추가하여 파라미터로 전달
+      for(var i=0 ; i<beforeImages.length ; i++){
+         $beforeImages = $("<input>", {type : "hidden", name : "beforeImages", value : beforeImages[i]});
+         $("form[name=updateForm]").append($beforeImages);
       }
 	
+     }
+      
+		
+		
+		
       
 	</script>
 

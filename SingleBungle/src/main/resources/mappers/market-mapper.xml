@@ -228,10 +228,10 @@
 					ORDER BY MARKET_NO DESC
 				</when>
 				<when test="sort =='rowSort'">
-					ORDER BY PRICE DESC, MARKET_NO DESC
+					ORDER BY PRICE ASC, MARKET_NO DESC
 				</when>
 				<otherwise>
-					ORDER BY PRICE ASC , MARKET_NO DESC
+					ORDER BY PRICE DESC , MARKET_NO DESC
 				</otherwise>
 			</choose>
 		</if>
@@ -253,6 +253,45 @@
 		VALUES (#{reportNo}, #{reportTitle}, #{reportContent}, 
 		#{memberNo}, #{categoryCode}, #{marketNo})
 	</insert>
+	
+	<!--  게시글 삭제 -->
+	<update id="deleteMarket" parameterType="Market">
+		UPDATE MARKET SET
+		MARKET_FL = 'Y'
+		WHERE MARKET_NO = '${marketNo}'
+	</update>
+	
+	<!-- 사고팔고 수정 -->
+	<update id="updateMarket" parameterType="Market">
+		UPDATE MARKET SET
+		MARKET_TITLE = #{marketTitle},
+		MARKET_CONTENT = #{marketContent},
+		PRICE = #{price},
+		TRANSACTION_CATEGORY = #{transactionCategory},
+		STATUS = #{status},
+		ITEMCOUNT = #{itemCount}
+		WHERE MARKET_NO = #{marketNo}
+	</update>
+	
+	<!-- 이전 파일 레벨 수정 -->
+	<update id="updateOldFile" parameterType="MarketAttachment">
+		UPDATE MARKET_FILE SET
+		FILE_LEVEL = #{fileLevel}
+		WHERE FILE_NO = #{fileNo}
+	</update>
+	
+	<!-- 삭제된 이전 파일 DB에서 삭제 -->
+	<delete id="deleteAttachmentList" parameterType="list">
+		DELETE FROM MARKET_FILE
+		WHERE FILE_NO IN
+		<foreach collection="list" item="at" open="(" close=")" separator=",">
+			#{at.fileNo}
+		</foreach>
+	
+	
+	</delete>
+	
+	
 	
 	
 	
