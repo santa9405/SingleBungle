@@ -208,12 +208,22 @@
 <!-- 쪽지 읽기  -->		
 <div class="text-center">
 	<!-- Button HTML (to Trigger Modal) -->
-	<button class="btn" data-toggle="modal" data-target="#readMessage" >쪽지 읽기</button>
+	<button class="btn" data-toggle="modal" data-backdrop="static" data-target="#readMessage" >쪽지 읽기</button>
 </div>
 
 <div id="readMessage" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">보낸사람 :</h5>	
+			</div>
+			<div class="modal-body">
+				<div class="messageArea" style="border: 1px solid black;height: 150px;"></div>
+			</div>
+			<div class="modal-footer" >
+                <div class="col"><button type="submit" class="btn btn-success btn-block" data-dismiss="modal"><span class="plan">답장</span></button></div>
+                <div class="col"><button type="button" class="btn btn-reset btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
+			</div>
 		</div>
 	</div>
 </div>

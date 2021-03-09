@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gaji.SingleBungle.message.model.dao.MessageDAO;
 import com.gaji.SingleBungle.message.model.vo.Message;
 import com.gaji.SingleBungle.message.model.vo.MessagePageInfo;
 

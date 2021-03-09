@@ -361,7 +361,7 @@
 															</c:if>
 														</div>
 
-														<div class="infoAreaWrapper">
+														<div class="infoAreaWrapper" style="padding : 24px; padding-bottom:0px;">
 															<h5>
 																<a href="review/view/${review.boardNo}" class="text-dark">${review.boardTitle }</a>
 															</h5>
@@ -392,8 +392,8 @@
 																</div>
 
 															</div>
-															<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2 " style="clear: both;">
-																<p class="small mb-0">
+															<div class="nickNameArea d-flex  align-items-center justify-content-between rounded-pill bg-light px-3 py-2" style="clear: both;">
+																<p class="small mb-0"> 
 																	<span class="font-weight-bold price">${review.nickName }</span>
 																</p>
 																<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
