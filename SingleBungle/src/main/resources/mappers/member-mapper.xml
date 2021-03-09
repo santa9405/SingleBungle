@@ -62,7 +62,7 @@
 	<!-- 로그인 -->
 	<!-- resultType과 resultMap은 동시에 사용할 수 없다. -->
 	<select id="loginAction" parameterType="Member" resultMap="login_rm">
-		SELECT * FROM MEMBER
+		SELECT * FROM V_LOGIN
 		WHERE MEM_ID = #{memberId}
 		<!-- AND MEMBER_PWD = #{memberPwd} -->
 		AND SCSN_FL = 'Y'				
