@@ -64,4 +64,37 @@
 		INSERT INTO MESSAGE (MSG_NO, MEM_NO1, MEM_NO2, MSG_CONTENT)
 		VALUES(#{msgNo}, #{sendMember}, #{receiveMember}, #{content})
 	</insert>
+	
+	
+	<!-- 메세지 읽음 상태 변경  -->
+	<update id="updateReadStatus" parameterType="_int">
+		UPDATE MESSAGE SET
+		READ_MESSAGE = 'Y'
+		WHERE MSG_NO = #{messageNo}
+	</update>
+	
+	
+	<!-- 보낸 메세지 삭제  -->
+	<update id="deleteSendMessage" parameterType="list">
+		UPDATE MESSAGE SET
+		SEND_STATUS = 'Y'
+		WHERE MSG_NO IN 
+		<foreach collection="list" item="msgNo" open="(" close=")" separator=",">
+			${msgNo}
+		</foreach>
+	</update>
+
+
+
+	<!-- 받은 메세지 삭제  -->
+	<update id="deleteReceiveMessage" parameterType="list">
+		UPDATE MESSAGE SET
+		RECEIVE_STATUS = 'Y'
+		WHERE MSG_NO IN 
+		<foreach collection="list" item="msgNo" open="(" close=")" separator=",">
+			${msgNo}
+		</foreach>
+	</update>
+	
+	
 </mapper>

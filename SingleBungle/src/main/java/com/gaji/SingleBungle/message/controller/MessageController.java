@@ -1,5 +1,6 @@
 package com.gaji.SingleBungle.message.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.List;
@@ -11,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -92,7 +96,8 @@ public class MessageController {
 		// 메세지 전송
 		@RequestMapping("sendMessage")
 		public String sendMessage(@RequestParam("memberNo") int memberNo,
-									@RequestParam("content") String content, @ModelAttribute(name="loginMember", binding=false) Member loginMember,	
+									@RequestParam("content") String content, 
+									@ModelAttribute(name="loginMember", binding=false) Member loginMember,	
 									RedirectAttributes ra, HttpServletRequest request) {
 			
 			
@@ -125,9 +130,51 @@ public class MessageController {
 			
 			ra.addFlashAttribute("swalIcon", swalIcon);
 			ra.addFlashAttribute("swalTitle", swalTitle);
+		
+			String referer = request.getHeader("Referer");
+					 
 			
+			return "redirect:" + referer;
+		}
+		
+		
+		
+		// 메세지 읽으면 상태 변경
+		@ResponseBody
+		@RequestMapping("updateReadStatus/{messageNo}")
+		public int updateReadStatus(@PathVariable("messageNo") int messageNo) {
 			
-			return "redirect :"+ request.getHeader("referer");
+			return service.updateReadStatus(messageNo);
+		}
+		
+		
+		// 보낸 메세지 삭제
+		@ResponseBody
+		@RequestMapping("deleteSendMessage")
+		public int deleteSendMessage(@RequestParam(value="messageNo[]") int[] messageNo) {
+			
+			List<Integer> list = new ArrayList<Integer>();
+			
+			for(int i=0; i<messageNo.length; i++) {
+				list.add(messageNo[i]);
+			}
+
+			return service.deleteSendMessage(list);
+		}
+		
+		
+		// 받은 메세지 삭제
+		@ResponseBody
+		@RequestMapping("deleteReceiveMessage")
+		public int deleteReceiveMessage(@PathVariable(value="messageNo[]") int[] messageNo) {
+			
+			List<Integer> list = new ArrayList<Integer>();
+			
+			for(int i=0; i<messageNo.length; i++) {
+				list.add(messageNo[i]);
+			}
+			
+			return service.deleteReceiveMessage(list);
 		}
 		
 		

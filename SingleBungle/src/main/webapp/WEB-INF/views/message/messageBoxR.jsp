@@ -87,10 +87,10 @@
 					<span>받은 쪽지</span>
 				</div>
 				<div class="messageBox" style="display: inline-block; color: #ffaf18;	border:1px solid #ffaf18; ">
-					<a href="#">보낸 쪽지</a>
+					<a href="${contextPath}/message/messageBoxS">보낸 쪽지</a>
 				</div>
-				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
-					<button class="maincolor-re" id="deleteBtn">삭제</button>
+				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px; margin-right:10px;">
+					<button class="maincolor-re" id="deleteBtn" onClick="deleteBtn()">삭제</button>
 				</div>
 			</div>
 		</div>
@@ -100,11 +100,12 @@
 				<table class="table table-stripped" id="messageTable" style="text-align : center;">
 					<thead>
 						<tr>
-							<th><input type="checkbox" id="checkall"/></th>
+							<th><input type="checkbox" id="checkAll"/></th>
 							<th>보낸 사람</th>
 							<th>내용</th>
 							<th>보낸 시간</th>
 							<th>상태</th>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -117,8 +118,8 @@
 						<c:if test="${!empty mList }">
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
-									<td><input type="checkbox" name="chk"></td>
-									<td>${message.sendNickName}</td>
+									<td><input type="checkbox" name="chk" value="${message.messageNo}"></td>
+									<td id="sendNickName">${message.sendNickName}</td>
 									<td>${message.messageContent}</td>
 									<td>
 									<%-- 날짜 출력 모양 지정 --%>
@@ -133,7 +134,7 @@
 										</c:otherwise>
 									</c:choose>									
 									</td>
-									<td>
+									<td id="readStatus">
 									<c:choose>
 										<c:when test="${message.readMessage == 'N' }">
 										 <i class="far fa-envelope"></i>읽지않음
@@ -143,8 +144,10 @@
 										</c:otherwise>
 									</c:choose>
 									</td>
-									<td class="no"><input type="hidden" value="${message.messageNo }"></td>
-								</tr>							
+									<!-- 쪽지 보낸 회원 no를 받아놨다가 답장할때 가져간다  -->
+
+									<input type="hidden" id="sendMemberNo" value="${message.sendMember }">
+								</tr>					
 							</c:forEach>
 						</c:if>
 					</tbody>
@@ -199,8 +202,6 @@
 										<li class="page-item"><a class="page-link maincolor-re1" href="${nextPage }" data-abc="true"><i class="fa fa-angle-right"></i></a></li>
 										<li class="page-item"><a class="page-link maincolor-re1" href="${lastPage }" data-abc="true"><i class="fas fa-angle-double-right"></i></a></li>
 								</c:if>
-								
-
 							</ul>
 						</nav>
 					</div>
@@ -212,41 +213,127 @@
 
 
 <!-- 쪽지 읽기  -->		
-<div class="text-center">
-	<!-- Button HTML (to Trigger Modal) -->
-	<button class="btn" data-toggle="modal" data-backdrop="static" data-target="#readMessage" >쪽지 읽기</button>
-</div>
-
 <div id="readMessage" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">보낸사람 :</h5>	
+				<h5 class="modal-title">보낸사람 : <span id="sender" style="font-size:19px;"></span></h5>	
 			</div>
 			<div class="modal-body">
-				<div class="messageArea" style="border: 1px solid black;height: 150px;"></div>
+				<div class="messageArea" style="border: 1px solid black;height: 150px; padding:10px;" id="viewMessage"></div>
 			</div>
 			<div class="modal-footer" >
-                <div class="col"><button type="submit" class="btn btn-success btn-block" data-dismiss="modal"><span class="plan">답장</span></button></div>
-                <div class="col"><button type="button" class="btn btn-reset btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
+				 <div class="col"><button id="send" class="btn maincolor btn-block" data-toggle="modal" data-backdrop="static" data-target="#sendMessage" >답장하기</button></div>
+        <div class="col"><button type="button" class="btn maincolor-re btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- 쪽지 읽기 -->		
 
+
+<!-- 답장 쓰기  -->
+<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
+	<div id="sendMessage" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">받는사람 : <span id="receiver" style="font-size:19px;"></span>  </h5> 
+						<input type="hidden" name="memberNo" id="hiddenMemberNo">
+					</div>
+					<div class="modal-body">
+						<textarea class="messageText" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+					</div>
+					<div class="modal-footer">
+						<div class="col">
+							<button type="submit" class="btn maincolor btn-block">
+								<span class="plan">전송</span>
+							</button>
+						</div>
+						<div class="col">
+							<button type="button" class="btn maincolor-re btn-block" data-dismiss="modal">
+								<span class="plan">닫기</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>  
+</form> 
+<!-- 답장 쓰기  -->
+
+
 		<jsp:include page="../common/footer.jsp" />
 		
 		<script>
-		// 메세지 읽기
-		// $(".modal-content").load("${contextPath}/message/readMessageModal");
 	
+		// 한 행을 클릭하면 해당 메세지 읽기
+			$("#messageTable > tbody td").on("click",function(){
+				
+				var messageNo = $(this).parent().children().eq(0).children("input").val();
+				var sender = $(this).parent().children().eq(1).text();
+				var viewMessage = $(this).parent().children().eq(2).text();
+				
+				//var readTag= $("<i>").addClass("far fa-envelope-open");
+				//var readText = $("<span>").text("읽음");
+				///console.log("readStatus : " + readStatus);
+				// $("#readStatus").addClass("page-item active");
+				
+				$("#sender").text(sender);
+				$("#viewMessage").text(viewMessage);
+
+				$.ajax({
+					url : "${contextPath}/message/updateReadStatus/" + messageNo,
+					type : "post",
+					data : {"messageNo":messageNo},
+					success : function(result){
+						
+						$("#readMessage").modal("show");
+						
+					},error :function(){
+						console.log("메세지 읽기 실패");
+					}
+				
+				});
+				
+			});		
+		
+		
+		
+		
+		// 답장버튼을 누르면,,답장한다
+		$("#send").on("click", function(){
+			
+			$("#readMessage").modal("hide");
+			
+			var memberNo = $("#sendMemberNo").val();
+			var receiver = $("#sendNickName").text();
+			
+				$("#receiver").text(receiver);
+				$("#hiddenMemberNo").val(memberNo);
+			
+				$("#sendMessage").modal("show");
+		});
+		
+		
+		//----------------------------------------------------------------------------
+		// 메세지 유효성 검사
+		function messageValidate(){
+			
+			if($(".messageText").val().trim().length ==0){
+				swal("내용을 입력해 주세요");
+				$(".messageText").focus();
+				return false;
+			}
+		}		
+		
+		
 		
 		// 체크박스 전체 선택
 		$(document).ready(function(){
-			$("#checkall").click(function(){
+			$("#checkAll").click(function(){
 				
-				if($("#checkall").prop("checked")){
+				if($("#checkAll").prop("checked")){
 					$("input[name=chk]").prop("checked",true);
 				}else{
 					$("input[name=chk]").prop("checked",false);
@@ -255,36 +342,37 @@
 		});
 		
 		
-		// 삭제 버튼
-		$("#deleteBtn").on("click", function(){
-			
-			if(confirm("삭제하시겠습니까?")){
-				// 체크된 쪽지의 messageNo를 가져가야 됨. 가장 마지막 <td>
+		
+		// 체크된 메세지 삭제
+			function deleteBtn(){
 				
-				// 선택된 수 계산
-				var cnt = $("input[name='chk']:checked").length;
-				console.log(cnt);
+				// 선택된 메세지 번호 담을 배열
+				var messageNo = [];
 				
-				
-				var messageNo = new Array();
-				
-				$("input[name='chk':checked]").each(function(){
-					// 반복하면서 번호를,,담아줌?
-					 messageNo.push($this).parent().next(".no").children().val();
+				// 하나씩 돌면서 배열에 넣어줌
+				$("input[name=chk]:checked").each(function(){
+					messageNo.push($(this).val());
 				});
 				
-				console.log(messageNo);
-				
-				if(cnt ==0){
-					alert("선택된 글이 없습니다.");
+				if(confirm("정말로 삭제하시겠습니까?")){
+					
+					$.ajax({
+					 url : "${contextPath}/message/deleteReceiveMessage",	
+					 type :"post",
+					 data : {"messageNo":messageNo},
+					 success : function(result){
+						 if(result>0){
+								swal({icon : "success", title : "쪽지 삭제 성공"}); 
+								refreshFunction();
+						 }
+					 },
+					 error : function(){
+						 console.log("쪽지 삭제 실패");
+					 }
+					});
 				}
 				
-
-			}
-			
-			
-			
-		});
+		}	
 		
 		
 

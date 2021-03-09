@@ -246,10 +246,40 @@ body {
 		<!-- 목록버튼 -->
 		<div class="row  py-3" style="clear: both;">
 			<div class="col-md-12 text-center ">
-
+        <c:set var="referer" value="${header.referer}"/>
+       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+       <c:set var="l" value="${fn:length(referer)}"/>
+       <c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
+       
+       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+       <c:set var="l" value="${fn:length(referer)}"/>
+       <c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
+       
+       <c:if test="${referer == contextPath}">
+        <c:set var="returnListURL" value="list"/>
+       </c:if>
+					
+					
+					
+					
 				<c:if test="${empty sessionScope.returnListURL }">
 					<c:set var="returnListURL" value="../" scope="session" />
 				</c:if>
+				
+				<c:set var="referer" value="${header.referer}"/>
+       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+       <c:set var="l" value="${fn:length(referer)}"/>
+       <c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
+       
+       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+       <c:set var="l" value="${fn:length(referer)}"/>
+       <c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
+       
+       <c:if test="${referer == contextPath}">
+        <c:set var="returnListURL" value="list"/>
+       </c:if>
+				
+				
 				<button type="button" class="btn btn-success returnBtn maincolor" style="width: 100px; height: 40px;">목록으로</button>
 			</div>
 		</div>

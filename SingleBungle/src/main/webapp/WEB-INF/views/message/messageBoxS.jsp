@@ -86,13 +86,13 @@
 			<div class="col-md-12" style="padding-left : 26px">
 
 				<div class="messageBox" style="display: inline-block; color: #ffaf18;	border:1px solid #ffaf18; ">
-					<a href="#">받은 쪽지</a>
+					<a href="${contextPath}/message/messageBoxR">받은 쪽지</a>
 				</div>
 				<div class="messageBox" style="display: inline-block; background-color :#ffaf18 ; ">
 					<span>보낸 쪽지</span>
 				</div>
 				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
-					<button class="maincolor-re">삭제</button>
+					<button class="maincolor-re" id="deleteBtn" onClick="deleteBtn();">삭제</button>
 				</div>
 			</div>
 		</div>
@@ -118,7 +118,7 @@
 						<c:if test="${!empty mList }">
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
-									<td><input class="checkbox"  type="checkbox" name="checkbox" value="${message.messageNo }"></td>
+									<td><input type="checkbox" name="chk" value="${message.messageNo }"></td>
 									<td>${message.receiveNickName}</td>
 									<td>${message.messageContent}</td>
 									<td>
@@ -134,7 +134,6 @@
 										</c:otherwise>
 									</c:choose>									
 									</td>
-									<td><input type="hidden" value="${message.messageNo }"></td>
 								</tr>							
 							</c:forEach>
 						</c:if>
@@ -201,25 +200,19 @@
 	</div>
 	
 	
-	<!-- 쪽지 읽기  -->		
-<div class="text-center">
-	<!-- Button HTML (to Trigger Modal) -->
-	<button class="btn" data-toggle="modal" data-backdrop="static" data-target="#readMessage" >쪽지 읽기</button>
-</div>
-
 
 <div id="readMessage" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">받는사람 : ${review.memberNo}</h5>	
+				<h5 class="modal-title">받는사람 : <span id="receiver" style="font-size:19px;"></span></h5>	
 			</div>
 			<div class="modal-body">
-				<div class="messageArea" style="border: 1px solid black;height: 150px;"></div>
+				<div class="messageArea" id="viewMessage" style="border: 1px solid black;height: 150px; padding:10px;"></div>
 			</div>
 			<div class="modal-footer" >
                 
-                <div class="col"><button type="button" class="btn btn-reset btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
+        <div class="col"><button type="button" class="btn maincolor-re btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
 			</div>
 		</div>
 	</div>
@@ -231,28 +224,81 @@
 		
 		<script>
 		
+		// 쪽지 읽기
+			$("#messageTable > tbody td").on("click",function(){
+				
+				var receiver = $(this).parent().children().eq(1).text();
+				var viewMessage = $(this).parent().children().eq(2).text();
+				
+				
+				$("#receiver").text(receiver);
+				$("#viewMessage").text(viewMessage);
+				
+				$("#readMessage").modal("show");
+			
+			});		
 		
-			$("#messageTable td").on("click",function()){
+
+		
+		
+		
+		// 새로고침
+		
+		function refreshFunction(){  
+ 	 		location.reload();
+		}
+			
+			
+			// 체크박스 전체선택
+		$(document).ready(function(){
+			$("#checkAll").click(function(){
 				
-				var messageNo = $(this).parent.children().eq(4).children().val();
+				if($("#checkAll").prop("checked")){
+					$("input[name=chk]").prop("checked",true);
+				}else{
+					$("input[name=chk]").prop("checked",false);
+				}
+			});
+		});
+			
+			
+
+			
+
+			// 보낸 체크된 메세지 삭제하기
+			function deleteBtn(){
 				
-				console.log(messageNo);
+				// 선택된 메세지 번호 담을 배열
+				var messageNo = [];
+				
+				// 하나씩 돌면서 배열에 넣어줌
+				$("input[name=chk]:checked").each(function(){
+					messageNo.push($(this).val());
+				});
 				
 				
-				href = "#readMessage";
+				if(confirm("정말로 삭제하시겠습니까?")){
+					
+					$.ajax({
+					 url : "${contextPath}/message/deleteSendMessage",	
+					 type :"post",
+					 data : {"messageNo":messageNo},
+					 success : function(result){
+						 if(result>0){
+								swal({icon : "success", title : "쪽지 삭제 성공"}); 
+								refreshFunction();
+						 }
+					 },
+					 error : function(){
+						 console.log("쪽지 삭제 실패");
+					 }
+					});
+				}
 				
 			}
 			
 			
-			// 체크박스 전체선택
-			$("#checkAll").on("change", function() {
-				if($(this).prop("checked")){
-					$(".checkbox").prop("checked", true);
-				}
-				else {
-					$(".checkbox").prop("checked", false);
-				}
-			});
+
 		
 		</script>
 
