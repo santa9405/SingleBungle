@@ -1,6 +1,7 @@
 package com.gaji.SingleBungle.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -24,6 +25,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gaji.SingleBungle.admin.vo.ABoard;
+import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.member.model.service.MemberService;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
@@ -332,7 +336,22 @@ public class memberController {
 
 	// 마이페이지
 	@RequestMapping("mypage")
-	public String mypage() {
+	public String mypage(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+					@ModelAttribute(name="loginMember") Member loginMember) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("cp", cp);
+		map.put("memberNo", memberNo);
+		
+		APageInfo pInfo = service.getLikeBoardPageInfo(map);
+		pInfo.setLimit(5);
+		
+		List<ABoard> boardList = service.selectLikeBoard(pInfo, memberNo);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pInfo", pInfo);
+
 		return "member/mypage";
 	}
 	
