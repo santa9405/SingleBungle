@@ -33,7 +33,7 @@ public class FindFriendChatController {
 		
 		List<FindFriendChatting> cList = service.selectChatList(friendNo);
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
 		return gson.toJson(cList);
 	}

@@ -9,16 +9,19 @@ public class FindFriendChatting {
 	private Timestamp createDate;	// 작성시간
 	private int friendNo;			// 게시글 번호
 	private int memNo;				// 회원 번호
+	private String nickname;		// 닉네임
 	
 	public FindFriendChatting() { }
 
-	public FindFriendChatting(int chattingNo, String message, Timestamp createDate, int friendNo, int memNo) {
+	public FindFriendChatting(int chattingNo, String message, Timestamp createDate, int friendNo, int memNo,
+			String nickname) {
 		super();
 		this.chattingNo = chattingNo;
 		this.message = message;
 		this.createDate = createDate;
 		this.friendNo = friendNo;
 		this.memNo = memNo;
+		this.nickname = nickname;
 	}
 
 	public int getChattingNo() {
@@ -41,8 +44,8 @@ public class FindFriendChatting {
 		return createDate;
 	}
 
-	public void setCreateDate(Timestamp string) {
-		this.createDate = string;
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 	public int getFriendNo() {
@@ -61,10 +64,18 @@ public class FindFriendChatting {
 		this.memNo = memNo;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	@Override
 	public String toString() {
 		return "FindFriendChatting [chattingNo=" + chattingNo + ", message=" + message + ", createDate=" + createDate
-				+ ", friendNo=" + friendNo + ", memNo=" + memNo + "]";
+				+ ", friendNo=" + friendNo + ", memNo=" + memNo + ", nickname=" + nickname + "]";
 	}
-	
+
 }

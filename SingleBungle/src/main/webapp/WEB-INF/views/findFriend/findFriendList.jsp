@@ -30,13 +30,7 @@
 	margin-right: 40px;
 }
 
-.category, .category:hover, .array, .array:hover {
-	text-decoration: none;
-	color: black;
-	line-height: 54px;
-}
-
-.category:click {
+.banner a:click {
 	color: orange;
 	text-weight: bold;
 }
@@ -168,7 +162,7 @@
 				<c:set var="sk" value="sk=${fSearch.sk}&" />
 				<c:set var="sv" value="sk=${fSearch.sv}" />
 
-				<c:set var="searchStr" value="${category}${sort}sk=${fSearch.sk}&sv=${fSearch.sv}" />
+				<c:set var="searchStr" value="${category}${sort}sk=${fSearch.sk}&sv=${fSearch.sv}&" />
 			</c:if>
 
 			<c:url var="pageUrl" value="search?${searchStr}" />
@@ -355,7 +349,7 @@
 					<option value="title">제목</option>
 					<option value="writer">작성자</option>
 					<option value="titcont">제목+내용</option>
-					<option value="category">카테고리</option>
+					<option value="writer">닉네임</option>
 				</select> <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
 				<button class="form-control btn btn-success" id="searchBtn" type="submit" style="width: 100px; display: inline-block; margin-bottom: 5px;">검색</button>
 				
@@ -377,6 +371,42 @@
 
 			location.href = friendViewURL;
 
+		});
+		
+		// 검색 파라미터 유지
+		$(function(){
+			
+			// 카테고리
+			if(${param.ct == '0'}){
+				$("#0").css({"color":"#ffc823", "font-weight":"bold"});
+			}else if(${param.ct == '1'}){
+				$("#1").css({"color":"#ffc823", "font-weight":"bold"});
+			}else if(${param.ct == '2'}){
+				$("#2").css({"color":"#ffc823", "font-weight":"bold"});
+			}else if(${param.ct == '3'}){
+				$("#3").css({"color":"#ffc823", "font-weight":"bold"});
+			}else{ // 선택 안된 경우,,
+				$("#0").css({"color":"#ffc823", "font-weight":"bold"});
+
+			}
+			
+			// 정렬
+			if(${param.sort == 'like'}){
+				$("#likeSort").css({"color":"#ffc823", "font-weight":"bold"});
+			}else {
+				$("#newSort").css({"color":"#ffc823", "font-weight":"bold"});
+			}
+			
+			// 검색 조건
+			$("select[name=sk] > option").each(function(index, item){
+				if($(item).val() == "${fSearch.sk}"){
+					$(this).prop("selected", true);
+				}
+			});
+			
+			// 검색 내용
+			$("input[name=sv]").val("${fSearch.sv}");
+			
 		});
 	</script>
 

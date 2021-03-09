@@ -423,11 +423,11 @@ public class FindFriendServiceImpl implements FindFriendService {
 	@Override
 	public int insertChat(Map<String, Object> map) {
 		
-		map.put( "friendNo", ((String) map.get("friendNo")).replaceAll("\"", " ").trim());
-		map.put( "memberNo", ((String) map.get("memberNo")).replaceAll("\"", " ").trim());
-		map.put( "chat", ((String) map.get("chat")).replaceAll("\"", " ").trim());
+		map.put( "friendNo", ((String)map.get("friendNo")).replaceAll("\"", " ").trim());
+		map.put( "memberNo", ((String)map.get("memberNo")).replaceAll("\"", " ").trim());
+		map.put( "chat", ((String)map.get("chat")).replaceAll("\"", " ").trim());
 		
-		map.put( "chat", ((String) map.get("chat")).replaceAll("\n", "<br>"));
+		map.put( "chat", ((String)map.get("chat")).replaceAll("\n", "<br>"));
 		
 		return dao.insertChat(map);
 	}

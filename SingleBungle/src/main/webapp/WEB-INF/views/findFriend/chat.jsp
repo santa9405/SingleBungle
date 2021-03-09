@@ -30,6 +30,7 @@
 .display-chatting{
    width : 100%;
    height : 600px;
+   overflow: auto;
 }
 
 .chat-body {
@@ -77,14 +78,6 @@
 	line-height: 36px;
 }
 
-.chat-body .answer.left .avatar .status {
-	right: 4px;
-}
-
-.chat-body .answer .avatar .status {
-	bottom: 0;
-}
-
 .chat-body .answer.left .text {
 	background: #ebebeb;
 	color: #333333;
@@ -116,6 +109,7 @@
 .chat-body .answer.left .time {
 	padding-left: 12px;
 	color: #333333;
+	
 }
 
 .chat-body .answer .time {
@@ -135,19 +129,15 @@
 	right: 0;
 }
 
-.chat-body .answer.right .avatar .status {
-	left: 4px;
-}
-
 .chat-body .answer.right .text {
-	background: burlywood;
+	background: #ffc823;
 	color: #ffffff;
 	border-radius: 8px 8px 0 8px;
 }
 
 .chat-body .answer.right .text:before {
 	right: -30px;
-	border-left-color: burlywood;
+	border-left-color: #ffc823;
 	border-left-width: 12px;
 }
 
@@ -183,7 +173,7 @@
 				<div class="chat">
 					<div class="display-chatting">
 						<div class="chat-body">
-							<h5>참여인원</h5>
+							<!-- <h5>참여인원</h5> -->
 							<%-- <div class="answer left">
 								<div class="avatar">
 									<img src="${contextPath}/resources/images/profile.png" alt="User name">
@@ -246,7 +236,7 @@
 							<div class="answer-add">
 								<div class="input-area">
 									<textarea id="inputChatting" rows="3" placeholder="메세지를 입력해주세요."></textarea>
-									<button id="send" class="btn btn-success">전송</button>
+									<button id="send" class="btn btn-warning">전송</button>
 								</div>
 							</div>
 						</div>
@@ -341,7 +331,7 @@
 			
 			var answerRight = $("<div>").addClass("answer right");
 			
-			var answerLeft = $("<div>").addClass("answer Left");
+			var answerLeft = $("<div>").addClass("answer left");
 			
 			var avatar = $("<div>").addClass("avatar");
 			
@@ -351,29 +341,27 @@
 			avatar.append(image);
 			
 			// -> 자바스크립트에는 replaceAll() 메소드가 없으므로 정규 표현식을 이용하여 변경
-			
-			obj.chat =	obj.chat.replace(/\n/g, "<br>"); 
-			
-			var chat = obj.chat;
+			var chat = obj.chat.replace(/\n/g, "<br>");
 			var time = obj.time;
+			var nickname = obj.nickname;
 			
 			var name = $("<div>").addClass("name").text(nickname);
-			var text = $("<div>").addClass("text").text(chat);
+			var text = $("<div>").addClass("text").html(chat);
 			var time = $("<div>").addClass("time").text(time);
 			
 			
 			if(obj.memberNo == loginMemberNo){
 				answerRight.append(avatar).append(name).append(text).append(time);
-				chatBody.append(answerRight)
+				chatBody.append(answerRight);
 			}else{
 				answerLeft.append(avatar).append(name).append(text).append(time);
-				chatBody.append(answerLeft)
+				chatBody.append(answerLeft);
 			}
 			
 			$(".display-chatting").append(chatBody);
 			
 			// 채팅 입력 시 스크롤을 가장 아래로 내리기
-			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);	
+			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);		
 			
 		};
 		
@@ -393,7 +381,7 @@
 				dataType : "json",
 				success : function(cList){
 					
-					//console.log(cList);
+					console.log(cList);
 					
 					$.each(cList, function(index, item){
 						
@@ -401,7 +389,7 @@
 						
 						var answerRight = $("<div>").addClass("answer right");
 						
-						var answerLeft = $("<div>").addClass("answer Left");
+						var answerLeft = $("<div>").addClass("answer left");
 						
 						var avatar = $("<div>").addClass("avatar");
 						
@@ -412,6 +400,7 @@
 						
 						var chat = item.message;
 						var time = item.createDate;
+						var nickname = item.nickname;
 						
 						var name = $("<div>").addClass("name").text(nickname);
 						var text = $("<div>").addClass("text").text(chat);
@@ -419,16 +408,16 @@
 						
 						if(item.memNo == loginMemberNo){
 							answerRight.append(avatar).append(name).append(text).append(time);
-							chatBody.append(answerRight)
+							chatBody.append(answerRight);
 						}else{
 							answerLeft.append(avatar).append(name).append(text).append(time);
-							chatBody.append(answerLeft)
+							chatBody.append(answerLeft);
 						}
 						
 						$(".display-chatting").append(chatBody);
 						
 						// 채팅 입력 시 스크롤을 가장 아래로 내리기
-						$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);	
+						$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);		
 					
 					});
 					
