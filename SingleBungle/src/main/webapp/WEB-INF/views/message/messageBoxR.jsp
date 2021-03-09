@@ -65,6 +65,12 @@
 	margin : 0 0 10px 20px;
 }
 
+#messageTable td:hover {
+	cursor: pointer;
+}
+
+
+
 </style>
 
 
@@ -84,17 +90,17 @@
 					<a href="#">보낸 쪽지</a>
 				</div>
 				<div class="float-right" id="deleteBtn" style="display: inline-block; margin-top: 10px;">
-					<button class="maincolor-re">삭제</button>
+					<button class="maincolor-re" id="deleteBtn">삭제</button>
 				</div>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-stripped" style="text-align : center;">
+				<table class="table table-stripped" id="messageTable" style="text-align : center;">
 					<thead>
 						<tr>
-							<th><input type="checkbox"/></th>
+							<th><input type="checkbox" id="checkall"/></th>
 							<th>보낸 사람</th>
 							<th>내용</th>
 							<th>보낸 시간</th>
@@ -111,7 +117,7 @@
 						<c:if test="${!empty mList }">
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
-									<td><input type="checkbox"></td>
+									<td><input type="checkbox" name="chk"></td>
 									<td>${message.sendNickName}</td>
 									<td>${message.messageContent}</td>
 									<td>
@@ -137,7 +143,7 @@
 										</c:otherwise>
 									</c:choose>
 									</td>
-									
+									<td class="no"><input type="hidden" value="${message.messageNo }"></td>
 								</tr>							
 							</c:forEach>
 						</c:if>
@@ -233,8 +239,58 @@
 		
 		<script>
 		// 메세지 읽기
-		$(".modal-content").load("${contextPath}/message/readMessageModal");
+		// $(".modal-content").load("${contextPath}/message/readMessageModal");
+	
+		
+		// 체크박스 전체 선택
+		$(document).ready(function(){
+			$("#checkall").click(function(){
+				
+				if($("#checkall").prop("checked")){
+					$("input[name=chk]").prop("checked",true);
+				}else{
+					$("input[name=chk]").prop("checked",false);
+				}
+			});
+		});
+		
+		
+		// 삭제 버튼
+		$("#deleteBtn").on("click", function(){
+			
+			if(confirm("삭제하시겠습니까?")){
+				// 체크된 쪽지의 messageNo를 가져가야 됨. 가장 마지막 <td>
+				
+				// 선택된 수 계산
+				var cnt = $("input[name='chk']:checked").length;
+				console.log(cnt);
+				
+				
+				var messageNo = new Array();
+				
+				$("input[name='chk':checked]").each(function(){
+					// 반복하면서 번호를,,담아줌?
+					 messageNo.push($this).parent().next(".no").children().val();
+				});
+				
+				console.log(messageNo);
+				
+				if(cnt ==0){
+					alert("선택된 글이 없습니다.");
+				}
+				
 
+			}
+			
+			
+			
+		});
+		
+		
+
+
+		
+		
 
 		
 		</script>
