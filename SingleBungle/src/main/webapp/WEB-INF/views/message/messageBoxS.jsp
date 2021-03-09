@@ -67,6 +67,12 @@
 }
 
 
+
+
+#messageTable td:hover {
+	cursor: pointer;
+}
+
 </style>
 
 
@@ -93,10 +99,10 @@
 		
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-stripped" style="text-align : center;">
+				<table class="table table-stripped" id="messageTable" style="text-align : center;" >
 					<thead>
 						<tr>
-							<th><input type="checkbox"/></th>
+							<th><input type="checkbox" id="checkAll"/></th>
 							<th>받는 사람</th>
 							<th>내용</th>
 							<th>보낸 시간</th>
@@ -112,7 +118,7 @@
 						<c:if test="${!empty mList }">
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
-									<td><input type="checkbox"></td>
+									<td><input class="checkbox"  type="checkbox" name="checkbox" value="${message.messageNo }"></td>
 									<td>${message.receiveNickName}</td>
 									<td>${message.messageContent}</td>
 									<td>
@@ -128,7 +134,7 @@
 										</c:otherwise>
 									</c:choose>									
 									</td>
-									
+									<td><input type="hidden" value="${message.messageNo }"></td>
 								</tr>							
 							</c:forEach>
 						</c:if>
@@ -192,11 +198,63 @@
 				</div>
 			</div>
 		</div>
-		
-		
 	</div>
 	
+	
+	<!-- 쪽지 읽기  -->		
+<div class="text-center">
+	<!-- Button HTML (to Trigger Modal) -->
+	<button class="btn" data-toggle="modal" data-backdrop="static" data-target="#readMessage" >쪽지 읽기</button>
+</div>
+
+
+<div id="readMessage" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">받는사람 : ${review.memberNo}</h5>	
+			</div>
+			<div class="modal-body">
+				<div class="messageArea" style="border: 1px solid black;height: 150px;"></div>
+			</div>
+			<div class="modal-footer" >
+                
+                <div class="col"><button type="button" class="btn btn-reset btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 쪽지 읽기 -->		
+	
+	
 		<jsp:include page="../common/footer.jsp" />
+		
+		<script>
+		
+		
+			$("#messageTable td").on("click",function()){
+				
+				var messageNo = $(this).parent.children().eq(4).children().val();
+				
+				console.log(messageNo);
+				
+				
+				href = "#readMessage";
+				
+			}
+			
+			
+			// 체크박스 전체선택
+			$("#checkAll").on("change", function() {
+				if($(this).prop("checked")){
+					$(".checkbox").prop("checked", true);
+				}
+				else {
+					$(".checkbox").prop("checked", false);
+				}
+			});
+		
+		</script>
 
 </body>
 </html>

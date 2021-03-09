@@ -343,7 +343,7 @@ body {
 <!-- 쪽지 보내기 임시   -->
 <div class="text-center">
 	<!-- Button HTML (to Trigger Modal) -->
-	<button id="send" class="btn" data-toggle="modal" data-target="#sendMessage" >쪽지 보내기</button>
+	<button id="send" class="btn" data-toggle="modal" data-backdrop="static" data-target="#sendMessage" >쪽지 보내기</button>
 </div>
 <!-- Modal HTML -->
 

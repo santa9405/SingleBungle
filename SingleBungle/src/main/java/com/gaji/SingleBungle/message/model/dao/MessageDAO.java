@@ -1,10 +1,9 @@
-package com.gaji.SingleBungle.message.model.service;
+package com.gaji.SingleBungle.message.model.dao;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.gaji.SingleBungle.message.model.vo.Message;
 import com.gaji.SingleBungle.message.model.vo.MessagePageInfo;
 
+
 @Repository
 public class MessageDAO {
+	
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -91,7 +92,6 @@ public class MessageDAO {
 	public int sendMessage(Map<String, Object> map) {
 		return sqlSession.insert("messageMapper.sendMessage", map);
 	}
-
 
 
 }
