@@ -14,6 +14,7 @@ import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.admin.vo.reportReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
+import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
 
 public interface adminService {
@@ -100,7 +101,8 @@ public interface adminService {
 
 	int deleteReportReply(Map<String, Integer> map);
 
-	
+	List<ABoard> selectSearchList(String ct);
+
 
 	
 

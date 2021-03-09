@@ -28,6 +28,7 @@ import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
+import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
 @Repository
 public class adminServiceImpl implements adminService{
@@ -822,6 +823,11 @@ public class adminServiceImpl implements adminService{
 		@Override
 		public int deleteReportReply(Map<String, Integer> map) {
 			return dao.deleteReportReply(map);
+		}
+
+		@Override
+		public List<ABoard> selectSearchList(String ct) {
+			return dao.selectSearchList(ct);
 		}
 
 

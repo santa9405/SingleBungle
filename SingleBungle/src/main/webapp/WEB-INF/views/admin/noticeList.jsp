@@ -127,6 +127,10 @@ a:hover {
 	width: 50px;
 	height: 50px;
 }
+
+a:hover{
+	cursor: pointer;
+}
 </style>
 
 </head>
@@ -140,7 +144,7 @@ a:hover {
 				<div>
 					<p id="bTitle">공지사항</p>
 					<div class="tab">
-						<a id="notice" href="#">공지사항</a> | <a id="event" href="#">이벤트</a>
+						<a id="notice" style="color:rgb(255, 200, 35)">공지사항</a> | <a id="event" href="eventList">이벤트</a>
 
 					</div>
 

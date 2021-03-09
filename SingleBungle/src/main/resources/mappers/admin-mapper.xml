@@ -546,4 +546,30 @@
 			</when>
 		</choose>
 	</update>
+	
+	
+	
+	<!-- 검색 조건에 맞는 게시글 목록 -->
+	<select id="selectSearchList" parameterType="String" resultMap="board_rm">
+		SELECT * FROM BOARD
+		WHERE STATUS = 'N'
+		AND BOARD_CD ='5'
+
+		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬) -->
+		<if test="ct != null">
+
+			<choose>
+				<when test="ct == 1">
+					AND CATEGORY_CD = 51
+				</when>
+				<when test="ct== 2">
+					AND CATEGORY_CD = 52
+				</when>
+				<when test="ct == 3">
+					AND CATEGORY_CD = 53
+				</when>
+			</choose>
+		</if>
+
+	</select>
 </mapper>
