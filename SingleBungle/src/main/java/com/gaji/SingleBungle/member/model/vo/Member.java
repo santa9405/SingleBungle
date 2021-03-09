@@ -157,7 +157,7 @@ public class Member {
 		return address;
 	}
 
-
+ 
 	public void setAddress(String address) {
 		this.address = address;
 	}

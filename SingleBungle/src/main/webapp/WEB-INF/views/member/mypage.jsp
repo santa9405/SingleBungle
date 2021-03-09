@@ -219,9 +219,17 @@
 		                  	<c:forEach var="board" items="${boardList}" varStatus="vs">
 
                             <tr>
-                                <td>${board.type }</td>
+                                <td>
+                                	<c:choose>
+										<c:when test="${board.boardCode == 1}">자유게시판</c:when>
+										<c:when test="${board.boardCode == 2}">후기게시판</c:when>
+										<c:when test="${board.boardCode == 6}">맛집게시판</c:when>
+										<c:when test="${board.boardCode == 7}">친구찾기</c:when>
+										<c:when test="${board.boardCode == 8}">사고팔고</c:when>
+									</c:choose>
+                                </td>
                                 <td class="boardTitle">${board.boardTitle }</td>
-                                <td>${board.createDt}</td>
+                                <td>${board.boardCreateDate}</td>
                             </tr>
                             
 							</c:forEach>
