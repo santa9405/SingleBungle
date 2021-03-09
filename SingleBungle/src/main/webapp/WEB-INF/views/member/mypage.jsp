@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -119,6 +120,10 @@
             margin: 100px auto;
         }
        
+       .col-md-4 {
+			flex: none !important;
+			max-width: none !important;
+		}
 
     </style>
 </head>
@@ -239,27 +244,70 @@
 
 
                     <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                <nav>
-                                    <ul
-                                        class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+					<c:set var="firstPage" value="?cp=1" />
+					<c:set var="lastPage" value="?cp=${pInfo.maxPage}" />
 
-                            </div>
-                        </div>
-                    </div>
+					<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+					<c:set var="prevPage" value="?cp=${prev}" />
+
+
+					<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+						integerOnly="true" />
+					<c:set var="nextPage" value="?cp=${next}" />
+
+
+					<div class="container d-flex justify-content-center">
+						<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+							<nav>
+								<ul
+									class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+									<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+										<li class="page-item"><a class="page-link"
+											href="${firstPage }" data-abc="true">&laquo;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${prevPage }" data-abc="true">&lt;</a></li>
+									</c:if>
+
+
+									<!-- 페이지 목록 -->
+									<c:forEach var="page" begin="${pInfo.startPage}"
+										end="${pInfo.endPage}">
+										<c:choose>
+											<c:when test="${pInfo.currentPage == page }">
+												<li class="page-item active"><a class="page-link"
+													data-abc="true">${page}</a></li>
+											</c:when>
+
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													href="?cp=${page}" data-abc="true">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+
+									<c:if test="${next <= pInfo.maxPage}">
+										<li class="page-item"><a class="page-link"
+											href="${nextPage }" data-abc="true">&gt;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${lastPage }" data-abc="true">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</nav>
+
+						</div>
+					</div>
+				</div>
                 </div>
+                
+                <!-- -------------------------------------------------- -->
+                
+                
                 <div class="myReply">
                     <span>
                         <h4>내가 쓴 글</h4>
@@ -276,47 +324,94 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>사고팔고</td>
-                                <td class="boardTitle">어쩌구입니다....</td>
-                                <td>2021-02-20</td>
-                            </tr>
-                            <tr>
-                                <td>자유게시판</td>
-                                <td class="boardTitle">댓글입니다</td>
-                                <td>2021-02-20</td>
-                            </tr>
-                            <tr>
-                                <td>후기게시판</td>
-                                <td class="boardTitle">댓글 운영... </td>
-                                <td>2021-02-20</td>
-                            </tr>
+                            <c:if test="${empty myBoardList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+		                   </c:if>
+		                   <c:if test="${!empty myBoardList }">
+		                  	<c:forEach var="myBoard" items="${myBoardList}" varStatus="vs">
 
+                            <tr>
+                                <td>
+                                	<c:choose>
+										<c:when test="${myBoard.boardCode == 1}">자유게시판</c:when>
+										<c:when test="${myBoard.boardCode == 2}">후기게시판</c:when>
+										<c:when test="${myBoard.boardCode == 6}">맛집게시판</c:when>
+										<c:when test="${myBoard.boardCode == 7}">친구찾기</c:when>
+										<c:when test="${myBoard.boardCode == 8}">사고팔고</c:when>
+									</c:choose>
+                                </td>
+                                <td class="boardTitle">${myBoard.boardTitle }</td>
+                                <td>${myBoard.boardCreateDate}</td>
+                            </tr>
+                            
+							</c:forEach>
+							</c:if>
                         </tbody>
                     </table>
 
 
                     <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                <nav>
-                                    <ul
-                                        class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+					<c:set var="firstPage2" value="?cp2=1" />
+					<c:set var="lastPage2" value="?cp2=${pInfo2.maxPage}" />
 
-                            </div>
-                        </div>
-                    </div>
+					<fmt:parseNumber var="c1" value="${(pInfo2.currentPage - 1) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+					<c:set var="prevPage2" value="?cp2=${prev}" />
+
+
+					<fmt:parseNumber var="c2" value="${(pInfo2.currentPage + 9) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+						integerOnly="true" />
+					<c:set var="nextPage2" value="?cp2=${next}" />
+
+
+					<div class="container d-flex justify-content-center">
+						<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+							<nav>
+								<ul
+									class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+									<c:if test="${pInfo2.currentPage > pInfo2.pageSize}">
+										<li class="page-item"><a class="page-link"
+											href="${firstPage2 }" data-abc="true">&laquo;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${prevPage2 }" data-abc="true">&lt;</a></li>
+									</c:if>
+
+
+									<!-- 페이지 목록 -->
+									<c:forEach var="page" begin="${pInfo2.startPage}"
+										end="${pInfo2.endPage}">
+										<c:choose>
+											<c:when test="${pInfo2.currentPage == page }">
+												<li class="page-item active"><a class="page-link"
+													data-abc="true">${page}</a></li>
+											</c:when>
+
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													href="?cp2=${page}" data-abc="true">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+
+									<c:if test="${next <= pInfo2.maxPage}">
+										<li class="page-item"><a class="page-link"
+											href="${nextPage2 }" data-abc="true">&gt;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${lastPage2 }" data-abc="true">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</nav>
+
+						</div>
+					</div>
+				</div>
                 </div>
                 <div class="myReply">
                     <span>
@@ -334,118 +429,94 @@
                         </thead>
 
                         <tbody>
+                            <c:if test="${empty myReplyList }">
+                   			<tr>
+								<td colspan="6">존재하는 댓글이 없습니다.
+							</tr>
+		                   </c:if>
+		                   <c:if test="${!empty myReplyList }">
+		                  	<c:forEach var="reply" items="${myReplyList}" varStatus="vs">
+
                             <tr>
-                                <td>사고팔고</td>
-                                <td class="boardTitle">어쩌구입니다....</td>
-                                <td>2021-02-20</td>
-                            </tr>
-                            <tr>
-                                <td>자유게시판</td>
-                                <td class="boardTitle">댓글입니다</td>
-                                <td>2021-02-20</td>
-                            </tr>
-                            <tr>
-                                <td>후기게시판</td>
-                                <td class="boardTitle">댓글 운영... </td>
-                                <td>2021-02-20</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                <nav>
-                                    <ul
-                                        class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ---------------------------------두번째웅앵--------------------------------------------- -->
-                <div  class="myLike">
-                        <span>
-                            <h4>내가 찜한 목록</h4>
-                        </span>
-
-                    <table class="table table-hover table-striped" id="list-table">
-                        <thead>
-                            <tr>
-                                <th>글번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                             <tr>
-                                 <td>1</td>
-                                <td class="boardTitle">
-                                    <!----------------- 썸네일 부분 -----------------> 
-                                    <img src="img/sns_kakao.jpg"> 제목입니다 어쩌구
+                                <td>
+                                	<c:choose>
+										<c:when test="${reply.boardCd == 1}">자유게시판</c:when>
+										<c:when test="${reply.boardCd == 2}">후기게시판</c:when>
+										<c:when test="${reply.boardCd == 6}">맛집게시판</c:when>
+										<c:when test="${reply.boardCd == 7}">친구찾기</c:when>
+										<c:when test="${reply.boardCd == 8}">사고팔고</c:when>
+									</c:choose>
                                 </td>
-                                 <td>달마고</td>
-                                <td>작성자</td>
+                                <td class="boardTitle">${reply.boardTitle }</td>
+                                <td>${reply.createDt}</td>
                             </tr>
-
-                            <tr>
-                                <td>1</td>
-                               <td class="boardTitle">
-                                   <!----------------- 썸네일 부분 -----------------> 
-                                   <img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg"> 제목입니다 어쩌구
-                               </td>
-                                <td>달마고</td>
-                               <td>작성자</td>
-                           </tr>
-
-                           <tr>
-                            <td>1</td>
-                           <td class="boardTitle">
-                               <!----------------- 썸네일 부분 -----------------> 
-                               <img src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/dose-juice-1184444-unsplash_bmbutn.jpg"> 제목입니다 어쩌구
-                           </td>
-                            <td>달마고</td>
-                           <td>작성자</td>
-                       </tr>
-                        </tbody>
+                            
+							</c:forEach>
+							</c:if>
                     </table>
-                    <div class="padding">
-                        <div class="container d-flex justify-content-center">
-                            <div class="grid-margin stretch-card">
-                                <nav>
-                                    <ul
-                                    class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&laquo;</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#" data-abc="true">1</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" data-abc="true">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+
+                     <div class="padding">
+					<c:set var="firstPage3" value="?cp3=1" />
+					<c:set var="lastPage3" value="?cp3=${pInfo3.maxPage}" />
+
+					<fmt:parseNumber var="c1" value="${(pInfo3.currentPage - 1) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+					<c:set var="prevPage3" value="?cp3=${prev}" />
+
+
+					<fmt:parseNumber var="c2" value="${(pInfo3.currentPage + 9) / 10 }"
+						integerOnly="true" />
+					<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }"
+						integerOnly="true" />
+					<c:set var="nextPage3" value="?cp3=${next}" />
+
+
+					<div class="container d-flex justify-content-center">
+						<div class="col-md-4 col-sm-6 grid-margin stretch-card">
+							<nav>
+								<ul
+									class="pagination d-flex justify-content-center flex-wrap pagination-rounded-flat pagination-success">
+
+									<c:if test="${pInfo3.currentPage > pInfo3.pageSize}">
+										<li class="page-item"><a class="page-link"
+											href="${firstPage3 }" data-abc="true">&laquo;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${prevPage3 }" data-abc="true">&lt;</a></li>
+									</c:if>
+
+
+									<!-- 페이지 목록 -->
+									<c:forEach var="page" begin="${pInfo3.startPage}"
+										end="${pInfo3.endPage}">
+										<c:choose>
+											<c:when test="${pInfo3.currentPage == page }">
+												<li class="page-item active"><a class="page-link"
+													data-abc="true">${page}</a></li>
+											</c:when>
+
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													href="?cp3=${page}" data-abc="true">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+
+									<c:if test="${next <= pInfo3.maxPage}">
+										<li class="page-item"><a class="page-link"
+											href="${nextPage3 }" data-abc="true">&gt;</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${lastPage3 }" data-abc="true">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</nav>
+
+						</div>
+					</div>
+				</div>
+                </div>
 
                  <!-- ------------------------------------------------------------------------------ -->
                 

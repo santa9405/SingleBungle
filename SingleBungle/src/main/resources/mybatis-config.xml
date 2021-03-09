@@ -52,6 +52,7 @@
   	
   	
   	<typeAlias type="com.gaji.SingleBungle.member.model.vo.Member" alias="Member" />
+  	<typeAlias type="com.gaji.SingleBungle.member.model.vo.MReply" alias="MReply" />
   	
 
   	

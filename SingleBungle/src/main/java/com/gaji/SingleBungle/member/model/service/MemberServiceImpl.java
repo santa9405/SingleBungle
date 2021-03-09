@@ -1,5 +1,6 @@
 package com.gaji.SingleBungle.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gaji.SingleBungle.admin.vo.ABoard;
+import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.member.model.dao.MemberDAO;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Service
@@ -106,6 +111,52 @@ public class MemberServiceImpl implements MemberService {
 	public int nameMailCheck(Map<String, Object> map) {
 		return dao.nameMailCheck(map);
 	}
+	
+	
+	
+	// 마이페이지 좋아요 페이징 Service 
+	@Override
+	public APageInfo getLikeBoardPageInfo(int cp, Map<String, Integer> map) {
+		int listCount = dao.getLikeBoardPageInfo(map);
+		return new APageInfo(cp,listCount);
+	}
+	
+	// 마이페이지 좋아요 한 글 조회 Service 
+	@Override
+	public List<ABoard> selectLikeBoard(APageInfo pInfo, int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.selectLikeBoard(pInfo, memberNo);
+	}
+	
+	// 내가 쓴 글 페이징 Service 
+	@Override
+	public APageInfo getMyBoardPageInfo(int cp, Map<String, Integer> map) {
+		int listCount = dao.getMyBoardPageInfo(map);
+		return new APageInfo(cp,listCount);
+	}
+	
+	// 내가 쓴 글 리스트 조회 Service 
+	@Override
+	public List<ABoard> selectMyBoard(APageInfo pInfo, int memberNo) {
+		return dao.selectMyBoard(pInfo, memberNo);
+	}
+	
+	// 내가 쓴 댓글 페이징 Service 
+	@Override
+	public APageInfo getMyReplyPageInfo(int cp, Map<String, Integer> map) {
+		int listCount = dao.getMyReplyPageInfo(map);
+		return new APageInfo(cp,listCount);
+	}
+	
+	// 내가 쓴 댓글 Service 
+	@Override
+	public List<MReply> selectMyReply(APageInfo pInfo, int memberNo) {
+		return dao.selectMyReply(pInfo, memberNo);
+	}
+	
+	
+	
+	
 
 	// 내 정보 수정 Service 구현
 	@Transactional(rollbackFor = Exception.class)
@@ -174,5 +225,16 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
+	
+
+	
+
+	
+
+
+	
+	
+	
 
 }

@@ -1,7 +1,12 @@
 package com.gaji.SingleBungle.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
+import com.gaji.SingleBungle.admin.vo.ABoard;
+import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.Reply;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 public interface MemberService {
@@ -53,5 +58,49 @@ public interface MemberService {
 	 * @return result
 	 */
 	public abstract int mypageSecession(Member loginMember);
+
+	/** 마이페이지 좋아요 한 글 페이징 Service 
+	 * @param cp 
+	 * @param cp
+	 * @param memberNo 
+	 * @return
+	 */
+	public abstract APageInfo getLikeBoardPageInfo(int cp, Map<String, Integer> map);
+
+	/** 마이페이지 좋아요 한 글 조회 Service 
+	 * @param pInfo
+	 * @param memberNo 
+	 * @return
+	 */
+	public abstract List<ABoard> selectLikeBoard(APageInfo pInfo, int memberNo);
+
+	/** 내가 쓴 글 조회 Service 
+	 * @param cp
+	 * @param map
+	 * @return
+	 */
+	public abstract APageInfo getMyBoardPageInfo(int cp, Map<String, Integer> map);
+
+	/** 내가 쓴 글 Service 
+	 * @param pInfo
+	 * @param memberNo
+	 * @return
+	 */
+	public abstract List<ABoard> selectMyBoard(APageInfo pInfo, int memberNo);
+
+	/** 내가 쓴 댓글 페이징 Service 
+	 * @param cp
+	 * @param map
+	 * @return
+	 */
+	public abstract APageInfo getMyReplyPageInfo(int cp, Map<String, Integer> map);
+
+	/** 내가 쓴 댓글 Service 
+	 * @param pInfo
+	 * @param memberNo
+	 * @return
+	 */
+	public abstract List<MReply> selectMyReply(APageInfo pInfo, int memberNo);
+
 
 }

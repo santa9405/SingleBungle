@@ -1,11 +1,17 @@
 package com.gaji.SingleBungle.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gaji.SingleBungle.admin.vo.ABoard;
+import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.Reply;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 
@@ -94,6 +100,73 @@ public class MemberDAO {
 	public int mypageSecession(int memberNo) {
 		return sqlSession.update("memberMapper.mypageSecession", memberNo);
 		}
+
+
+	/** 마이페이지 좋아요 한 글 페이징 DAO 
+	 * @param cp
+	 * @param memberNo 
+	 * @return
+	 */
+	public int getLikeBoardPageInfo(Map<String, Integer> map) {
+		return sqlSession.selectOne("memberMapper.getLikeBoardPageInfo", map);
+	}
+
+
+	/** 마이페이지 좋아요 한 글 보기 DAO 
+	 * @param pInfo
+	 * @param memberNo 
+	 * @return
+	 */
+	public List<ABoard> selectLikeBoard(APageInfo pInfo, int memberNo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("memberMapper.selectLikeBoard", memberNo, rowBounds);
+	}
+
+
+	/** 내가 쓴 글 페이징.. DAO 
+	 * @param map
+	 * @return
+	 */
+	public int getMyBoardPageInfo(Map<String, Integer> map) {
+		return sqlSession.selectOne("memberMapper.getMyBoardPageInfo", map);
+	}
+
+
+	/** 내가 쓴 글 리스트 DAO 
+	 * @param pInfo
+	 * @param memberNo
+	 * @return
+	 */
+	public List<ABoard> selectMyBoard(APageInfo pInfo, int memberNo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("memberMapper.selectMyBoard", memberNo, rowBounds);
+	}
+
+
+	/** 내가 쓴 댓글 페이징 DAO 
+	 * @param map
+	 * @return
+	 */
+	public int getMyReplyPageInfo(Map<String, Integer> map) {
+		return sqlSession.selectOne("memberMapper.getMyReplyPageInfo", map);
+	}
+
+
+	/** 내가 쓴 댓글 리스트 DAO 
+	 * @param pInfo
+	 * @param memberNo
+	 * @return
+	 */
+	public List<MReply> selectMyReply(APageInfo pInfo, int memberNo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("memberMapper.selectMyReply", memberNo, rowBounds);
+	}
+
+
+
 	
 	
 
