@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.member.model.dao.MemberDAO;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Service
@@ -126,6 +128,31 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectLikeBoard(pInfo, memberNo);
 	}
 	
+	// 내가 쓴 글 페이징 Service 
+	@Override
+	public APageInfo getMyBoardPageInfo(int cp, Map<String, Integer> map) {
+		int listCount = dao.getMyBoardPageInfo(map);
+		return new APageInfo(cp,listCount);
+	}
+	
+	// 내가 쓴 글 리스트 조회 Service 
+	@Override
+	public List<ABoard> selectMyBoard(APageInfo pInfo, int memberNo) {
+		return dao.selectMyBoard(pInfo, memberNo);
+	}
+	
+	// 내가 쓴 댓글 페이징 Service 
+	@Override
+	public APageInfo getMyReplyPageInfo(int cp, Map<String, Integer> map) {
+		int listCount = dao.getMyReplyPageInfo(map);
+		return new APageInfo(cp,listCount);
+	}
+	
+	// 내가 쓴 댓글 Service 
+	@Override
+	public List<MReply> selectMyReply(APageInfo pInfo, int memberNo) {
+		return dao.selectMyReply(pInfo, memberNo);
+	}
 	
 	
 	
@@ -198,6 +225,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
+	
+
+	
+
+	
+
 
 	
 	

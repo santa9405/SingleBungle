@@ -29,6 +29,7 @@ import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.member.model.service.MemberService;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Controller
@@ -336,7 +337,7 @@ public class memberController {
 
 	// 마이페이지
 	@RequestMapping("mypage")
-	public String mypage(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+	public String mypage(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, @RequestParam(value = "cp2", required = false, defaultValue = "1") int cp2, @RequestParam(value = "cp3", required = false, defaultValue = "1") int cp3, Model model,
 					@ModelAttribute(name="loginMember") Member loginMember) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -345,12 +346,35 @@ public class memberController {
 		map.put("cp", cp);
 		map.put("memberNo", memberNo);
 		
+		// 내가 좋아요 한 글 페이징
 		APageInfo pInfo = service.getLikeBoardPageInfo(cp,map);
 		pInfo.setLimit(5);
 		
+		// 내가 좋아요 한 글 조회 
 		List<ABoard> boardList = service.selectLikeBoard(pInfo, memberNo);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pInfo", pInfo);
+		
+		//내가 쓴 글 페이징
+		APageInfo pInfo2 = service.getMyBoardPageInfo(cp2,map);
+		pInfo2.setLimit(5);
+		
+		//내가 쓴 글 리스트 조회
+		List<ABoard> myBoardList = service.selectMyBoard(pInfo2, memberNo);
+		model.addAttribute("myBoardList", myBoardList);
+		model.addAttribute("pInfo2", pInfo2);
+		
+		//내가 쓴 댓글 페이징
+		APageInfo pInfo3 = service.getMyReplyPageInfo(cp3,map);
+		pInfo3.setLimit(5);
+		
+		//내가 쓴 댓글 리스트 조회
+		List<MReply> myReplyList = service.selectMyReply(pInfo3, memberNo);
+		model.addAttribute("myReplyList", myReplyList);
+		model.addAttribute("pInfo3", pInfo3);
+		
+		System.out.println(myBoardList);
+	
 
 		return "member/mypage";
 	}

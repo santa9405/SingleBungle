@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.gaji.SingleBungle.admin.vo.ABoard;
 import com.gaji.SingleBungle.admin.vo.APageInfo;
+import com.gaji.SingleBungle.admin.vo.Reply;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 
@@ -119,7 +121,48 @@ public class MemberDAO {
 		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
 	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		return sqlSession.selectList("memberMapper.selectLikeBoard", memberNo, rowBounds);
+	}
 
+
+	/** 내가 쓴 글 페이징.. DAO 
+	 * @param map
+	 * @return
+	 */
+	public int getMyBoardPageInfo(Map<String, Integer> map) {
+		return sqlSession.selectOne("memberMapper.getMyBoardPageInfo", map);
+	}
+
+
+	/** 내가 쓴 글 리스트 DAO 
+	 * @param pInfo
+	 * @param memberNo
+	 * @return
+	 */
+	public List<ABoard> selectMyBoard(APageInfo pInfo, int memberNo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("memberMapper.selectMyBoard", memberNo, rowBounds);
+	}
+
+
+	/** 내가 쓴 댓글 페이징 DAO 
+	 * @param map
+	 * @return
+	 */
+	public int getMyReplyPageInfo(Map<String, Integer> map) {
+		return sqlSession.selectOne("memberMapper.getMyReplyPageInfo", map);
+	}
+
+
+	/** 내가 쓴 댓글 리스트 DAO 
+	 * @param pInfo
+	 * @param memberNo
+	 * @return
+	 */
+	public List<MReply> selectMyReply(APageInfo pInfo, int memberNo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("memberMapper.selectMyReply", memberNo, rowBounds);
 	}
 
 
