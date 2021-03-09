@@ -58,11 +58,12 @@ public interface MemberService {
 	public abstract int mypageSecession(Member loginMember);
 
 	/** 마이페이지 좋아요 한 글 페이징 Service 
+	 * @param cp 
 	 * @param cp
 	 * @param memberNo 
 	 * @return
 	 */
-	public abstract APageInfo getLikeBoardPageInfo(Map<String, Integer> map);
+	public abstract APageInfo getLikeBoardPageInfo(int cp, Map<String, Integer> map);
 
 	/** 마이페이지 좋아요 한 글 조회 Service 
 	 * @param pInfo
