@@ -21,7 +21,21 @@
 		<result property="memberRating" column="RATING" /> <!-- 매너온도 -->
 		<result property="memberGrade" column="MEM_GRADE" /> <!-- 등급 -->
 		<result property="memberCertifiedFl" column="CERTIFIED_FL" /> <!-- 동네인증 여부 -->
+		<result property="address" column="ADDRESS" /> 
 
+	</resultMap>
+	
+	<resultMap type="ABoard" id="board_rm">
+		<id property="boardNo" column="BOARD_NO" />
+
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="boardCreateDate" column="CREATE_DT" />
+		<result property="boardStatus" column="STATUS" />
+		<result property="boardCode" column="BOARD_CD" />
+		<result property="categoryCode" column="COTEGORY_CD" />
+		<result property="memberNo" column="MEM_NO" />
 	</resultMap>
 
 
