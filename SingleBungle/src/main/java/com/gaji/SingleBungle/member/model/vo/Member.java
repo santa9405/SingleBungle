@@ -13,7 +13,7 @@ public class Member {
 	private String memberGender; // 성별
 	private String memberScsnFl; // 탈퇴 여부
 	private Date memberSignDt; // 가입일
-	private int memberRating; // 매너온도
+	//private int memberRating; // 매너온도
 	private String memberGrade; // 등급
 	private String memberCertifiedFl; // 동네인증 여부
 	private String address; // 
@@ -123,16 +123,6 @@ public class Member {
 	}
 
 
-	public int getMemberRating() {
-		return memberRating;
-	}
-
-
-	public void setMemberRating(int memberRating) {
-		this.memberRating = memberRating;
-	}
-
-
 	public String getMemberGrade() {
 		return memberGrade;
 	}
@@ -163,19 +153,21 @@ public class Member {
 	}
 
 
+
+
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName="
 				+ memberName + ", memberNickname=" + memberNickname + ", memberPhone=" + memberPhone + ", memberEmail="
 				+ memberEmail + ", memberGender=" + memberGender + ", memberScsnFl=" + memberScsnFl + ", memberSignDt="
-				+ memberSignDt + ", memberRating=" + memberRating + ", memberGrade=" + memberGrade
-				+ ", memberCertifiedFl=" + memberCertifiedFl + ", address=" + address + "]";
+				+ memberSignDt + ", memberGrade=" + memberGrade + ", memberCertifiedFl=" + memberCertifiedFl
+				+ ", address=" + address + "]";
 	}
 
 
 	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNickname,
 			String memberPhone, String memberEmail, String memberGender, String memberScsnFl, Date memberSignDt,
-			int memberRating, String memberGrade, String memberCertifiedFl, String address) {
+			String memberGrade, String memberCertifiedFl, String address) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -187,11 +179,11 @@ public class Member {
 		this.memberGender = memberGender;
 		this.memberScsnFl = memberScsnFl;
 		this.memberSignDt = memberSignDt;
-		this.memberRating = memberRating;
 		this.memberGrade = memberGrade;
 		this.memberCertifiedFl = memberCertifiedFl;
 		this.address = address;
 	}
+
 
 	
 	// alt + shift + s
