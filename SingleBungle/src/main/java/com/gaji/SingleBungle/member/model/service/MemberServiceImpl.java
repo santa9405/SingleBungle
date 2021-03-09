@@ -53,25 +53,22 @@ public class MemberServiceImpl implements MemberService {
 		return loginMember;
 	}
 
-	
 	// 아이디 중복 체크 Service 구현
 	@Override
 	public int idDupCheck(String memberId) {
 		return dao.idDupCheck(memberId);
 	}
-	
-	
+
 	// 닉네임 중복 체크 Service 구현
 	@Override
 	public int nnDupCheck(String memberNickname) {
 		return dao.nnDupCheck(memberNickname);
 	}
 
-	
 	// 회원가입 Service 구현
 	@Transactional(rollbackFor = Exception.class)
-							// SQLException : DB관련 오류가 났을 때 rollback을 하겠다.
-							// Exception : 아무 예외 발생시 rollback을 하겠다.
+	// SQLException : DB관련 오류가 났을 때 rollback을 하겠다.
+	// Exception : 아무 예외 발생시 rollback을 하겠다.
 	@Override
 	public int signUp(Member signUpMember) {
 		// 암호화 추가 예정
@@ -93,9 +90,9 @@ public class MemberServiceImpl implements MemberService {
 
 		// DAO 전달 전에 비밀번호 암호화
 		String encPwd = enc.encode(signUpMember.getMemberPwd());
-		
+
 		System.out.println(signUpMember.getMemberPwd());
-		
+
 		// 암호화된 비밀번호를 signUpMember에 다시 세팅
 		signUpMember.setMemberPwd(encPwd);
 
@@ -110,49 +107,72 @@ public class MemberServiceImpl implements MemberService {
 		return dao.nameMailCheck(map);
 	}
 
-	// 내 정보 수정 Service 구현 
-    @Transactional(rollbackFor = Exception.class)
+	// 내 정보 수정 Service 구현
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int mypageInfoUpdateAction(Member updateMember) {
 		return dao.mypageInfoUpdateAction(updateMember);
 	}
 
-    
-    // 비밀번호 수정 Service 구현
-    @Transactional(rollbackFor = Exception.class)
+	// 비밀번호 수정 Service 구현
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int mypagePwUpdate(Map<String, Object> map) {
 		// 현재 비밀번호, 새 비밀번호, 회원 번호
-		  
-	  // 1. 현재 비밀번호가 일치하는지 확인(본인 확인)
-	  // bcrypt 암호화가 적용되어 있기 때문에
-	  // DB에서 비밀번호를 조회해서 비교해야 함. == 현재 비밀번호 조회 dao 필요
-	  String savePwd = dao.selectPwd((int)map.get("memberNo"));
-	  
-	  // 결과 저장용 변수 선언
-	  int result = 0;
-	  
-	  if(savePwd != null) { // 비밀번호 조회 성공 시
-		  
-		  // 비밀번호 확인
-		  				// map은 Object라 String으로 형변환
-		  if(enc.matches( (String)map.get("memberPwd"), savePwd) ) {
-			  // 비밀번호가 일치할 경우 
-			  
-			  // 2. 현재 비밀번호 일치 확인 시 새 비밀번호로 변경
-			  //  == 비밀번호를 수정할 dao 필요
-			  
-			  // 새 비밀번호 암호화 진행
-			  String encPwd = enc.encode( (String)map.get("newPwd") );
-			  
-			  // 암호화된 비밀번호를 다시 map에 세팅
-			  map.put("newPwd", encPwd);
-			  
-			  // 비밀번호 수정 DAO 호출
-			  result = dao.mypagePwUpdate(map);
-		  }
-	  }
-	  return result;
+
+		// 1. 현재 비밀번호가 일치하는지 확인(본인 확인)
+		// bcrypt 암호화가 적용되어 있기 때문에
+		// DB에서 비밀번호를 조회해서 비교해야 함. == 현재 비밀번호 조회 dao 필요
+		String savePwd = dao.selectPwd((int) map.get("memberNo"));
+
+		// 결과 저장용 변수 선언
+		int result = 0;
+
+		if (savePwd != null) { // 비밀번호 조회 성공 시
+
+			// 비밀번호 확인
+			// map은 Object라 String으로 형변환
+			if (enc.matches((String) map.get("memberPwd"), savePwd)) {
+				// 비밀번호가 일치할 경우
+
+				// 2. 현재 비밀번호 일치 확인 시 새 비밀번호로 변경
+				// == 비밀번호를 수정할 dao 필요
+
+				// 새 비밀번호 암호화 진행
+				String encPwd = enc.encode((String) map.get("newPwd"));
+
+				// 암호화된 비밀번호를 다시 map에 세팅
+				map.put("newPwd", encPwd);
+
+				// 비밀번호 수정 DAO 호출
+				result = dao.mypagePwUpdate(map);
+			}
+		}
+		return result;
+	}
+
+	// 회원탈퇴 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int mypageSecession(Member loginMember) {
+		// 1) 입력받은 비밀번호가 맞는지 확인
+		// --> bcrypt 암호화를 사용하였기 때문에
+		// DB에서 회원 번호를 조건으로 하여 비밀번호를 조회해온 후
+		// matches() 메소드를 이용하여 비교
+		String savePwd = dao.selectPwd(loginMember.getMemberNo());
+
+		int result = 0; // 결과 저장용 변수
+
+		if (savePwd != null) { // 비밀번호 조회 성공 시
+			// 웅앵 비밀번호와 웅앵 비밀번호 비교
+			if (enc.matches(loginMember.getMemberPwd(), savePwd)) {
+
+				// 2) 입력된 비밀번호와, 저장된 비밀번호가 같을 경우
+				// 회원 탈퇴 DAO 메소드 호출
+				result = dao.mypageSecession(loginMember.getMemberNo());
+			}
+		}
+		return result;
 	}
 
 }

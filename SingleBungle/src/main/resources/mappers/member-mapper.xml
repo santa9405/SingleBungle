@@ -91,6 +91,13 @@
 		WHERE MEM_NO = #{memberNo}
 	</update>
 	
+	<!-- 회원 탈퇴 -->
+	<update id="mypageSecession" parameterType="_int">
+		UPDATE MEMBER SET
+		SCSN_FL = 'N'
+		WHERE MEM_NO=#{memberNo}
+	</update>
+	
 
 
 

@@ -288,9 +288,44 @@ public class memberController {
 	// ---------------------------------------------------
 	// 아이디 찾기 이메일 발송 Controller (AJAX)
 	// ---------------------------------------------------
+	@ResponseBody
 	@RequestMapping("FindIdMail")
-	public String FindIdMail() {
-		return "member/FindIdMail";
+	public String FindIdMail(HttpServletRequest request) {
+		String setfrom = "singlebungle.dev@gmail.com";
+		String tomail = request.getParameter("mail"); // 받는 사람 이메일
+		String title = "[싱글벙글] 아이디 찾기에 필요한 이메일 인증 키값 전송"; // 제목
+		String content = "키 값을 인증번호 확인영역에 입력해주세요."; // 내용
+		String key = "";
+		
+		//String mailId = request.getParameter("mailId"); // 받는 사람 이메일
+		
+		System.out.println("tomail :" + tomail);
+		//System.out.println("mailId : " + mailId);
+
+		try {
+			Random random = new Random();
+
+			for (int i = 0; i < 3; i++) {
+				int index = random.nextInt(25) + 65; // A~Z까지 랜덤 알파벳 생성
+				key += (char) index;
+			}
+			int numIndex = random.nextInt(8999) + 1000; // 4자리 정수를 생성
+			key += numIndex;
+
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+			messageHelper.setTo(tomail); // 받는사람 이메일
+			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			messageHelper.setText(content + key); // 메일 내용
+
+			mailSender.send(message);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return key;
 	}
 	
 	// 마이페이지 ------------------------------------------------------------------------
@@ -499,8 +534,60 @@ public class memberController {
 	
 	
 	
+	// 탈퇴 화면 전환 Controller --------------------------------------
+	@RequestMapping("mypageSecession")
+	public String mypageSecession() {
+		return "member/mypageSecession";
+	}
 	
 	
+	// 회원 탈퇴 Controller
+	@RequestMapping(value="mypageSecessionAction", method=RequestMethod.POST)
+	public String mypageSecession(@ModelAttribute("loginMember") Member loginMember,
+								RedirectAttributes ra,
+								SessionStatus status) {
+		
+		// 회원 번호가 필요 == Session에 있는 loginMember에 저장되어 있음
+		// --> @ModelAttribute("loginMember") 를 통해서 얻어옴
+		
+		// 입력받은 현재 비밀번호 필요 == parameter로 전달 받음(memberPwd)
+		// --> @ModelAttribute를 통해 Member 객체에 자동으로 세팅됨
+		
+		// 회원 번호, 현재 비밀번호를 하나의 VO에 담아서 Service로 전달할 예정
+		// --> 이 작업을 별도로 진행하지 않고 @ModelAttribute를 이용하여 진행 
+		
+		
+		// 회원 탈퇴 Service 호출
+		int result = service.mypageSecession(loginMember);
+		
+		String returnURL = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "탈퇴되었습니다.";
+			returnURL = "/"; // 메인페이지 
+			
+			// 회원 탈퇴 성공 시 로그아웃 (세션을 만료시키면 로그아웃)
+			status.setComplete();
+			
+		} else {
+			swalIcon = "error";
+			swalTitle = "탈퇴 실패";
+			returnURL = "mypageSecession"; // 회원 탈퇴 페이지
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		return "redirect:"+returnURL;
+	}
+	
+	
+	
+	
+	
+	
+	// -------------------------------------------------------------
 
 	@ExceptionHandler(Exception.class) // 모든 예외를 처리하겠다
 	public String etcException(Exception e, Model model) {

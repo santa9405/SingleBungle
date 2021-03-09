@@ -4,6 +4,10 @@
 		position: absolute;
 	    bottom: 0;
 	} */
+	
+#sideMenu{
+margin-bottom:50px;
+}
 </style>
 
 
@@ -23,7 +27,7 @@
 		<!-- <a href="#" class="maincolor-font-bk nav-link px-4 rounded-pill" id=""> 
 			한줄평 확인
 		 </a>  -->
-		<a href="#" class="maincolor-font-bk nav-link px-4 rounded-pill" id="">
+		<a href="${contextPath}/member/mypageSecession" class="maincolor-font-bk nav-link px-4 rounded-pill" id="mypageSecession">
 		 	탈퇴 
 		</a> 
 

@@ -39,41 +39,9 @@ a:hover {
 	text-decoration: none;
 }
 
-.agree {
-	border: 1px solid #ced4da;
-	padding: 15px;
-}
-
-/* email */
-.email-1 {
-	padding-right: 0px;
-}
-
-.email-2 {
-	text-align: center;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-.email-3 {
-	padding-left: 0px;
-}
-
-/* 동네 인증 */
-.town-1 {
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-.town-area-1 {
-	float: left;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-.town-area-2 {
-	float: right;
-	padding-right: 0px;
+/* 글씨 굵기 */
+.textBold {
+	font-weight: 500;
 }
 </style>
 
@@ -102,24 +70,24 @@ a:hover {
 				
 					<div class="form-group">
 						<div>
-							<label for="id"><span class="requiredInput">*</span> 아이디</label>
+							<label for="id" class="textBold">아이디</label>
 							 <br> ${loginMember.memberId} <br> <br>
 						</div>
 						
-						<div>
-							<label for="pw">* 현재 비밀번호</label>
+						<div class="form-group">
+							<label for="pw" class="textBold">현재 비밀번호</label>
 							<input type="password" class="form-control" id="memberPwd" name="memberPwd"
 								placeholder="현재 비밀번호를 입력하세요." required>
 						</div>
 						
-						<div>
-							<label for="newPw1">* 새 비밀번호</label>
+						<div class="form-group">
+							<label for="newPw1" class="textBold">새 비밀번호</label>
 							<input type="password" class="form-control" id="newPwd1" name="newPwd1"
 								placeholder="새로운 비밀번호를 입력하세요." required>
 						</div>		
 										
-						<div>
-							<label for="newPw2">* 새 비밀번호 확인</label>
+						<div class="form-group" >
+							<label for="newPw2" class="textBold">새 비밀번호 확인</label>
 							<input type="password" class="form-control" id="newPwd2" name="newPwd2"
 								placeholder="새로운 비밀번호를 한번 더 입력하세요." required>
 						</div>

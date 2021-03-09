@@ -48,4 +48,10 @@ public interface MemberService {
 	 */
 	public abstract int mypagePwUpdate(Map<String, Object> map);
 
+	/** 회원탈퇴 Service 
+	 * @param loginMember
+	 * @return result
+	 */
+	public abstract int mypageSecession(Member loginMember);
+
 }

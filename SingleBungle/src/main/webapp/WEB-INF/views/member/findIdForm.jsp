@@ -293,7 +293,7 @@ a:hover {
 
 		$("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
 			var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
-
+			console.log(mail);
 			if (mail == "") {
 				alert("메일 주소가 입력되지 않았습니다.");
 			} else {
@@ -307,11 +307,11 @@ a:hover {
 					success : function(result) {
 						key = result;
 						alert("인증번호가 전송되었습니다.");
-						validateCheck.email = true;
+						//validateCheck.email = true;
 
 					},
 					error : function() {
-						validateCheck.email = false;
+						//validateCheck.email = false;
 					}
 				});
 			}

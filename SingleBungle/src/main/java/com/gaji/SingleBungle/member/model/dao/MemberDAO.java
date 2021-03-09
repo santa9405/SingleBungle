@@ -86,6 +86,14 @@ public class MemberDAO {
 	public int mypagePwUpdate(Map<String, Object> map) {
 		return sqlSession.update("memberMapper.mypagePwUpdate", map);
 	}
+
+	/** 회원 탈퇴 DAO 
+	 * @param updateMember
+	 * @return result 
+	 */
+	public int mypageSecession(int memberNo) {
+		return sqlSession.update("memberMapper.mypageSecession", memberNo);
+		}
 	
 	
 

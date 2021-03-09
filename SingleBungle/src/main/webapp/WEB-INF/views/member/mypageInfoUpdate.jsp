@@ -79,6 +79,11 @@ a:hover {
 	padding-right: 0;
 }
 
+/* 글씨 굵기 */
+.textBold {
+	font-weight: 500;
+}
+
 /* 동네 인증 */
 /* .town-1 {
             padding-left: 0px;
@@ -125,21 +130,21 @@ a:hover {
 				
 					<div class="form-group">
 						<div>
-							<label for="id"><span class="requiredInput">*</span> 아이디</label>
+							<label for="id" class="textBold">아이디</label>
 							 <br> ${loginMember.memberId} <br> <br>
 						</div>
 
 						<div>
-							<label for="name"><span class="requiredInput">*</span> 이름</label>
+							<label for="name" class="textBold">이름</label>
 							 <br> ${loginMember.memberName} <br> <br>
 						</div>
 
 						<div>
-							<label for="mail"><span class="requiredInput">*</span> 이메일</label>
+							<label for="mail" class="textBold">이메일</label>
 							 <br> ${loginMember.memberEmail} <br> <br>
 						</div>
 
-						<label for="nickname"><span class="requiredInput">*</span> 닉네임</label>
+						<label for="nickname" class="textBold">닉네임</label>
 						 <input type="text" class="form-control" id="nickname" name="memberNickname" value="${loginMember.memberNickname}"
 						 	placeholder="닉네임을 입력하세요." autocomplete='off' required>
 						 <input type="hidden" name="nnDup" id="nnDup" value="false">
@@ -150,7 +155,7 @@ a:hover {
 					</div>
 
 					<div class="form-group">
-						<label for="phone"><span class="requiredInput">*</span> 전화번호</label>
+						<label for="phone" class="textBold">전화번호</label>
 						<div class="input-group">
 							<!-- ph-area -->
 							<div class="ph">

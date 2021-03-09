@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -8,6 +10,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <title>login</title>
 
 <!-- 구글 폰트 -->
@@ -38,7 +42,7 @@ a:hover {
 	text-decoration: none;
 }
 
-#inputId, #inputPw {
+#memberId, #memberPwd {
 	margin-bottom: 10px;
 }
 
@@ -52,15 +56,14 @@ a:hover {
 	float: right;
 }
 
-/*
-.id,.pw,.signup{
+/* 글씨 굵기 */
+.textBold {
 	font-weight: 400;
-}*/
+}
+
 
 /* sns */
-#sns_signUp {
-	margin-top: 50px;
-}
+/* # sns_signUp { margin-top:50px; }
 
 .sns_text {
 	color: #757575;
@@ -72,7 +75,7 @@ a:hover {
 .sns_logo {
 	width: 45px;
 	margin-left: 5px;
-}
+} */
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -89,29 +92,29 @@ a:hover {
 </head>
 
 <body>
-	
+
 	<c:if test="${!empty swalTitle}">
 		<script>
-			swal({icon : "${swalIcon}",
-				 title : "${swalTitle}",
-				 text : "${swalText}"});
+			swal({
+				icon : "${swalIcon}",
+				title : "${swalTitle}",
+				text : "${swalText}"
+			});
 		</script>
 	</c:if>
-	
-	
-	
+
+
+
 
 	<div class="container" id="login-container">
 		<div class="row">
-			<div class="col-md-4">
-			</div>
+			<div class="col-md-4"></div>
 
 			<div class="col-md-4" id="login-container">
 				<h3 class="login-heading mb-4 text-center">로고,,ㄱ-</h3>
 				<form action="loginAction" method="post" class="form-signin">
 					<div class="form-label-group">
-						<input type="text" id="memberId" name="memberId"  placeholder="아이디" class="form-control"
-							value="${cookie.saveId.value}" required autofocus>
+						<input type="text" id="memberId" name="memberId" placeholder="아이디" class="form-control" value="${cookie.saveId.value}" required autofocus>
 						<!-- 아이디 저장을 누르면, 쿠키 얻어오기 -->
 					</div>
 
@@ -125,28 +128,27 @@ a:hover {
 							
 							 <c:if test="${!empty cookie.saveId.value}"> checked </c:if>
 								<%-- 아이디저장 체크박스에 체크를 하면 저장을 하겠다... --%>
-							
 							> 아이디 저장
-							
 						</label>
 					</div>
-					<button class="btn btn-primary btn-block btn-login text-uppercase mb-2 maincolor" type="submit">로그인</button>
+					
+					<button class="btn btn-block btn-login text-uppercase mb-2 maincolor" type="submit">로그인</button>
 					<div>
 						<div class="idpw-left">
-							<a class="id maincolor-font-bk" href="${contextPath}/member/findIdForm">아이디 찾기</a>
-							<a class="pw maincolor-font-bk" href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
+							<a class="id maincolor-font-bk textBold" href="${contextPath}/member/findIdForm">아이디 찾기</a>
+							<a class="pw maincolor-font-bk textBold" href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
 						</div>
 						<div class="idpw-right">
-							<a class="signup maincolor-font-bk" href="${contextPath}/member/signUp">회원가입</a>
+							<a class="signup maincolor-font-bk textBold" href="${contextPath}/member/signUp">회원가입</a>
 						</div>
 
 						<br>
 
-						<div class="text-center" id="sns_signUp">
+						<!-- <div class="text-center" id="sns_signUp">
 							<div class="sns_text">SNS계정 간편 로그인/회원가입</div>
 							<a href="#"><img class="sns_logo" src="img/sns_naver.jpg"></a>
 							<a href="#"><img class="sns_logo" src="img/sns_kakao.jpg"></a>
-						</div>
+						</div> -->
 					</div>
 				</form>
 
@@ -155,9 +157,9 @@ a:hover {
 			<div class="col-md-4"></div>
 		</div>
 	</div>
-	
-	<jsp:include page="../common/header.jsp"/>
-	
+
+	<jsp:include page="../common/header.jsp" />
+
 </body>
 
 </html>
