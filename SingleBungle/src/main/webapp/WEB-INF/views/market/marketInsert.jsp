@@ -5,7 +5,8 @@
 <meta charset="UTF-8">
 <title>사고팔고 - 판매글 작성</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74&libraries=services"></script>
 <style>
 	.container{
     min-width: 1080px;
@@ -13,6 +14,10 @@
 	
   .boardName {
     margin-right: 40px;
+  }
+  
+  .boardName:hover {
+    color : #ff8500;
   }
 
 	.category {
@@ -265,22 +270,16 @@
 			<div class="col-md-12">
 				<div class="px-lg-5">
 				
-				
-
 
 					<!-- 게시판 이름/카테고리 -->
 					<div class="row py-5 no-gutters">
 						<div class="col-lg-12 mx-auto">
 							<div class="text-black banner">
-								<h1 class="boardName float-left">사고팔고</h1>
-								<a class="category" href="#">전체</a> <span>|</span> <a class="category" href="#">팝니다</a> <span>|</span> <a class="category" href="#">삽니다</a>
-
-								<div class="listTest float-right">
-									<a class="category" href="#">최신순</a> <span>|</span> <a class="category" href="#">좋아요순</a> <span>|</span> <a class="category" href="#">저가순</a> <span>|</span> <a class="category" href="#">고가순</a>
-								</div>
+								<a class="ListGo" href="../market/list"><h1 class="boardName">사고팔고</h1></a>
 								<hr>
 							</div>
 						</div>
+							
 					</div>
 					<!-- End -->
 					
@@ -376,7 +375,7 @@
 							
 							<div class="formContent titleFlex">
 								<div class="locationBtnArea mb-20">
-									<button type="button" id="currLocation" class="LBtn btn btn-info" onclick="getLocation();">내 위치</button>
+									<button type="button" id="currLocation" class="LBtn btn btn-info">내 위치</button>
 								</div>
 								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(시군구)" id="locationInput" name="address" class="location" required>
 								<span class="errorMsg" id="locationMsg"></span>
@@ -588,7 +587,25 @@
         }
      }
 	
+      //-------------------------------------------------------------------------------------------------------------------------------
       
+      $("#currLocation").on("click", function(){
+    	  getLocation();
+    	  });
+      
+      
+
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(pos) {
+					var latitude = pos.coords.latitude;
+					var longitude = pos.coords.longitude;
+					var location = latitude + ", " + longitude
+				})
+			} else {
+				alert("이 브라우저에서는 위치 정보를 얻어올 수 없습니다.");
+			}
+		}
 	</script>
 
 </body>
