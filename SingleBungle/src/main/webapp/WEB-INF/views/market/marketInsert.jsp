@@ -5,9 +5,11 @@
 <meta charset="UTF-8">
 <title>사고팔고 - 판매글 작성</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74&libraries=services"></script>
+
 <style>
+	body{
+		min-width: 1200px;
+	}
 	.container{
     min-width: 1080px;
 	}
@@ -453,8 +455,7 @@
 		</div>
 	</div>
 	<jsp:include page="../common/footer.jsp"/>
-	
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74&libraries=services,clusterer"></script>
 	<script>
 	var imgCnt = 0;
 	var imgId = 0;
@@ -592,7 +593,7 @@
       $("#currLocation").on("click", function(){
     	  getLocation();
     	  });
-      
+
       
 
 		function getLocation() {
@@ -600,7 +601,23 @@
 				navigator.geolocation.getCurrentPosition(function(pos) {
 					var latitude = pos.coords.latitude;
 					var longitude = pos.coords.longitude;
-					var location = latitude + ", " + longitude
+					var location = longitude + ", " +  latitude;
+					console.log(location);
+					var geocoder = new kakao.maps.services.Geocoder();
+
+					var callback = function(result, status){
+					    if (status === kakao.maps.services.Status.OK) {
+									var locate = result[0].address_name;
+					        console.log('지역 명칭 : ' + locate);
+					        console.log('행정구역 코드 : ' + result[0].code);
+					    }
+					};
+					
+					geocoder.coord2RegionCode( longitude, latitude, callback);
+				}, function(error) {
+					alert(error);
+				}, {
+					enableHighAccuracy: true
 				})
 			} else {
 				alert("이 브라우저에서는 위치 정보를 얻어올 수 없습니다.");
