@@ -143,17 +143,19 @@
                 </div>     
                 </div>
 
-                <!-- <div>
-                    <select class="form-control" style="width: 100px; display: inline-block;">
-                        <option>후기</option>
-                        <option>맛집</option>
-                        <option>자유</option>
-                        <option>사고팔고</option>
-                        <option>친구찾기</option>
-                        <option>공지사항</option>
+                <div>
+                    <select class="form-control" id= "categorySearch"  style="width: 100px; display: inline-block;">
+                        <option value="0">전체</option>
+                        <option value="1">자유</option>
+                        <option value="2">후기</option>
+                        <option value="6">맛집</option>
+                        <option value="7">친구찾기</option>
+                        <option value="8">사고팔고</option>
                     </select>
-                </div> -->
-                <table class="table table-striped">
+                </div>
+                
+                
+                <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="checkall"></th>
@@ -176,6 +178,7 @@
                             <td><input type="checkbox" name="chk"></td>
                             <td>${reply.replyNo }</td>
                             <td class="hidden">${reply.boardCode }</td>
+                            <td class="hidden">${reply.parentBoardNo }</td>
                             <td>
                             	<c:choose>
 									<c:when test="${reply.boardCode == 1}">자유게시판</c:when>
@@ -259,20 +262,6 @@
 					</div>
 				</div>
 
-
-                    <div>
-                        <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-                         
-                            <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
-                                <option value="tit">제목</option>
-                                <option value="tit">내용</option>
-                                <option value="tit">제목 + 내용</option>
-                                <option value="tit">닉네임</option>
-                            </select> 
-                            <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                            <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
-                        </div>
-                    </div>
             </div>
 
         </div>
@@ -323,6 +312,47 @@
 			}); 
         	
     });
+    
+    
+    $("#categorySearch").change(function(){
+ 	   var ct = $(this).val();
+ 	    
+ 	    
+ 	    //console.log("search?ct=" + ct);
+ 	    location.href = "replySearch?ct=" + ct;
+ 	});
+ 	
+ 	
+ 	$(function(){
+ 		$("#categorySearch > option").each(function(index,item){
+ 				if($(item).val() == "${ct}"){
+ 				//$(this).prop("selected", true);
+ 				$("#categorySearch > option[value="+$(item).val()+"]").attr("selected","selected");
+ 				}
+ 		});
+ 	});
+
+ 	
+ 	
+ 	$("#list-table td:not(:first-child)").on("click",function(){
+		var boardNo = $(this).parent().children().eq(3).text();
+		var boardCode = $(this).parent().children().eq(2).text();
+		
+	  var boardViewURL = null;
+	  if(boardCode == 1) boardViewURL = "${contextPath}/board/"+ boardNo;
+	  else if(boardCode == 2) boardViewURL = "${contextPath}/review/view/"+ boardNo;
+	  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/notice/"+ boardNo;
+	  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/event/"+ boardNo;
+	  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/"+ boardNo;
+	  else if(boardCode == 7) boardViewURL = "${contextPath}/findFriend/"+ boardNo;
+	  else if(boardCode == 8) boardViewURL = "${contextPath}/market/"+ boardNo;
+	  
+		console.log(boardNo);
+		console.log(boardCode);
+		
+	location.href = boardViewURL; // 요청 전달
+
+});
 </script>
 </body>
 </html>

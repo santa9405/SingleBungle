@@ -124,6 +124,11 @@
      		<a class="nav-link" href="${contextPath}/member/login">Login</a>
 		</c:when>
 		
+		<c:when test="${loginMember.memberGrade == 'G'}">
+     		<a class="nav-link" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberName}</a>
+	      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
+		</c:when>
+		
 		<%-- 로그인이 되어있는 경우 --%>
 		<c:otherwise>
 			${loginMember.memberGrade} 등급
@@ -155,8 +160,6 @@
 	<a class="nav-link" href="${contextPath}/message/messageBoxS" style="color:green;">보낸쪽지함(임시)</a>
 	<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;">받은쪽지함(임시)</a>
 	
-	
-	<a class="nav-link" href="${contextPath}/admin/adminMypage" style="color:pink;">관리자마이페이지</a>
 	<a class="nav-link" href="${contextPath}/admin/eventList" style="color:pink;">이벤트 게시판</a>
 	<a class="nav-link" href="${contextPath}/admin/noticeList" style="color:pink;">공지사항 게시판</a>
 	<a class="nav-link" href="${contextPath}/admin/faqView" style="color:pink;">자주묻는 질문</a>

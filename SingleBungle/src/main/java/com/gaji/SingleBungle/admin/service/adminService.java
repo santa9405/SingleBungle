@@ -13,6 +13,7 @@ import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.admin.vo.reportReply;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
 
@@ -102,6 +103,39 @@ public interface adminService {
 	int deleteReportReply(Map<String, Integer> map);
 
 	List<ABoard> selectSearchList(String ct);
+
+	APageInfo getSearchPageInfo(String ct, int cp);
+
+	List<ABoard> selectBoardSearchList(String ct, APageInfo pInfo);
+
+	APageInfo getSearchRBoardPageInfo(String ct, int cp);
+
+	List<ABoard> selectSearchRBoardList(String ct, APageInfo pInfo);
+
+	APageInfo getSearchReplyPageInfo(String ct, int cp);
+
+	List<ABoard> selectSearchReplyList(String ct, APageInfo pInfo);
+
+	APageInfo getSearchRReplyPageInfo(String ct, int cp);
+
+	List<ABoard> selectSearchRReplyList(String ct, APageInfo pInfo);
+
+	APageInfo getSearchmemberPageInfo(String ct, int cp);
+
+	List<ABoard> selectSearchmemberList(String ct, APageInfo pInfo);
+
+	APageInfo getSearchmemberGradePageInfo(String ct, int cp);
+
+	List<ABoard> selectSearchmemberGradeList(String ct, APageInfo pInfo);
+
+	List<ABoard> selectABoardList(APageInfo pInfo);
+
+	List<MReply> selectAReplyList(APageInfo pInfo);
+
+	APageInfo getABoarPageInfo(int cp);
+
+	APageInfo getAReplyPageInfo(int cp2);
+
 
 
 	

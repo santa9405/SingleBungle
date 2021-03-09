@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 관리</title>
+    <title>신고 게시글 관리</title>
 
     <!-- 부트스트랩 사용을 위한 css 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -153,16 +153,18 @@
                 </div>
 
                 <div>
-                    <select class="form-control" id="category" style="width: 100px; display: inline-block;">
-                        <option>부적절함</option>
-                        <option>음란성</option>
-                        <option>홍보</option>
-                        <option>어쩌구</option>
-                        <option>저쩌구</option>
-                        <option>긁적</option>
+                    <select class="form-control"  id= "categorySearch" style="width: 100px; display: inline-block;">
+                        <option value="0">전체</option>
+                        <option value="1">욕설, 비방, 차별, 혐오</option>
+                        <option value="2">홍보, 영리목적</option>
+                        <option value="3">불법 정보</option>
+                        <option value="4">음란, 청소년 유해</option>
+                        <option value="5">개인 정보 노출, 유포, 거래</option>
+                        <option value="6">도배, 스팸</option>
+                        <option value="7">기타</option>
                     </select>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" id="list-table">
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="checkall"></th>
@@ -272,19 +274,7 @@
 				</div>
 
 
-                    <div>
-                        <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-                         
-                            <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
-                                <option value="tit">제목</option>
-                                <option value="tit">내용</option>
-                                <option value="tit">제목 + 내용</option>
-                                <option value="tit">닉네임</option>
-                            </select> 
-                            <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                            <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
-                        </div>
-                    </div>
+                    
             </div>
 
         </div>
@@ -372,6 +362,50 @@
 			}); 
         	
     });
+    
+    
+    $("#categorySearch").change(function(){
+ 	   var ct = $(this).val();
+ 	    
+ 	    
+ 	    //console.log("search?ct=" + ct);
+ 	    location.href = "reportBoardSearch?ct=" + ct;
+ 	});
+    
+    
+    
+    $(function(){
+		
+		
+	$("#categorySearch > option").each(function(index,item){
+			if($(item).val() == "${ct}"){
+			//$(this).prop("selected", true);
+			$("#categorySearch > option[value="+$(item).val()+"]").attr("selected","selected");
+			}
+	});
+});
+    
+    
+    
+    $("#list-table td:not(:first-child)").on("click",function(){
+		var boardNo = $(this).parent().children().eq(4).text();
+		var boardCode = $(this).parent().children().eq(2).text();
+		
+	  var boardViewURL = null;
+	  if(boardCode == 1) boardViewURL = "${contextPath}/board/"+ boardNo;
+	  else if(boardCode == 2) boardViewURL = "${contextPath}/review/view/"+ boardNo;
+	  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/notice/"+ boardNo;
+	  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/event/"+ boardNo;
+	  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/"+ boardNo;
+	  else if(boardCode == 7) boardViewURL = "${contextPath}/findFriend/"+ boardNo;
+	  else if(boardCode == 8) boardViewURL = "${contextPath}/market/"+ boardNo;
+	  
+		console.log(boardNo);
+		console.log(boardCode);
+		
+	location.href = boardViewURL; // 요청 전달
+
+});
 </script>
 </body>
 </html>

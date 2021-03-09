@@ -142,10 +142,11 @@
                 </div>
 
                 <div>
-                    <select class="form-control" style="width: 100px; display: inline-block;">
-                        <option>LV 1</option>
-                        <option>LV 2</option>
-                        <option>LV 3</option>
+                    <select class="form-control" id= "categorySearch" style="width: 100px; display: inline-block;">
+                    	<option value="0">전체</option>
+                        <option value="1">F</option>
+                        <option value="2">S</option>
+                        <option value="3">T</option>
                     </select>
                 </div>
                 <table class="table table-striped">
@@ -339,6 +340,29 @@
 				}
 			}); 
     });
+    
+    
+    
+	$("#categorySearch").change(function(){
+		   var ct = $(this).val();
+		    
+		    
+		    //console.log("search?ct=" + ct);
+		    location.href = "memberSearch?ct=" + ct;
+		});
+		
+		
+		$(function(){
+			
+			
+				
+			$("#categorySearch > option").each(function(index,item){
+					if($(item).val() == "${ct}"){
+					//$(this).prop("selected", true);
+					$("#categorySearch > option[value="+$(item).val()+"]").attr("selected","selected");
+					}
+			});
+		});
 </script>
 </body>
 </html>
