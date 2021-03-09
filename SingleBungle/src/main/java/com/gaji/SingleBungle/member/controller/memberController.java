@@ -345,7 +345,7 @@ public class memberController {
 		map.put("cp", cp);
 		map.put("memberNo", memberNo);
 		
-		APageInfo pInfo = service.getLikeBoardPageInfo(map);
+		APageInfo pInfo = service.getLikeBoardPageInfo(cp,map);
 		pInfo.setLimit(5);
 		
 		List<ABoard> boardList = service.selectLikeBoard(pInfo, memberNo);

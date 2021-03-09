@@ -114,8 +114,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 마이페이지 좋아요 페이징 Service 
 	@Override
-	public APageInfo getLikeBoardPageInfo(Map<String, Integer> map) {
-		return dao.getLikeBoardPageInfo(map);
+	public APageInfo getLikeBoardPageInfo(int cp, Map<String, Integer> map) {
+		int listCount = dao.getLikeBoardPageInfo(map);
+		return new APageInfo(cp,listCount);
 	}
 	
 	// 마이페이지 좋아요 한 글 조회 Service 

@@ -105,7 +105,7 @@ public class MemberDAO {
 	 * @param memberNo 
 	 * @return
 	 */
-	public APageInfo getLikeBoardPageInfo(Map<String, Integer> map) {
+	public int getLikeBoardPageInfo(Map<String, Integer> map) {
 		return sqlSession.selectOne("memberMapper.getLikeBoardPageInfo", map);
 	}
 
