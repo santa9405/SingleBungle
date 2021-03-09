@@ -161,12 +161,12 @@
                                         <td class="profile-area-left">전화번호</td>
                                         <td class="boardTitle">${loginMember.memberPhone}</td>
                                     </tr>
-                                    <tr>
+                                    <%-- <tr>
                                         <td class="profile-area-left">매너온도</td>
                                         <td class="boardTitle">${loginMember.memberRating}</td>
                                         <td class="profile-area-left"></td>
                                         <td class="boardTitle"></td>
-                                    </tr>
+                                    </tr> --%> 
                                     <%-- 
                                     <tr>
                                         <td colspan="4">
@@ -206,24 +206,26 @@
                                 <th>작성일</th>
                             </tr>
                         </thead>
+                        
+                        
 
                         <tbody>
-                            <tr>
-                                <td>사고팔고</td>
-                                <td class="boardTitle">어쩌구입니다....</td>
-                                <td>2021-02-20</td>
-                            </tr>
-                            <tr>
-                                <td>자유게시판</td>
-                                <td class="boardTitle">댓글입니다</td>
-                                <td>2021-02-20</td>
-                            </tr>
-                            <tr>
-                                <td>후기게시판</td>
-                                <td class="boardTitle">댓글 운영... </td>
-                                <td>2021-02-20</td>
-                            </tr>
+                        <c:if test="${empty boardList }">
+                   			<tr>
+								<td colspan="6">존재하는 게시글이 없습니다.
+							</tr>
+		                   </c:if>
+		                   <c:if test="${!empty boardList }">
+		                  	<c:forEach var="board" items="${boardList}" varStatus="vs">
 
+                            <tr>
+                                <td>${board.type }</td>
+                                <td class="boardTitle">${board.boardTitle }</td>
+                                <td>${board.createDt}</td>
+                            </tr>
+                            
+							</c:forEach>
+							</c:if>
                         </tbody>
                     </table>
 

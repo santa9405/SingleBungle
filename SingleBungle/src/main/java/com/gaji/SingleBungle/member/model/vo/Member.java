@@ -16,40 +16,11 @@ public class Member {
 	private int memberRating; // 매너온도
 	private String memberGrade; // 등급
 	private String memberCertifiedFl; // 동네인증 여부
+	private String address; // 
 	
 	
 	// 기본 생성자
 	public Member() { }
-
-
-	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNickname,
-			String memberPhone, String memberEmail, String memberGender, String memberScsnFl, Date memberSignDt,
-			int memberRating, String memberGrade, String memberCertifiedFl) {
-		super();
-		this.memberNo = memberNo;
-		this.memberId = memberId;
-		this.memberPwd = memberPwd;
-		this.memberName = memberName;
-		this.memberNickname = memberNickname;
-		this.memberPhone = memberPhone;
-		this.memberEmail = memberEmail;
-		this.memberGender = memberGender;
-		this.memberScsnFl = memberScsnFl;
-		this.memberSignDt = memberSignDt;
-		this.memberRating = memberRating;
-		this.memberGrade = memberGrade;
-		this.memberCertifiedFl = memberCertifiedFl;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName="
-				+ memberName + ", memberNickname=" + memberNickname + ", memberPhone=" + memberPhone + ", memberEmail="
-				+ memberEmail + ", memberGender=" + memberGender + ", memberScsnFl=" + memberScsnFl + ", memberSignDt="
-				+ memberSignDt + ", memberRating=" + memberRating + ", memberGrade=" + memberGrade
-				+ ", memberCertifiedFl=" + memberCertifiedFl + "]";
-	}
 
 
 	public int getMemberNo() {
@@ -179,6 +150,47 @@ public class Member {
 
 	public void setMemberCertifiedFl(String memberCertifiedFl) {
 		this.memberCertifiedFl = memberCertifiedFl;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName="
+				+ memberName + ", memberNickname=" + memberNickname + ", memberPhone=" + memberPhone + ", memberEmail="
+				+ memberEmail + ", memberGender=" + memberGender + ", memberScsnFl=" + memberScsnFl + ", memberSignDt="
+				+ memberSignDt + ", memberRating=" + memberRating + ", memberGrade=" + memberGrade
+				+ ", memberCertifiedFl=" + memberCertifiedFl + ", address=" + address + "]";
+	}
+
+
+	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNickname,
+			String memberPhone, String memberEmail, String memberGender, String memberScsnFl, Date memberSignDt,
+			int memberRating, String memberGrade, String memberCertifiedFl, String address) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberNickname = memberNickname;
+		this.memberPhone = memberPhone;
+		this.memberEmail = memberEmail;
+		this.memberGender = memberGender;
+		this.memberScsnFl = memberScsnFl;
+		this.memberSignDt = memberSignDt;
+		this.memberRating = memberRating;
+		this.memberGrade = memberGrade;
+		this.memberCertifiedFl = memberCertifiedFl;
+		this.address = address;
 	}
 
 	
