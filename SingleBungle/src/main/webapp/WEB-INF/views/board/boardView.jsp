@@ -84,6 +84,7 @@
                 <h8>자유게시판</h8>
 								<div class="float-right">
 								
+									<!-- 메인에서 게시판 더보기 누른 후 글에서 목록으로 버튼 눌렀을 시 해당 게시판의 list로 가게하기 -->
 									<c:set var="referer" value="${header.referer}"/>
 										<c:set var="a" value="${fn:indexOf(referer,'/')}"/>
 										<c:set var="l" value="${fn:length(referer)}"/>
@@ -94,9 +95,9 @@
 										<c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
 										
 										<c:if test="${referer == contextPath}">
-										 <c:set var="returnListUrl" value="list"/>
+										 <c:set var="returnListURL" value="list"/>
 										</c:if>
-									<a type="button" class="btn maincolor-re mb-3 btn-sm insert-list1" href="${returnListUrl }">목록</a>
+									<a type="button" class="btn maincolor-re mb-3 btn-sm insert-list1" href="${returnListURL }">목록</a>
 									<!-- <button type="button" class="btn maincolor-re btn-sm mb-3 insert-list1">목록</button> -->
 									
 									<c:if test="${loginMember.memberNo != board.memberNo }">
@@ -168,11 +169,10 @@
 										</div>
 									</div>
 								</div>
-						
 								<!-- 목록버튼 -->
 								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<a type="button" class="btn maincolor-re1 insert-list2" href="${returnListUrl }">목록으로</a>
+										<a type="button" class="btn maincolor-re1 insert-list2" href="${returnListURL }">목록으로</a>
 									</div>
 								</div>
 										<!-- <button type="button" class="btn maincolor-re1 insert-list2">목록으로</button> -->
