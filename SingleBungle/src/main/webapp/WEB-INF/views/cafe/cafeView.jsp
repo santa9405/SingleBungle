@@ -108,6 +108,8 @@ color: #FFFFFF !important; }
             <div class="col-md-12">
                 <h8>맛집게시판</h8>
 								<div class="float-right">
+								
+									<!-- 메인에서 게시판 더보기 누른 후 글에서 목록으로 버튼 눌렀을 시 해당 게시판의 list로 가게하기 -->
 									<c:set var="referer" value="${header.referer}"/>
 										<c:set var="a" value="${fn:indexOf(referer,'/')}"/>
 										<c:set var="l" value="${fn:length(referer)}"/>
@@ -118,9 +120,9 @@ color: #FFFFFF !important; }
 										<c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
 										
 										<c:if test="${referer == contextPath}">
-										 <c:set var="returnListUrl" value="list"/>
+										 <c:set var="returnListURL" value="list"/>
 										</c:if>
-									<a type="button" class="btn maincolor-re mb-3 btn-sm insert-list" href="${returnListUrl }">목록</a>
+									<a type="button" class="btn maincolor-re mb-3 btn-sm insert-list" href="${returnListURL }">목록</a>
 									<!-- <button type="button" class="btn maincolor-re mb-3 btn-sm insert-list">목록</button> -->
 									<c:if test="${loginMember.memberNo != cafe.memberNo }">
 									<button type="button" class="btn btn-sm mb-3 report"><img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">신고</button>
@@ -212,7 +214,7 @@ color: #FFFFFF !important; }
 								<div class="row py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
 									
-								<a type="button" class="btn maincolor-re1 insert-list" href="${returnListUrl }">목록으로</a>
+								<a type="button" class="btn maincolor-re1 insert-list" href="${returnListURL }">목록으로</a>
 										
 									</div>
 								</div>

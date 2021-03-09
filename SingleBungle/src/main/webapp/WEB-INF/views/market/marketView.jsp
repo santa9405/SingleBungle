@@ -236,7 +236,23 @@
       <div class="row py-5 no-gutters">
 							<div class="col-md-12">
 							
-			<button type="button" class="btn btn-success float-right returnBtn">목록</button>
+									<!-- 메인에서 게시판 더보기 누른 후 글에서 목록으로 버튼 눌렀을 시 해당 게시판의 list로 가게하기 -->
+									<c:set var="referer" value="${header.referer}"/>
+										<c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+										<c:set var="l" value="${fn:length(referer)}"/>
+										<c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
+										
+										<c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+										<c:set var="l" value="${fn:length(referer)}"/>
+										<c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
+										
+										<c:if test="${referer == contextPath}">
+										 <c:set var="returnListURL" value="list"/>
+										</c:if>
+									<a type="button" class="btn btn-success float-right returnBtn" href="${returnListURL }">목록</a>
+							
+							
+			<!-- <button type="button" class="btn btn-success float-right returnBtn">목록</button> -->
 		</div>
         <div class="col-lg-12 mx-auto">
         	      
@@ -436,7 +452,8 @@
 				<c:if test="${empty sessionScope.returnListURL}"> 
 					<c:set var="returnListURL" value="/list" scope="session"/>
 				</c:if>   
-				<button type="button" class="btn btn-success returnBtn">목록으로</button>
+				<a type="button" class="btn btn-success returnBtn" href="${returnListURL }">목록</a>
+				<!-- <button type="button" class="btn btn-success returnBtn">목록으로</button> -->
 				
 			</div>
 		</div>
