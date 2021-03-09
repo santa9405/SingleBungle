@@ -205,11 +205,18 @@ body {
 				<button type="button" class="btn btn-primary float-right report">신고</button>
 				
 				<c:if test="${findFriend.memNo != loginMember.memberNo}">
-					<button type="button" id="applyBtn" class='btn btn-primary float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>참여신청</button>
+					<button type="button" id="applyBtn" class='btn btn-primary float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>
+					<c:if test="${checkApply == 0}">참여신청</c:if>
+					<c:if test="${checkApply == 1}">참여취소</c:if>
+					</button>
+				</c:if>
+				
+				<c:if test="${findFriend.memNo == loginMember.memberNo}">
+					<input type="hidden" class='btn btn-primary float-right apply'>
 				</c:if>
 				
 				<!-- chat button -->
-				<button type="button" class="btn btn-primary float-right chat">모집인원 1/4</button>
+				<button type="button" class="btn btn-primary float-right chat">채팅하기</button>
  
 			</div>
 			<hr class="hr">
@@ -360,16 +367,25 @@ body {
 		});
 
 		// 채팅창 열기
-		$(".chat")
-				.on(
-						"click",
-						function() {
-							window
-									.open(
+		$(".chat").on("click", function() {
+			
+			var applyArray = $(".apply").attr("class").split(" ");
+			//console.log(applyArray);
+			
+			if(applyArray[4] == "insertApply"){
+					
+					swal({icon : "info", title : "참여 신청을 해주세요."});
+				
+			}else{
+					
+							window.open(
 											'${contextPath}/findFriendChat/chatView/${findFriend.friendNo}',
 											"popup",
 											"width=600, height=700, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-						});
+							
+			}
+		
+		});
 		
 		// -------------------------------------------------------------------------------------------------------------------
 		
