@@ -129,6 +129,10 @@ body {
 	width: 318px;
 	height: 212px;
 }
+
+a:hover{
+	cursor: pointer;
+}s
 </style>
 
 <!-- summernote 사용 시 필요한 css 파일 추가 -->
@@ -146,8 +150,7 @@ body {
 				<div class="col-lg-12 mx-auto">
 					<div class="text-black banner">
 						<h1 class="boardName float-left">이벤트</h1>
-						<a class="category" href="#">공지사항</a> | <a class="category"
-							href="#">이벤트</a>
+						<a class="category" href="noticeList">공지사항</a> | <a class="category" style="color:rgb(255, 200, 35)">이벤트</a>
 					</div>
 					<hr>
 				</div>

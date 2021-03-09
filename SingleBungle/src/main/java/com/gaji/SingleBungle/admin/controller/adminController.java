@@ -45,6 +45,8 @@ import com.gaji.SingleBungle.review.model.service.ReviewService;
 import com.gaji.SingleBungle.review.model.vo.Review;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewLike;
+import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
+import com.gaji.SingleBungle.review.model.vo.ReviewSearch;
 import com.google.gson.Gson;
 
 @Controller
@@ -229,6 +231,26 @@ public class adminController {
 
 		return "admin/faqView";
 	}
+	
+	
+	
+	
+	// 게시글 검색
+		@RequestMapping("search")
+		public String searchBoard(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+									@RequestParam(value="ct",required = false) String ct,
+									Model model) {
+			
+			
+			List<ABoard> board = service.selectSearchList(ct);
+			
+			
+			model.addAttribute("board", board);
+			model.addAttribute("ct",ct);
+			
+			
+			return "admin/faqView";
+		}
 
 	// -------------------------------notice
 

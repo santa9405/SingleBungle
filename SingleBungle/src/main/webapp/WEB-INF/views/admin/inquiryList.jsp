@@ -124,8 +124,12 @@
         } 
         
         #inquiryNo{
-        display:none;
-        }
+	        display:none;
+	        }
+        
+        a:hover{
+			cursor: pointer;
+		}
 
     </style>
 
@@ -144,8 +148,8 @@
                       <div class="col-lg-12 mx-auto">
                         <div class="text-black banner">
                             <h1 class="boardName float-left">1 : 1 문의</h1>
-                            <a class="category" id="faq" href="#">FAQ</a> | 
-                            <a class="category" id="inquiry" href="#">1:1 문의</a> 
+                            <a class="category" id="faq" href="faqView">FAQ</a> | 
+                            <a class="category" id="inquiry" style="color:rgb(255, 200, 35)">1:1 문의</a> 
                           </div>
                         
                     </div>

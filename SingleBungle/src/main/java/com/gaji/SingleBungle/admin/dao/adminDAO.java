@@ -267,6 +267,10 @@ public class adminDAO {
 		return sqlSession.update("adminMapper.deleteReportReply", map);
 	}
 
+	public List<ABoard> selectSearchList(String ct) {
+		return sqlSession.selectList("adminMapper.selectSearchList", ct);
+	}
+
 	
 	
 
