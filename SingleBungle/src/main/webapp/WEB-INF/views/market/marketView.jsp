@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <style>
+
  .boardName {
    margin-right: 40px;
  }
@@ -224,6 +225,8 @@
 }
 
 </style>
+
+
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -245,8 +248,6 @@
       </div>
       <!-- End -->
       
-
-
 
 			<div class="row">
 				<div class="col-md-6">
@@ -527,8 +528,7 @@
 				<!-- End -->
 			</div>
 		
-		
-		
+	
 		
 
 	<script>
@@ -680,6 +680,8 @@
 			window.name = "parentWindow";
 			 window.open('${contextPath}/market/marketReport/${market.marketNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 		});
+
+		
 
 	</script>
 		
