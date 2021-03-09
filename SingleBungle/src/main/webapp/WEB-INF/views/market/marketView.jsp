@@ -378,15 +378,12 @@
 							</a>
 							
 							
-							<a href="#" class="btn btn-secondary btn-lg btnW active" role="button" aria-pressed="true">
+							<a href="#" class="btn btn-info btn-lg btnW active" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="message"> 
 								<span class="messageText">쪽지</span>
 							</a>
 							
-							<a href="#" class="btn btn-info btn-lg btnW" role="button" aria-pressed="true">
-								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="deal"> 
-								<span class="messageText">거래신청</span>
-							</a>
+
 						</div>
 						
 						<c:if test="${market.memNo == loginMember.memberNo}"> 
@@ -589,7 +586,7 @@
 					}
 				}, 
 				error : function(result){
-					console.log("ajax 통신 오류 발생1");
+					console.log("ajax 통신 오류 발생");
 				}
 			});
 		} else{
@@ -605,7 +602,7 @@
 					}
 				},
 				error : function(result){
-					console.log("ajax 통신 오류 발생2");
+					console.log("ajax 통신 오류 발생");
 				}
 			});
 		}

@@ -379,7 +379,7 @@
 								<div class="locationBtnArea mb-20">
 									<button type="button" id="currLocation" class="LBtn btn btn-info">내 위치</button>
 								</div>
-								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(시군구)" id="locationInput" name="address" class="location" required>
+								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput" name="address" class="location" required>
 								<span class="errorMsg" id="locationMsg"></span>
 							</div>
 						</li>
@@ -515,11 +515,10 @@
     $("#itemPrice").on("input", function(){
     	var regexp = /^[0-9]*$/;
 
-    	if($("#itemPrice").val() < 100) {
+    	if($(this).val() < 100) {
     			$("#priceMsg").text("100원 이상 입력해주세요.");
     	} else if(!regexp.test($("#itemPrice").val())){
     		alert("숫자만 입력해주세요.");
-    		$("#priceMsg").text("숫자만 입력해주세요.");
     		$("#priceMsg").text("숫자만 입력해주세요.");
     	} else{
     		$("#priceMsg").text("");
@@ -538,11 +537,10 @@
      
      $("#itemCount").on("input", function(){
      	var regexp = /^[0-9]*$/;
-     	if($("#itemCount").val() <= 0) {
+     	if($(this).val() <= 0) {
      			$("#countMsgq").text("1개 이상 입력해주세요.");
      	} else if(!regexp.test($("#itemCount").val())){
      		alert("숫자만 입력해주세요.");
-     		$("#countMsgq").text("숫자만 입력해주세요.");
      		$("#countMsgq").text("숫자만 입력해주세요.");
      	} else{
      		$("#countMsgq").text("");
@@ -589,40 +587,66 @@
      }
 	
       //-------------------------------------------------------------------------------------------------------------------------------
+  
+      var check = false;
+      var locate;
       
-      $("#currLocation").on("click", function(){
-    	  getLocation();
-    	  });
-
       
-
-		function getLocation() {
+     function getLocation() {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(pos) {
 					var latitude = pos.coords.latitude;
 					var longitude = pos.coords.longitude;
-					var location = longitude + ", " +  latitude;
-					console.log(location);
 					var geocoder = new kakao.maps.services.Geocoder();
 
 					var callback = function(result, status){
 					    if (status === kakao.maps.services.Status.OK) {
-									var locate = result[0].address_name;
+									locate = result[0].address_name;
 					        console.log('지역 명칭 : ' + locate);
-					        console.log('행정구역 코드 : ' + result[0].code);
 					    }
-					};
-					
+					} 
+
 					geocoder.coord2RegionCode( longitude, latitude, callback);
+					
+					
 				}, function(error) {
 					alert(error);
-				}, {
-					enableHighAccuracy: true
+					check = false;
 				})
 			} else {
 				alert("이 브라우저에서는 위치 정보를 얻어올 수 없습니다.");
+				check = false;
 			}
 		}
+		
+      
+      
+      
+      
+      
+
+		$("#currLocation").on("click", function() {
+			getLocation();
+
+			console.log(locate);
+			if (locate != undefined) {
+				$.ajax({
+					url : "locateCertification",
+					type : "post",
+					data : {
+						"locate" : locate
+					},
+					success : function(result) {
+
+					},
+					error : function(result) {
+						console.log("ajax 통신 오류 발생!");
+					}
+
+				});
+
+			}
+		});
 	</script>
 
 </body>
