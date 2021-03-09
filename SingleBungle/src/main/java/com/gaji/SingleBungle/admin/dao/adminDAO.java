@@ -17,6 +17,7 @@ import com.gaji.SingleBungle.admin.vo.Reply;
 import com.gaji.SingleBungle.admin.vo.inquiry;
 import com.gaji.SingleBungle.admin.vo.reportBoard;
 import com.gaji.SingleBungle.admin.vo.reportReply;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 
 @Repository
@@ -271,13 +272,84 @@ public class adminDAO {
 		return sqlSession.selectList("adminMapper.selectSearchList", ct);
 	}
 
-	
-	
+	public int getSearchListCount(String ct) {
+		return sqlSession.selectOne("adminMapper.getSearchListCount", ct);
+	}
 
-	
+	public List<ABoard> selectBoardSearchList(String ct, APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectBoardSearchList", ct, rowBounds);
+	}
 
-	
+	public int getSearchRBoardListCount(String ct) {
+		return sqlSession.selectOne("adminMapper.getSearchRBoardListCount", ct);
+	}
 
-	
+	public List<ABoard> selectSearchRBoardList(String ct, APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectSearchRBoardList", ct, rowBounds);
+	}
+
+	public int getSearchReplyListCount(String ct) {
+		return sqlSession.selectOne("adminMapper.getSearchReplyListCount", ct);
+	}
+
+	public List<ABoard> selectSearchReplyList(String ct, APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectSearchReplyList", ct, rowBounds);
+	}
+
+	public int getSearchRReplyListCount(String ct) {
+		return sqlSession.selectOne("adminMapper.getSearchRReplyListCount", ct);
+	}
+
+	public List<ABoard> selectSearchRReplyList(String ct, APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectSearchRReplyList", ct, rowBounds);
+	}
+
+	public int getSearchMemberListCount(String ct) {
+		return sqlSession.selectOne("adminMapper.getSearchMemberListCount", ct);
+	}
+
+	public List<ABoard> selectSearchmemberList(String ct, APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectSearchmemberList", ct, rowBounds);
+	}
+
+	public int getSearchmemberGradePageInfo(String ct) {
+		return sqlSession.selectOne("adminMapper.getSearchmemberGradePageInfo", ct);
+	}
+
+	public List<ABoard> selectSearchmemberGradeList(String ct, APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectSearchmemberGradeList", ct, rowBounds);
+	}
+
+	public int getABoarPageInfo(int cp) {
+		return sqlSession.selectOne("adminMapper.getABoarPageInfo", cp);
+	}
+
+	public int getAReplyPageInfo(int cp2) {
+		return sqlSession.selectOne("adminMapper.getAReplyPageInfo", cp2);
+	}
+
+	public List<ABoard> selectABoardList(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectABoardList",pInfo, rowBounds);
+	}
+
+	public List<MReply> selectAReplyList(APageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("adminMapper.selectAReplyList", pInfo, rowBounds);
+	}
 
 }

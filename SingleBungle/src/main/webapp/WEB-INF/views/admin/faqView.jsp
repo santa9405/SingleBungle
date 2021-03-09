@@ -195,18 +195,7 @@
                 <c:if test="${loginMember.memberNo == 4 }">
                 	<a class="btn btn-success float-right" href="../admin/faqInsert">글쓰기</a><br><br>
                 </c:if>
-                <div>
-                    <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-                     
-                        <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
-                            <option value="tit">글제목</option>
-                            <option value="con">내용</option>
-                            <option value="titcont">제목+내용</option>
-                        </select> 
-                        <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                        <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
-                    </div>
-                </div>
+                
             </div>
 
             

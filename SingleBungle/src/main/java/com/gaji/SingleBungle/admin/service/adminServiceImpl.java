@@ -26,6 +26,7 @@ import com.gaji.SingleBungle.admin.vo.reportReply;
 import com.gaji.SingleBungle.board.model.vo.Board;
 import com.gaji.SingleBungle.board.model.vo.BoardAttachment;
 import com.gaji.SingleBungle.findFriend.exception.InsertAttachmentFailException;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.vo.ReviewAttachment;
 import com.gaji.SingleBungle.review.model.vo.ReviewPageInfo;
@@ -829,6 +830,97 @@ public class adminServiceImpl implements adminService{
 		public List<ABoard> selectSearchList(String ct) {
 			return dao.selectSearchList(ct);
 		}
+
+		@Override
+		public APageInfo getSearchPageInfo(String ct, int cp) {
+			// 검색 조건에 맞는 게시글 수 조회
+			int listCount = dao.getSearchListCount(ct);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectBoardSearchList(String ct, APageInfo pInfo) {
+			return dao.selectBoardSearchList(ct,pInfo);
+		}
+
+		@Override
+		public APageInfo getSearchRBoardPageInfo(String ct, int cp) {
+			int listCount = dao.getSearchRBoardListCount(ct);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectSearchRBoardList(String ct, APageInfo pInfo) {
+			return dao.selectSearchRBoardList(ct,pInfo);
+		}
+
+		@Override
+		public APageInfo getSearchReplyPageInfo(String ct, int cp) {
+			int listCount = dao.getSearchReplyListCount(ct);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectSearchReplyList(String ct, APageInfo pInfo) {
+			return dao.selectSearchReplyList(ct,pInfo);
+		}
+
+		@Override
+		public APageInfo getSearchRReplyPageInfo(String ct, int cp) {
+			int listCount = dao.getSearchRReplyListCount(ct);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectSearchRReplyList(String ct, APageInfo pInfo) {
+			return dao.selectSearchRReplyList(ct,pInfo);
+		}
+
+		@Override
+		public APageInfo getSearchmemberPageInfo(String ct, int cp) {
+			int listCount = dao.getSearchMemberListCount(ct);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectSearchmemberList(String ct, APageInfo pInfo) {
+			return dao.selectSearchmemberList(ct,pInfo);
+		}
+
+		@Override
+		public APageInfo getSearchmemberGradePageInfo(String ct, int cp) {
+			int listCount = dao.getSearchmemberGradePageInfo(ct);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public List<ABoard> selectSearchmemberGradeList(String ct, APageInfo pInfo) {
+			return dao.selectSearchmemberGradeList(ct,pInfo);
+		}
+
+		@Override
+		public List<ABoard> selectABoardList(APageInfo pInfo) {
+			return dao.selectABoardList(pInfo);
+		}
+
+		@Override
+		public List<MReply> selectAReplyList(APageInfo pInfo) {
+			return dao.selectAReplyList(pInfo);
+		}
+
+		@Override
+		public APageInfo getABoarPageInfo(int cp) {
+			int listCount = dao.getABoarPageInfo(cp);
+			return new APageInfo(cp, listCount);
+		}
+
+		@Override
+		public APageInfo getAReplyPageInfo(int cp2) {
+			int listCount = dao.getAReplyPageInfo(cp2);
+			return new APageInfo(cp2, listCount);
+		}
+
+		
 
 
 		

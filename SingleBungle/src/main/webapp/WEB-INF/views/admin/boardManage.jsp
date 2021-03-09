@@ -137,6 +137,12 @@
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
+
+<c:choose>
+	<c:when test="${!empty rSearch }">
+		
+	</c:when>
+</c:choose>
     <div class="container">
         <div class="row">
 
@@ -151,13 +157,15 @@
                 </div>
 
                 <div>
-                    <select class="form-control" style="width: 100px; display: inline-block;">
-                        <option>후기</option>
-                        <option>맛집</option>
-                        <option>자유</option>
-                        <option>사고팔고</option>
-                        <option>친구찾기</option>
-                        <option>공지사항</option>
+                    <select class="form-control" id= "categorySearch" style="width: 100px; display: inline-block;">
+                        <option value="0">전체</option>
+                        <option value="1">자유</option>
+                        <option value="2">후기</option>
+                        <option value="3">공지사항</option>
+                        <option value="4">이벤트</option>
+                        <option value="6">맛집</option>
+                        <option value="7">친구찾기</option>
+                        <option value="8">사고팔고</option>
                     </select>
                 </div>
                 <table class="table table-striped" id="list-table">
@@ -269,21 +277,6 @@
 				</div>
 
 				
-
-
-				<div>
-                        <div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-                         
-                            <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
-                                <option value="tit">제목</option>
-                                <option value="tit">내용</option>
-                                <option value="tit">제목 + 내용</option>
-                                <option value="tit">닉네임</option>
-                            </select> 
-                            <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-                            <button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
-                        </div>
-                    </div>
             </div>
 
         </div>
@@ -361,6 +354,30 @@
 			}); 
         	
     });
+	
+
+	
+	$("#categorySearch").change(function(){
+	   var ct = $(this).val();
+	    
+	    
+	    //console.log("search?ct=" + ct);
+	    location.href = "boardSearch?ct=" + ct;
+	});
+	
+	
+	$(function(){
+		
+		
+			
+		$("#categorySearch > option").each(function(index,item){
+				if($(item).val() == "${ct}"){
+				//$(this).prop("selected", true);
+				$("#categorySearch > option[value="+$(item).val()+"]").attr("selected","selected");
+				}
+		});
+	});
+
 </script>
 </body>
 </html>

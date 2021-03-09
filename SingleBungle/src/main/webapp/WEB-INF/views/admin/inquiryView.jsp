@@ -111,7 +111,10 @@
 								<!-- 목록버튼 -->
 								<div class="row  py-3" style="clear: both;">
 									<div class="col-md-12 text-center">
-										<button type="button" class="btn btn-success">목록으로</button>
+										<c:if test="${empty sessionScope.returnListURL }">
+											<c:set var="returnListURL" value="../inquiryList" scope="session" />
+										</c:if>
+								<button type="button" class="btn btn-success returnBtn maincolor" style="width: 100px; height: 40px;">목록으로</button>
 									</div>
 								</div>
 				</div>
@@ -124,5 +127,11 @@
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+     <script>
+    $(".returnBtn").on("click", function(){
+		location.href = "../inquiryList"
+	});
+    </script>
 </body>
 </html>

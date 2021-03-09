@@ -40,6 +40,7 @@ import com.gaji.SingleBungle.findFriend.model.vo.FindFriendAttachment;
 import com.gaji.SingleBungle.market.model.service.MarketService;
 import com.gaji.SingleBungle.market.model.vo.Market;
 import com.gaji.SingleBungle.market.model.vo.MarketAttachment;
+import com.gaji.SingleBungle.member.model.vo.MReply;
 import com.gaji.SingleBungle.member.model.vo.Member;
 import com.gaji.SingleBungle.review.model.service.ReviewService;
 import com.gaji.SingleBungle.review.model.vo.Review;
@@ -653,7 +654,21 @@ public class adminController {
 	// ------------------------------------------------------------------------
 	// 관리자 컨트롤러
 	@RequestMapping("adminMypage")
-	public String adminMypage() {
+	public String adminMypage(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, @RequestParam(value = "cp2", required = false, defaultValue = "1") int cp2, Model model) {
+
+		APageInfo pInfo = service.getABoarPageInfo(cp);
+		pInfo.setLimit(5);
+		List<ABoard> boardList = service.selectABoardList(pInfo);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pInfo", pInfo);
+		
+		
+		APageInfo pInfo2 = service.getAReplyPageInfo(cp2);
+		pInfo2.setLimit(10);
+		List<MReply> replyList = service.selectAReplyList(pInfo2);
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("pInfo2", pInfo2);
+
 		return "admin/adminMypage";
 	}
 
@@ -671,6 +686,26 @@ public class adminController {
 
 		return "admin/boardManage";
 	}
+	
+	
+	// 게시글 검색
+			@RequestMapping("boardSearch")
+			public String boardSearch(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+										@RequestParam(value="ct",required = false) String ct,
+										Model model) {
+				
+				APageInfo pInfo = service.getSearchPageInfo(ct,cp);
+				pInfo.setLimit(10);
+				List<ABoard> boardList = service.selectBoardSearchList(ct, pInfo);
+				
+				
+				model.addAttribute("boardList", boardList);
+				model.addAttribute("pInfo",pInfo);
+				model.addAttribute("ct",ct);
+				
+				
+				return "admin/boardManage";
+			}
 
 	// 삭제게시글 복구
 	@ResponseBody
@@ -712,6 +747,26 @@ public class adminController {
 	}
 
 	
+	// 게시글 검색
+	@RequestMapping("memberGradeSearch")
+	public String memberGradeSearch(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+								@RequestParam(value="ct",required = false) String ct,
+								Model model) {
+		
+		APageInfo pInfo = service.getSearchmemberGradePageInfo(ct,cp);
+		pInfo.setLimit(10);
+		List<ABoard> memberList = service.selectSearchmemberGradeList(ct, pInfo);
+		
+		
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("ct",ct);
+		
+		
+		return "admin/levelList";
+	}
+	
+	
 	
 	@ResponseBody
 	@RequestMapping("gradeMember")
@@ -746,6 +801,26 @@ public class adminController {
 		List<Member> memberList = service.selectAllMember(pInfo);
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("pInfo", pInfo);
+		
+		return "admin/memberList";
+	}
+	
+	
+	// 게시글 검색
+	@RequestMapping("memberSearch")
+	public String memberSearch(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+								@RequestParam(value="ct",required = false) String ct,
+								Model model) {
+		
+		APageInfo pInfo = service.getSearchmemberPageInfo(ct,cp);
+		pInfo.setLimit(10);
+		List<ABoard> memberList = service.selectSearchmemberList(ct, pInfo);
+		
+		
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("ct",ct);
+		
 		
 		return "admin/memberList";
 	}
@@ -809,6 +884,23 @@ public class adminController {
 	}
 	
 	
+	// 게시글 검색
+	@RequestMapping("replySearch")
+	public String replySearch(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "ct", required = false) String ct, Model model) {
+
+		APageInfo pInfo = service.getSearchReplyPageInfo(ct, cp);
+		pInfo.setLimit(10);
+		List<ABoard> replyList = service.selectSearchReplyList(ct, pInfo);
+
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("ct", ct);
+
+		return "admin/replyManage";
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("recoverReply")
 	public boolean recoverReply(@RequestParam(value = "replyNoList[]") int[] replyNoList, @RequestParam(value = "boardCodeList[]") int[] boardCodeList, @RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
@@ -841,6 +933,26 @@ public class adminController {
 		List<reportBoard> boardList = service.selectReportBoard(pInfo);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pInfo", pInfo);
+		
+		return "admin/boardReport";
+	}
+	
+	
+	// 게시글 검색
+	@RequestMapping("reportBoardSearch")
+	public String reportBoardSearch(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+								@RequestParam(value="ct",required = false) String ct,
+								Model model) {
+		
+		APageInfo pInfo = service.getSearchRBoardPageInfo(ct,cp);
+		pInfo.setLimit(10);
+		List<ABoard> boardList = service.selectSearchRBoardList(ct, pInfo);
+		
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pInfo",pInfo);
+		model.addAttribute("ct",ct);
+		
 		
 		return "admin/boardReport";
 	}
@@ -927,6 +1039,28 @@ public class adminController {
 		return "admin/replyReport";
 	}
 	
+	
+	
+	// 게시글 검색
+		@RequestMapping("reportReplySearch")
+		public String reportReplySearch(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
+									@RequestParam(value="ct",required = false) String ct,
+									Model model) {
+			
+			APageInfo pInfo = service.getSearchRReplyPageInfo(ct,cp);
+			pInfo.setLimit(10);
+			List<ABoard> replyList = service.selectSearchRReplyList(ct, pInfo);
+			
+			
+			model.addAttribute("replyList", replyList);
+			model.addAttribute("pInfo",pInfo);
+			model.addAttribute("ct",ct);
+			
+			
+			return "admin/replyReport";
+		}
+		
+		
 	
 	@ResponseBody
 	@RequestMapping("recoverReportReply")
