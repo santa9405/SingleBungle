@@ -41,4 +41,22 @@ public interface MessageService {
 	 */
 	int sendMessage(Map<String, Object> map);
 
+	/** 메세지 읽음 상태 변경
+	 * @param messageNo
+	 * @return
+	 */
+	int updateReadStatus(int messageNo);
+
+	/** 보낸 메세지 변경
+	 * @param list
+	 * @return
+	 */
+	int deleteSendMessage(List<Integer> list);
+
+	/** 받은 메세지 삭제
+	 * @param list
+	 * @return
+	 */
+	int deleteReceiveMessage(List<Integer> list);
+
 }

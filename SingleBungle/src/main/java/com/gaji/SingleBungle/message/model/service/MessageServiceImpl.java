@@ -63,4 +63,28 @@ public class MessageServiceImpl implements MessageService {
 		return result;
 	}
 
+	
+	// 메세지 읽음 상태 변경
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReadStatus(int messageNo) {
+		return dao.updateReadStatus(messageNo);
+	}
+
+	
+	// 보낸 메세지 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteSendMessage(List<Integer> list) {
+		return dao.deleteSendMessage(list);
+	}
+
+	
+	// 받은 메세지 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteReceiveMessage(List<Integer> list) {
+		return dao.deleteReceiveMessage(list);
+	}
+
 }

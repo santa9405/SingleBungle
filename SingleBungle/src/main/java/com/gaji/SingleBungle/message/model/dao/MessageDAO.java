@@ -94,4 +94,27 @@ public class MessageDAO {
 	}
 
 
+	/** 메세지 읽음 상태 변경
+	 * @param messageNo
+	 * @return
+	 */
+	public int updateReadStatus(int messageNo) {
+		return sqlSession.update("messageMapper.updateReadStatus",messageNo);
+	}
+
+
+	/** 보낸 메세지 삭제
+	 * @param list
+	 * @return
+	 */
+	public int deleteSendMessage(List<Integer> list) {
+		return sqlSession.update("messageMapper.deleteSendMessage",list);
+	}
+
+
+	public int deleteReceiveMessage(List<Integer> list) {
+		return sqlSession.update("messageMapper.deleteReceiveMessage",list);
+	}
+
+
 }
