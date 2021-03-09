@@ -166,30 +166,7 @@
                     </div>
                 </nav>
 
-
-
-			<%-- <div class="row py-5">
-			<div class="col-lg-12 mx-auto boardTitleBorder">
-				<div class="text-black banner">
-					<h1 class="boardName float-left">후기게시판</h1>
-					<div class="categoryArea">
-						<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a> 
-						<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">가구</a> 
-						<a class="category" id="2" href="search?ct=2&${sort}${sk}${sv}">생활용품</a> 
-						<a class="category" id="3" href="search?ct=3&${sort}${sk}${sv}">전자기기</a> 
-						<a class="category" id="4" href="search?ct=4&${sort}${sk}${sv}">기타</a>
-					</div>
-					<div class="arrayArea float-right">
-						<a class="array" id="newSort" href="search?${category}sort=new&${sk}${sv}">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a> 
-						<a class="array" id="likeSort" href="search?${category}sort=like&${sk}${sv}">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
-					</div>
-				</div>
-			</div>
-		</div> --%>
-
-
-
-                
+   
                 <div class="accordion" id="accordionExample">
 
                     <c:if test="${!empty board }">
