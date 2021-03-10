@@ -25,17 +25,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 500;
-	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
-	color: #212529;
-	margin: 0;
+
+html {
+    position: relative; 
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    /* background: yellow; */
 }
 
-a {
-	color: #212529;
+body {
+    min-height: 100%;
+}
+
+#footer { /* 푸터 바닥에 고정시키기 !!! hmtl에 어쩌고도 해줘야함 */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* padding: 15px 0; */
+    text-align: center;
+    color: white;
 }
 
 a:hover {
@@ -60,6 +70,9 @@ a:hover {
 .textBold {
 	font-weight: 400;
 }
+
+
+
 
 
 /* sns */
@@ -103,15 +116,16 @@ a:hover {
 		</script>
 	</c:if>
 
-
-
+	<div style="margin-right:0px;">
+		<jsp:include page="../common/header.jsp" />
+	</div>
 
 	<div class="container" id="login-container">
 		<div class="row">
 			<div class="col-md-4"></div>
 
 			<div class="col-md-4" id="login-container">
-				<h3 class="login-heading mb-4 text-center">로고,,ㄱ-</h3>
+				<!-- <h3 class="login-heading mb-4 text-center">로고,,ㄱ-</h3> -->
 				<form action="loginAction" method="post" class="form-signin">
 					<div class="form-label-group">
 						<input type="text" id="memberId" name="memberId" placeholder="아이디" class="form-control" value="${cookie.saveId.value}" required autofocus>
@@ -157,8 +171,10 @@ a:hover {
 			<div class="col-md-4"></div>
 		</div>
 	</div>
-
-	<jsp:include page="../common/header.jsp" />
+	
+	<div id="footer">
+		<jsp:include page="../common/footer.jsp" />
+	</div>
 
 </body>
 

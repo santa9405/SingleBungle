@@ -22,68 +22,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 500;
-	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
-	color: #212529;
-	margin: 0;
-}
-
-a {
-	color: #212529;
-}
 
 a:hover {
 	text-decoration: none;
-}
-/* 버튼 */
-.maincolor {
-	color: #ffffff !important;
-	background-color: #ffaf18 !important;
-	border: 1px solid #ffaf18 !important;
-}
-
-.maincolor:hover {
-	color: #ffffff !important;
-	background-color: #ff8500 !important;
-	border: 1px solid #ffc823 !important;
-}
-
-/* 버튼 반대로 */
-.maincolor-re {
-	color: #ff8500 !important;
-	background-color: #ffffff !important;
-	border: 1px solid #ffaf18 !important;
-}
-
-.maincolor-re:hover {
-	color: #ffffff !important;
-	background-color: #ff8500 !important;
-	border: 1px solid #ffc823 !important;
-}
-
-/* a태그 폰트 */
-.maincolor-font {
-	color: #ffaf18;
-}
-
-.maincolor-font:hover {
-	color: #ff8500;
-}
-
-.maincolor-font-bk {
-	color: #212529;
-}
-
-.maincolor-font-bk:hover {
-	color: #ff8500;
-}
-
-/* 별표 주황색 */
-.requiredInput {
-	color: #ff8500;
 }
 
 /* --------------------------------------------------------- */
@@ -134,6 +75,9 @@ a:hover {
 </head>
 
 <body>
+
+	<jsp:include page="../common/header.jsp" />
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4"></div>
@@ -187,6 +131,8 @@ a:hover {
 
 		<div class="col-md-4"></div>
 	</div>
+	
+	<jsp:include page="../common/footer.jsp" />
 </body>
 
 </html>

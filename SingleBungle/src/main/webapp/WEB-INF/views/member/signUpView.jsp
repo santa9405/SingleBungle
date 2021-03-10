@@ -243,8 +243,8 @@
                                 <select class="form-control email" id="email2" name="email2">
                                     <option>이메일 선택</option>
                                     <option>naver.com</option>
-                                    <option>daum.com</option>
-                                    <option>hanmail.com</option>
+                                    <option>daum.net</option>
+                                    <option>hanmail.net</option>
                                     <option>gmail.com</option>
                                     <option>nate.com</option>
                                 </select>
@@ -340,6 +340,10 @@
 
         </div>
     </div>
+    
+    <jsp:include page="../common/footer.jsp" />
+    
+    
 
     <script>
         // 입력값들이 유효성 검사가 진행되었는지 확인하기 위한 객체 생성
