@@ -263,7 +263,7 @@ body {
 
 									<!-- 좋아요 버튼 -->
 									<span class="float-right">
-										<button type="button" id="likeBtn" class="likeBtns" >
+										<button type="button" id="likeBtn" class="likeBtns" <c:if test="${loginMember.memberGrade == 'S'}">disabled='disabled'</c:if>>
 											<img src="${contextPath}/resources/images/like1.png"
 												width="15" height="15" id="heart" class='likeImgs <c:forEach var="like" items="${likeInfo}"><c:if test="${like.marketNo == market.marketNo}">like2</c:if></c:forEach>'>
 											<span class="likeCnt">${market.likes}</span>
@@ -306,7 +306,7 @@ body {
 			</div>
 
 			<c:if test="${loginMember != null}">
-				<button type="button" class="btn btn-info float-right"><a href="${contextPath}/market/insert" class="writeBtn">글쓰기</a></button>
+				<button type="button" class="btn btn-info float-right"><a  class="writeBtn" onclick="gradeCheck();">글쓰기</a></button>
 			</c:if>
 
 
@@ -457,6 +457,17 @@ body {
 		$("input[name=sv]").val("${mSearch.sv}");
 	});
 	
+	
+	
+	function gradeCheck(){
+		var grade = "${loginMember.memberGrade}";
+		
+		if(grade == "S"){
+			swal({icon : "error", title : "글 작성은 1등급부터 가능합니다."});
+		}else{
+			location.href ="${contextPath}/market/insert";
+		}
+	}
 	
 
 

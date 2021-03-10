@@ -273,7 +273,6 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="px-lg-5">
-				
 
 					<!-- 게시판 이름/카테고리 -->
 					<div class="row py-5 no-gutters">
