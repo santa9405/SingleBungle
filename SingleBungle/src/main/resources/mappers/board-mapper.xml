@@ -19,6 +19,7 @@
 		<result property="nickname" column="NICKNAME" />
 		<result property="likeCount" column="LIKE_COUNT" />
 		<result property="memberNo" column="MEM_NO" />
+		<result property="memberGrade" column="MEM_GRADE" />
 	</resultMap>
 	
 	<resultMap type="BoardAttachment" id="attachment_rm">
