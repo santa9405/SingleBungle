@@ -225,7 +225,6 @@ body {
 				</div>
 			</div>
 			<!-- End -->
-
 			<div class="row itemArea">
 				<!-- Gallery item -->
 
