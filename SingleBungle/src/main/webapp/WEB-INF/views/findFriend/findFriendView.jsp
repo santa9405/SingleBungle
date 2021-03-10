@@ -169,20 +169,17 @@ body {
 				<h2 style="margin-top: 5px;">
 					<%-- 카테고리 스타일 지정 --%>
 					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='
-						<c:if test="${findFriend.categoryNm == '맛집'}">background-color: burlywood;</c:if> 
-						<c:if test="${findFriend.categoryNm == '문화생활'}">background-color: skyblue;</c:if>
-						<c:if test="${findFriend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${findFriend.categoryNm}</div>
+						<c:if test="${findFriend.categoryNm == '맛집'}">background-color: #d2add9;</c:if> 
+						<c:if test="${findFriend.categoryNm == '문화생활'}">background-color: #ef8694;</c:if>
+						<c:if test="${findFriend.categoryNm == '동네친구'}">background-color: #f6b06b;</c:if> '>${findFriend.categoryNm}</div>
 					
 					<%-- 성별 스타일 지정 --%>
-					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='	
-						<c:if test="${findFriend.gender == 'W'}">background-color: rgba(68, 152, 221, 0.699);</c:if> 	
-						<c:if test="${findFriend.gender == 'M'}">background-color: rgb(135, 222, 150);</c:if> 	
-						<c:if test="${findFriend.gender == 'F'}">background-color: rgb(245, 91, 125);</c:if> '>	
+					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: #787878;'>	
 
 						<c:if test="${findFriend.gender == 'W'}">여</c:if>	
 						<c:if test="${findFriend.gender == 'M'}">남</c:if>	
 						<c:if test="${findFriend.gender == 'F'}">무관</c:if>	
-						</div>	
+					</div>	
 
 					${findFriend.friendTitle}
 				</h2>
@@ -221,17 +218,20 @@ body {
 			<div class="titleArea row mb-3 form-row">
 				<div class="col-md-12">
 					<img src="${contextPath}/resources/images/placeholder.png" width="20" height="20">
-					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: burlywood;'>${findFriend.location1}</div>&nbsp;&nbsp;
+					<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: burlywood;'>${findFriend.location1}</div>&nbsp;
 					<span>${findFriend.location2}</span>&nbsp;&nbsp;
-					<img src="${contextPath}/resources/images/friendCalendar.png" width="20" height="20"><span>${findFriend.meetingDate}</span>&nbsp;&nbsp;
-					<img src="${contextPath}/resources/images/friendClock.png" width="20" height="20"><span>${findFriend.meetingTime}</span>
+					<img src="${contextPath}/resources/images/friendCalendar.png" width="20" height="20">&nbsp;<span>${findFriend.meetingDate}</span>&nbsp;&nbsp;
+					<img src="${contextPath}/resources/images/friendClock.png" width="20" height="20">&nbsp;<span>${findFriend.meetingTime}</span>&nbsp;&nbsp;
+					<img src="${contextPath}/resources/images/friendCapacity.png" width="25" height="25">&nbsp;<span id="applyCount"></span><span>/${findFriend.capacity}</span>
 				</div>
 			</div>
 
 			<br>
 
 			<div class="titleArea">
-				<button type="button" class="btn btn-primary float-right report maincolor">신고</button>
+				<c:if test="${findFriend.memNo != loginMember.memberNo}">
+					<button type="button" class="btn btn-primary float-right report maincolor-re"><img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">신고</button>
+				</c:if>
 				
 				<c:if test="${findFriend.memNo != loginMember.memberNo}">
 					<button type="button" id="applyBtn" class='btn maincolor float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>
@@ -281,13 +281,13 @@ body {
 					
 					<br> 
 					
-					<a class="btn btn-success maincolor-re1 insert-list2 maincolor" href="${returnListURL}">목록으로</a>
+					<a class="btn insert-list2 maincolor" href="${returnListURL}">목록으로</a>
 					
 					<!-- 로그인된 회원이 글 작성자인 경우 -->
 					<c:if test="${(loginMember != null) && (findFriend.memNo == loginMember.memberNo)}">
 						<c:url var="updateUrl" value="${findFriend.friendNo}/update" />
-						<a href="${updateUrl}" class="btn btn-success ml-1 mr-1 maincolor-re">수정</a>
-						<button id="deleteBtn" class="btn btn-success maincolor-re">삭제</button>
+						<a href="${updateUrl}" class="btn ml-1 mr-1 maincolor">수정</a>
+						<button id="deleteBtn" class="btn maincolor-re">삭제</button>
 					</c:if>
 				</div>
 			</div>
@@ -299,6 +299,8 @@ body {
 	<script>
 		var friendNo = ${findFriend.friendNo};
 		var capacity = ${findFriend.capacity};
+		var friendGender = "${findFriend.gender}";
+		var loginMemberGender = "${loginMember.memberGender}";
 		
 		// 페이지 로딩 완료 시 참여인원 카운트
 		$(function(){
@@ -312,6 +314,8 @@ body {
 				success : function(result){
 					
 					console.log(result)
+					
+					$("#applyCount").text(result);
 					
 					if(result == capacity){
 						$("#applyBtn").text("모집마감");
@@ -329,53 +333,70 @@ body {
 	
 		// 참여신청 시
 		$("#applyBtn").on("click", function(){
-			//console.log($(".apply").attr("class"));
 			
 			var applyArray = $(".apply").attr("class").split(" ");
-			//console.log(applyArray);
 			
-			if(applyArray[4] == "insertApply"){
+			console.log(friendGender);
+			console.log(loginMemberGender);
+			
+			if(friendGender == "W"){
+				if(loginMemberGender != "W"){
+					swal({icon : "error", title : "성별이 여자인 회원만 참여 신청할 수 있습니다."});
+				}
+			}
+			
+			if(friendGender == "M"){
+				if(loginMemberGender != "M"){
+					swal({icon : "error", title : "성별이 남자인 회원만 참여 신청할 수 있습니다."});
+				}
+			}
+			
+			if(friendGender == "F"){
 				
-				$.ajax({
-					url : "${contextPath}/findFriend/insertApply/" + friendNo,
-					success : function(result){
-						
-						if(result > 0){
-							swal({icon : "success", title : "참여 신청 성공!"});
+				if(applyArray[4] == "insertApply"){
+					
+					$.ajax({
+						url : "${contextPath}/findFriend/insertApply/" + friendNo,
+						success : function(result){
 							
-							selectApplyCount();	
+							if(result > 0){
+								swal({icon : "success", title : "참여 신청 성공!"});
+								
+								selectApplyCount();	
+								
+								$("#applyBtn").text("참여취소");
+								$(".apply").toggleClass("insertApply");
+							}
 							
-							$("#applyBtn").text("참여취소");
-							$(".apply").toggleClass("insertApply");
+						}, error : function(){
+							console.log("참여 신청 실패");
 						}
 						
-					}, error : function(){
-						console.log("참여 신청 실패");
-					}
+					});
 					
-				});
-				
-			}else{
-				
-				$.ajax({
-					url : "${contextPath}/findFriend/deleteApply/" + friendNo,
-					success : function(result){
-						
-						if(result > 0){
-							swal({icon : "success", title : "참여가 취소되었습니다."});
+				}else{
+					
+					$.ajax({
+						url : "${contextPath}/findFriend/deleteApply/" + friendNo,
+						success : function(result){
 							
-							selectApplyCount();	
+							if(result > 0){
+								swal({icon : "success", title : "참여가 취소되었습니다."});
+								
+								selectApplyCount();	
+								
+								$("#applyBtn").text("참여신청");
+								$(".apply").toggleClass("insertApply");
+							}
 							
-							$("#applyBtn").text("참여신청");
-							$(".apply").toggleClass("insertApply");
+						}, error : function(){
+							console.log("참여 취소 실패");
 						}
 						
-					}, error : function(){
-						console.log("참여 취소 실패");
-					}
+					});
 					
-				});
-				
+				}
+			
 			}
 			
 		});

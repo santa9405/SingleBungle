@@ -21,13 +21,13 @@ public class FindFriend {
 	private int memNo;				// 회원 번호
 	private String nickname;		// 닉네임
 	private String categoryNm;		// 카테고리 이름
-	private int likes;				// 좋아요 개수
+	private int apply;				// 신청 인원
 	
 	public FindFriend() { }
 
 	public FindFriend(int friendNo, String friendTitle, String friendContent, String location1, String location2,
 			Date meetingDate, String meetingTime, String gender, int capacity, Timestamp createDt, int readCount,
-			String boardStatus, int categoryCd, int memNo, String nickname, String categoryNm) {
+			String boardStatus, int categoryCd, int memNo, String nickname, String categoryNm, int apply) {
 		super();
 		this.friendNo = friendNo;
 		this.friendTitle = friendTitle;
@@ -45,6 +45,7 @@ public class FindFriend {
 		this.memNo = memNo;
 		this.nickname = nickname;
 		this.categoryNm = categoryNm;
+		this.apply = apply;
 	}
 
 	public int getFriendNo() {
@@ -174,13 +175,13 @@ public class FindFriend {
 	public void setCategoryNm(String categoryNm) {
 		this.categoryNm = categoryNm;
 	}
-	
-	public int getLikes() {
-		return likes;
+
+	public int getApply() {
+		return apply;
 	}
 
-	public void setLikes(int likes) {
-		this.likes = likes;
+	public void setApply(int apply) {
+		this.apply = apply;
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class FindFriend {
 				+ ", location1=" + location1 + ", location2=" + location2 + ", meetingDate=" + meetingDate
 				+ ", meetingTime=" + meetingTime + ", gender=" + gender + ", capacity=" + capacity + ", createDt="
 				+ createDt + ", readCount=" + readCount + ", boardStatus=" + boardStatus + ", categoryCd=" + categoryCd
-				+ ", memNo=" + memNo + ", nickname=" + nickname + ", categoryNm=" + categoryNm + ", likes=" + likes
+				+ ", memNo=" + memNo + ", nickname=" + nickname + ", categoryNm=" + categoryNm + ", apply=" + apply
 				+ "]";
 	}
 

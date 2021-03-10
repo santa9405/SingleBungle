@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<form action="updateAction" method="post">
+				<form action="updateAction" method="post" onsubmit="return meetingDateValidate();">
 
 					<div class="form-group row">
 						<label for="title" class="input-group-addon col-sm-1 col-form-label">제목</label>
@@ -154,8 +154,8 @@
 						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required>${findFriend.friendContent}</textarea>
 					</div>
 					<div class="text-center">
-						<button type="submit" class="btn btn-secondary mb-3 btn-warning">수정</button>
-						<button type="button" class="btn btn-secondary mb-3">취소</button>
+						<button type="submit" class="btn maincolor mb-3">수정</button>
+						<button type="button" class="btn maincolor-re mb-3" id="cancel">취소</button>
 					</div>
 				</form>
 
@@ -169,58 +169,63 @@
 	//날짜 유효성 검사
 	function meetingDateValidate(){
 	
-		var date = new Date();
-		var year = date.getFullYear();
-		var month = date.getMonth()+1;
-		var day = date.getDate();
-		
-		if ((month+"").length < 2) month = "0" + month;
-		if ((day+"").length < 2) day = "0" + day;
-		
-		var getToday = year + "-" + month + "-" + day;
-		
-		if(getToday > $("#meetingDate").val()){
-			swal("모임 날짜는 오늘 이후만 가능합니다.");
-			$("#meetingDate").focus();
-			return false;
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth()+1;
+	var day = date.getDate();
+	
+	if ((month+"").length < 2) month = "0" + month;
+	if ((day+"").length < 2) day = "0" + day;
+	
+	var getToday = year + "-" + month + "-" + day;
+	
+	if(getToday > $("#meetingDate").val()){
+		swal("모임 날짜는 오늘 이후만 가능합니다.");
+		$("#meetingDate").focus();
+		return false;
 	}
+	
+};
 
- // 카테고리 선택
+ 
  (function(){
+	// 카테고리 선택
 	 $("#category > option").each(function(index, item){
 		 if($(item).text() == "${findFriend.categoryNm}"){
 			 $(item).prop("selected", true);
 		 }
 	 })
- })();
  
- // 시/도 선택
- (function(){
+	 // 시/도 선택
 	 $("#location1 > option").each(function(index, item){
-		 if($(item).text() == "${findFriend.location1}"){
+		 if($(item).val() == "${findFriend.location1}"){
 			 $(item).prop("selected", true);
 		 }
-	 })
- })();
+	 });
  
- // 모임 시간 선택
- (function(){
+ 	// 모임 시간 선택
 	$("#meetingTime > option").each(function(index, item){
 		if($(item).text() == "${findFriend.meetingTime}"){
 			$(item).prop("selected", true);
 		}
-	})	 
- })();
- 
- // 모집 인원 선택
- (function(){
+	}); 
+	
+ 	// 모집 인원 선택
 	 $("#capacity > option").each(function(index, item){
 		 if($(item).text() == "${findFriend.capacity}"){
 			 $(item).prop("selected", true);
 		 }
-	 })
+	 });
+ 
  })();
-	
+ 
+ // 수정 취소
+ $("#cancel").on("click", function(){
+	if(confirm("게시글 작성을 취소하시겠습니까?"))	{
+		location.href = "../${friendNo}";
+	}
+});
+ 
 </script>
 </body>
 </html>
