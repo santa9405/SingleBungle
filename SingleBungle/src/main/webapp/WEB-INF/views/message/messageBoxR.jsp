@@ -23,12 +23,11 @@
 
 
 
-#messageContent{
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	font-size : 17px;
+table tr td{
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	max-width :120px;
 }
 
 

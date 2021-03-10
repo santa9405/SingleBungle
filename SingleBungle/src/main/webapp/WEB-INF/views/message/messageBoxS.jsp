@@ -22,6 +22,14 @@
 }
 
 
+table tr td{
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	max-width :120px;
+}
+
+
 /* 검색창 */
 .search {
 	text-align: center;
