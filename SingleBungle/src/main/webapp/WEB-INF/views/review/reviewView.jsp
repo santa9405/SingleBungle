@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기 상세조회</title>
+<title>싱글이의 영수증 상세조회</title>
 
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.3/css/bootstrap.min.css">
@@ -159,7 +159,7 @@ body {
 	<div class="container">
 		<div class="row py-3">
 			<div class="col-md-12">
-				<h8> 후기게시판 </h8>
+				<h8> 싱글이의 영수증 </h8>
 				<div class="float-right">
 
 					<c:set var="referer" value="${header.referer}" />
@@ -287,7 +287,7 @@ body {
 
 
 
-		<h7 style="font-weight:bold;">후기게시판 인기 게시글</h7>
+		<h7 style="font-weight:bold;">싱글이의 영수증 인기 게시글</h7>
 		<hr>
 		<div class="row" style="margin-bottom: 25px;">
 

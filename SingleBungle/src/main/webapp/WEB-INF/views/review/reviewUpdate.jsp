@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기게시판 수정하기</title>
+<title>싱글이의 영수증 수정하기</title>
 
 <!-- summernote 사용 시 필요한 css 파일 추가  -->
 <link rel="stylesheet" href="${contextPath }/resources/summernote/css/summernote-lite.css">
