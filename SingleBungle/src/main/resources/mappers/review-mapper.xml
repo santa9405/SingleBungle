@@ -123,7 +123,7 @@
 
 
 	<!-- 조회수 상위3 게시글 -->
-	<select id="reviewListTop3" resultMap="review_rm">
+ 	<select id="reviewListTop3" resultMap="review_rm">
 		SELECT * FROM
 		(SELECT ROWNUM RNUM, R.* FROM
 		(SELECT * FROM V_BOARD
@@ -133,6 +133,7 @@
 		WHERE RNUM BETWEEN 1 AND 3
 		ORDER BY READ_COUNT DESC
 	</select>
+
 
 
 
@@ -336,7 +337,7 @@
 	<insert id="insertReviewReport" parameterType="map">
 		INSERT INTO REPORT_BOARD
 		VALUES (#{reportNo}, #{reportTitle}, #{reportContent}, 
-		#{memberNo}, #{categoryCode}, #{marketNo})
+		#{memberNo}, #{categoryCode}, #{boardNo})
 	</insert>
 	
 	
