@@ -200,19 +200,12 @@
    		AND MEM_NO = #{memNo}
    </delete>
    
-   <!-- 친구찾기 게시글 좋아요 등록 -->
-   <insert id="increaseLike" parameterType="map">
-   		INSERT INTO FRIEND_LIKE
-   		VALUES(#{memNo}, #{friendNo})
-   </insert>
-   
-   <!-- 친구찾기 게시글 좋아요 취소 -->
-   <delete id="deleteLike" parameterType="map">
-   		DELETE FROM FRIEND_LIKE
-   		WHERE MEM_NO = #{memNo}
-   		AND FRIEND_NO = #{friendNo}
-   </delete>
-   
+   <!-- 친구찾기 참여인원 카운트 -->
+   <select id="selectApplyCount" parameterType="_int" resultType="_int">
+   		SELECT COUNT(*) FROM APPLICATION_DETAIL
+   		WHERE FRIEND_NO = #{friendNo}
+   </select>
+
    <!-- 신고 등록 다음 게시글 번호 얻어오기 -->
    <select id="selectReportNo" resultType="_int">
    		SELECT SEQ_RNO.NEXTVAL FROM DUAL

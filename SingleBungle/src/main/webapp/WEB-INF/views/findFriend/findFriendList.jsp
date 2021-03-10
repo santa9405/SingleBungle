@@ -264,28 +264,14 @@
 			</table>
 		</div>
 
-		<%-- 로그인이 되어있고 3등급 이상일 경우 --%>
-		<c:if test="${!empty loginMember && loginMember.memberGrade == 'T'}">
+		<%-- 로그인이 되어있고 회원등급이 1등급일 경우 --%>
+		<c:if test="${!empty loginMember && loginMember.memberGrade == 'F'}">
 			<div class="text-right">
 				<a class="btn float-right maincolor" href="${contextPath}/findFriend/insert">글쓰기</a>
 			</div>
 		</c:if>
 
 		<%-- --------------------------------------------- pagination --------------------------------------------- --%>
-
-		<%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
-		<%-- <c:choose>
-			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/search" />
-
-				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
-			</c:when>
-
-			<c:otherwise>
-				<c:url var="pageUrl" value="/list" />
-			</c:otherwise>
-		</c:choose> --%>
-
 
 		<div class="padding">
 			<%-- 화살표에 들어갈 주소를 변수로 생성 --%>

@@ -111,20 +111,12 @@ public class FindFriendDAO {
 		return sqlSession.delete("friendMapper.deleteApply", map);
 	}
 	
-	/** 친구찾기 게시글 좋아요 등록 DAO
-	 * @param map
-	 * @return int
+	/** 친구찾기 참여인원 카운트 DAO
+	 * @param friendNo
+	 * @return result
 	 */
-	public int increaseLike(Map<String, Object> map) {
-		return sqlSession.insert("friendMapper.increaseLike", map);
-	}
-	
-	/** 친구찾기 게시글 좋아요 취소 DAO
-	 * @param map
-	 * @return int
-	 */
-	public int decreaseLike(Map<String, Object> map) {
-		return sqlSession.delete("friendMapper.deleteLike", map);
+	public int selectApplyCount(int friendNo) {
+		return sqlSession.selectOne("friendMapper.selectApplyCount", friendNo);
 	}
 	
 	/** 친구찾기 신고 등록 다음 게시글 번호 얻어오기 DAO

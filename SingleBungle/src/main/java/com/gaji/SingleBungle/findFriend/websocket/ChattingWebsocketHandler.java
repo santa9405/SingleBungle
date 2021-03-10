@@ -41,6 +41,8 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 		
 		sessions.add(session);
 		
+		//logger.info(session.getPrincipal().getName() + "님 등장!");
+		
 	}
 	
 	// 클라이언트로부터 텍스트 메세지를 받았을 때 수행
@@ -53,30 +55,14 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 		
 		logger.info("게시글 번호 : " + obj.get("friendNo").toString());
 		logger.info("회원 번호 : " + obj.get("memberNo").toString());
-		logger.info("작성자 닉네임 : " + obj.get("nickname").toString());
 		logger.info("채팅 내용 : " + obj.get("chat").toString());
 		
-//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//	    Date date = dateFormat.parse(obj.get("time").toString());
-//	    Timestamp timeStampDate = new Timestamp(date.getTime());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("friendNo", obj.get("friendNo").toString());
 		map.put("memberNo", obj.get("memberNo").toString());
 		map.put("chat", obj.get("chat").toString());
 		
-		System.out.println(map);
-		
-		
-//		String friendNo = obj.get("friendNo").toString();
-//		String memNo = obj.get("memberNo").toString();
-//		FindFriendChatting fChat = new FindFriendChatting();
-//		fChat.setFriendNo(Integer.parseInt(friendNo));
-//		fChat.setMemNo(Integer.parseInt(memNo));
-//		fChat.setMessage(obj.get("chat").toString());
-		//fChat.setCreateDate(timeStampDate);
-		
-//		System.out.println(fChat);
 		
 		// 채팅 DB 저장
 		int result = service.insertChat(map);
@@ -97,12 +83,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		sessions.remove(session);
 	
+		//logger.info(session.getPrincipal().getName() + "님 퇴장.");
 	}
 	
-	
-	
-	
-	
-	
-
 }

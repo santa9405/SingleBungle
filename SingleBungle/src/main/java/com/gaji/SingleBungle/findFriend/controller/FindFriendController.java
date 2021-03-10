@@ -42,25 +42,44 @@ public class FindFriendController {
 	
 	// 친구찾기 목록 조회 Controller
 	@RequestMapping("list")
-	public String friendList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-							 Model model) {
+	public String friendList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, RedirectAttributes ra,
+							 Model model, @ModelAttribute(name = "loginMember", binding = false) Member loginMember) {
 		
-		// 1) 페이징 처리를 위한 객체 PageInfo 생성
-		FindFriendPageInfo pInfo = service.getPageInfo(cp);
+		String url = null;
 		
-//		System.out.println(pInfo);
+		if(loginMember != null) {
+			
+			if(loginMember.getMemberGrade().charAt(0) == 'T') {
+				swalIcon = "error";
+				swalTitle = "친구찾기게시판은 2등급부터 이용할 수 있습니다.";
+				url = "redirect:/";
+			}else {
+				
+			// 1) 페이징 처리를 위한 객체 PageInfo 생성
+			FindFriendPageInfo pInfo = service.getPageInfo(cp);
+			
+			// 2) 게시글 목록 조회
+			List<FindFriend> fList = service.selectList(pInfo);
+			
+			
+			model.addAttribute("pInfo", pInfo);
+			model.addAttribute("fList", fList);
+			
+			url = "findFriend/findFriendList";
+				
+			}
+			
+		}else {
+			swalIcon = "error";
+			swalTitle = "로그인 후 이용해주세요.";
+			url = "redirect:/";
+		}
 		
-		// 2) 게시글 목록 조회
-		List<FindFriend> fList = service.selectList(pInfo);
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
 		
-//		for(FindFriend f : fList) {
-//			System.out.println(f);
-//		}
+		return url;
 		
-		model.addAttribute("pInfo", pInfo);
-		model.addAttribute("fList", fList);
-		
-		return "findFriend/findFriendList";
 	}
 	
 	// 친구찾기 검색 Controller
@@ -80,8 +99,6 @@ public class FindFriendController {
 		
 		// 1) 페이징 처리를 위한 객체 PageInfo 생성
 		FindFriendPageInfo pInfo = service.getSearchPageInfo(fSearch, cp);
-		
-		//System.out.println(pInfo);
 		
 		// 2) 게시글 목록 조회
 		List<FindFriend> fList = service.selectSearchList(fSearch, pInfo);
@@ -142,7 +159,6 @@ public class FindFriendController {
 		return url;
 	}
 	
-	
 	// 친구찾기 참여 신청 Controller
 	@ResponseBody
 	@RequestMapping("insertApply/{friendNo}")
@@ -172,36 +188,15 @@ public class FindFriendController {
 		
 		int result = service.deleteApply(map);
 		
-		System.out.println(result);
-		
 		return result;
 		
 	}
 	
-	// 친구찾기 게시글 좋아요 등록 Controller
+	// 친구찾기 참여인원 카운트 Controller
 	@ResponseBody
-	@RequestMapping("increaseLike/{friendNo}")
-	public int insertLike(@PathVariable("friendNo") int friendNo, @ModelAttribute("loginMember") Member loginMember) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("friendNo", friendNo);
-		map.put("memNo", loginMember.getMemberNo());
-		
-		return service.increaseLike(map);
-		
-	}
-	
-	// 친구찾기 게시글 좋아요 취소 Controller
-	@ResponseBody
-	@RequestMapping("decreaseLike/{friendNo}")
-	public int decreaseLike(@PathVariable("friendNo") int friendNo, @ModelAttribute("loginMember") Member loginMember) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("friendNo", friendNo);
-		map.put("memNo", loginMember.getMemberNo());
-		
-		return service.decreaseLike(map);
-		
+	@RequestMapping("selectApplyCount/{friendNo}")
+	public int selectApplyCount(@PathVariable("friendNo") int friendNo) {
+		return service.selectApplyCount(friendNo);
 	}
 	
 	// 친구찾기 게시글 신고 연결 Controller

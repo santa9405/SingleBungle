@@ -257,6 +257,8 @@
 		// 서버측 /chat 이라는 주소로 통신을 할 수 있는 WebSocket
 		<c:if test="${!empty loginMember}">
 			chattingSock = new SockJS("${contextPath}/chat");
+			//chattingSock.onclose = onClose;
+			//chattingSock.onopen = onOpen;
 		</c:if>
 		
 		// 로그인한 회원이 채팅 입력 후 보내기 버튼을 클릭한 경우 채팅 내용이 서버로 전달됨
@@ -322,6 +324,24 @@
 			
 		});
 		
+		// 채팅에서 나갔을 때
+		/* function onClose(event){
+			
+			var str = nickname + "님 퇴장.";
+			
+			$(".display-chatting").append(str);
+			
+		} */
+		
+		// 채팅에 들어왔을 때
+		/* function onOpen(event){
+			
+			var str = nickname + "님 등장!";
+			
+			$(".display-chatting").append(str);
+			
+		} */
+		
 		// WebSocket 객체 chattingSock이 서버로부터 받은 메세지가 있을 경우 수행되는 콜백 함수
 		chattingSock.onmessage = function(event){
 			
@@ -364,7 +384,6 @@
 			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);		
 			
 		};
-		
 		
 		// ------------------------------------------------------------------------
 		
