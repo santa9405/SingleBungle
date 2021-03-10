@@ -369,7 +369,7 @@ body {
 
 	</div>
 
-<c:if test="${loginMember.memberNo != review.memberNo }">
+<%-- <c:if test="${loginMember.memberNo != review.memberNo }">
 <!-- 쪽지 보내기 임시   -->
 <div class="text-center">
 	<!-- Button HTML (to Trigger Modal) -->
@@ -407,7 +407,7 @@ body {
 	</div>  
 			</form> 
 </c:if>
-
+ --%>
 
 
 
@@ -497,7 +497,7 @@ body {
 	
 	//----------------------------------------------------------------------------
 	// 메세지 유효성 검사
-	function messageValidate(){
+/* 	function messageValidate(){
 		
 		if($(".messageText").val().trim().length ==0){
 			swal("내용을 입력해 주세요");
@@ -516,7 +516,7 @@ body {
 					}
 			});
 		});
-	
+	 */
 	
 
 	</script>
