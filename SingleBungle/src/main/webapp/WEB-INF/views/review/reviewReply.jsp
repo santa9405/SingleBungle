@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기게시판 댓글</title>
+<title>싱글이의 영수증 댓글</title>
 <style>
 
 /* 댓글 */

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기게시판 게시글 신고</title>
+<title>싱글이의 영수증 게시글 신고</title>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />

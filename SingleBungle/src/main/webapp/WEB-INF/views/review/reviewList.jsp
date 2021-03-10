@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기게시판</title>
+<title>싱글이의 영수증</title>
 
 <style>
 .boardName {
@@ -193,7 +193,7 @@
 		<div class="row py-5">
 			<div class="col-lg-12 mx-auto boardTitleBorder">
 				<div class="text-black banner">
-					<h1 class="boardName float-left">후기게시판</h1>
+					<h1 class="boardName float-left">싱글이의 영수증</h1>
 					<div class="categoryArea">
 						<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a> 
 						<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">가구</a> 
