@@ -102,5 +102,11 @@ public interface MemberService {
 	 */
 	public abstract List<MReply> selectMyReply(APageInfo pInfo, int memberNo);
 
+	/** 아이디 찾기 Service 
+	 * @param member
+	 * @return
+	 */
+	public abstract Member findIdResult(Member member);
+
 
 }

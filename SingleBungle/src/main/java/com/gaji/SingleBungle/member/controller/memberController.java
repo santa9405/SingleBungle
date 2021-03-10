@@ -132,12 +132,12 @@ public class memberController {
 		return "redirect:/"; // 메인 화면으로 재요청
 	}
 
+	
 	// 회원가입 화면 전환 Controller 
 	@RequestMapping("signUp")
 	public String signUp() {
 		return "member/signUpView";
 	}
-
 	
 	// ---------------------------------------------------
 	// 아이디 중복 체크 Controller (AJAX)
@@ -268,6 +268,7 @@ public class memberController {
 		return key;
 	}
 	
+	
 	// 아이디 찾기 ------------------------------------------------------------------------
 
 	// 아이디 찾기 화면
@@ -277,27 +278,39 @@ public class memberController {
 	}
 	
 	// 아이디 찾기 동작
-	@RequestMapping("findIdFormAction")
-	public String findIdFormAction() { 
+	@RequestMapping("findIdResultForm") // 결과화면으로 
+	public String findIdFormAction(@ModelAttribute("member") Member member,
+								HttpServletRequest request, Model model) { 
 		
-		String nickName = request.getParameter("userName");
-		String email = request.getParameter("mail");
+//		String memberName = request.getParameter("memberName"); String memberEmail =
+//		request.getParameter("memberEmail");
 		
-		Member member = new Member();
-		member.setMemberNickName(nickName);
-		member.setEmail(email);
+		// System.out.println(member);
 		
-		Member findMember = service.findIdResult(member);
+//		 Member member = new Member(); 
+//		 member.setMemberName(memberName);
+//		 member.setMemberEmail(memberEmail);
 		
-		return "member/findIdForm";
+	    Member findMember = service.findIdResult(member);
+	    String memberId = findMember.getMemberId();
+		
+	//	System.out.println("findMember : " + findMember.getMemberId());
+		
+		if(findMember!=null) {
+			model.addAttribute("memberId", memberId);
+		}else {
+			System.out.println("실패 ");
+		}
+		
+		return "member/findIdResultForm";
 	}
 	
 
 	// 아이디 찾기2
-	@RequestMapping("findIdResultForm")
-	public String findIdResultForm() {
-		return "member/findIdResultForm";
-	}
+//	@RequestMapping("findIdResultForm")
+//	public String findIdResultForm() {
+//		return "member/findIdResultForm";
+//	}
 	
 	// ---------------------------------------------------
 	// 이름, 메일 일치 검사 Controller (AJAX)

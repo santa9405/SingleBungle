@@ -113,6 +113,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
+	// 아이디 찾기 Service 
+	@Override
+	public Member findIdResult(Member member) {
+		return dao.findIdResult(member);
+	}
+	
 	
 	// 마이페이지 좋아요 페이징 Service 
 	@Override
@@ -225,6 +231,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
+	
+	
 
 	
 

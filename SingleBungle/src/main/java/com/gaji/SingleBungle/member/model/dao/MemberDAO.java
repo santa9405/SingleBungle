@@ -65,6 +65,14 @@ public class MemberDAO {
 	public int nameMailCheck(Map<String, Object> map) {
 		return sqlSession.selectOne("memberMapper.nameMailCheck", map);
 	}
+	
+	/** 아이디 찾기 DAO 
+	 * @param member
+	 * @return
+	 */
+	public Member findIdResult(Member member) {
+		return sqlSession.selectOne("memberMapper.findIdResult", member);
+	}
 
 
 	/** 내 정보 수정 DAO 
@@ -164,6 +172,9 @@ public class MemberDAO {
 	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		return sqlSession.selectList("memberMapper.selectMyReply", memberNo, rowBounds);
 	}
+
+
+	
 
 
 

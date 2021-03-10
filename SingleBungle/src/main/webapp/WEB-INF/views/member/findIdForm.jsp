@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -180,16 +182,16 @@ a:hover {
 				<hr>
 
 				<br>
-				<form action="findIdResultForm" method="post" name="signUpForm">
+				<form action="findIdResultForm" method="post" name="">
 					<div class="form-group" id="name-group">
-						<label for="name"><span class="requiredInput">*</span> 이름</label> <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요.">
+						<label for="name"><span class="requiredInput">*</span> 이름</label> <input type="text" class="form-control" name="memberName" id="name" placeholder="이름을 입력하세요.">
 					</div>
 
 					<div class="form-group">
 						<label for="email"><span class="requiredInput">*</span> 이메일</label>
 						<div class="input-group">
 							<div class="em email-1">
-								<input type="text" class="form-control email" id="email1" name="email1" placeholder="이메일" required>
+								<input type="text" class="form-control email" id="email1" name="memberEmail" placeholder="이메일" required>
 							</div>
 
 							<div class="emg email-2">@</div>
@@ -228,7 +230,6 @@ a:hover {
 
 
 					<hr>
-
 					<button type="submit" class="btn btn-block maincolor" id="nextBtn">다음</button>
 				</form>
 			</div>
