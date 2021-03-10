@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 게시글 신고</title>
+<title>벙글장터 - 게시글 신고</title>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />

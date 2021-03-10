@@ -357,7 +357,11 @@
 						
 						<c:set var="day" value="${str - end}"/>
 						
-						<c:choose>
+
+					
+						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
+						 <h5 class="clock float-left cnt"> 
+						 <c:choose>
 							<c:when test="${day == 0 }">
 								오늘
 							</c:when>
@@ -365,9 +369,7 @@
 								${day}일 전
 							</c:otherwise>
 						</c:choose>
-					
-						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
-						 <h5 class="clock float-left cnt"></h5> 
+						 </h5> 
 						 </div> 
 						 
 						 
@@ -385,7 +387,7 @@
 						<div class="itemInfoList">
 							<ul >
 								<li class="seller">
-										<label>판매자</label> <a href='${contextPath}/market/mypage/${market.memNo}'>${market.nickname}</a>
+										<label>판매자</label> <a href='${contextPath}/market/mypage/${market.memNo}/${market.marketNo}'>${market.nickname}</a>
 										
 								</li>
 								

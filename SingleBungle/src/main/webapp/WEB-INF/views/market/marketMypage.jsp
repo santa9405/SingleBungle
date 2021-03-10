@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 한줄평 남기기</title>
+<title>벙글장터 - 활동 내역</title>
 
 
   <!--  Styles  -->
@@ -21,7 +21,7 @@
 
 #mainMenu li > a {
   font-size: 20px;
-  letter-spacing: 1px;
+
   color: black;
   font-weight: 400;
   position: relative;
@@ -30,44 +30,6 @@
 }
 
 
-#mainMenu li:not(:last-of-type) {
-  margin-right: 10px;
-}
-
-#mainMenu li > a::before {
-  position: absolute;
-  content: "";
-  width: calc(100% - 1px);
-  height: 1px;
-  background: black;
-  bottom: -6px;
-  left: 0;
-
-  -webkit-transform: scale(0, 1);
-  -ms-transform: scale(0, 1);
-  transform: scale(0, 1);
-  -webkit-transform-origin: right center;
-  -ms-transform-origin: right center;
-  transform-origin: right center;
-  z-index: -1;
-
-  -webkit-transition: transform 0.5s ease;
-  transition: transform 0.5s ease;
-}
-
-#mainMenu li > a:hover::before,
-#mainMenu li > a.active::before {
-  -webkit-transform: scale(1, 1);
-  -ms-transform: scale(1, 1);
-  transform: scale(1, 1);
-  -webkit-transform-origin: left center;
-  -ms-transform-origin: left center;
-  transform-origin: left center;
-}
-
-.main-header.fixed-nav #mainMenu li > a::before {
-  background: #000;
-}
 
 .main-header {
   top: 25px;
@@ -236,20 +198,21 @@
 	color : rgb(102, 102, 102);
 }
 
-.navbar-nav a {
-	cursor: pointer;
-}
-
 .navbar-nav span {
 	font-size: 20px;
 	font-weight: initial;
+	
+    margin-right: 10px;
+	
 }
 
 .spec{
 	float : left;
 }
 
-
+.container{
+    min-height: 363px;
+}
 
   </style>
 </head>
@@ -264,6 +227,7 @@
 				<div class="col-md-8">
 					 <header class="main-header">
     <div class="container">
+     <a href="${sessionScope.returnListURL}" class="btn">이전 상세 게시글로 이동</a>
       <nav class="navbar navbar-expand-lg main-nav px-0">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar icon-bar-1"></span>
@@ -276,20 +240,22 @@
               <span>${nickname} 님의</span>
             </li>
             <li>
-              <a >판매 내역</a>
+              <a >활동 내역</a>
             </li>
           </ul>
         </div>
       </nav>
-    </div>
+      
+     
+
     <!-- /.container -->
-  </header>
+
 					
 					<c:if test="${empty mList}">존재하는 게시글이 없습니다!</c:if>
 					<c:if test="${!empty mList}">
 						<c:forEach var="market" items="${mList}" varStatus="vs">
 					<div class="row text-center">
-					<div class="col-md-6" style="width: 30%; float:none; margin:0 auto">
+					<div class="col-md-8" style="width: 30%; float:none; margin:0 auto">
 					<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded view">
                         <div class="d-flex flex-row ">
                         <span class="viewMarketNo" style='visibility: hidden;'>${market.marketNo}</span>
@@ -298,7 +264,7 @@
                         <img class="rounded" src="${contextPath}/${th.filePath}/${th.fileName}"  width="70" >
                         </c:if>
                         </c:forEach>
-                            <div class="ml-2"><span class="font-weight-bold d-block">${market.marketTitle}</span>
+                            <div class="ml-2"><span class="font-weight-bold d-block" style="text-align: left;"> ${market.marketTitle}</span>
                             <span class="spec"><fmt:formatNumber value="${market.price}" pattern="###,###,###,###"/>원</span></div>
                         </div>
                     </div>
@@ -308,42 +274,11 @@
                     </div> -->
                     </div>
                     
-  
-                    
            </div>
            </c:forEach>
            </c:if>
-           
-           
-                    
-                    
-    <%--       <div class="row">
-					<div class="col-md-8" style="width: 30%; float:none; margin:0 auto">
-					<hr>
-         	<div class="reviewArea">
-						<div class="reviewerArea">
-							<a href="#" class="reviewerNickname">인간자바</a>
-							<span class="createDt">2021.02.12</span>
-						</div>
-						<div class="star">
-							<img src="${contextPath}/resources/images/star.png" width="16">
-							<img src="${contextPath}/resources/images/star.png" width="16">
-							<img src="${contextPath}/resources/images/star.png" width="16">
-						</div>
-						<div class="marketView">
-							<a href="#" class="marketViewGo">
-								<button class="marketViewBtn" width="6" height="10">3일 사용한 안마기 팝니다.</button> 
-							</a>
-						</div>
-						
-						
-						<div class="reviewContentArea">3일 사용이라 했는데 더 사용하신 것 같아요;;</div>
-						
-						</div>
-						<hr>
-						</div>
-						
-					</div>    --%>
+              </div> 
+  </header>
             
 							                  <div class="padding">
 				<c:set var="firstPage" value="?cp=1" />
@@ -407,6 +342,7 @@
 		
 	</div>
 </div>
+  </header>
 <jsp:include page="../common/footer.jsp"/>
 
 	

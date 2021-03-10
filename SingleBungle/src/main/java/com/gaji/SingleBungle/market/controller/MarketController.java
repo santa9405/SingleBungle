@@ -425,9 +425,10 @@ public class MarketController {
 	
 	
 	// 판매내역 페이지
-	@RequestMapping("mypage/{memberNo}")
+	@RequestMapping("mypage/{memberNo}/{marketNo}")
 	public String marketMypage(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
 								@PathVariable("memberNo") int memberNo,
+								@PathVariable("marketNo") int marketNo, HttpServletRequest request,
 								Model model) {
 		
 		// 닉네임 
@@ -450,6 +451,8 @@ public class MarketController {
 					model.addAttribute("thList", thList);
 				}
 			}
+			
+			request.getSession().setAttribute("returnListURL", "../../" + marketNo);
 			model.addAttribute("mpInfo", mpInfo);
 			model.addAttribute("mList", mList);
 			model.addAttribute("nickname", nickname);
