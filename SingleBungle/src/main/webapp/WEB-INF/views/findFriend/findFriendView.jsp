@@ -188,12 +188,13 @@ body {
 			<hr class="hr">
 
 			<div class="titleArea row mb-3 form-row">
-				<div class="col-md-1">
-					<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>${findFriend.nickname}</span>
-				</div>
-
-				<div class="col-md-9">
-					<div class="boardInfo" id="createDt" style="color: gray"> 
+				<div class="col-md-12">
+				
+					<div class="boardInfo float-left"> 
+						<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>${findFriend.nickname}</span>&nbsp;
+				  </div>
+			  	
+					<div class="boardInfo float-left" id="createDt" style="color: gray"> 
 						<%-- 날짜 출력 모양 지정 --%> 
 						<fmt:formatDate var="createDt" value="${findFriend.createDt}" pattern="yyyy-MM-dd" /> 
 						<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /> 
@@ -206,9 +207,7 @@ body {
 							</c:otherwise>
 						</c:choose>
 					</div>
-				</div>
 
-				<div class="col-md-2">
 					<div class="float-right">
 						<i class="far fa-eye"></i> ${findFriend.readCount}
 					</div>
@@ -341,13 +340,13 @@ body {
 			
 			if(friendGender == "W"){
 				if(loginMemberGender != "W"){
-					swal({icon : "error", title : "성별이 여자인 회원만 참여 신청할 수 있습니다."});
+					swal({icon : "info", title : "여자 회원만 참여 신청할 수 있습니다."});
 				}
 			}
 			
 			if(friendGender == "M"){
 				if(loginMemberGender != "M"){
-					swal({icon : "error", title : "성별이 남자인 회원만 참여 신청할 수 있습니다."});
+					swal({icon : "info", title : "남자 회원만 참여 신청할 수 있습니다."});
 				}
 			}
 			
