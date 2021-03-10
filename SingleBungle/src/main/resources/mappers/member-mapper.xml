@@ -103,8 +103,6 @@
 	     DEFAULT, DEFAULT)
 	</insert>
 	
-	<!-- 이건 아직 하는중..! -->
-	<!-- 이름, 메일 일치 검사 -->
 	<select id="nameMailCheck" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEM_NM = #{name}
@@ -112,12 +110,12 @@
 	</select>
 	
 	
-	<!-- (지호)아이디 찾기 -->
-	<select id="findIdResult">
-	SELECT MEM_ID FROM TB_MEMBER
-WHERE NICKNAME = ?
-AND EMAIL = ?
-AND SCSN_FL = 'N'
+	<!-- 아이디 찾기 -->
+	<select id="findIdResult" resultMap="member_rm">
+	SELECT MEM_ID FROM MEMBER
+	WHERE NICKNAME = #{memberName}
+	AND EMAIL LIKE '%' || #{memberEmail} || '%'
+	AND SCSN_FL = 'Y'
 	</select>
 	
 	
