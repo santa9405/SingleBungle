@@ -130,13 +130,16 @@
             </ol> -->
 						<div class="carousel-inner" style="height: 200px; margin-top: 10px;">
 							<div class="carousel-item active">
-								<img class="d-block w-100" src="${contextPath}/resources/images/mainImgTest.jpg" />
+								<img class="d-block w-100" src="${contextPath}/resources/images/mainImg1.png" />
 							</div>
 							<div class="carousel-item">
 								<img class="d-block w-100" src="${contextPath}/resources/images/mainImg2.jpg" />
 							</div>
 							<div class="carousel-item">
 								<img class="d-block w-100" src="${contextPath}/resources/images/mainImg3.jpg" />
+							</div>
+							<div class="carousel-item">
+								<img class="d-block w-100" src="${contextPath}/resources/images/mainImg4.png" />
 							</div>
 						</div>
 						<a class="carousel-control-prev" href="#carousel-32703" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-32703" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
@@ -147,11 +150,11 @@
 
 
 
-		    <div class="container">
+		    <div class="container" style="margin-top : 80px;">
 							<!-- 자유게시판 -->
 							<div class="row">
 								<div class="col-md-4">
-									<h4>??을 말해봐</h4>
+									<h4>일상을 말해봐</h4>
 									<div class="wrapper p-1" id="freeBoard">
 										<table class="table-hover board-table">
 											<c:if test="${empty bList }">
@@ -183,7 +186,7 @@
 
 							<!-- 친구찾기 -->
 								<div class="col-md-4">
-									<h4>칭구칭긔</h4>
+									<h4 style="color:#73b969cc">만남의 광장</h4>
 
 									<div class="wrapper p-1" id="findFriend">
 										<table class="table-hover board-table">
@@ -217,7 +220,7 @@
 								</div>
 								
 								<div class="col-md-4">
-									<h4>사고팔고</h4>
+									<h4>벙글장터</h4>
 									<div class="wrapper p-1" id="market">
 										<table class="table-hover">
 											<c:if test="${empty mList }">
