@@ -69,9 +69,10 @@
 
 
 
-#messageTable td:hover {
+#messageTable #messageContent, #messageTable #nickName:hover {
 	cursor: pointer;
 }
+
 
 </style>
 
@@ -118,9 +119,9 @@
 						<c:if test="${!empty mList }">
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
-									<td><input type="checkbox" name="chk" value="${message.messageNo }"></td>
-									<td>${message.receiveNickName}</td>
-									<td>${message.messageContent}</td>
+									<td><input type="checkbox" name="chk" value="${message.messageNo}"></td>
+									<td><span id="nickName">${message.receiveNickName}</span></td>
+									<td id="messageContent">${message.messageContent}</td>
 									<td>
 									<%-- 날짜 출력 모양 지정 --%>
 									<fmt:formatDate var="createDate" value="${message.createDt }" pattern="yyyy-MM-dd"/>
@@ -134,6 +135,7 @@
 										</c:otherwise>
 									</c:choose>									
 									</td>
+									<input type="hidden" id="sendMemberNo" value="${message.receiveMember }">
 								</tr>							
 							</c:forEach>
 						</c:if>
@@ -200,7 +202,7 @@
 	</div>
 	
 	
-
+<!-- 쪽지 읽기  -->
 <div id="readMessage" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
@@ -218,6 +220,38 @@
 	</div>
 </div>
 <!-- 쪽지 읽기 -->		
+
+
+<!-- 쪽지 보내기  -->
+<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
+	<div id="sendMessage" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">받는사람 : <span id="receiver2" style="font-size:19px;"></span>  </h5> 
+						<input type="hidden" name="memberNo" id="hiddenMemberNo">
+					</div>
+					<div class="modal-body" style="padding-bottom : 1px;">
+						<textarea class="messageText" id="writeMessage" name="content" style="border: 1px solid black; height: 130px; width: 100%; resize: none;"></textarea>
+						<div id="messageCnt" class="float-right" style="font-size:13px;">(0/100)</div>
+					</div>
+					<div class="modal-footer">
+						<div class="col">
+							<button type="submit" class="btn maincolor btn-block">
+								<span class="plan">전송</span>
+							</button>
+						</div>
+						<div class="col">
+							<button type="button" class="btn maincolor-re btn-block" data-dismiss="modal">
+								<span class="plan">닫기</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>  
+</form> 
+<!-- 쪽지 보내기  -->
 	
 	
 		<jsp:include page="../common/footer.jsp" />
@@ -225,7 +259,7 @@
 		<script>
 		
 		// 쪽지 읽기
-			$("#messageTable > tbody td").on("click",function(){
+			$("#messageTable > tbody #messageContent").on("click",function(){
 				
 				var receiver = $(this).parent().children().eq(1).text();
 				var viewMessage = $(this).parent().children().eq(2).text();
@@ -238,8 +272,44 @@
 			
 			});		
 		
-
 		
+		
+			// 닉네임 누르면 쪽지 보내기
+			$("#messageTable > tbody #nickName").on("click",function(){
+				
+				var memberNo =  $(this).parent().parent().children().eq(4).val();
+				var receiver =  $(this).parent().parent().children().eq(1).text();
+				
+				
+				$("#receiver2").text(receiver);
+				$("#hiddenMemberNo").val(memberNo);
+				
+				$("#sendMessage").modal("show");
+			
+			});		
+			
+			
+			// 메세지 유효성 검사
+			function messageValidate(){
+				
+				if($(".messageText").val().trim().length ==0){
+					swal("내용을 입력해 주세요");
+					$(".messageText").focus();
+					return false;
+				}
+			}		
+		
+
+			// 메세지 쓰기 글자수 제한
+			$(document).ready(function(){
+				$("#writeMessage").on('input',function(){
+						$("#messageCnt").html("("+$(this).val().length+" / 100)");
+						if($(this).val().length>100){
+							$(this).val($(this).val().substring(0,100));
+							$("#messageCnt").html("(100/100)");
+						}
+				});
+			});
 		
 		
 		// 새로고침

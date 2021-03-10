@@ -106,14 +106,8 @@ public class MessageController {
 			//  메세지 받는 사람
 			map.put("receiveMember", memberNo);
 			
-			System.out.println(memberNo);
-			
-			
 			// 메세지 보내는 사람
 			map.put("sendMember", loginMember.getMemberNo());
-			
-			System.out.println(loginMember.getMemberNo());
-			
 			
 			// 쪽지내용
 			map.put("content", content);

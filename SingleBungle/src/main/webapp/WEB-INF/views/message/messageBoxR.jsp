@@ -17,7 +17,20 @@
 	height: 50px;
 	text-align: center;
 	line-height: 50px;
+		border-radius : 15px;
+	margin : 0 0 10px 20px;
 }
+
+
+
+#messageContent{
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size : 17px;
+}
+
 
 
 /* 검색창 */
@@ -60,15 +73,17 @@
 }
 
 
-.messageBox{
-	border-radius : 15px;
-	margin : 0 0 10px 20px;
-}
 
-#messageTable td:hover {
+
+#messageTable #messageContent, #messageTable #sendNickName:hover {
 	cursor: pointer;
 }
 
+
+
+.modal-header{
+	backgound-color : #ffaf18 !important;
+}
 
 
 </style>
@@ -119,8 +134,8 @@
 							<c:forEach var="message" items="${mList}" varStatus="vs">
 								<tr>
 									<td><input type="checkbox" name="chk" value="${message.messageNo}"></td>
-									<td id="sendNickName">${message.sendNickName}</td>
-									<td>${message.messageContent}</td>
+									<td ><span id="sendNickName">${message.sendNickName}</span></td>
+									<td id="messageContent">${message.messageContent}</td>
 									<td>
 									<%-- 날짜 출력 모양 지정 --%>
 									<fmt:formatDate var="createDate" value="${message.createDt }" pattern="yyyy-MM-dd"/>
@@ -156,7 +171,7 @@
 		</div>
 		
 		
-				<!-- 페이징 -->
+<!-- 페이징  시작-->
 		<div class="page-content page-container" id="page-content">
 			<div class="padding">
 				<div class="row container d-flex justify-content-center">
@@ -209,6 +224,9 @@
 			</div>
 		</div>
 	</div>
+<!-- 페이징 끝 -->	
+	
+	
 	
 
 
@@ -219,17 +237,20 @@
 			<div class="modal-header">
 				<h5 class="modal-title">보낸사람 : <span id="sender" style="font-size:19px;"></span></h5>	
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" >
 				<div class="messageArea" style="border: 1px solid black;height: 150px; padding:10px;" id="viewMessage"></div>
 			</div>
 			<div class="modal-footer" >
 				 <div class="col"><button id="send" class="btn maincolor btn-block" data-toggle="modal" data-backdrop="static" data-target="#sendMessage" >답장하기</button></div>
-        <div class="col"><button type="button" class="btn maincolor-re btn-block" data-dismiss="modal"><span class="plan">닫기</span></button></div>
+        <div class="col"><button type="button" class="btn maincolor-re btn-block" data-dismiss="modal" id="closeMessage"><span class="plan">닫기</span></button></div>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- 쪽지 읽기 -->		
+
+
+
 
 
 <!-- 답장 쓰기  -->
@@ -241,8 +262,9 @@
 						<h5 class="modal-title">받는사람 : <span id="receiver" style="font-size:19px;"></span>  </h5> 
 						<input type="hidden" name="memberNo" id="hiddenMemberNo">
 					</div>
-					<div class="modal-body">
-						<textarea class="messageText" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+					<div class="modal-body" style="padding-bottom : 1px;">
+						<textarea class="messageText" id="writeMessage" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+						<div id="messageCnt" class="float-right" style="font-size:13px;">(0/100)</div>
 					</div>
 					<div class="modal-footer">
 						<div class="col">
@@ -263,15 +285,27 @@
 <!-- 답장 쓰기  -->
 
 
+
+
+
+
 		<jsp:include page="../common/footer.jsp" />
 		
 		<script>
 	
+		// 페이지 새로고침
+		function refreshFunction(){  
+ 	 		location.reload();
+		}
+		
+		
+		
 		// 한 행을 클릭하면 해당 메세지 읽기
-			$("#messageTable > tbody td").on("click",function(){
+			$("#messageTable > tbody #messageContent").on("click",function(){
 				
 				var messageNo = $(this).parent().children().eq(0).children("input").val();
 				var sender = $(this).parent().children().eq(1).text();
+				var senderNo = $(this).parent().children("input").eq(0).val();
 				var viewMessage = $(this).parent().children().eq(2).text();
 				
 				//var readTag= $("<i>").addClass("far fa-envelope-open");
@@ -290,33 +324,63 @@
 						
 						$("#readMessage").modal("show");
 						
+						$("#receiver").text(sender);
+						$("#hiddenMemberNo").val(senderNo);
+						
 					},error :function(){
 						console.log("메세지 읽기 실패");
 					}
 				
 				});
 				
+				
 			});		
 		
 		
+		// 메세지 읽고 닫기 누르면 페이지 새로고침
+		$("#closeMessage").on("click",function(){
+			refreshFunction();
+		})
 		
 		
-		// 답장버튼을 누르면,,답장한다
+		
+		// 답장버튼을 누르면,,답장한다?
 		$("#send").on("click", function(){
 			
 			$("#readMessage").modal("hide");
 			
-			var memberNo = $("#sendMemberNo").val();
-			var receiver = $("#sendNickName").text();
+/* 			var memberNo = $("").parent()children().eq(5).val();
+			var receiver = sender;
+			
+			console.log(memberNo);
+			console.log(receiver);
 			
 				$("#receiver").text(receiver);
-				$("#hiddenMemberNo").val(memberNo);
+				$("#hiddenMemberNo").val(memberNo); */
 			
 				$("#sendMessage").modal("show");
 		});
+
+		
+
 		
 		
-		//----------------------------------------------------------------------------
+		
+		// 닉네임 누르면 쪽지보내기
+		$("#messageTable > tbody #sendNickName").on("click",function(){
+			
+			var memberNo = $(this).parent().parent().children().eq(5).val();
+			var receiver = $(this).parent().parent().children().eq(1).text();
+			
+			$("#receiver").text(receiver);
+			$("#hiddenMemberNo").val(memberNo);
+		
+			$("#sendMessage").modal("show");
+			
+		});
+		
+		
+		
 		// 메세지 유효성 검사
 		function messageValidate(){
 			
@@ -326,6 +390,20 @@
 				return false;
 			}
 		}		
+		
+		
+		// 메세지 쓰기 글자수 제한
+		$(document).ready(function(){
+			$("#writeMessage").on('input',function(){
+					$("#messageCnt").html("("+$(this).val().length+" / 100)");
+					if($(this).val().length>100){
+						$(this).val($(this).val().substring(0,100));
+						$("#messageCnt").html("(100/100)");
+					}
+			});
+		});
+		
+		
 		
 		
 		
@@ -359,6 +437,7 @@
 					data : {"messageNo":messageNo},
 					success : function(result){
 						if(result>0){
+							
 							refreshFunction();
 						}
 					},

@@ -157,8 +157,7 @@
 
 
 	<a class="nav-link" href="${contextPath}/review/list" style="color:green;">후기게시판 목록 조회</a>
-	<a class="nav-link" href="${contextPath}/message/messageBoxS" style="color:green;">보낸쪽지함(임시)</a>
-	<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;">받은쪽지함(임시)</a>
+	<a class="nav-link" href="${contextPath}/message/messageBoxS" style="color:green;"><i class="fas fa-envelope-open-text"></i></a>
 	
 	<a class="nav-link" href="${contextPath}/admin/eventList" style="color:pink;">이벤트 게시판</a>
 	<a class="nav-link" href="${contextPath}/admin/noticeList" style="color:pink;">공지사항 게시판</a>
