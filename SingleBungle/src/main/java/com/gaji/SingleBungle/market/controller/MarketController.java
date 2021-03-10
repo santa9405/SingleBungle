@@ -417,6 +417,7 @@ public class MarketController {
 	}
 	
 	
+	// 판매내역 페이지
 	@RequestMapping("mypage/{memberNo}")
 	public String marketMypage(@RequestParam(value="cp", required=false, defaultValue ="1")  int cp,
 								@PathVariable("memberNo") int memberNo,
@@ -428,7 +429,6 @@ public class MarketController {
 		if(nickname != null) {
 			
 			MarketPageInfo mpInfo = service.getMyPageInfo(cp, memberNo);
-			
 			
 			
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -450,10 +450,65 @@ public class MarketController {
 		return "market/marketMypage";
 	}
 	
-	@RequestMapping("modal")
-	public String marketModal() {
-		return "market/marketModal";
+	
+	
+	
+	
+	// 동네인증 Controller
+	@ResponseBody
+	@RequestMapping("locateCertification")
+	public String locateCertification(@ModelAttribute("loginMember") Member loginMember,
+								  	@RequestParam("locate") String locate) {
+		
+		
+		String certificationCheck = loginMember.getMemberCertifiedFl();
+		
+		//System.out.println(certificationCheck);
+		
+		String lResult = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("locate", locate);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		if(certificationCheck == null || certificationCheck.charAt(0) == 'N'){
+			int result = service.locateInsert(map);
+			
+			if(result > 0) {
+				lResult = locate;
+				loginMember.setAddress(locate);
+				loginMember.setMemberCertifiedFl("Y");
+				return lResult;
+			}
+		} else if(certificationCheck.charAt(0) == 'Y') { // 인증 된 회원일 때
+			String currAddr = loginMember.getAddress();
+			
+			if(currAddr.equals(locate)) { // 기존 인증 주소와 새로 받은 인증 주소가 같을 때
+				
+				lResult = locate;
+				return lResult;
+			} else { // 기존 인증 주소와 새로 받은 인증 주소가 다를 때
+				
+				int result = service.locateUpdate(map);
+				
+				if(result > 0) {
+					lResult = locate;
+					loginMember.setAddress(locate);
+				}
+				
+				return lResult;
+			}
+		} 
+		 
+		return lResult;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	// ------------------------------------------------------------------------------------------------------

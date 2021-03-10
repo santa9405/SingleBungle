@@ -265,6 +265,24 @@ public class MarketDAO {
 		return sqlSession.selectList("marketMapper.selectMypageList", map, rowBounds);
 	}
 
+
+	/** 동네인증 update DAO
+	 * @param map
+	 * @return result
+	 */
+	public int locateUpdate(Map<String, Object> map) {
+		return sqlSession.update("marketMapper.locateUpdate", map);
+	}
+
+
+	/** 동네인증 insert DAO
+	 * @param map
+	 * @return result
+	 */
+	public int locateInsert(Map<String, Object> map) {
+		return sqlSession.insert("marketMapper.locateInsert", map);
+	}
+
 	
 
 	

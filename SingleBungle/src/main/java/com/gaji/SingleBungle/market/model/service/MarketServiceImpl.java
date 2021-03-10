@@ -417,6 +417,26 @@ public class MarketServiceImpl implements MarketService {
 		return dao.selectMypageList(map);
 	}
 
+	
+	// 동네인증 update service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int locateUpdate(Map<String, Object> map) {
+		return dao.locateUpdate(map);
+	}
+
+	
+	// 동네인증 insert service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int locateInsert(Map<String, Object> map) {
+		return dao.locateInsert(map);
+	}
+	
+	
+	
+
+
 
 
 	
