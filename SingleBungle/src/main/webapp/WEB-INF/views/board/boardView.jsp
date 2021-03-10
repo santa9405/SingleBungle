@@ -46,7 +46,7 @@
 	margin-right: 15px;
 }
 
-#nickname {
+.nickname {
 	width: 30px;
 	height: 30px;
 }
@@ -124,7 +124,11 @@
 								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> ${board.nickname}
+											<c:if test="${board.memberGrade == 'F'}"><img class="nickname" src="${contextPath}/resources/images/g1copy.png"></c:if>
+											<c:if test="${board.memberGrade == 'S'}"><img class="nickname" src="${contextPath}/resources/images/g2.png"></c:if>
+											<c:if test="${board.memberGrade == 'T'}"><img class="nickname" src="${contextPath}/resources/images/g3.png"></c:if>
+											<c:if test="${board.memberGrade == 'G'}"><img class="nickname" src="${contextPath}/resources/images/profile.png"></c:if>
+											<%-- <img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> --%>${board.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${board.createDate}</div>
 										<div class="infoArea float-right">
