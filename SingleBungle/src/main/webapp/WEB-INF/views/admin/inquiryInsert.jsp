@@ -66,12 +66,7 @@
                             rows="10" style="resize: none;" placeholder="문의내용을 자세하게 작성해주세요" required></textarea>
                     </div>
 
-                    <div class="attachments">
-                        <label>첨부파일 (선택사항)</label><br>
-                        <p> <input type="file" id="file" name="file_0"> 
-                            <button type="button" id="attachments_del" class="btn btn-success ml-1 mr-1">삭제</button> 
-                        </p>
-                    </div>
+                    
                     <div class="text-center">
                        <button type="submit" class="btn btn-secondary mb-3 btn-warning">등록</button>
                         <a class="btn btn-success float-right" id="cancel">취소</a>

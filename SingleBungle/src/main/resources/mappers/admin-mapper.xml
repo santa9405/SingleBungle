@@ -360,7 +360,7 @@
   	
   	<update id="recoverBoard6" parameterType="_int">
   		UPDATE CAFE SET
-  		BOARD_STATUS = 'N'
+  		STATUS = 'N'
   		WHERE CAFE_NO = #{boardNo}
   	</update>
   	
@@ -853,7 +853,6 @@
 	
 	<select id="getSearchMemberListCount" parameterType="String" resultType="_int">
 		SELECT COUNT(*) FROM V_MEMBER
-		WHERE SCSN_FL='Y'
 		<if test="ct != null">
 			<choose>
 				<when test="ct == 1">
@@ -871,7 +870,6 @@
 	
 	<select id="selectSearchmemberList" parameterType="String" resultMap="member_rm">
 		SELECT * FROM V_MEMBER
-		WHERE SCSN_FL='Y'
 		<if test="ct != null">
 			<choose>
 				<when test="ct == 1">
