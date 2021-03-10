@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가지가지 - 자유게시판 댓글 페이지</title>
+<title>가지가지 - 자유게시판 댓글 페이지</title> 
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -176,9 +176,23 @@
 				var media = $("<div>").addClass("media mt-2  replyBorder") /* .css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"}) */ ;
 				
 				// 이미지
-				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
-																														.css({"width": "30px;","height": "30px;"})
+				var memberGrade = item.memberGrade;
+
+				var img = null;
 				
+				 if(memberGrade == 'F'){
+					 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade1.png").css({"width": "30px;","height": "30px;"});
+				 }else if(memberGrade=='S'){
+					 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade2.png").css({"width": "30px;","height": "30px;"});						 
+				 }else if(memberGrade=="T"){
+					 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade3.png").css({"width": "30px;","height": "30px;"});						 
+				 }else{
+					 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/gradeG.png").css({"width": "30px;","height": "30px;"});							 
+				 }
+				 
+				 
+				 
+				 
 				// 작성자, 작성일 영역
 				var mediaBody = $("<div>").addClass("media-body");
 				var row = $("<div>").addClass("row");

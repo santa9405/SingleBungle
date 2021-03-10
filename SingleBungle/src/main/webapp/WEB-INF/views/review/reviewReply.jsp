@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,7 +151,21 @@
 					<!-- 댓글 작성창 -->
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
-							<img class="rounded-circle" src="${contextPath}/resources/images/profile.png" width="35">
+
+
+							<c:if test="${loginMember.memberGrade=='F' }">
+								<img class="image" src="${contextPath}/resources/images/grade1.png" width="40" />
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='S' }">
+								<img class="image" src="${contextPath}/resources/images/grade2.png" width="40" />
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='T' }">
+								<img class="image" src="${contextPath}/resources/images/grade3.png" width="40" />
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='G' }">
+								<img class="image" src="${contextPath}/resources/images/gradeG.png" width="40" />
+							</c:if>
+
 							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
@@ -177,6 +195,8 @@
 	
 	var nickName = "${loginMember.memberNickname}"
 	
+
+	
 	
 	// 페이지 로딩 완료 시 댓글 목록 호출
 	$(function(){
@@ -205,9 +225,23 @@
 					var media = $("<div>").addClass("media mt-2").css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"});
 					
 					
+					
+					
 					// 이미지
-					var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
-																															.css({"width": "30px;","height": "30px;"});
+					var memberGrade = item.memberGrade;
+
+					var img = null;
+					
+					 if(memberGrade == 'F'){
+						 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade1.png").css({"width": "30px;","height": "30px;"});
+					 }else if(memberGrade=='S'){
+						 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade2.png").css({"width": "30px;","height": "30px;"});						 
+					 }else if(memberGrade=="T"){
+						 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade3.png").css({"width": "30px;","height": "30px;"});						 
+					 }else{
+						 img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/gradeG.png").css({"width": "30px;","height": "30px;"});							 
+					 }
+																															
 					
 					// 작성자, 작성일 영역
 					var mediaBody = $("<div>").addClass("media-body");

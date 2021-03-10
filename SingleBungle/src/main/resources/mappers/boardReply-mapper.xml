@@ -14,6 +14,7 @@
     <result property="nickname" column="NICKNAME"/>
     <result property="parentBoardNo" column="PARENT_BOARD_NO"/>
     <result property="parentReplyNo" column="PARENT_REPLY_NO"/>
+    <result property="memberGrade" column="MEM_GRADE"/>
 	</resultMap>
 
 	<!-- 댓글 목록 조회 -->
