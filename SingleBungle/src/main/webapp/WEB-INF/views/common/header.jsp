@@ -135,9 +135,9 @@
 			<ul class="navbar-nav mr-auto">
 
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/board/list">일상을 말해봐</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/findFriend/list">만남의 광장</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/cafe/list">먹보의 하루</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/review/list">싱글이의 영수증</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/findFriend/list">만남의 광장</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/market/list">벙글장터</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/noticeList">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/faqView">고객센터</a></li>
