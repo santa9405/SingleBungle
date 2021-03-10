@@ -49,7 +49,7 @@ color: #FFFFFF !important; }
 	margin-right: 15px;
 }
 
-#nickname {
+.nickname {
 	width: 30px;
 	height: 30px;
 }
@@ -146,7 +146,10 @@ color: #FFFFFF !important; }
 								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> ${cafe.nickname}
+											<c:if test="${cafe.memberGrade == 'F'}"><img class="nickname" src="${contextPath}/resources/images/grade1.png"></c:if>
+											<c:if test="${cafe.memberGrade == 'S'}"><img class="nickname" src="${contextPath}/resources/images/grade2.png"></c:if>
+											<c:if test="${cafe.memberGrade == 'T'}"><img class="nickname" src="${contextPath}/resources/images/grade3.png"></c:if>
+											<c:if test="${cafe.memberGrade == 'G'}"><img class="nickname" src="${contextPath}/resources/images/gradeG.png"></c:if>${cafe.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${cafe.createDate}</div>
 										<div class="infoArea float-right">
