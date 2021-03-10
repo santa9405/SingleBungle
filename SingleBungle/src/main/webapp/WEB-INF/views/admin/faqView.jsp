@@ -100,7 +100,7 @@
             a:visited { color: #000; }
             a:hover{color: gray;}
 
-            .navbar-nav{
+            #navbar-nav1{
                 width: 100%;
             }
 
@@ -116,6 +116,8 @@
             a:hover{
 				cursor: pointer;
 			}
+			
+			 
             
             </style>
 
@@ -157,7 +159,7 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm"> <a href="#" class="navbar-brand font-weight-bold d-block d-lg-none">문의사항</a> <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"> <span class="navbar-toggler-icon"></span> </button>
                     <div id="navbarContent" class="collapse navbar-collapse">
-                        <ul class="navbar-nav mx-auto">
+                        <ul class="navbar-nav mx-auto" id="navbar-nav1">
                             <li class="nav-item"><a id="0" href="search?ct=0" class="nav-link font-weight-bold text-uppercase">전체</a></li>
                             <li class="nav-item"><a id="1" href="search?ct=1" class="nav-link font-weight-bold text-uppercase">이용문의</a></li>
                             <li class="nav-item"><a id="2" href="search?ct=2" class="nav-link font-weight-bold text-uppercase">게시판문의</a></li>
@@ -200,6 +202,7 @@
 
             
         </div>
+    </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
     
