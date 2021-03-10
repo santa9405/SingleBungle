@@ -333,7 +333,7 @@
  	});
 
  	
- 	
+/*  	
  	$("#list-table td:not(:first-child)").on("click",function(){
 		var boardNo = $(this).parent().children().eq(3).text();
 		var boardCode = $(this).parent().children().eq(2).text();
@@ -352,7 +352,7 @@
 		
 	location.href = boardViewURL; // 요청 전달
 
-});
+}); */
 </script>
 </body>
 </html>

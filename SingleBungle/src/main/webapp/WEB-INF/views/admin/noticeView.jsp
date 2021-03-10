@@ -46,7 +46,7 @@
                 width: 100%;
             }
 
-			#boardNo{
+			#boardNo, #boardCode{
 				display : none;
 			}
             
@@ -65,7 +65,7 @@
                         <div class="row">
                             <div class="col-md-8">
                             	<span id="boardNo">${board.boardNo}</span>
-                            	<span>${board.boardCode}</span>
+                            	<span id="boardCode">${board.boardCode}</span>
                                 <span id="boardTitle">${board.boardTitle }</span>
                             </div>
                             <div class="col-md-4">
