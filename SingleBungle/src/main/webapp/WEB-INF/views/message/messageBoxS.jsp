@@ -285,7 +285,6 @@
 					 data : {"messageNo":messageNo},
 					 success : function(result){
 						 if(result>0){
-								swal({icon : "success", title : "쪽지 삭제 성공"}); 
 								refreshFunction();
 						 }
 					 },

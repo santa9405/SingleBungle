@@ -346,32 +346,27 @@
 		// 체크된 메세지 삭제
 			function deleteBtn(){
 				
-				// 선택된 메세지 번호 담을 배열
-				var messageNo = [];
-				
-				// 하나씩 돌면서 배열에 넣어줌
-				$("input[name=chk]:checked").each(function(){
-					messageNo.push($(this).val());
+			var messageNo = [];
+			$("input[name=chk]:checked").each(function(){
+				messageNo.push($(this).val());
+			});
+			
+			
+			if(confirm("정말로 삭제하시겠습니까?")){
+				$.ajax({
+					url : "${contextPath}/message/deleteReceiveMessage",
+					type : "post",
+					data : {"messageNo":messageNo},
+					success : function(result){
+						if(result>0){
+							refreshFunction();
+						}
+					},
+					error : function(){
+						console.log("쪽지 삭제 실패");
+					}
 				});
-				
-				if(confirm("정말로 삭제하시겠습니까?")){
-					
-					$.ajax({
-					 url : "${contextPath}/message/deleteReceiveMessage",	
-					 type :"post",
-					 data : {"messageNo":messageNo},
-					 success : function(result){
-						 if(result>0){
-								swal({icon : "success", title : "쪽지 삭제 성공"}); 
-								refreshFunction();
-						 }
-					 },
-					 error : function(){
-						 console.log("쪽지 삭제 실패");
-					 }
-					});
-				}
-				
+			}
 		}	
 		
 		

@@ -163,10 +163,10 @@ public class MessageController {
 		}
 		
 		
-		// 받은 메세지 삭제
+		// 받은 메세지 삭제 
 		@ResponseBody
 		@RequestMapping("deleteReceiveMessage")
-		public int deleteReceiveMessage(@PathVariable(value="messageNo[]") int[] messageNo) {
+		public int deleteReceiveMessage(@RequestParam(value="messageNo[]") int[] messageNo) {
 			
 			List<Integer> list = new ArrayList<Integer>();
 			
