@@ -180,7 +180,7 @@ a:hover {
 				<hr>
 
 				<br>
-				<form action="signUpAction" method="post" name="signUpForm">
+				<form action="findIdResultForm" method="post" name="signUpForm">
 					<div class="form-group" id="name-group">
 						<label for="name"><span class="requiredInput">*</span> 이름</label> <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요.">
 					</div>
@@ -195,7 +195,7 @@ a:hover {
 							<div class="emg email-2">@</div>
 							<div class="em email-3 em-end">
 								<select class="form-control email" id="email2" name="email2">
-									<option>이메일 선택</option>
+									<option id="mailSelect">이메일 선택</option>
 									<option>naver.com</option>
 									<option>daum.com</option>
 									<option>hanmail.com</option>
@@ -229,7 +229,7 @@ a:hover {
 
 					<hr>
 
-					<button type="button" class="btn btn-block maincolor" id="next">다음</button>
+					<button type="submit" class="btn btn-block maincolor" id="nextBtn">다음</button>
 				</form>
 			</div>
 
@@ -240,105 +240,131 @@ a:hover {
 
 	<jsp:include page="../common/header.jsp" />
 
-	<script>
-		$("#next").on("click", function() {
-			var name = $("#name").val();
-			var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
-			console.log(name);
-			console.log(mail);
+<script>
+	
 
-			if (mail == "") {
-				alert("메일 주소가 입력되지 않았습니다.");
-			} else if (name == "") {
-				alert("이름이 입력되지 않았습니다.");
-			}
+// ajax를 이용한 실시간 이름-이메일 일치 검사 ----------------------------------------------------
 
-			else {
-				$.ajax({
-					type : 'post',
-					url : 'nameEmailCheck',
-					data : {
-						'name' : name,
-						'mail' : mail
-					},
-					success : function(result) {
+// ----------------메일 인증 AJAX(잔산) -------------------------
+var key;
 
-						console.log(result);
-						if (result == 1) {
-							swal({
-								icon : "success",
-								title : "확인"
-							});
-						} else {
-							swal({
-								icon : "error",
-								title : "일치하지 않습니다.."
-							});
+$("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
+	var name = $("#name").val();
+	var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
+	var mailId =$("#email1").val(); // 이메일 아이디
+	var mailSelect =$("#email2").val(); // 이메일 뒷주소
+	
+	//console.log("mailId : " + mail);
+	//console.log("mail : " + mail);
+	//console.log("mailSelect : " + mailSelect);
+	
+	if (mailId == "" || mailSelect =="이메일 선택") { // 아이디 또는 메일 주소가 입력되지 않았다면
+		alert("메일 주소가 입력되지 않았습니다.");
+	} else if (name == "") {
+		alert("이름이 입력되지 않았습니다.");
+	} else {
+		$.ajax({ // 아이디-이메일 일치 검사
+			type : 'post',
+			url : 'nameMailCheck',
+			data : {
+				'name' : name,
+				'mail' : mail
+			},
+			success : function(result) {
+				if (result == 1) { // 아이디-이메일이 같을 경우
+					// 아이디 찾기 이메일 발송
+					$.ajax({
+						type : 'post',
+						url : 'FindIdMail',
+						data : {
+							mail:mail
+							},
+						success : function(result){
+							key = result;
+							alert("인증번호가 전송되었습니다.");
 						}
-
-					},
-					error : function() {
-						console.log("이름, 메일 일치검사 실패");
-					}
-				});
-
-			}
-
-		});
-
-		// ajax를 이용한 실시간 이름, 이메일 일치 검사 ----------------------------------------------------
-
-		// ----------------메일 인증 AJAX(잔산) -------------------------
-		var key;
-
-		$("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
-			var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
-			console.log(mail);
-			if (mail == "") {
-				alert("메일 주소가 입력되지 않았습니다.");
-			} else {
-				$.ajax({
-					type : 'post',
-					url : 'FindIdMail',
-					data : {
-						mail : mail
-					},
-
-					success : function(result) {
-						key = result;
-						alert("인증번호가 전송되었습니다.");
-						//validateCheck.email = true;
-
-					},
-					error : function() {
-						//validateCheck.email = false;
-					}
-				});
+					});
+				} else { // 아이디-이메일이 틀릴 경우
+					swal({
+						icon : "error",
+						title : "아이디와 비밀번호가 일치하지 않습니다.."
+					});
+				}
+			},
+			error : function() {
+				console.log("이름, 메일 일치검사 실패");
 			}
 		});
+	}
+});
 
-		$("#verifyEmail").on("propertychange change keyup paste input",
-				function() {
-					if ($("#verifyEmail").val() == key) { //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교
-						$("#checkKey").text("인증 성공!").css("color", "green");
-						$("#verifyEmail").css("border", "1px solid #5fcf80");
-						isCertification = true; //인증 성공여부 check
-					} else {
-						$("#checkKey").text("불일치!").css("color", "red");
-						$("#verifyEmail").css("border", "1px solid red");
-						isCertification = false; //인증 실패
-					}
-				});
+/* 이메일-인증번호 일치 검사 */
+$("#verifyEmail").on("propertychange change keyup paste input", function() {
+	if ($("#verifyEmail").val() == key) { //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교
+		$("#checkKey").text("인증 성공!").css("color", "green");
+		$("#verifyEmail").css("border", "1px solid #5fcf80");
+		isCertification = true; //인증 성공여부 check
+	} else {
+		$("#checkKey").text("불일치!").css("color", "red");
+		$("#verifyEmail").css("border", "1px solid red");
+		isCertification = false; //인증 실패
+	}
+});
 
-		$("#nextBtn").click(function memberJoinvalidate() {
-			if (isCertification == false) {
-				alert("메일 인증이 완료되지 않았습니다.");
-				return false;
+
+/* $("#sendMailBtn").on("click", function() {
+	var name = $("#name").val();
+	var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
+	var mailId =$("#email1").val();
+	console.log(name);
+	console.log(mail);
+
+	if (mailId == "") {
+		alert("메일 주소가 입력되지 않았습니다.");
+	} else if (name == "") {
+		alert("이름이 입력되지 않았습니다.");
+	}
+
+	  else {
+		$.ajax({
+			type : 'post',
+			url : 'nameEmailCheck', // 이름, 이메일 일치 검사
+			data : {
+				'name' : name,
+				'mail' : mail
+			},
+			success : function(result) {
+
+				console.log(result);
+				if (result == 1) {
+					swal({
+						icon : "success",
+						title : "확인"
+					});
+				} else {
+					swal({
+						icon : "error",
+						title : "일치하지 않습니다.."
+					});
+				}
+			},
+			error : function() {
+				console.log("이름, 메일 일치검사 실패");
 			}
 		});
+	}
+}); */
 
-		/* ---------------------------------- */
-	</script>
+
+$("#nextBtn").click(function memberJoinvalidate() {
+	if (isCertification == false) {
+		alert("메일 인증이 완료되지 않았습니다.");
+		return false;
+	}
+});
+
+/* ---------------------------------- */
+</script>
 
 </body>
 

@@ -124,17 +124,18 @@
      		<a class="nav-link" href="${contextPath}/member/login">Login</a>
 		</c:when>
 		
+		<%-- 관리자로 로그인할 경우 --%>
 		<c:when test="${loginMember.memberGrade == 'G'}">
-     		<a class="nav-link" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberName}</a>
+     		<a class="nav-link" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberNickname}</a>
 	      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
 		</c:when>
 		
-		<%-- 로그인이 되어있는 경우 --%>
+		<%-- 회원으로 로그인할 경우 --%>
 		<c:otherwise>
 			${loginMember.memberGrade} 등급
 			<br>
 			
-	      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberName}</a>
+	      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
 	      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
 		</c:otherwise>
 	</c:choose>

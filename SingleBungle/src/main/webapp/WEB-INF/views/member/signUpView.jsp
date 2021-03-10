@@ -63,10 +63,6 @@
             margin-bottom: 20px;
         }
 
-        /* ---------------------------------------------------------------------- */
-        /* 별표 빨간색 */
-        .requiredInput{ color : red; }
-
 
         /* 전화번호 ---------------------------------------------------------------------- */
         /* .ph-area{
@@ -139,13 +135,13 @@
 
                     <h3>회원가입</h3>
 
-                    <div class="text-center" id="sns_signUp">
+                    <!-- <div class="text-center" id="sns_signUp">
                         <div class="sns_text">
                             SNS계정 간편 로그인/회원가입
                         </div>
                         <a href="#"><img class="sns_logo" src="img/sns_naver.jpg"></a>
                         <a href="#"><img class="sns_logo" src="img/sns_kakao.jpg"></a>
-                    </div>
+                    </div> -->
 
                     <hr>
                 </div>
@@ -153,9 +149,7 @@
 
 
                 <form action="signUpAction" method="post" name="signUpForm" onsubmit="return memberJoinvalidate();">
-
                     <!-- required : 필수 입력 속성 -->
-                     
                     <div class="form-group">
                         <label for="userId"><span class="requiredInput">*</span> 아이디</label>
                         <div>
@@ -186,7 +180,8 @@
                             <small id="checkPwd2" >&nbsp;</small>
                         </div>
                     </div>
-
+					
+					<!-- 이름 -->
                     <div class="form-group">
                         <label for="name"><span class="requiredInput">*</span> 이름</label>
                         <div>
@@ -197,7 +192,8 @@
                             <span id="checkName" >&nbsp;</span>
                         </div> 
                     </div>
-
+					
+					<!-- 닉네임 -->
                     <div class="form-group">
                         <label for="nickname"><span class="requiredInput">*</span> 닉네임</label>
                         <div>
@@ -335,12 +331,9 @@
                         </span>
                         	<a href="${contextPath}/member/login" style="font-weight: 700;" class="maincolor-font">로그인</a>
                     </div>
-
                     <br><br><br><br><br><br>
-
                 </form>
             </div>
-
         </div>
 
         <div class="col-md-4">

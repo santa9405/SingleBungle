@@ -24,7 +24,7 @@
 
 	</resultMap>
 	
-	   <resultMap type="Member" id="login_rm">
+	<resultMap type="Member" id="login_rm">
 
       <!-- DB의 기본 키 -->
       <id property="memberNo" column="MEM_NO" />
@@ -110,6 +110,17 @@
 		WHERE MEM_NM = #{name}
 		AND EMAIL = #{mail}
 	</select>
+	
+	
+	<!-- (지호)아이디 찾기 -->
+	<select id="findIdResult">
+	SELECT MEM_ID FROM TB_MEMBER
+WHERE NICKNAME = ?
+AND EMAIL = ?
+AND SCSN_FL = 'N'
+	</select>
+	
+	
 	
 	
 	<!-- 내 정보 수정 -->

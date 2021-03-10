@@ -138,7 +138,10 @@ public class memberController {
 		return "member/signUpView";
 	}
 
+	
+	// ---------------------------------------------------
 	// 아이디 중복 체크 Controller (AJAX)
+	// ---------------------------------------------------
 	@RequestMapping("idDupCheck")
 	@ResponseBody
 	public int idDupCheck(@RequestParam("memberId") String memberId) {
@@ -159,9 +162,10 @@ public class memberController {
 		return result;
 	}
 	
-	
+	// ---------------------------------------------------
 	// 닉네임 중복 체크 Controller (AJAX)
 	// nnDupCheck:회원가입용(로그인필터O), nnDupCheckUpdate:내정보수정(로그인필터X)
+	// ---------------------------------------------------
 	@RequestMapping(value={"nnDupCheck","nnDupCheckUpdate"})
 	@ResponseBody
 	public int nnDupCheck(@RequestParam("memberNickname") String memberNickname) {
@@ -264,6 +268,37 @@ public class memberController {
 		return key;
 	}
 	
+	// 아이디 찾기 ------------------------------------------------------------------------
+
+	// 아이디 찾기 화면
+	@RequestMapping("findIdForm")
+	public String findIdFormView() { // findIdForm 이거엿음.. 
+		return "member/findIdForm";
+	}
+	
+	// 아이디 찾기 동작
+	@RequestMapping("findIdFormAction")
+	public String findIdFormAction() { 
+		
+		String nickName = request.getParameter("userName");
+		String email = request.getParameter("mail");
+		
+		Member member = new Member();
+		member.setMemberNickName(nickName);
+		member.setEmail(email);
+		
+		Member findMember = service.findIdResult(member);
+		
+		return "member/findIdForm";
+	}
+	
+
+	// 아이디 찾기2
+	@RequestMapping("findIdResultForm")
+	public String findIdResultForm() {
+		return "member/findIdResultForm";
+	}
+	
 	// ---------------------------------------------------
 	// 이름, 메일 일치 검사 Controller (AJAX)
 	// ---------------------------------------------------
@@ -301,11 +336,6 @@ public class memberController {
 		String title = "[싱글벙글] 아이디 찾기에 필요한 이메일 인증 키값 전송"; // 제목
 		String content = "키 값을 인증번호 확인영역에 입력해주세요."; // 내용
 		String key = "";
-		
-		//String mailId = request.getParameter("mailId"); // 받는 사람 이메일
-		
-		System.out.println("tomail :" + tomail);
-		//System.out.println("mailId : " + mailId);
 
 		try {
 			Random random = new Random();
@@ -333,65 +363,7 @@ public class memberController {
 		return key;
 	}
 	
-	// 마이페이지 ------------------------------------------------------------------------
-
-	// 마이페이지
-	@RequestMapping("mypage")
-	public String mypage(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, @RequestParam(value = "cp2", required = false, defaultValue = "1") int cp2, @RequestParam(value = "cp3", required = false, defaultValue = "1") int cp3, Model model,
-					@ModelAttribute(name="loginMember") Member loginMember) {
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("cp", cp);
-		map.put("memberNo", memberNo);
-		
-		// 내가 좋아요 한 글 페이징
-		APageInfo pInfo = service.getLikeBoardPageInfo(cp,map);
-		pInfo.setLimit(5);
-		
-		// 내가 좋아요 한 글 조회 
-		List<ABoard> boardList = service.selectLikeBoard(pInfo, memberNo);
-		model.addAttribute("boardList", boardList);
-		model.addAttribute("pInfo", pInfo);
-		
-		//내가 쓴 글 페이징
-		APageInfo pInfo2 = service.getMyBoardPageInfo(cp2,map);
-		pInfo2.setLimit(5);
-		
-		//내가 쓴 글 리스트 조회
-		List<ABoard> myBoardList = service.selectMyBoard(pInfo2, memberNo);
-		model.addAttribute("myBoardList", myBoardList);
-		model.addAttribute("pInfo2", pInfo2);
-		
-		//내가 쓴 댓글 페이징
-		APageInfo pInfo3 = service.getMyReplyPageInfo(cp3,map);
-		pInfo3.setLimit(5);
-		
-		//내가 쓴 댓글 리스트 조회
-		List<MReply> myReplyList = service.selectMyReply(pInfo3, memberNo);
-		model.addAttribute("myReplyList", myReplyList);
-		model.addAttribute("pInfo3", pInfo3);
-		
-		System.out.println(myBoardList);
 	
-
-		return "member/mypage";
-	}
-	
-	// 아이디 찾기 ------------------------------------------------------------------------
-
-	// 아이디 찾기1
-	@RequestMapping("findIdForm")
-	public String findIdForm() {
-		return "member/findIdForm";
-	}
-
-	// 아이디 찾기2
-	@RequestMapping("findIdResultForm")
-	public String findIdResultForm() {
-		return "member/findIdResultForm";
-	}
 
 	// 비밀번호 찾기 ------------------------------------------------------------------------
 	
@@ -407,7 +379,9 @@ public class memberController {
 		return "member/findPwChangeForm";
 	}
 	
+	// ---------------------------------------------------
 	// 비밀번호 찾기 인증(이메일 발송) Controller (ajax) 
+	// ---------------------------------------------------
 	@RequestMapping("CheckPwMail")
 	@ResponseBody
 	public String CheckPwMail(HttpServletRequest request) {
@@ -461,6 +435,56 @@ public class memberController {
 	public String findPwResultForm() {
 		return "member/findPwResultForm";
 	}
+	
+	// 마이페이지 ------------------------------------------------------------------------
+
+	// 마이페이지
+	@RequestMapping("mypage")
+	public String mypage(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value = "cp2", required = false, defaultValue = "1") int cp2,
+			@RequestParam(value = "cp3", required = false, defaultValue = "1") int cp3, Model model,
+			@ModelAttribute(name="loginMember") Member loginMember) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("cp", cp);
+		map.put("memberNo", memberNo);
+		
+		// 내가 좋아요 한 글 페이징
+		APageInfo pInfo = service.getLikeBoardPageInfo(cp,map);
+		pInfo.setLimit(5);
+		
+		// 내가 좋아요 한 글 조회 
+		List<ABoard> boardList = service.selectLikeBoard(pInfo, memberNo);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pInfo", pInfo);
+		
+		//내가 쓴 글 페이징
+		APageInfo pInfo2 = service.getMyBoardPageInfo(cp2,map);
+		pInfo2.setLimit(5);
+		
+		//내가 쓴 글 리스트 조회
+		List<ABoard> myBoardList = service.selectMyBoard(pInfo2, memberNo);
+		model.addAttribute("myBoardList", myBoardList);
+		model.addAttribute("pInfo2", pInfo2);
+		
+		//내가 쓴 댓글 페이징
+		APageInfo pInfo3 = service.getMyReplyPageInfo(cp3,map);
+		pInfo3.setLimit(5);
+		
+		//내가 쓴 댓글 리스트 조회
+		List<MReply> myReplyList = service.selectMyReply(pInfo3, memberNo);
+		model.addAttribute("myReplyList", myReplyList);
+		model.addAttribute("pInfo3", pInfo3);
+		
+		System.out.println(myBoardList);
+	
+
+		return "member/mypage";
+	}
+	
+	
 	
 
 	// ---------------------------------------------------------------
@@ -599,7 +623,6 @@ public class memberController {
 		// 회원 번호, 현재 비밀번호를 하나의 VO에 담아서 Service로 전달할 예정
 		// --> 이 작업을 별도로 진행하지 않고 @ModelAttribute를 이용하여 진행 
 		
-		
 		// 회원 탈퇴 Service 호출
 		int result = service.mypageSecession(loginMember);
 		
@@ -615,7 +638,7 @@ public class memberController {
 			
 		} else {
 			swalIcon = "error";
-			swalTitle = "탈퇴 실패";
+			swalTitle = "탈퇴 실패였습니다. 비밀번호를 확인해주세요.";
 			returnURL = "mypageSecession"; // 회원 탈퇴 페이지
 		}
 		
