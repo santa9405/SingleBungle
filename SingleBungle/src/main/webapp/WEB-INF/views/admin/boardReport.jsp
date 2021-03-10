@@ -23,6 +23,34 @@
 
 
         <style>
+        
+        /* --------------------------------- 푸터 아래 고정용 ------------------------------- */
+        html {
+		    position: relative; 
+		    min-height: 100%;
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		body {
+		    min-height: 100%;
+		}
+		
+		#footer { /* 푸터 바닥에 고정시키기 !!! hmtl에 어쩌고도 해줘야함 */
+		    position: absolute;
+		    left: 0;
+		    bottom: 0;
+		    width: 100%;
+		    /* padding: 15px 0; */
+		    text-align: center;
+		    color: white;
+		}
+		/* --------------------------------- 푸터 아래 고정용 ------------------------------- */
+        
+        
+        
+        
+        
             .flex {
          -webkit-box-flex: 1;
          -ms-flex: 1 1 auto;
@@ -279,7 +307,10 @@
 
         </div>
     </div>
-    <jsp:include page="../common/footer.jsp"/>
+    
+    <div id="footer">
+	    <jsp:include page="../common/footer.jsp"/>
+    </div>
     
      <script>
     $(function(){
