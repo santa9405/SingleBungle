@@ -50,8 +50,10 @@ public class LoginFilter implements Filter {
 		ALLOWED_PATH.add("/member/findIdResultForm"); // 아이디찾기2
 		
 		ALLOWED_PATH.add("/member/findPwForm"); // 비밀번호찾기1
-		ALLOWED_PATH.add("/member/CheckPwMail"); // 비밀번호 찾기 이메일 전송 //
+		ALLOWED_PATH.add("/member/idMailCheck"); // 아이디, 메일 일치 검사
+		ALLOWED_PATH.add("/member/FindPwMail"); // 아이디찾기 이메일 전송
 		ALLOWED_PATH.add("/member/findPwChangeForm"); // 비밀번호찾기2
+		ALLOWED_PATH.add("/member/findPwChangeAction"); // 비밀번호찾기2
 		ALLOWED_PATH.add("/member/findPwResultForm"); // 비밀번호찾기3
 		
 		

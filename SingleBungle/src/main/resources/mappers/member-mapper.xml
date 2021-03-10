@@ -103,21 +103,42 @@
 	     DEFAULT, DEFAULT)
 	</insert>
 	
+	<!-- 아이디 찾기시 이름-메일 일치 체크 -->
 	<select id="nameMailCheck" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEM_NM = #{name}
 		AND EMAIL = #{mail}
 	</select>
 	
-	
 	<!-- 아이디 찾기 -->
 	<select id="findIdResult" resultMap="member_rm">
 	SELECT MEM_ID FROM MEMBER
-	WHERE NICKNAME = #{memberName}
+	WHERE MEM_NM = #{memberName}
 	AND EMAIL LIKE '%' || #{memberEmail} || '%'
 	AND SCSN_FL = 'Y'
 	</select>
 	
+	<!-- 비밀번호 찾기시 아이디-메일 일치 체크 -->
+	<select id="idMailCheck" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEM_ID = #{memberId}
+		AND EMAIL = #{mail}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" parameterType="map" resultMap="member_rm">
+	SELECT MEM_PW, MEM_NO FROM MEMBER
+	WHERE MEM_ID = #{memberId}
+	AND EMAIL LIKE '%' || #{memberEmail} || '%'
+	AND SCSN_FL = 'Y'
+	</select>
+	
+	<!-- 비번 설정  -->
+	<update id="findPwUpdate" parameterType="map">
+		UPDATE MEMBER SET
+		MEM_PW = #{newPwd} <!-- map에 저장된 데이터의 key값을 직접 작성 -->
+		WHERE MEM_NO = #{memberNo}
+	</update>
 	
 	
 	
@@ -184,32 +205,32 @@
 </select>
 
 <select id="selectLikeBoard" parameterType="_int" resultMap="board_rm">
-	SELECT '자유게시판' TYPE, A.BOARD_NO NO, BOARD_TITLE, CREATE_DT, BOARD_CD  
+	SELECT '자유게시판' TYPE, A.BOARD_NO, BOARD_TITLE, CREATE_DT, BOARD_CD  
 	FROM BOARD A
 	JOIN BOARD_LIKE B ON(A.BOARD_NO = B.BOARD_NO)
-	WHERE B.MEM_NO = 1
+	WHERE B.MEM_NO = #{memberNo}
 	AND BOARD_CD = 1
 	UNION ALL
-	SELECT '후기게시판' TYPE, A.BOARD_NO NO, BOARD_TITLE, CREATE_DT, BOARD_CD  
+	SELECT '후기게시판' TYPE, A.BOARD_NO, BOARD_TITLE, CREATE_DT, BOARD_CD  
 	FROM BOARD A
 	JOIN BOARD_LIKE B ON(A.BOARD_NO = B.BOARD_NO)
-	WHERE B.MEM_NO = 1
+	WHERE B.MEM_NO = #{memberNo}
 	AND BOARD_CD = 2
 	UNION ALL
-	SELECT '맛집게시판' TYPE, A.CAFE_NO NO, CAFE_TITLE, CREATE_DT, 6
+	SELECT '맛집게시판' TYPE, A.CAFE_NO, CAFE_TITLE, CREATE_DT, 6
 	FROM CAFE A
 	JOIN CAFE_LIKE B ON(A.CAFE_NO = B.CAFE_NO)
-	WHERE B.MEM_NO = 1
+	WHERE B.MEM_NO = #{memberNo}
 	UNION ALL
-	SELECT '친구찾기' TYPE, A.FRIEND_NO NO, FRIEND_TITLE, CREATE_DT, 7
+	SELECT '친구찾기' TYPE, A.FRIEND_NO, FRIEND_TITLE, CREATE_DT, 7
 	FROM FRIEND A
 	JOIN FRIEND_LIKE B ON(A.FRIEND_NO = B.FRIEND_NO)
-	WHERE B.MEM_NO = 1
+	WHERE B.MEM_NO = #{memberNo}
 	UNION ALL
-	SELECT '사고팔고' TYPE, A.MARKET_NO NO, MARKET_TITLE, CREATE_DT, 8 
+	SELECT '사고팔고' TYPE, A.MARKET_NO, MARKET_TITLE, CREATE_DT, 8 
 	FROM MARKET A
 	JOIN MARKET_LIKE B ON(A.MARKET_NO = B.MARKET_NO)
-	WHERE B.MEM_NO = 1
+	WHERE B.MEM_NO = #{memberNo}
 </select>
 
 

@@ -85,7 +85,6 @@ a:hover {
 			<div class="col-md-4">
 
 
-				<h3 class="text-center">로고,,ㄱ-</h3>
 				<br> <br>
 
 				<h3 class="text-center">아이디 찾기</h3>

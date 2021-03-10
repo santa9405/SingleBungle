@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -86,7 +88,6 @@ a:hover {
 			<div class="col-md-4"></div>
 
 			<div class="col-md-4">
-				<h3 class="text-center">로고,,ㄱ-</h3>
 				<br>
 				<br>
 
@@ -108,16 +109,18 @@ a:hover {
 				<hr>
 
 				<br>
-				<form action="findPwReady" method="post" name="findPwForm" onsubmit="return submitCheck();">
+				<form action="findPwChangeForm" method="post">
 					
 					<div class="form-group">
                         <label for="userId"><span class="requiredInput">*</span> 아이디</label>
-                        <input type="text" class="form-control" id="userId" name="memberId" autocomplete="off" placeholder="아이디를 입력하세요." required>
-
+                        <input type="text" class="form-control" name="memberId" id="memberId" autocomplete="off"
+                        	placeholder="아이디를 입력하세요." required>
+                   	</div>
+					<div class="form-group" >
                         <label for="email"><span class="requiredInput">*</span> 이메일</label>
                         <div class="input-group">
                             <div class="em email-1">
-                                <input type="text" class="form-control email" id="email1" name="email1" placeholder="이메일" required>
+                                <input type="text" class="form-control email" id="email1" name="memberEmail" placeholder="이메일" required>
                             </div>
 
                             <div class="emg email-2">@</div>
@@ -125,27 +128,26 @@ a:hover {
                                 <select class="form-control email" id="email2" name="email2">
                                     <option id="mailSelect">이메일 선택</option>
                                     <option>naver.com</option>
-                                    <option>daum.com</option>
-                                    <option>hanmail.com</option>
+                                    <option>daum.net</option>
+                                    <option>hanmail.net</option>
                                     <option>gmail.com</option>
                                     <option>nate.com</option>
                                 </select>
                             </div>
                             <div>
-                            	<!-- 이메일 유효성 검사 -->
-                               <!-- <span id="checkEmail"></span> -->
+                            	<!-- 아이디, 이메일 일치 검사 -->
+                            	<span id="idMailCheck"></span>
                             </div>
-
                         </div>
 
                         <br>
 
                         <div class="form-row">
                             <div class="col-md-5 verifyBtn">
-                                <button type="button" class="btn btn-primary form-control maincolor" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
+                                <button type="button" class="btn form-control maincolor" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" class="form-control email" id="inputEmail" placeholder="인증번호 입력" required>
+                                <input type="text" class="form-control email" id="verifyEmail" placeholder="인증번호 입력" required>
                             </div>
                             <!-- 인증 확인 체크 -->
                             <div id="checkFl">
@@ -153,12 +155,11 @@ a:hover {
                             </div>
                         </div>
                     </div>
-					<br>
+					
+					
 					<hr>
-				
-					<div id="nextDiv">
-						<button type="submit" id="nextBtn1" class="btn btn-primary btn-block maincolor">다음</button>
-					</div>
+					<button type="submit" id="nextBtn" class="btn btn-block maincolor">다음</button>
+					<br><br>
 				</form>
 			</div>
 		</div>
@@ -170,69 +171,82 @@ a:hover {
 	
 	
 	
-	<script>
+<script>
+// ajax를 이용한 실시간 아이디-이메일 일치 검사 ----------------------------------------------------
+var key;
+
+$("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
+	var memberId = $("#memberId").val();
+	var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
+	var mailId =$("#email1").val(); // 이메일 아이디
+	var mailSelect =$("#email2").val(); // 이메일 뒷주소
 	
-	var key;
-	console.log(key);
+	console.log("memberId : " + memberId);
+	console.log("mail : " + mail);
+	console.log("mailId : " + mailId);
+	console.log("mailSelect : " + mailSelect);
 	
-	$("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
-		var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
-		
-		var mailId =$("#email1").val(); // 이메일 아이디
-		var mailSelect =$("#email2").val(); // 이메일 뒷주소
-		
-		//console.log("mailId : " + mail);
-		//console.log("mail : " + mail);
-		//console.log("mailSelect : " + mailSelect);
-		
-		if (mailId == "" || mailSelect =="이메일 선택" ) { // 아이디 또는 메일 주소가 입력되지 않았다면
-			alert("메일 주소가 입력되지 않았습니다.");
-		} else {
-			$.ajax({
-				type : 'post',
-				url : 'CheckPwMail',
-				data : {
-					mail:mail
-					},
-				
-				success : function(result){
-					key = result;
-					alert("인증번호가 전송되었습니다.");
+	if (mailId == "" || mailSelect =="이메일 선택") { // 아이디 또는 메일 주소가 입력되지 않았다면
+		alert("메일 주소가 입력되지 않았습니다.");
+	} else if (memberId == "") {
+		alert("아이디가 입력되지 않았습니다.");
+	} else {
+		$.ajax({ // 아이디-이메일 일치 검사
+			type : 'post',
+			url : 'idMailCheck',
+			data : {
+				'memberId' : memberId,
+				'mail' : mail
+			},
+			success : function(result) {
+				if (result == 1) { // 아이디-이메일이 같을 경우
+					// 아이디 찾기 이메일 발송
+					$.ajax({
+						type : 'post',
+						url : 'FindPwMail',
+						data : {
+							mail:mail
+							},
+						success : function(result){
+							key = result;
+							alert("인증번호가 전송되었습니다.");
+						}
+					});
+				} else { // 아이디-이메일이 틀릴 경우
+					swal({
+						icon : "error",
+						title : "아이디와 비밀번호가 일치하지 않습니다.."
+					});
 				}
-			});
-		}
-	});
-	
-	$("#inputEmail").on("propertychange change keyup paste input", function() {
-		if ($("#inputEmail").val() == key) {   //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교
-			$("#checkFl").text("일치!").css("color", "green");
-			isCertification = true;  //인증 성공여부 check
-		} else {
-			$("#checkFl").text("불일치!").css("color", "red");
-			isCertification = false; //인증 실패
-		}
-	});
+			},
+			error : function() {
+				console.log("아이디, 메일 일치검사 실패");
+			}
+		});
+	}
+});
 
-	$("#nextBtn1").click(function submitCheck(){
-		if(isCertification==false){
-			alert("메일 인증이 완료되지 않았습니다.");
-			return false;
-		}
-	});
-	
-	
-	// 입력된 전화번호, 주소 조합하여 form태그에 hidden으로 추가 하기
-	// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여
-	
-	$memberEmail = $("<input>", {type : "hidden", name : "memberEmail",
-			value : $("#email1").val() + "@" + $("#email2").val()
-	});
+/* 이메일-인증번호 일치 검사 */
+$("#verifyEmail").on("propertychange change keyup paste input", function() {
+	if ($("#verifyEmail").val() == key) { //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교
+		$("#checkKey").text("인증 성공!").css("color", "green");
+		$("#verifyEmail").css("border", "1px solid #5fcf80");
+		isCertification = true; //인증 성공여부 check
+	} else {
+		$("#checkKey").text("불일치!").css("color", "red");
+		$("#verifyEmail").css("border", "1px solid red");
+		isCertification = false; //인증 실패
+	}
+});
 
-	$("form[name='findPwForm']").append($memberEmail);
-	
-	
-	
-	</script>
+
+$("#nextBtn").click(function memberJoinvalidate() {
+	if (isCertification == false) {
+		alert("메일 인증이 완료되지 않았습니다.");
+		return false;
+	}
+});
+</script>
 </body>
 
 </html>

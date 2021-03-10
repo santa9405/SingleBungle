@@ -78,7 +78,6 @@
 </head>
 
 <body>
-
 	<jsp:include page="../common/header.jsp" />
 
     <div class="container">
@@ -88,9 +87,8 @@
             
             <div class="col-md-4">
                 
-                <form>
+                <form action="findPwChangeAction" method="post" onsubmit="return updateValidate();">
 
-                    <h3 class="text-center">로고,,ㄱ-</h3>
                     <br><br>
                     
                     <h3 class="text-center">비밀번호 찾기</h3>
@@ -104,7 +102,7 @@
                         </div>
                         <div class="form-group col-md-6" id="pw-area">
 	                        <a href="${contextPath}/member/findPwForm">
-	                            <button type="button" class="btn btn-outline-primary btn-block maincolor-re">비밀번호                                찾기</button>
+	                            <button type="button" class="btn btn-outline-primary btn-block maincolor-re">비밀번호 찾기</button>
 	                        </a>
                         </div>
                     </div>
@@ -122,21 +120,24 @@
                     </div>
                     <br><br>
 
+					<input type="hidden" id="memberNo" name="memberNo" value="${memberNo }">
                     <div class="form-group">
-                        <label for="pw">* 새 비밀번호</label>
-                        <input type="password" class="form-control" id="pw" placeholder="새 비밀번호를 입력하세요.">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pw2">* 새 비밀번호 확인</label>
-                        <input type="password" class="form-control" id="pw2" placeholder="새 비밀번호를 한번 더 입력하세요.">
-                    </div>
+						<label for="newPw1" class="textBold">새 비밀번호</label>
+						<input type="password" class="form-control" id="newPwd" name="newPwd"
+							placeholder="새로운 비밀번호를 입력하세요." required>
+					</div>		
+									
+					<div class="form-group" >
+						<label for="newPw2" class="textBold">새 비밀번호 확인</label>
+						<input type="password" class="form-control" id="newPwd2" name="newPwd2"
+							placeholder="새로운 비밀번호를 한번 더 입력하세요." required>
+					</div>
 
 
                     <br>
                     <hr>
 
-                    <button type="submit" id="changeBtn" class="btn btn-primary btn-block maincolor">비밀번호 변경</button>
+                    <button type="submit" id="changeBtn" class="btn btn-block maincolor">비밀번호 변경</button>
                 </form>
             </div>
 
@@ -147,6 +148,29 @@
     </div>
     
     <jsp:include page="../common/footer.jsp"/>
+    
+    <script>
+ 	// submit 동작
+	function updateValidate() {
+		// 비밀번호  유효성 검사
+		//영어 대,소문자 + 숫자, 총 6~12글자
+		var regExp = /^[A-Za-z0-9]{6,12}$/;
+		if(!regExp.test($("#newPwd").val())){ 
+			alert("유효하지 않은 비밀번호 입니다.");
+			$("#newPwd").focus();
+			
+			return false;
+        }
+		
+		if($("#newPwd").val() != $("#newPwd2").val()){
+			alert("새 비밀번호가 일치하지 않습니다.");
+			$("#newPwd2").focus();
+			
+			return false;
+		}
+	}
+    
+    </script>
 </body>
 
 </html>
