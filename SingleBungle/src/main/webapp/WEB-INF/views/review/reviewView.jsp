@@ -386,8 +386,9 @@ body {
 						<h5 class="modal-title">받는사람 :  ${review.nickName } </h5> 
 						<input type="hidden" name="memberNo" value="${review.memberNo}">
 					</div>
-					<div class="modal-body">
-						<textarea class="messageText" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+					<div class="modal-body" style="padding-bottom : 1px;">
+						<textarea class="messageText" id="writeMessage" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+						<div id="messageCnt" class="float-right" style="font-size:13px;">(0/100)</div>
 					</div>
 					<div class="modal-footer">
 						<div class="col">
@@ -503,6 +504,17 @@ body {
 			return false;
 		}
 	}
+	
+	// 메세지 글자수 제한
+	$(document).ready(function(){
+			$("#writeMessage").on('input',function(){
+					$("#messageCnt").html("("+$(this).val().length+" / 100)");
+					if($(this).val().length>100){
+						$(this).val($(this).val().substring(0,100));
+						$("#messageCnt").html("(100/100)");
+					}
+			});
+		});
 	
 	
 
