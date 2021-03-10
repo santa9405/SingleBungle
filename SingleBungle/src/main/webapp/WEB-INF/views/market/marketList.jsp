@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 - 메인</title>
+<title>벙글장터 - 메인</title>
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
  
@@ -22,6 +22,9 @@ body {
 	margin-right: 40px;
 }
 
+  .boardName:hover {
+    color : #ff8500;
+  }
 .category {
 	text-decoration: none;
 	color: black;
@@ -208,8 +211,8 @@ body {
 			<!-- 게시판 이름/카테고리 -->
 			<div class="row py-5 no-gutters">
 				<div class="col-lg-12 mx-auto">
-					<div class="text-black banner">
-						<h1 class="boardName float-left">사고팔고</h1>
+					<div class="text-black banner">	
+							<a class="ListGo" href="../market/list"><h1 class="boardName">벙글장터</h1></a>
 						<a class="category cg" id="0" href="search?ct=0&${sort}${sv}">전체</a> <span> |</span> 
 						<a class="category cg" id="2" href="search?ct=2&${sort}${sv}">팝니다</a> <span> |</span> 
 						<a class="category cg" id="1" href="search?ct=1&${sort}${sv}">삽니다</a>
