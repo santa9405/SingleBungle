@@ -22,12 +22,14 @@ public class FindFriend {
 	private String nickname;		// 닉네임
 	private String categoryNm;		// 카테고리 이름
 	private int apply;				// 신청 인원
+	private String memGrade;		// 멤버등급
 	
 	public FindFriend() { }
 
 	public FindFriend(int friendNo, String friendTitle, String friendContent, String location1, String location2,
 			Date meetingDate, String meetingTime, String gender, int capacity, Timestamp createDt, int readCount,
-			String boardStatus, int categoryCd, int memNo, String nickname, String categoryNm, int apply) {
+			String boardStatus, int categoryCd, int memNo, String nickname, String categoryNm, int apply,
+			String memGrade) {
 		super();
 		this.friendNo = friendNo;
 		this.friendTitle = friendTitle;
@@ -46,6 +48,7 @@ public class FindFriend {
 		this.nickname = nickname;
 		this.categoryNm = categoryNm;
 		this.apply = apply;
+		this.memGrade = memGrade;
 	}
 
 	public int getFriendNo() {
@@ -184,6 +187,14 @@ public class FindFriend {
 		this.apply = apply;
 	}
 
+	public String getMemGrade() {
+		return memGrade;
+	}
+
+	public void setMemGrade(String memGrade) {
+		this.memGrade = memGrade;
+	}
+
 	@Override
 	public String toString() {
 		return "FindFriend [friendNo=" + friendNo + ", friendTitle=" + friendTitle + ", friendContent=" + friendContent
@@ -191,7 +202,7 @@ public class FindFriend {
 				+ ", meetingTime=" + meetingTime + ", gender=" + gender + ", capacity=" + capacity + ", createDt="
 				+ createDt + ", readCount=" + readCount + ", boardStatus=" + boardStatus + ", categoryCd=" + categoryCd
 				+ ", memNo=" + memNo + ", nickname=" + nickname + ", categoryNm=" + categoryNm + ", apply=" + apply
-				+ "]";
+				+ ", memGrade=" + memGrade + "]";
 	}
 
 }

@@ -162,7 +162,7 @@ body {
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<div class="container" id="content-main">
-
+	
 		<div>
 			<div>
 				<h2 style="margin-top: 5px;">
@@ -190,7 +190,11 @@ body {
 				<div class="col-md-12">
 				
 					<div class="boardInfo float-left"> 
-						<img src="${contextPath}/resources/images/profile.png" width="30" height="30"> <span>${findFriend.nickname}</span>&nbsp;
+						<c:if test="${findFriend.memGrade == 'F'}"><img src="${contextPath}/resources/images/grade1.png" width="30" height="30"></c:if>
+						<c:if test="${findFriend.memGrade == 'S'}"><img src="${contextPath}/resources/images/grade2.png" width="30" height="30"></c:if>
+						<c:if test="${findFriend.memGrade == 'T'}"><img src="${contextPath}/resources/images/grade3.png" width="30" height="30"></c:if>
+						<c:if test="${findFriend.memGrade == 'G'}"><img src="${contextPath}/resources/images/gradeG.png" width="30" height="30"></c:if>
+						<span>${findFriend.nickname}</span>&nbsp;
 				  </div>
 			  	
 					<div class="boardInfo float-left" id="createDt" style="color: gray"> 
@@ -392,12 +396,100 @@ body {
 			if(friendGender == "W"){
 				if(loginMemberGender != "W"){
 					swal({icon : "info", title : "여자 회원만 참여 신청할 수 있습니다."});
+				}else{
+					if(applyArray[4] == "insertApply"){
+						
+						$.ajax({
+							url : "${contextPath}/findFriend/insertApply/" + friendNo,
+							success : function(result){
+								
+								if(result > 0){
+									swal({icon : "success", title : "참여 신청 성공!"});
+									
+									selectApplyCount();	
+									
+									$("#applyBtn").text("참여취소");
+									$(".apply").toggleClass("insertApply");
+								}
+								
+							}, error : function(){
+								console.log("참여 신청 실패");
+							}
+							
+						});
+						
+					}else{
+						
+						$.ajax({
+							url : "${contextPath}/findFriend/deleteApply/" + friendNo,
+							success : function(result){
+								
+								if(result > 0){
+									swal({icon : "success", title : "참여가 취소되었습니다."});
+									
+									selectApplyCount();	
+									
+									$("#applyBtn").text("참여신청");
+									$(".apply").toggleClass("insertApply");
+								}
+								
+							}, error : function(){
+								console.log("참여 취소 실패");
+							}
+							
+						});
+						
+					}
 				}
 			}
 			
 			if(friendGender == "M"){
 				if(loginMemberGender != "M"){
 					swal({icon : "info", title : "남자 회원만 참여 신청할 수 있습니다."});
+				}else{
+					if(applyArray[4] == "insertApply"){
+						
+						$.ajax({
+							url : "${contextPath}/findFriend/insertApply/" + friendNo,
+							success : function(result){
+								
+								if(result > 0){
+									swal({icon : "success", title : "참여 신청 성공!"});
+									
+									selectApplyCount();	
+									
+									$("#applyBtn").text("참여취소");
+									$(".apply").toggleClass("insertApply");
+								}
+								
+							}, error : function(){
+								console.log("참여 신청 실패");
+							}
+							
+						});
+						
+					}else{
+						
+						$.ajax({
+							url : "${contextPath}/findFriend/deleteApply/" + friendNo,
+							success : function(result){
+								
+								if(result > 0){
+									swal({icon : "success", title : "참여가 취소되었습니다."});
+									
+									selectApplyCount();	
+									
+									$("#applyBtn").text("참여신청");
+									$(".apply").toggleClass("insertApply");
+								}
+								
+							}, error : function(){
+								console.log("참여 취소 실패");
+							}
+							
+						});
+						
+					}
 				}
 			}
 			

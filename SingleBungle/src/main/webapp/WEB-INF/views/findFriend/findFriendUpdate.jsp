@@ -24,6 +24,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+			
+				<div class="row py-5 no-gutters">
+						<div class="col-lg-12 mx-auto">
+							<div class="text-black banner">
+								<h1 class="boardName">친구찾기</h1>
+								<hr>
+							</div>
+						</div>
+				</div>
 
 				<form action="updateAction" method="post" onsubmit="return meetingDateValidate();">
 

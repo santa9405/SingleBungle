@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,6 +266,7 @@
 		// (전달할 내용 : 게시글 번호 + 로그인한 회원의 닉네임 + 입력한 채팅 + 채팅 시간 )
 		var nickname = "${loginMember.memberNickname}";
 		var loginMemberNo = "${loginMember.memberNo}";
+		var loginMemberGrade = "${loginMember.memberGrade}";
 		var friendNo = "${friendNo}";
 		
 		$("#inputChatting").keyup(function(e){
@@ -355,8 +357,17 @@
 			
 			var avatar = $("<div>").addClass("avatar");
 			
-			var image = $("<img>").attr("src", "${contextPath}/resources/images/profile.png")
-									.attr("alt", "User name");
+		  var image = null;
+             
+      if(loginMemberGrade == 'F'){
+    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade1.png").css({"width": "30px;","height": "30px;"});
+      }else if(loginMemberGrade == 'S'){
+    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade2.png").css({"width": "30px;","height": "30px;"});                   
+      }else if(loginMemberGrade == 'T'){
+    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade3.png").css({"width": "30px;","height": "30px;"});                   
+      }else{
+    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/gradeG.png").css({"width": "30px;","height": "30px;"});                      
+      }
 			
 			avatar.append(image);
 			
@@ -412,8 +423,17 @@
 						
 						var avatar = $("<div>").addClass("avatar");
 						
-						var image = $("<img>").attr("src", "${contextPath}/resources/images/profile.png")
-												.attr("alt", "User name");
+						var image = null;
+			             
+			      if(item.memGrade == 'F'){
+			    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade1.png").css({"width": "30px;","height": "30px;"});
+			      }else if(item.memGrade == 'S'){
+			    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade2.png").css({"width": "30px;","height": "30px;"});                   
+			      }else if(item.memGrade == 'T'){
+			    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade3.png").css({"width": "30px;","height": "30px;"});                   
+			      }else{
+			    	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/gradeG.png").css({"width": "30px;","height": "30px;"});                      
+			      }
 						
 						avatar.append(image);
 						

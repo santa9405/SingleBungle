@@ -10,11 +10,12 @@ public class FindFriendChatting {
 	private int friendNo;			// 게시글 번호
 	private int memNo;				// 회원 번호
 	private String nickname;		// 닉네임
+	private String memGrade;		// 멤버등급
 	
 	public FindFriendChatting() { }
 
 	public FindFriendChatting(int chattingNo, String message, Timestamp createDate, int friendNo, int memNo,
-			String nickname) {
+			String nickname, String memGrade) {
 		super();
 		this.chattingNo = chattingNo;
 		this.message = message;
@@ -22,6 +23,7 @@ public class FindFriendChatting {
 		this.friendNo = friendNo;
 		this.memNo = memNo;
 		this.nickname = nickname;
+		this.memGrade = memGrade;
 	}
 
 	public int getChattingNo() {
@@ -72,10 +74,19 @@ public class FindFriendChatting {
 		this.nickname = nickname;
 	}
 
+	public String getMemGrade() {
+		return memGrade;
+	}
+
+	public void setMemGrade(String memGrade) {
+		this.memGrade = memGrade;
+	}
+
 	@Override
 	public String toString() {
 		return "FindFriendChatting [chattingNo=" + chattingNo + ", message=" + message + ", createDate=" + createDate
-				+ ", friendNo=" + friendNo + ", memNo=" + memNo + ", nickname=" + nickname + "]";
+				+ ", friendNo=" + friendNo + ", memNo=" + memNo + ", nickname=" + nickname + ", memGrade=" + memGrade
+				+ "]";
 	}
 
 }

@@ -23,6 +23,7 @@
 		<result property="nickname" column="NICKNAME"/>
 		<result property="categoryNm" column="CATEGORY_NM"/>
 		<result property="apply" column="APPLY"/>
+		<result property="memGrade" column="MEM_GRADE"/>
 	 
 	</resultMap>
 	
@@ -40,6 +41,7 @@
          <result property="friendNo" column="FRIEND_NO"/>
          <result property="memNo" column="MEM_NO"/>
          <result property="nickname" column="NICKNAME"/>
+         <result property="memGrade" column="MEM_GRADE"/>
    </resultMap>
    
    <!-- 전체 게시글 수 조회 -->
