@@ -114,9 +114,9 @@
 				max-width: none !important;
 			}
 
-			.hidden{
+		.hidden{
 				display : none;
-			}
+			} 
 
         </style>
             
@@ -281,7 +281,7 @@
             $("input:checkbox[name=chk]").each(function(){
 				if(this.checked){
 					reportNoList.push($(this).parent().siblings().eq(0).text());
-					boardCodeList.push($(this).parent().siblings().eq(2).text());
+					boardCodeList.push($(this).parent().siblings().eq(1).text());
 				}
         });
             
@@ -320,7 +320,7 @@
 				if(this.checked){
 					replyNoList.push($(this).parent().siblings().eq(3).text());
 					reportNoList.push($(this).parent().siblings().eq(0).text());
-					boardCodeList.push($(this).parent().siblings().eq(2).text());
+					boardCodeList.push($(this).parent().siblings().eq(1).text());
 				}
         });
             

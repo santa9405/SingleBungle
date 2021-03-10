@@ -515,7 +515,7 @@
 	
 	<!-- 신고댓글 복구 -->
 	<update id="recoverReportReply" parameterType="map">
-		DELETE FROM
+		DELETE FROM 
 		<choose>
 			<when test="boardCode == 1">
 				REPORT_REPLY
@@ -580,6 +580,7 @@
 					AND CATEGORY_CD = 53
 				</when>
 			</choose>
+			ORDER BY BOARD_NO DESC
 		</if>
 	</select>
 	

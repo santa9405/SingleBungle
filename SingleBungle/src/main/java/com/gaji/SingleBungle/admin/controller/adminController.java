@@ -1072,6 +1072,7 @@ public class adminController {
 			int reportNo = reportNoList[i];
 			int boardCode = boardCodeList[i];
 
+			System.out.println("boardCode" + boardCode);
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("reportNo", reportNo);
 			map.put("boardCode", boardCode);
@@ -1109,7 +1110,11 @@ public class adminController {
 			map2.put("boardCode", boardCode);
 			
 			result = service.deleteReportReply(map);
-			System.out.println("boardCode : " + boardCode);
+			
+			System.out.println(" boardCode: " + boardCode);
+			System.out.println(" replyNo: " + replyNo);
+			System.out.println(" reportNo: " + reportNo);
+			
 			
 			if(result>0) {
 				result = service.recoverReportReply(map2);
