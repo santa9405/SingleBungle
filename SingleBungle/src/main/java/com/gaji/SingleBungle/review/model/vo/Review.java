@@ -15,6 +15,7 @@ public class Review {
 	private int memberNo;
 	private String nickName;
 	private int likeCount;
+	private String memeberGrade;
 	
 	public Review() {}
 
@@ -114,14 +115,27 @@ public class Review {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
+	
+	
+	
+
+	public String getMemeberGrade() {
+		return memeberGrade;
+	}
+
+	public void setMemeberGrade(String memeberGrade) {
+		this.memeberGrade = memeberGrade;
+	}
 
 	@Override
 	public String toString() {
 		return "Review [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", createDate=" + createDate + ", status=" + status + ", readCount=" + readCount + ", boardCode="
 				+ boardCode + ", categoryCode=" + categoryCode + ", categoryName=" + categoryName + ", memberNo="
-				+ memberNo + ", nickName=" + nickName + ", likeCount=" + likeCount + "]";
+				+ memberNo + ", nickName=" + nickName + ", likeCount=" + likeCount + ", memeberGrade=" + memeberGrade
+				+ "]";
 	}
+
 
 	
 	

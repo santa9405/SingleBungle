@@ -161,8 +161,23 @@ body {
 			<div class="col-md-12">
 				<h8> 후기게시판 </h8>
 				<div class="float-right">
+
+					<c:set var="referer" value="${header.referer}" />
+					<c:set var="a" value="${fn:indexOf(referer,'/')}" />
+					<c:set var="l" value="${fn:length(referer)}" />
+					<c:set var="referer" value="${fn:substring(referer, a+2, l)}" />
+
+					<c:set var="a" value="${fn:indexOf(referer,'/')}" />
+					<c:set var="l" value="${fn:length(referer)}" />
+					<c:set var="referer" value="${fn:substring(referer, a, l-1)}" />
+
+					<c:if test="${referer == contextPath}">
+						<c:set var="returnListURL" value="list" />
+
+
+					</c:if>
 					<span class="bn" style="visibility: hidden">${review.boardNo}</span>
-					<button type="button" class="btn btn-primary ml-2 returnBtn maincolor">목록</button>
+					<a type="button" class="btn btn-primary ml-2 returnBtn maincolor" href="${returnListURL }" >목록</a>
 					<c:if test="${loginMember.memberNo != review.memberNo }">
 						<button type="button" class="btn btn-primary ml-2 report maincolor">신고</button>
 					</c:if>
@@ -181,8 +196,17 @@ body {
 
 		<div class="row no">
 			<div class="col-md-12">
-				<div class="boardInfo" id="writer">
-					<img class="image" src="${contextPath}/resources/images/profile.png" /> ${review.nickName }
+				<div class="boardInfo" id="writer" >
+					<c:if test="${review.memeberGrade=='F' }">
+							<img class="image" src="${contextPath}/resources/images/grade1.png"/>
+					</c:if>
+					<c:if test="${review.memeberGrade=='S' }">
+							<img class="image" src="${contextPath}/resources/images/grade2.png" />
+					</c:if>
+					<c:if test="${review.memeberGrade=='T' }">
+							<img class="image" src="${contextPath}/resources/images/grade3.png" />
+					</c:if>
+					 ${review.nickName }
 				</div>
 				<div class="boardInfo" id="createDt" style="color: gray">
 
@@ -246,41 +270,14 @@ body {
 		<!-- 목록버튼 -->
 		<div class="row  py-3" style="clear: both;">
 			<div class="col-md-12 text-center ">
-        <c:set var="referer" value="${header.referer}"/>
-       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
-       <c:set var="l" value="${fn:length(referer)}"/>
-       <c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
-       
-       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
-       <c:set var="l" value="${fn:length(referer)}"/>
-       <c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
-       
-       <c:if test="${referer == contextPath}">
-        <c:set var="returnListURL" value="list"/>
-       </c:if>
-					
-					
-					
-					
 				<c:if test="${empty sessionScope.returnListURL }">
 					<c:set var="returnListURL" value="../" scope="session" />
 				</c:if>
 				
-				<c:set var="referer" value="${header.referer}"/>
-       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
-       <c:set var="l" value="${fn:length(referer)}"/>
-       <c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
-       
-       <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
-       <c:set var="l" value="${fn:length(referer)}"/>
-       <c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
-       
-       <c:if test="${referer == contextPath}">
-        <c:set var="returnListURL" value="list"/>
-       </c:if>
+
 				
-				
-				<button type="button" class="btn btn-success returnBtn maincolor" style="width: 100px; height: 40px;">목록으로</button>
+				<a type="button" class="btn btn-success returnBtn maincolor" href="${returnListURL }" style="width: 100px; height: 40px;" >목록으로</a>
+
 			</div>
 		</div>
 

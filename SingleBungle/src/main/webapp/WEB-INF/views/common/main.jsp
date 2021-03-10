@@ -349,19 +349,19 @@
 															<c:set var="flag" value="true" />
 															<c:forEach var="thumbnail" items="${thumbnailList}">
 																<c:if test="${review.boardNo == thumbnail.parentBoardNo }">
-																	<a href="review/view/${review.boardNo}"><img src="${contextPath}${thumbnail.filePath}/${thumbnail.fileName}" class="img-fluid card-img-top embed-responsive-item"></a>
+																	<a href="review/${review.boardNo}"><img src="${contextPath}${thumbnail.filePath}/${thumbnail.fileName}" class="img-fluid card-img-top embed-responsive-item"></a>
 																	<c:set var="flag" value="false" />
 																</c:if>
 															</c:forEach>
 
 															<c:if test="${flag=='true'}">
-																<a href="review/view/${review.boardNo}"><img src="${contextPath}/resources/images/ReviewNonImages.png" class="img-fluid card-img-top embed-responsive-item"></a>
+																<a href="review/${review.boardNo}"><img src="${contextPath}/resources/images/ReviewNonImages.png" class="img-fluid card-img-top embed-responsive-item"></a>
 															</c:if>
 														</div>
 
 														<div class="infoAreaWrapper" style="padding : 24px; padding-bottom:0px;">
 															<h5>
-																<a href="review/view/${review.boardNo}" class="text-dark">${review.boardTitle }</a>
+																<a href="review/${review.boardNo}" class="text-dark">${review.boardTitle }</a>
 															</h5>
 															<div class="infoArea ">
 																<div class="viewArea float-left">

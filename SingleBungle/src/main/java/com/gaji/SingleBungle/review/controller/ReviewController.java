@@ -96,7 +96,7 @@ public class ReviewController {
 	
 	
 	// 상세조회
-	@RequestMapping("view/{boardNo}")
+	@RequestMapping("{boardNo}")
 	public String reviewView(@PathVariable("boardNo") int boardNo, Model model, @RequestHeader(value="referer",required=false) String referer,
 							RedirectAttributes ra, @ModelAttribute(name="loginMember", binding=false) Member loginMember) {
 		
