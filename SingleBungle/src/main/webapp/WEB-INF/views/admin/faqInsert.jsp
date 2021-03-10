@@ -65,7 +65,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-secondary mb-3 btn-warning">등록</button>
-                        <a class="btn btn-success float-right" href="${sessionScope.returnListURL}">취소</a>
+                        <a class="btn btn-success float-right" id="cancel">취소</a>
                     </div>
                 </form>
             </div>
@@ -107,7 +107,12 @@
 		}
 	}
 
-    
+ // 취소버튼
+	$("#cancel").on("click", function(){
+		if(confirm("목록으로 돌아가시겠습니까?")){
+	         location.href = "faqView";
+	  }
+	});
 
     </script>
 </body>
