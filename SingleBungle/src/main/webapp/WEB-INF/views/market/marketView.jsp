@@ -384,7 +384,7 @@
 						
 						<!-- 좋아요(찜하기) -->
  						<div>
-							<a class="btn btn-primary btn-lg btnW likeBtn active" role="button" aria-pressed="true">
+							<a  class="btn btn-primary btn-lg btnW likeBtn active" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/like1.png" width="20" height="20" id="heart"
 									class='likeImgs <c:if test="${likeCheck == 1}">like2</c:if>'>
 								<span class="likeCnt cnt">
@@ -394,7 +394,7 @@
 							</a>
 							
 							
-							<a href="#" class="btn btn-info btn-lg btnW active" role="button" aria-pressed="true">
+							<a data-toggle="modal" href="#sendMessage" class="btn btn-info btn-lg btnW active" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="message"> 
 								<span class="messageText">쪽지</span>
 							</a>
@@ -541,9 +541,50 @@
 				</c:if>
 				<!-- End -->
 			</div>
-		
+		</div>
+	
+	
+	
+	
+<!-- 쪽지 보내기~!!!!!!!   -->	
+<c:if test="${loginMember.memberNo != market.memNo }">
+
+<!-- Modal HTML -->
+
+			<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
+	<div id="sendMessage" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+			
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">받는사람 :  ${market.nickname}</h5> 
+						<input type="hidden" name="memberNo" value="${market.memNo}">
+					</div>
+					<div class="modal-body" style="padding-bottom : 1px;">
+						<textarea class="messageText" id="writeMessage" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+						<div id="messageCnt" class="float-right" style="font-size:13px;">(0/100)</div>
+					</div>
+					<div class="modal-footer">
+						<div class="col">
+							<button type="submit" class="btn maincolor btn-block">
+								<span class="plan">전송</span>
+							</button>
+						</div>
+						<div class="col">
+							<button type="button" class="btn maincolor-re btn-block" data-dismiss="modal">
+								<span class="plan">닫기</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>  
+			</form> 
+</c:if>
+	
 	
 		
+	<jsp:include page="../common/footer.jsp" />
 
 	<script>
 	
@@ -695,6 +736,29 @@
 			 window.open('${contextPath}/market/marketReport/${market.marketNo}', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 		});
 
+		
+		
+		//----------------------------------------------------------------------------
+		// 메세지 유효성 검사
+		function messageValidate(){
+			
+			if($("#writeMessage").val().trim().length ==0){
+				swal("내용을 입력해 주세요");
+				$("#writeMessage").focus();
+				return false;
+			}
+		}
+		
+		// 메세지 글자수 제한
+		$(document).ready(function(){
+				$("#writeMessage").on('input',function(){
+						$("#messageCnt").html("("+$(this).val().length+" / 100)");
+						if($(this).val().length>100){
+							$(this).val($(this).val().substring(0,100));
+							$("#messageCnt").html("(100/100)");
+						}
+				});
+			});		
 		
 
 	</script>
