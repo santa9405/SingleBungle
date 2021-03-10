@@ -13,6 +13,7 @@ public class CafeReply {
 	private String nickname;
 	private int CafeNo; // parentCafeNo
 	private int parentReplyNo;
+	private String memberGrade;
 	
 	public CafeReply() {
 	}
@@ -88,13 +89,26 @@ public class CafeReply {
 	public void setParentReplyNo(int parentReplyNo) {
 		this.parentReplyNo = parentReplyNo;
 	}
+	
+	
+
+	public String getMemberGrade() {
+		return memberGrade;
+	}
+
+	public void setMemberGrade(String memberGrade) {
+		this.memberGrade = memberGrade;
+	}
 
 	@Override
 	public String toString() {
 		return "CafeReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
 				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickname="
-				+ nickname + ", CafeNo=" + CafeNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ nickname + ", CafeNo=" + CafeNo + ", parentReplyNo=" + parentReplyNo + ", memberGrade=" + memberGrade
+				+ "]";
 	}
+
+	
 	
 	
 
