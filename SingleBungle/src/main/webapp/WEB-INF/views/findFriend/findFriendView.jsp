@@ -221,7 +221,16 @@ body {
 					<span>${findFriend.location2}</span>&nbsp;&nbsp;
 					<img src="${contextPath}/resources/images/friendCalendar.png" width="20" height="20">&nbsp;<span>${findFriend.meetingDate}</span>&nbsp;&nbsp;
 					<img src="${contextPath}/resources/images/friendClock.png" width="20" height="20">&nbsp;<span>${findFriend.meetingTime}</span>&nbsp;&nbsp;
-					<img src="${contextPath}/resources/images/friendCapacity.png" width="25" height="25">&nbsp;<span id="applyCount"></span><span>/${findFriend.capacity}</span>
+					<img src="${contextPath}/resources/images/friendCapacity.png" width="25" height="25">&nbsp;<span id="applyCount"></span><span>/${findFriend.capacity}</span>&nbsp;&nbsp;
+						<c:if test="${loginMember.memberNo != findFriend.memNo }">
+								<!-- 쪽지 보내기 임시   -->
+								<div class="text-center" style="display : inline-block">
+									<!-- Button HTML (to Trigger Modal) -->
+									<button id="send" class="btn" data-toggle="modal" data-backdrop="static" data-target="#sendMessage" style="padding:0px; margin-bottom : 4px;">
+										<img src="${contextPath}/resources/images/message1.png" width="25" height="25">&nbsp;<span>쪽지</span>
+									</button>
+								</div>
+							</c:if>		
 				</div>
 			</div>
 
@@ -293,6 +302,49 @@ body {
 
 		</div>
 	</div>
+	
+	
+	
+	
+<!-- 쪽지!!!!!!!!!!!!!!  -->	
+<!-- Modal HTML -->
+
+			<form  method="POST" action="${contextPath}/message/sendMessage" onsubmit="return messageValidate();">
+				<div id="sendMessage" class="modal fade">
+					<div class="modal-dialog modal-confirm">
+						
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">받는사람 :  ${findFriend.nickname} </h5> 
+									<input type="hidden" name="memberNo" value="${findFriend.memNo}">
+								</div>
+								<div class="modal-body" style="padding-bottom : 1px;">
+									<textarea class="messageText" id="writeMessage" name="content" style="border: 1px solid black; height: 150px; width: 100%; resize: none;"></textarea>
+									<div id="messageCnt" class="float-right" style="font-size:13px;">(0/100)</div>
+								</div>
+								<div class="modal-footer">
+									<div class="col">
+										<button type="submit" class="btn maincolor btn-block">
+											<span class="plan">전송</span>
+										</button>
+									</div>
+									<div class="col">
+										<button type="button" class="btn maincolor-re btn-block" data-dismiss="modal">
+											<span class="plan">닫기</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>  
+			</form> 
+
+	
+	
+	
+	
+	
+	
 	<jsp:include page="../common/footer.jsp" />
 
 	<script>
@@ -444,6 +496,31 @@ body {
 			}
 			
 		});
+		
+		
+		
+		//----------------------------------------------------------------------------
+		// 메세지 유효성 검사
+		function messageValidate(){
+			
+			if($("#messageText").val().trim().length ==0){
+				swal("내용을 입력해 주세요");
+				$("#messageText").focus();
+				return false;
+			}
+		}
+		
+		// 메세지 글자수 제한
+		$(document).ready(function(){
+				$("#writeMessage").on('input',function(){
+						$("#messageCnt").html("("+$(this).val().length+" / 100)");
+						if($(this).val().length>100){
+							$(this).val($(this).val().substring(0,100));
+							$("#messageCnt").html("(100/100)");
+						}
+				});
+			});
+		
 		
 	</script>
 
