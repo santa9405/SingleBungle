@@ -23,27 +23,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <style>
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 500;
-	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
-	color: #212529;
-	margin: 0;
-}
 
-a {
-	color: #212529;
-}
 
 a:hover {
 	text-decoration: none;
-}
-
-/* ---------------------------------------------------------------------- */
-/* 별표 빨간색 */
-.requiredInput {
-	color: #ffaf18;
 }
 
 /* 전화번호 ---------------------------------------------------------------------- */
@@ -106,6 +89,9 @@ a:hover {
 </head>
 
 <body>
+
+	<jsp:include page="../common/header.jsp"/>
+
 	<div class="container mt-5 pt-5">
 		<div class="row">
 
@@ -208,7 +194,7 @@ a:hover {
 		<div class="col-md-4"></div>
 	</div>
 
-	<jsp:include page="../common/header.jsp" />
+	<jsp:include page="../common/footer.jsp" />
 
 <script>
 /* 사이드 메뉴를 내가 선택한 메뉴에 색 고정하기 */

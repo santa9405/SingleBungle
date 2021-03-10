@@ -124,26 +124,45 @@
 			flex: none !important;
 			max-width: none !important;
 		}
+		
+		.img-thumbnail{
+		width:200px;
+		}
 
     </style>
 </head>
 
 <body>
 
+	<jsp:include page="../common/header.jsp"/>
+	
+	
     <div class="container mt-5 pt-5">
         <div class="row">
 
             <jsp:include page="sideMenu.jsp" />
 
 
-
-
             <div class="col-sm-9">
 
                 <div class="myBoard form-group row">
                     <div class="col-sm-3">
-                        <img class="img-thumbnail" src="${contextPath}/resources/images/profile.png">
+                        <%-- <img class="img-thumbnail" src="${contextPath}/resources/images/profile.png"> --%>
+                        
+                        <c:if test="${loginMember.memberGrade == 'F'}">
+                    	    <img class="img-thumbnail" src="${contextPath}/resources/images/g1.png">
+                        </c:if>
+						<c:if test="${loginMember.memberGrade == 'S'}">
+							<img class="img-thumbnail"  src="${contextPath}/resources/images/g2.png">
+						</c:if>
+						<c:if test="${loginMember.memberGrade == 'T'}">
+							<img class="img-thumbnail"  src="${contextPath}/resources/images/g3.png">
+						</c:if>
+						<c:if test="${loginMember.memberGrade == 'G'}">
+							<img class="img-thumbnail"  src="${contextPath}/resources/images/profile.png">
+						</c:if>
                     </div>
+                    
                     <div class="col-sm-9">
                         <!-- <div style="margin-bottom:10px;">
                             닉네임 : 소리아
@@ -152,7 +171,7 @@
                         <div style="margin-bottom:10px;">성별 : 여자</div>
                         <div style="margin-bottom:10px;">동네인증이 되지 않았습니다. <button>인증하기</button></div> -->
 
-                        <table class="profile">
+                        <table class="profile"  style="padding-left:50px;">
                             
                                     <tr>
                                         <td class="profile-area-left">닉네임</td>
@@ -524,8 +543,10 @@
         </div>
     </div>
     </div>
+    
+    <jsp:include page="../common/footer.jsp"/>
 
-    <jsp:include page="../common/header.jsp"/>
+    
   
  <script>
  

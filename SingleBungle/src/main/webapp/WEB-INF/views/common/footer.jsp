@@ -8,6 +8,11 @@
 		background-color: #eee;
 	    width: 100%;
 	    height: 120px;
+	    left: 0;
+	    right: 0;
+        bottom: 0;
+	    margin: 0;
+	    padding:0px;
 	}
 </style>
 </head>
@@ -15,7 +20,7 @@
 	<!-- Footer -->
 	<div class="py-5 footer">
 	  <div class="footerContainer">
-	  	<div class="row">
+	  	<div class="row" style="margin-left:0px; margin-right:0px;">
 		    <div class="col-md-12 text-center">&copy; SingleBungle</div>
 	  	</div>
 	  </div>
