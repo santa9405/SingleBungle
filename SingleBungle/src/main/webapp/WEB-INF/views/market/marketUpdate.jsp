@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 - 판매글 수정</title>
+<title>벙글장터 - 게시글 수정</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <style>
@@ -285,7 +285,7 @@
 					<div class="row py-5 no-gutters">
 						<div class="col-lg-12 mx-auto">
 							<div class="text-black banner">
-								<a class="ListGo" href="../market/list"><h1 class="boardName">사고팔고</h1></a>
+								<a class="ListGo" href="../list"><h1 class="boardName">벙글장터</h1></a>
 								<hr>
 							</div>
 						</div>

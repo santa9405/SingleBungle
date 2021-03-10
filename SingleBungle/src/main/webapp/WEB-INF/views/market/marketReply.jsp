@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 댓글</title>
+<title>벙글장터 댓글</title>
 <style>
 
 /* 댓글 */
