@@ -178,15 +178,8 @@
 		SELECT COUNT(*) FROM V_MARKET
 		WHERE MARKET_FL = 'N'
 		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬) -->
-		<if test="ct != null">
-			<choose>
-				<when test="ct == 1">
-					AND TRANSACTION_CATEGORY = 2
-				</when>
-				<when test="ct== 2">
-					AND TRANSACTION_CATEGORY = 1
-				</when>
-			</choose>
+		<if test="ct != null and ct != 0">
+					AND TRANSACTION_CATEGORY = #{ct}
 		</if>
 		<if test="sv != null">
 			<bind name="val" value="'%' + sv + '%'" />
@@ -202,15 +195,8 @@
 		WHERE MARKET_FL = 'N' 
 
 		<!-- 넘어오는 값,, ct(카테고리), sk, sv , sort(정렬) -->
-		<if test="ct != null">
-			<choose>
-				<when test="ct == 1">
-					AND TRANSACTION_CATEGORY = 1
-				</when>
-				<when test="ct== 2">
-					AND TRANSACTION_CATEGORY = 2
-				</when>
-			</choose>
+					<if test="ct != null and ct != 0">
+					AND TRANSACTION_CATEGORY = #{ct}
 		</if>
 		<if test="sv != null">
 		<bind name="val" value="'%' + sv + '%'" />
@@ -226,10 +212,10 @@
 					ORDER BY MARKET_NO DESC
 				</when>
 				<when test="sort =='rowSort'">
-					ORDER BY PRICE ASC, MARKET_NO DESC
+					ORDER BY to_number(PRICE) ASC, MARKET_NO DESC
 				</when>
 				<otherwise>
-					ORDER BY PRICE DESC , MARKET_NO DESC
+					ORDER BY to_number(PRICE) DESC , MARKET_NO DESC
 				</otherwise>
 			</choose>
 		</if>

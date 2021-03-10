@@ -3,6 +3,8 @@
  <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+ <%@ page import="java.sql.Timestamp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -335,20 +337,57 @@
 						 </div>
 						  
 						<div>
-<%-- 						<jsp:useBean id="now" class="java.util.Date" />
-						<fmt:formatDate var="createDt" value="${market.createDt}" pattern="yyyy-MM-dd" />
-						<fmt:formatDate var="today" value="${now }" pattern="yyyy-MM-dd" />  --%>
+
+
+						
+							
+			        <%-- <jsp:useBean id="toDay_B" class="java.util.Date" /> ${toDay_B}, 
+			        <c:set var="now" value="<%=new java.util.Date()%>"/> ${toDay_C},
+			        <fmt:parseDate var="createDt" value="${market.createDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+								
+							
+							
+								<fmt:formatDate value="createDt" pattern="yyyy.MM.dd HH:mm:ss" />
+								<fmt:formatDate value="now" pattern="yyyy.MM.dd HH:mm:ss" />
+								<fmt:parseNumber value="${createDt.time / (1000*60*60*24)}" integerOnly="true" var="end" scope="request" />
+								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="str" scope="request" /> --%>
+								
+								 <!-- 날짜 객체생성 방법 -->
+<%--         <%request.setAttribute("toDay_A", new java.util.Date());%> ${toDay_A}, 
+        <jsp:useBean id="toDay_B" class="java.util.Date" /> ${toDay_B}, 
+        <c:set var="now" value="<%=new java.util.Date()%>"/> ${toDay_C},
+        <fmt:parseDate var="createDt" value="${market.createDt}" pattern="yyyy.MM.dd" />
+							
+							
+							  <!-- 날짜 포맷 방법 -->
+        <fmt:formatDate value="${now}" pattern="yyyy.MM.dd" />, 
+        <fmt:formatDate value="${toDay_B}" pattern="yyyy-MM-dd HH:mm:ss"/>, 
+        <fmt:formatDate value="${toDay_C}" pattern="E"/> 요일, 
+        <fmt:formatDate value="${toDay_D}" pattern="yyyy-MM-dd"/>
+        
+        
+        <fmt:parseDate var="sDate" value="${now}" pattern="yyyyMMdd" />
+        <fmt:parseNumber value="${sDate.matchTime / (1000*60*60*24)}" integerOnly="true" var="isDate" scope="request" />
+        <fmt:parseDate var="tDate" value="${createDt}" pattern="yyyyMMdd" />
+        <fmt:parseNumber value="${tDate.matchTime / (1000*60*60*24)}" integerOnly="true" var="itDate" scope="request" />
+        ${itDate - isDate} 일 지남
+         --%>
+        
+        <%-- <fmt:formDate value="${market.createDt}" type="both" pattern="yyyy-MM-ss"/> --%>
+        
 						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
-						 <h5 class="clock float-left cnt">${createDt - today}</h5> 
+						 <h5 class="clock float-left cnt">${now - createDt}</h5> 
 						 </div> 
 						 
+						 
+						 
 						
-
+						<c:if test="${market.memNo != loginMember.memberNo}"> 
 							<button  type="button" class="btn float-right btn-sm mb-3 report" id="report" role="button" aria-pressed="true">
 								<img src="${contextPath}/resources/images/siren.png" width="20" height="20" id="siren">
 								신고하기
 							</button>
-						
+						</c:if>
 						 
 			
 					
@@ -394,11 +433,14 @@
 							</a>
 							
 							
-							<a data-toggle="modal" href="#sendMessage" class="btn btn-info btn-lg btnW active" role="button" aria-pressed="true">
+							<a data-toggle="modal" <c:if test="${loginMember.memberNo != market.memNo }">href='#sendMessage'</c:if> class="btn btn-info btn-lg btnW active" role="button" aria-pressed="true"
+							<c:if test="${loginMember.memberNo == market.memNo }">style="cursor: no-drop;" title="본인 게시글에는 쪽지를 보낼 수 없습니다!" </c:if>
+							>
+							
 								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="message"> 
 								<span class="messageText">쪽지</span>
 							</a>
-							
+	
 
 						</div>
 						
@@ -409,8 +451,7 @@
 								<span>수정</span>
 							</a>
 							
-							<a  class="btn btn-danger btn-lg btnW active MdeleteBtn" role="button" aria-pressed="true"
-									href="${contextPath}/market/delete/${market.marketNo}">
+							<a  class="btn btn-danger btn-lg btnW active MdeleteBtn" role="button" aria-pressed="true">
 								<span>삭제</span>
 							</a>
 						</div>
@@ -547,7 +588,6 @@
 	
 	
 <!-- 쪽지 보내기~!!!!!!!   -->	
-<c:if test="${loginMember.memberNo != market.memNo }">
 
 <!-- Modal HTML -->
 
@@ -580,8 +620,7 @@
 			</div>
 	</div>  
 			</form> 
-</c:if>
-	
+
 	
 		
 	<jsp:include page="../common/footer.jsp" />
@@ -611,9 +650,7 @@
 	
 	// 삭제버튼
 	$(".MdeleteBtn").on("click", function(){
-		var result = confirm("삭제 하시겠습니까?");
-		
-		if(result==true){
+		if(confirm("삭제 하시겠습니까?")){
 			location.href = "${contextPath}/market/delete/${market.marketNo}";
 		}
 	});
