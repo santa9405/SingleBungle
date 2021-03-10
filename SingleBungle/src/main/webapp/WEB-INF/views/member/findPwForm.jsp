@@ -182,7 +182,7 @@ a:hover {
                             <div class="emg email-2">@</div>
                             <div class="em email-3 em-end">
                                 <select class="form-control email" id="email2" name="email2">
-                                    <option>이메일 선택</option>
+                                    <option id="mailSelect">이메일 선택</option>
                                     <option>naver.com</option>
                                     <option>daum.com</option>
                                     <option>hanmail.com</option>
@@ -237,11 +237,14 @@ a:hover {
 	$("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
 		var mail = $("#email1").val() + "@" + $("#email2").val(); //사용자의 이메일 입력값. 
 		
-		var mailId =$("#email1").val();
+		var mailId =$("#email1").val(); // 이메일 아이디
+		var mailSelect =$("#email2").val(); // 이메일 뒷주소
 		
-		console.log(mail);
+		//console.log("mailId : " + mail);
+		//console.log("mail : " + mail);
+		//console.log("mailSelect : " + mailSelect);
 		
-		if (mailId == "") { // 아이디가 입력되지 않았다면
+		if (mailId == "" || mailSelect =="이메일 선택" ) { // 아이디 또는 메일 주소가 입력되지 않았다면
 			alert("메일 주소가 입력되지 않았습니다.");
 		} else {
 			$.ajax({
@@ -254,7 +257,6 @@ a:hover {
 				success : function(result){
 					key = result;
 					alert("인증번호가 전송되었습니다.");
-					
 				}
 			});
 		}
@@ -278,15 +280,12 @@ a:hover {
 	});
 	
 	
-	
-	
 	// 입력된 전화번호, 주소 조합하여 form태그에 hidden으로 추가 하기
 	// 왜? -> 커맨드 객체를 이용하여 파라미터를 한번에 받기 쉽게 하기 위하여
 	
 	$memberEmail = $("<input>", {type : "hidden", name : "memberEmail",
 			value : $("#email1").val() + "@" + $("#email2").val()
 	});
-
 
 	$("form[name='findPwForm']").append($memberEmail);
 	

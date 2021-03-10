@@ -42,10 +42,13 @@ public class LoginFilter implements Filter {
 		ALLOWED_PATH.add("/member/signUpAction"); // 회원 가입 요청
 		ALLOWED_PATH.add("/member/idDupCheck"); // 아이디 중복검사 요청
 		ALLOWED_PATH.add("/member/nnDupCheck"); // 닉네임 중복검사 요청
-		ALLOWED_PATH.add("/member/SignUpMail"); // 회원가입 이메일 전송 // 
-		ALLOWED_PATH.add("/member/findIdForm"); // 아이디찾기1
-		ALLOWED_PATH.add("/member/FindIdMail"); // 아이디찾기 이메일 전송 //
+		ALLOWED_PATH.add("/member/SignUpMail"); // 회원가입 이메일 전송 
+		
+		ALLOWED_PATH.add("/member/findIdForm"); // 아이디찾기
+		ALLOWED_PATH.add("/member/nameMailCheck"); // 이름, 메일 일치 검사
+		ALLOWED_PATH.add("/member/FindIdMail"); // 아이디찾기 이메일 전송
 		ALLOWED_PATH.add("/member/findIdResultForm"); // 아이디찾기2
+		
 		ALLOWED_PATH.add("/member/findPwForm"); // 비밀번호찾기1
 		ALLOWED_PATH.add("/member/CheckPwMail"); // 비밀번호 찾기 이메일 전송 //
 		ALLOWED_PATH.add("/member/findPwChangeForm"); // 비밀번호찾기2

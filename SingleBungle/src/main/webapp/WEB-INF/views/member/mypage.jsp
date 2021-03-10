@@ -199,7 +199,7 @@
 
                 <div class="myReply">
                     <span>
-                        <h4>좋아요한 글 보기</h4>
+                        <h4>좋아요한 글</h4>
                     </span>
 
 
@@ -207,7 +207,7 @@
                         <thead>
                             <tr>
                                 <th>게시판</th>
-                                <th>댓글 남긴 게시글</th>
+                                <th>좋아요한 게시글</th>
                                 <th>작성일</th>
                             </tr>
                         </thead>
@@ -318,7 +318,7 @@
                         <thead>
                             <tr>
                                 <th>게시판</th>
-                                <th>댓글 남긴 게시글</th>
+                                <th>내가 쓴 게시글</th>
                                 <th>작성일</th>
                             </tr>
                         </thead>
