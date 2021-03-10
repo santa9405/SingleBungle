@@ -283,6 +283,24 @@ public class MarketDAO {
 		return sqlSession.insert("marketMapper.locateInsert", map);
 	}
 
+
+	/** 노인증 주소 검색 insert DAO
+	 * @param map
+	 * @return result
+	 */
+	public int NoCertificationInsert(Map<String, Object> map) {
+		return sqlSession.insert("marketMapper.NoCertificationInsert", map);
+	}
+
+
+	/** 노인증 주소 검색 update DAO
+	 * @param map
+	 * @return result
+	 */
+	public int NoCertificationUpdate(Map<String, Object> map) {
+		return sqlSession.update("marketMapper.NoCertificationUpdate", map);
+	}
+
 	
 
 	

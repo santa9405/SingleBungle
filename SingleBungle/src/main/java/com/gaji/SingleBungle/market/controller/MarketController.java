@@ -457,7 +457,7 @@ public class MarketController {
 	// 동네인증 Controller
 	@ResponseBody
 	@RequestMapping("locateCertification")
-	public String locateCertification(@ModelAttribute("loginMember") Member loginMember,
+	public String locateCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
 								  	@RequestParam("locate") String locate) {
 		
 		
@@ -471,7 +471,7 @@ public class MarketController {
 		map.put("locate", locate);
 		map.put("memberNo", loginMember.getMemberNo());
 		
-		if(certificationCheck == null || certificationCheck.charAt(0) == 'N'){
+		if(certificationCheck == null){
 			int result = service.locateInsert(map);
 			
 			if(result > 0) {
@@ -480,11 +480,12 @@ public class MarketController {
 				loginMember.setMemberCertifiedFl("Y");
 				return lResult;
 			}
-		} else if(certificationCheck.charAt(0) == 'Y') { // 인증 된 회원일 때
+		} else if(certificationCheck.charAt(0) == 'Y' || certificationCheck.charAt(0) == 'N') { // 인증 된 회원일 때
+			System.out.println("여기 들어와?");
 			String currAddr = loginMember.getAddress();
 			
 			if(currAddr.equals(locate)) { // 기존 인증 주소와 새로 받은 인증 주소가 같을 때
-				
+				loginMember.setMemberCertifiedFl("Y");
 				lResult = locate;
 				return lResult;
 			} else { // 기존 인증 주소와 새로 받은 인증 주소가 다를 때
@@ -494,18 +495,60 @@ public class MarketController {
 				if(result > 0) {
 					lResult = locate;
 					loginMember.setAddress(locate);
+					loginMember.setMemberCertifiedFl("Y");
 				}
 				
 				return lResult;
 			}
 		} 
-		 
 		return lResult;
 	}
 	
 	
-	
-	
+	// 노 인증 위치 검색 Controller
+	@ResponseBody
+	@RequestMapping("locateNoCertification")
+	public String locateNoCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
+		  								@RequestParam("locate") String locate) {
+		String certificationCheck = loginMember.getMemberCertifiedFl();
+		String lResult = null;
+		System.out.println("테스트 " + locate);
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("locate", locate);
+		map.put("memberNo", loginMember.getMemberNo());
+
+		if (certificationCheck == null) {
+			int result = service.NoCertificationInsert(map);
+
+			if (result > 0) {
+				lResult = locate;
+				loginMember.setAddress(locate);
+				loginMember.setMemberCertifiedFl("N");
+				return lResult;
+			}
+		} else {
+			String currAddr = loginMember.getAddress();
+
+			if (currAddr.equals(locate)) { // 기존 인증 주소와 새로 받은 인증 주소가 같을 때
+
+				lResult = locate;
+				return lResult;
+			} else {
+				
+				int result = service.NoCertificationUpdate(map);
+
+				if (result > 0) {
+					lResult = locate;
+					loginMember.setAddress(locate);
+				}
+
+				return lResult;
+			}
+		}
+
+		return lResult;
+	}
 	
 	
 	

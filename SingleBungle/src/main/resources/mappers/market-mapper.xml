@@ -327,7 +327,8 @@
 	<!-- 동네인증 update -->
 	<update id="locateUpdate" parameterType="map">
 		UPDATE MEMBER_CERTIFIED SET
-		ADDRESS = #{locate}
+		ADDRESS = #{locate},
+		CERTIFIED_FL = 'Y'
 		WHERE MEM_NO = #{memberNo}
 	</update>
 	
@@ -339,7 +340,18 @@
 	</insert>
 	
 	
+	<!-- 주소 검색 insert -->
+	<insert id="NoCertificationInsert" parameterType="map">
+		INSERT INTO MEMBER_CERTIFIED 
+		VALUES (#{memberNo}, 'N', #{locate})
+	</insert>
 	
+	<!-- 주소 검색 update -->
+	<update id="NoCertificationUpdate" parameterType="map">
+		UPDATE MEMBER_CERTIFIED SET
+		ADDRESS = #{locate}
+		WHERE MEM_NO = #{memberNo}
+	</update>
 	
 	<!--  관리자  : 삭제된 게시글 상세 조회 -->
 	<select id="selectDeleteReview" parameterType="_int" resultMap="market_rm">
