@@ -20,11 +20,9 @@
 		<result property="transactionCategory" column="TRANSACTION_CATEGORY" />
 		<result property="transactionStatus" column="TRANSACTION_STATUS" />
 		<result property="nickname" column="NICKNAME" />
-		<result property="certifiedFl" column="CERTIFIED_FL" />
 		<result property="address" column="ADDRESS" />
 		<result property="categoryNm" column="CATEGORY_NM" />
 		<result property="likes" column="LIKES" />
-		<result property="rating" column="RATING" />
 		<result property="itemCount" column="ITEMCOUNT" />
 		
 	</resultMap>
@@ -324,6 +322,21 @@
 		WHERE MARKET_FL = 'N' AND MEM_NO = #{memberNo}
 		ORDER BY MARKET_NO DESC
 	</select>
+	
+	
+	<!-- 동네인증 update -->
+	<update id="locateUpdate" parameterType="map">
+		UPDATE MEMBER_CERTIFIED SET
+		ADDRESS = #{locate}
+		WHERE MEM_NO = #{memberNo}
+	</update>
+	
+	
+	<!-- 동네인증 insert -->
+	<insert id="locateInsert" parameterType="map">
+		INSERT INTO MEMBER_CERTIFIED 
+		VALUES (#{memberNo}, 'Y', #{locate})
+	</insert>
 	
 	
 	

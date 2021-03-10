@@ -262,6 +262,43 @@
 		margin-top : 8px;
 	}
 
+#modal{
+  display:none;
+  position:fixed; 
+  width:100%; height:100%;
+  top:0; left:0; 
+  background:rgba(0,0,0,0.3);
+}
+.modal-con{
+  display:none;
+  position:fixed;
+  top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  max-width: 60%;
+  min-height: 30%;
+  background:#fff;
+}
+
+.modal-con .title{
+  font-size:20px; 
+  padding: 20px; 
+  background : gold;
+}
+.modal-con .con{
+  font-size:15px; line-height:1.3;
+  padding: 30px;
+}
+.modal-con .close{
+  display:block;
+  position:absolute;
+  width:30px; height:30px;
+  border-radius:50%; 
+  border: 3px solid #000;
+  text-align:center; line-height: 30px;
+  text-decoration:none;
+  color:#000; font-size:20px; font-weight: bold;
+  right:10px; top:10px;
+}
 </style>
 </head>
 <body>
@@ -378,6 +415,7 @@
 							<div class="formContent titleFlex">
 								<div class="locationBtnArea mb-20">
 									<button type="button" id="currLocation" class="LBtn btn btn-info">내 위치</button>
+									<button type="button" data-toggle="modal"data-backdrop="static" data-target="#searchAddr" id="searchLocation" class="LBtn btn btn-info">주소 검색</button>
 								</div>
 								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput" name="address" class="location" required>
 								<span class="errorMsg" id="locationMsg"></span>
@@ -422,7 +460,7 @@
 							</div>
 							
 							<div class="formContent titleFlex">
-								<textarea rows="6" name="marketContent" placeholder="상품 설명을 입력해주세요.(최소 5글자)" class="itemInfoText" maxlength="2000" minlength="5" required></textarea>
+								<textarea rows="6" name="marketContent" placeholder="상품 설명을 입력해주세요.(최소 5글자)" class="itemInfoText" maxlength="2000" minlength="5" required ></textarea>
 									<div class="titleCnt float-right">
 									<span id="ContentCurrCnt">0</span>
 									<span id="ContentMaxCnt">/ 2000</span>
@@ -455,6 +493,32 @@
 		</div>
 	</div>
 	<jsp:include page="../common/footer.jsp"/>
+	
+	
+	
+	
+	<div id="searchAddr" class="modal fade">
+		<div class="modal-con madal1">
+			<a href="javascript:;" class="close">X</a>
+			<p class="title">제목</p>
+			<div class="con">
+				<form class="searchAddrForm">
+					<input type="text" placeholder="동(읍/면/리) 입력를 입력해주세요.">
+					<button type="submit" class="sBtn"></button>
+				</form>
+				
+				<ul>
+					<li>
+						<button type="button" class="resultAddr">서울 특별시</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</div>
+
+	
+	
+	
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74&libraries=services,clusterer"></script>
 	<script>
 	var imgCnt = 0;
@@ -588,11 +652,11 @@
 	
       //-------------------------------------------------------------------------------------------------------------------------------
   
-      var check = false;
       var locate;
-      
-      
-     function getLocation() {
+     	var inputLocate = "none";
+    
+        
+     function getLocation(getLoc) {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(pos) {
 					var latitude = pos.coords.latitude;
@@ -601,7 +665,8 @@
 
 					var callback = function(result, status){
 					    if (status === kakao.maps.services.Status.OK) {
-									locate = result[0].address_name;
+									//locate = result[0].address_name;
+									getLoc(result[0].address_name);
 					        console.log('지역 명칭 : ' + locate);
 					    }
 					} 
@@ -611,25 +676,20 @@
 					
 				}, function(error) {
 					alert(error);
-					check = false;
 				})
 			} else {
 				alert("이 브라우저에서는 위치 정보를 얻어올 수 없습니다.");
-				check = false;
 			}
 		}
-		
-      
-      
-      
-      
+  
       
 
 		$("#currLocation").on("click", function() {
-			getLocation();
-
-			console.log(locate);
-			if (locate != undefined) {
+		
+			getLocation(function(loc){
+       	console.log(loc);
+       	locate = loc;
+      	
 				$.ajax({
 					url : "locateCertification",
 					type : "post",
@@ -637,16 +697,59 @@
 						"locate" : locate
 					},
 					success : function(result) {
-
+							if(result != null){
+								swal({ icon : "success", title : "위치 인증이 완료되었습니다." });
+								$("#locationInput").val(locate).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
+								
+							} else{
+								swal({ icon : "error", title : "위치 인증이 정상적으로 이루어지지 않았습니다." });
+							}
 					},
 					error : function(result) {
 						console.log("ajax 통신 오류 발생!");
 					}
-
 				});
-
-			}
+      });
 		});
+		
+		
+		
+		
+	$("#locationInput").on("input", function(){
+		var geocoder = new kakao.maps.services.Geocoder();
+
+		var callback = function(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		     if(result[0].hasOwnProperty('address_name')) {
+		    			inputLocate = result[0].address_name;
+		    			console.log(result);
+		    			$("#locationInput").css("border",  "1px solid #ffaf18");
+		    			$("#locationMsg").text("올바른 주소입니다. 만약 원하는 주소가 아닐 시 구 주소부터 다시 입력해주세요.");
+		    			$("#locationInput").val(inputLocate);
+		    		}
+		    }else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+		    	$("#locationInput").css("border",  "1px solid red");
+		        return;
+
+		    }
+		};
+
+		geocoder.addressSearch($("#locationInput").val(), callback);
+	});
+	
+	
+	
+	$("#searchLocation").on("click", function(){
+		$(".madal1").modal('show');
+	});
+	
+	function openModal(modalname){
+		  document.get
+		  $("#modal").fadeIn(300);
+		  $("."+modalname).fadeIn(300);
+		}
+
 	</script>
 
 </body>

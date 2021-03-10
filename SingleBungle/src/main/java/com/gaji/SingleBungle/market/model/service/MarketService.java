@@ -148,6 +148,21 @@ public interface MarketService {
 	 */ 
 	List<Market> selectMypageList(Map<String, Object> map);
 
+	
+	/** 동네인증 update service
+	 * @param map
+	 * @return result
+	 */
+	int locateUpdate(Map<String, Object> map);
+	
+	/** 동네인증 insert service
+	 * @param map
+	 * @return result
+	 */
+	int locateInsert(Map<String, Object> map);
+
+	
+
 
 	
 

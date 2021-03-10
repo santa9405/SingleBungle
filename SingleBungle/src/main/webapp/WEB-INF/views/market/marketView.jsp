@@ -376,7 +376,7 @@
 								</li>
 								
 								<li class="sellerLocation ">
-									<label>거래지역</label> <span>경기도 호평동</span>
+									<label>거래지역</label> <span>${market.address}</span>
 								</li>
 							</ul>
 						</div>
