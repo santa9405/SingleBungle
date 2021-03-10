@@ -133,10 +133,10 @@
 								<img class="d-block w-100" src="${contextPath}/resources/images/mainImgTest.jpg" />
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
+								<img class="d-block w-100" src="${contextPath}/resources/images/mainImg2.jpg" />
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
+								<img class="d-block w-100" src="${contextPath}/resources/images/mainImg3.jpg" />
 							</div>
 						</div>
 						<a class="carousel-control-prev" href="#carousel-32703" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-32703" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
@@ -233,7 +233,7 @@
 					                    <c:if test="${market.transactionCategory == 1}">background-color: #9ea9d7;</c:if>
 					                    <c:if test="${market.transactionCategory == 2}">background-color: coral;</c:if> '>팝니다</div> --%>
 					                    	
-					                    	<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style="background-color : #ef8694;">
+					                    	<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style="background-color : #ffaf18;">
 					                    	<c:if test="${market.transactionCategory == 1}">삽니다</c:if>
 																<c:if test="${market.transactionCategory == 2}">팝니다</c:if></div>
 					                    
@@ -271,7 +271,6 @@
 								<div class="col-md-12" id="cafe">
 									<h4>먹보의 하루</h4>
 									<div class="row">
-										<!-- Gallery item -->
 										<c:if test="${empty cList }">
 						         		존재하는 게시글이 없습니다.
 						      	</c:if>
@@ -321,7 +320,6 @@
 											</c:forEach>
 										</c:if>
 										<div style="width: 100%; text-align: right;"><a href="cafe/list" class="more">더보기</a></div>
-										<!-- End -->
 									</div>
 								</div>
 							</div>
