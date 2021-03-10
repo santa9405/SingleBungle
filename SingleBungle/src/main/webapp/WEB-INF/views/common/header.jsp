@@ -159,7 +159,9 @@
 					
 					<%-- 회원으로 로그인할 경우 --%>
 					<c:otherwise>
-								<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;"><i class="fas fa-envelope-open-text"></i></a>
+							<c:if test="${loginMember.memberGrade == 'F'}">
+								<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;"><i class="far fa-envelope"></i></a>
+							</c:if>
 						<span>${loginMember.memberGrade} 등급</span>
 				      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
 				      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>

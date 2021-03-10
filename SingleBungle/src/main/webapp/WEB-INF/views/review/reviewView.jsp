@@ -252,14 +252,14 @@ body {
 
 		<!-- 버튼 -->
 
-		<c:url var="updateUrl" value="../${review.boardNo}/update" />
+
 
 		<c:if test="${loginMember.memberNo == review.memberNo }">
 			<div class="row float-right mt-3">
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-12">
-							<a href="${updateUrl }" type="button" class="btn btn-success maincolor-re">수정</a>
+							<button type="button" id="updateBtn" class="btn btn-success maincolor-re">수정</a>
 							<button type="button" id="deleteBtn" class="btn btn-danger maincolor-re">삭제</button>
 						</div>
 					</div>
@@ -432,16 +432,20 @@ body {
 	$(".returnBtn").on("click", function(){
 		location.href = "${sessionScope.returnListURL}"
 	});
-	var cafeNo = $(this).parents('.no').prev().prev("span").text();
+
 	
 	// 삭제 버튼
 	$("#deleteBtn").on("click", function(){
 		if(confirm("삭제 하시겠습니까?")){
 			
-			location.href = "../${review.boardNo}/delete";
+			location.href = "${contextPath}/review/${review.boardNo}/delete";
 		}
 	});
 	
+	// 수정 버튼
+	$("#updateBtn").on("click",function(){
+		location.href= "${contextPath}/review/${review.boardNo}/update";
+	});
 	
 	// 좋아요
 		$(".likeBtns").on("click", function(){

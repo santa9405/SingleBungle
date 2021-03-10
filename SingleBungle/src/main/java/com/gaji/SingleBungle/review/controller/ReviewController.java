@@ -55,7 +55,7 @@ public class ReviewController {
 		
 		if(loginMember.getMemberGrade().charAt(0) == 'T') {
 			swalIcon = "error";
-			swalTitle ="후기게시판은 2등급부터 이용할 수 있습니다.";
+			swalTitle ="'싱글이의 영수증'게시판은 2등급부터 이용할 수 있습니다.";
 			url = "redirect:/";
 		}else {
 		
@@ -225,11 +225,11 @@ public class ReviewController {
 		if(result>0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
-			url = "redirect:../review/view/"+result;
+			url = "redirect:"+result;
 			
 
 			// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
-			request.getSession().setAttribute("returnListURL", "../list");
+			request.getSession().setAttribute("returnListURL", "list");
 		}else {
 			swalIcon = "error";
 			swalTitle = "게시글 등록 실패";
@@ -295,7 +295,7 @@ public class ReviewController {
 		if(result>0) {
 			swalIcon = "success";
 			swalTitle = "게시글 수정 성공";
-			url = "redirect:../view/"+boardNo;
+			url = "redirect:../"+boardNo;
 			
 		}else {
 			swalIcon = "error";
