@@ -24,6 +24,7 @@
 		<result property="categoryNm" column="CATEGORY_NM" />
 		<result property="likes" column="LIKES" />
 		<result property="itemCount" column="ITEMCOUNT" />
+		<result property="certifiedFl" column="CERTIFIED_FL" />
 		
 	</resultMap>
 	
@@ -335,7 +336,8 @@
 	<!-- 주소 검색 update -->
 	<update id="NoCertificationUpdate" parameterType="map">
 		UPDATE MEMBER_CERTIFIED SET
-		ADDRESS = #{locate}
+		ADDRESS = #{locate},
+		CERTIFIED_FL = 'N'
 		WHERE MEM_NO = #{memberNo}
 	</update>
 	
