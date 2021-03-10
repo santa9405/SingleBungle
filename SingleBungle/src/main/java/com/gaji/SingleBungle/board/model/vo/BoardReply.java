@@ -13,6 +13,8 @@ public class BoardReply {
 	private String nickname;
 	private int parentBoardNo;
 	private int parentReplyNo;
+	private String memberGrade;
+	
 	
 	public BoardReply() {
 	}
@@ -88,13 +90,26 @@ public class BoardReply {
 	public void setParentReplyNo(int parentReplyNo) {
 		this.parentReplyNo = parentReplyNo;
 	}
+	
+	
+
+	public String getMemberGrade() {
+		return memberGrade;
+	}
+
+	public void setMemberGrade(String memberGrade) {
+		this.memberGrade = memberGrade;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
 				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memNo=" + memNo + ", nickname="
-				+ nickname + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + "]";
+				+ nickname + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo + ", memberGrade="
+				+ memberGrade + "]";
 	}
+
+
 	
 	
 	

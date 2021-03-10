@@ -75,6 +75,27 @@ table tr td{
 }
 
 
+html{
+	position : relative;
+	min-height:100%;
+	margin : 0;
+}
+
+body {
+	min-height:100%;
+}
+
+
+.footer{
+	position:absolute;
+	left : 0;
+	bottom : 0;
+	width:100%;
+	text-align : center;
+
+}
+
+
 
 
 #messageTable #messageContent, #messageTable #nickName:hover {
@@ -261,8 +282,9 @@ table tr td{
 </form> 
 <!-- 쪽지 보내기  -->
 	
-	
+	<div id="footer">
 		<jsp:include page="../common/footer.jsp" />
+	</div>
 		
 		<script>
 		

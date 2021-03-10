@@ -13,6 +13,7 @@ public class ReviewReply {
 	private String nickName;
 	private int parentBoardNo;
 	private int parentReplyNo;
+	private String memberGrade;
 	
 	public ReviewReply() {}
 
@@ -89,17 +90,25 @@ public class ReviewReply {
 	}
 	
 	
+	
+	
 
+
+	public String getMemberGrade() {
+		return memberGrade;
+	}
+
+	public void setMemberGrade(String memberGrade) {
+		this.memberGrade = memberGrade;
+	}
 
 	@Override
 	public String toString() {
 		return "ReviewReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
 				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", memberNo=" + memberNo
 				+ ", nickName=" + nickName + ", parentBoardNo=" + parentBoardNo + ", parentReplyNo=" + parentReplyNo
-				+  "]";
+				+ ", memberGrade=" + memberGrade + "]";
 	}
-
-
 	
 
 
