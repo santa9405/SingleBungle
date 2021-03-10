@@ -125,7 +125,7 @@
 						
 						var media = $("<div>").addClass("media mt-2").css({"border-bottom-color": "lightgray", "border-bottom-style":"solid", "border-bottom-width":"thin"});
 						
-						var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
+						var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/gradeG.png")
 						.css({"width": "30px;","height": "30px;"});
 						
 						

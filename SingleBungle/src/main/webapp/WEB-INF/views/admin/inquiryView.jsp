@@ -53,10 +53,14 @@
             #boardNo{
             	display : none;
             }
-            
-            #boardContent{
-            	min-height : 300px;
-            }
+          
+            .container{
+				min-height : 1050px;
+			} 
+			
+			#boardContent{
+				min-height : 600px;
+			}
         </style>
 </head>
 <body>

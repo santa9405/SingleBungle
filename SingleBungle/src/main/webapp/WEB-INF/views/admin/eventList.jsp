@@ -186,7 +186,10 @@ a:hover{
 						<div class="col-xl-4 col-lg-4 col-md-6 mb-4 eventList">
 							<div class="bg-white rounded shadow-sm">
 								<span id="boardNo">${board.boardNo}</span>
-								<c:if test="${!empty thList }">
+								
+								
+								
+								
 									<c:set var="flag" value="true"/>
 									<c:forEach items="${thList }" var="th">
 										<c:if test="${th.parentBoardNo == board.boardNo }">
@@ -196,10 +199,9 @@ a:hover{
 										</c:if>
 									</c:forEach>
 									<c:if test="${flag == 'true'}">
-                              <img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg" alt="" class="mg-fluid card-img-top embed-responsive-item">
-                                  </c:if>
-									
-								</c:if>
+                             			 <img src="${contextPath}/resources/images/eventImage.jpg" alt="" class="mg-fluid card-img-top embed-responsive-item">
+                                  	</c:if>
+								
 
 								<div class="p-4">
 									<h5>

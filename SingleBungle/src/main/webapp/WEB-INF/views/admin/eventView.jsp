@@ -46,6 +46,14 @@
                 width: 100%;
             }
 
+
+			.container{
+				min-height : 1050px;
+			}
+			
+			#boardContent{
+				min-height : 800px;
+			}
              
             
         </style>
