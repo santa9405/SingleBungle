@@ -292,7 +292,7 @@
 					obj.friendNo = friendNo;
 					obj.memberNo = loginMemberNo;
 					obj.nickname = nickname;
-					obj.chat = chat;
+					obj.chat = chat.replace(/\n/g, "<br>");
 					
 					var date = new Date();
 					
@@ -422,7 +422,7 @@
 						var nickname = item.nickname;
 						
 						var name = $("<div>").addClass("name").text(nickname);
-						var text = $("<div>").addClass("text").text(chat);
+						var text = $("<div>").addClass("text").html(chat);
 						var time = $("<div>").addClass("time").text(time);
 						
 						if(item.memNo == loginMemberNo){

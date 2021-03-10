@@ -130,17 +130,17 @@
 								<label for="gender" class="input-group-addon col-sm-1 col-form-label">성별</label>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="gender" id="female" value="W"
-											<c:if test="${findFriend.gender == 'W'}"> checked</c:if>>
+											<c:if test="${findFriend.gender == 'W'}">checked</c:if> onclick="return(false);">
 												<label class="form-check-label" for="female">여자</label>
 										</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender" id="male" value="M"
-												<c:if test="${findFriend.gender == 'M'}"> checked</c:if>>
+												<c:if test="${findFriend.gender == 'M'}">checked</c:if> onclick="return(false);">
 												<label class="form-check-label" for="male">남자</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="gender" id="irrelevant" value="F"
-												<c:if test="${findFriend.gender == 'F'}"> checked</c:if>>
+												<c:if test="${findFriend.gender == 'F'}">checked</c:if> onclick="return(false);">
 												<label class="form-check-label" for="irrelevant">무관</label>
 											</div>
 							</div>
