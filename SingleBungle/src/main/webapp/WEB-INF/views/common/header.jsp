@@ -154,9 +154,8 @@
 					
 					<%-- 회원으로 로그인할 경우 --%>
 					<c:otherwise>
-						${loginMember.memberGrade} 등급
-						<br>
-						
+								<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;"><i class="fas fa-envelope-open-text"></i></a>
+						<span>${loginMember.memberGrade} 등급</span>
 				      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
 				      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
 					</c:otherwise>
