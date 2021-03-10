@@ -147,18 +147,10 @@ public class FindFriendServiceImpl implements FindFriendService {
 		return dao.deleteApply(map);
 	}
 	
-	// 친구찾기 게시글 좋아요 등록 Service 구현
-	@Transactional(rollbackFor = Exception.class)
+	// 친구찾기 참여인원 카운트 Service 구현
 	@Override
-	public int increaseLike(Map<String, Object> map) {
-		return dao.increaseLike(map);
-	}
-	
-	// 친구찾기 게시글 좋아요 취소 Service 구현
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int decreaseLike(Map<String, Object> map) {
-		return dao.decreaseLike(map);
+	public int selectApplyCount(int friendNo) {
+		return dao.selectApplyCount(friendNo);
 	}
 	
 	// 친구찾기  게시글 신고 등록 Service 구현
@@ -437,6 +429,5 @@ public class FindFriendServiceImpl implements FindFriendService {
 	public List<FindFriendChatting> selectChatList(int friendNo) {
 		return dao.selectChatList(friendNo);
 	}
-	
 
 }

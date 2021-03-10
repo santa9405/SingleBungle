@@ -68,17 +68,11 @@ public interface FindFriendService {
 	 */
 	int deleteApply(Map<String, Object> map);
 	
-	/** 친구찾기 게시글 좋아요 등록 Service 
-	 * @param map
-	 * @return int
+	/** 친구찾기 참여인원 카운트 Service
+	 * @param friendNo
+	 * @return result
 	 */
-	int increaseLike(Map<String, Object> map);
-	
-	/** 친구찾기 게시글 좋아요 취소 Service
-	 * @param map
-	 * @return int
-	 */
-	int decreaseLike(Map<String, Object> map);
+	int selectApplyCount(int friendNo);
 	
 	/** 친구찾기 게시글 신고 등록 Service
 	 * @param map
@@ -134,30 +128,5 @@ public interface FindFriendService {
 	 * @return cList
 	 */
 	List<FindFriendChatting> selectChatList(int friendNo);
-
-	
-
-	
-	
-
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	
-	
 
 }

@@ -71,21 +71,6 @@
 	line-height: 35px;
 }
 
-#likeBtn {
-	border: 0px solid #ddd;
-	background-color: rgba(255, 255, 255, 0);
-}
-
-.likeCnt {
-	color: #6c757d;
-}
-
-.like {
-	background-size : 15px;
-	background-image: url('${contextPath}/resources/images/like2.png');
-	background-repeat: no-repeat;
-}
-
 .hr {
 	clear: both;
 }
@@ -121,6 +106,56 @@ body {
 .media img {
 	width: 30px;
 	height: 30px;
+}
+
+/* 댓글 등록/취소 버튼  */
+
+.maincolor1{
+    color: #ffffff !important; 
+    background-color:#4ab34a !important;
+    border: 1px solid #4ab34a !important;
+}
+.maincolor1:hover{
+    color: #ffffff !important; 
+    background-color:#4ca975 !important;
+    border: 1px solid #4ca975 !important;
+}
+
+/* 버튼 반대로 : 흰 바탕, 주황 테두리 */
+.maincolor-re1{
+        color: #4ab34a !important;
+        background-color: #ffffff !important;
+        border: 1px solid #4ab34a !important;
+}
+.maincolor-re1:hover{
+    color: #ffffff !important; 
+    background-color:#4ca975 !important;
+    border: 1px solid #4ca975 !important;
+}
+
+
+/* 댓글 수정 삭제 버튼  */
+.maincolor2{
+    color: #228b22 !important; 
+    background-color: !important;
+    border: none !important;
+}
+.maincolor2:hover{
+    color: #4ca975 !important; 
+    border: none !important;
+    cursor : pointer;
+}
+
+/* 버튼 반대로 : 흰 바탕, 주황 테두리 */
+.maincolor-re2{
+        color: #228b22 !important;
+        background-color: none !important;
+        border: none !important;
+}
+.maincolor-re2:hover{
+    color: #4ca975 !important; 
+    border: none !important;
+    cursor : pointer;
 }
 
 </style>
@@ -178,13 +213,7 @@ body {
 
 				<div class="col-md-2">
 					<div class="float-right">
-
-						<img class="image" src="${contextPath}/resources/images/view.png"> ${findFriend.readCount}
-						<button type="button" id="likeBtn">
-							<img src="${contextPath}/resources/images/like1.png" 
-							width="15" height="15" id="heart" class='<c:if test="${findFriend.likes > 0}">like</c:if>'> 
-							<span class="likeCnt">${findFriend.likes}</span>
-						</button>
+						<i class="far fa-eye"></i> ${findFriend.readCount}
 					</div>
 				</div>
 			</div>
@@ -202,21 +231,21 @@ body {
 			<br>
 
 			<div class="titleArea">
-				<button type="button" class="btn btn-primary float-right report">신고</button>
+				<button type="button" class="btn btn-primary float-right report maincolor">신고</button>
 				
 				<c:if test="${findFriend.memNo != loginMember.memberNo}">
-					<button type="button" id="applyBtn" class='btn btn-primary float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>
+					<button type="button" id="applyBtn" class='btn maincolor float-right apply <c:if test="${checkApply == 0}">insertApply</c:if>'>
 					<c:if test="${checkApply == 0}">참여신청</c:if>
 					<c:if test="${checkApply == 1}">참여취소</c:if>
 					</button>
 				</c:if>
 				
 				<c:if test="${findFriend.memNo == loginMember.memberNo}">
-					<input type="hidden" class='btn btn-primary float-right apply'>
+					<input type="hidden" class='btn btn-primary float-right apply maincolor'>
 				</c:if>
 				
 				<!-- chat button -->
-				<button type="button" class="btn btn-primary float-right chat">채팅하기</button>
+				<button type="button" class="btn btn-primary float-right chat maincolor">채팅하기</button>
  
 			</div>
 			<hr class="hr">
@@ -235,15 +264,30 @@ body {
 					<c:if test="${empty sessionScope.returnListURL}">
 						<c:set var="returnListURL" value="list" scope="session" />
 					</c:if>
+					
+					<!-- 메인에서 게시판 더보기 누른 후 글에서 목록으로 버튼 눌렀을 시 해당 게시판의 list로 가게하기 -->
+          <c:set var="referer" value="${header.referer}"/>
+          <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+          <c:set var="l" value="${fn:length(referer)}"/>
+          <c:set var="referer" value="${fn:substring(referer, a+2, l)}"/>
+          
+          <c:set var="a" value="${fn:indexOf(referer,'/')}"/>
+          <c:set var="l" value="${fn:length(referer)}"/>
+          <c:set var="referer" value="${fn:substring(referer, a, l-1)}"/>
+          
+          <c:if test="${referer == contextPath}">
+           <c:set var="returnListURL" value="list"/>
+          </c:if>
+					
 					<br> 
 					
-					<a class="btn btn-success" href="${sessionScope.returnListURL}">목록으로</a>
+					<a class="btn btn-success maincolor-re1 insert-list2 maincolor" href="${returnListURL}">목록으로</a>
 					
 					<!-- 로그인된 회원이 글 작성자인 경우 -->
 					<c:if test="${(loginMember != null) && (findFriend.memNo == loginMember.memberNo)}">
 						<c:url var="updateUrl" value="${findFriend.friendNo}/update" />
-						<a href="${updateUrl}" class="btn btn-success ml-1 mr-1">수정</a>
-						<button id="deleteBtn" class="btn btn-success">삭제</button>
+						<a href="${updateUrl}" class="btn btn-success ml-1 mr-1 maincolor-re">수정</a>
+						<button id="deleteBtn" class="btn btn-success maincolor-re">삭제</button>
 					</c:if>
 				</div>
 			</div>
@@ -254,6 +298,34 @@ body {
 
 	<script>
 		var friendNo = ${findFriend.friendNo};
+		var capacity = ${findFriend.capacity};
+		
+		// 페이지 로딩 완료 시 참여인원 카운트
+		$(function(){
+			selectApplyCount();			
+		});
+		
+		function selectApplyCount(){
+			
+			$.ajax({
+				url : "${contextPath}/findFriend/selectApplyCount/" + friendNo,
+				success : function(result){
+					
+					console.log(result)
+					
+					if(result == capacity){
+						$("#applyBtn").text("모집마감");
+						$("#applyBtn").prop("disabled", true);
+					}
+					
+				}, error : function(){
+					console.log("참여인원 카운트 실패");
+				}
+				
+			});
+			
+		};
+		
 	
 		// 참여신청 시
 		$("#applyBtn").on("click", function(){
@@ -270,6 +342,8 @@ body {
 						
 						if(result > 0){
 							swal({icon : "success", title : "참여 신청 성공!"});
+							
+							selectApplyCount();	
 							
 							$("#applyBtn").text("참여취소");
 							$(".apply").toggleClass("insertApply");
@@ -290,6 +364,8 @@ body {
 						if(result > 0){
 							swal({icon : "success", title : "참여가 취소되었습니다."});
 							
+							selectApplyCount();	
+							
 							$("#applyBtn").text("참여신청");
 							$(".apply").toggleClass("insertApply");
 						}
@@ -304,57 +380,6 @@ body {
 			
 		});
 
-		// -------------------------------------------------------------------------------------------------------------------
-		// 좋아요
-		$("#likeBtn").on("click", function(){
-			
-			if($("#heart").attr("class") == "like"){
-				
-				$.ajax({
-					
-					url : "${contextPath}/findFriend/decreaseLike/" + friendNo,
-					success : function(result){
-						
-						if(result > 0){
-							$(".likeCnt").text(Number($(".likeCnt").text()) - 1);
-							$("#heart").toggleClass("like");
-						}
-						
-					}, error : function(){
-						console.log("좋아요 취소 실패");
-					}
-					
-				});
-				
-			}else{
-				
-					$.ajax({
-					
-					url : "${contextPath}/findFriend/increaseLike/" + friendNo,
-					success : function(result){
-						
-						if(result > 0){
-							$(".likeCnt").text(Number($(".likeCnt").text()) + 1);
-							$("#heart").toggleClass("like");
-						}
-						
-					}, error : function(){
-						console.log("좋아요 등록 실패");
-					}
-					
-				});
-				
-			}
-			
-			
-		});
-		
-		
-		
-		
-		
-		
-		
 		// -------------------------------------------------------------------------------------------------------------------
 		// 게시글 신고창 열기
 		$(".report").on("click", function() {

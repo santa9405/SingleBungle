@@ -91,8 +91,8 @@
 							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
-							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" id="cancelBtn" type="button">취소</button>
+							<button class="btn btn-primary btn-sm shadow-none maincolor1" id="addReply">등록</button>
+							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none maincolor-re1" id="cancelBtn" type="button">취소</button>
 						</div>
 					</div>
 				</div>
@@ -145,15 +145,15 @@
 				// 답글, 신고 버튼 영역
 				var col4 = $("<div>").addClass("col-4");
 				var floatRight = $("<div>").addClass("reply float-right");
-				var reply2 = $("<a>").addClass("childReply").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글").css({"margin-right":"5px"});
-				var report = $("<a class='replyReport'>").attr("href", "javascript:void(0)").attr("onclick", "openReport(" + item.replyNo + ")").text("신고");
+				var reply2 = $("<a>").addClass("childReply maincolor2").attr("onclick", "addChildReplyArea(this, "+ item.parentReplyNo + ")").text("답글").css({"margin-right":"5px"});
+				var report = $("<a class='replyReport maincolor2'>").attr("href", "javascript:void(0)").attr("onclick", "openReport(" + item.replyNo + ")").text("신고");
 				
 				// 내용 영역
 				var replyText = $("<div>").addClass("replyText").html(item.replyContent);
 				
 				var floatRight2 = $("<div>").addClass("float-right").attr("style", "font-size: 13px;");
-				var replyUpdate = $("<a>").addClass("replyUpdate").css({"margin-right":"5px"}).attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
-				var replyDelete = $("<a>").addClass("replyDelete").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
+				var replyUpdate = $("<a>").addClass("replyUpdate maincolor2").css({"margin-right":"5px"}).attr("onclick", "showUpdateReply(" + item.replyNo + ", this)").text("수정");
+				var replyDelete = $("<a>").addClass("replyDelete maincolor-re2").attr("onclick", "deleteReply(" + item.replyNo + ")").text("삭제");
 			
 				// 밑줄
 				var hr = $("<hr>");
@@ -286,10 +286,10 @@
 	  $(el).parent().before(textarea);
 	  
 		// 수정 버튼
-	  var updateReply = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+	  var updateReply = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4 maincolor1").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
 	  
 	  // 취소 버튼
-	  var cancelBtn = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	  var cancelBtn = $("<button>").addClass("btn btn-success btn-sm ml-1 mb-4 maincolor-re1").text("취소").attr("onclick", "updateCancel(this)");
 	  
 	  var replyBtnArea = $(el).parent();
 	  
@@ -381,10 +381,10 @@
 											.attr("placeholder", writer + "님께 답글 작성하기");
 			
 			var btnArea = $("<div>").addClass("btnArea");
-			var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1").text("등록")
+			var insertBtn = $("<button>").addClass("btn btn-sm btn-success ml-1 maincolor1").text("등록")
 			.attr("onclick", "addChildReply(this, " + parentReplyNo + ")");
 			
-			var cancelBtn = $("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel").text("취소")
+			var cancelBtn = $("<button>").addClass("btn btn-sm btn-secondary ml-1 reply-cancel maincolor-re1").text("취소")
 			.attr("onclick", "cancelChildReply()");
 			
 			btnArea.append(insertBtn).append(cancelBtn); // 버튼 영역에 등록, 취소 버튼 추가
