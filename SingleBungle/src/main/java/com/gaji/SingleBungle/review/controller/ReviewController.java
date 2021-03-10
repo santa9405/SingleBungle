@@ -156,7 +156,7 @@ public class ReviewController {
 	
 	// 좋아요 증가 Controller
 	@ResponseBody
-	@RequestMapping("view/increaseLike")
+	@RequestMapping("increaseLike")
 	public int increaseLike(@RequestParam("boardNo") int boardNo, @ModelAttribute(name="loginMember", binding=false) Member loginMember) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -174,7 +174,7 @@ public class ReviewController {
 	
 	// 좋아요 감소 Controller
 	@ResponseBody
-	@RequestMapping("view/decreaseLike")
+	@RequestMapping("decreaseLike")
 	public int decreaseLike(@RequestParam("boardNo") int boardNo,
 			@ModelAttribute("loginMember") Member loginMember) {
 		

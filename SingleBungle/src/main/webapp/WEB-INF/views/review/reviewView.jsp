@@ -416,7 +416,7 @@ body {
 	$(".viewdetail").on("click",function(){
 		var boardNo = $(this).children("span#boardNo").text();
 		
-		var boardViewURL = "../view/"+boardNo;
+		var boardViewURL = "${contextPath}/review/"+boardNo;
 		
 		location.href = boardViewURL;
 	});
