@@ -106,7 +106,11 @@
 		.navbar {
 			background-color: #ffaf18;
 		}
+
+   	#logo { width: 150px; height: 70px; }
+
    	</style>
+   	
    	
 </head>
 <body id="page-top">
@@ -121,14 +125,14 @@
 	
 	<!--Navbar -->
 	<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
-		<a class="navbar-brand" href="${contextPath}"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"></a>
+		<a class="navbar-brand" href="${contextPath}"><img id="logo" src="${contextPath}/resources/images/logo.png"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
 			<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item active"><a class="nav-link" href="#">자유게시판</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/board/list">자유게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/findFriend/list">친구찾기</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/cafe/list">맛집</a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/review/list">내돈내산</a></li>
