@@ -93,6 +93,15 @@ span {
 .hidden {
 	display: none;
 }
+
+.container1{
+min-height : 1050px;
+}
+
+.col-md-4 {
+	flex: none !important;
+	max-width: none !important;
+}
 </style>
 
 </head>
@@ -100,7 +109,7 @@ span {
     
     <jsp:include page="../common/header.jsp" />
     
-     <div class="container mt-5 pt-5">
+     <div class="container container1 mt-5 pt-5">
         <div class="row">
            <jsp:include page="sideMenu.jsp" />
             <div class="col-sm-9">
