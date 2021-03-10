@@ -128,6 +128,10 @@
 		.img-thumbnail{
 		width:200px;
 		}
+		
+		.hidden {
+			display: none;
+		}
 
     </style>
 </head>
@@ -222,7 +226,7 @@
                     </span>
 
 
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="list-table1">
                         <thead>
                             <tr>
                                 <th>게시판</th>
@@ -243,6 +247,8 @@
 		                  	<c:forEach var="board" items="${boardList}" varStatus="vs">
 
                             <tr>
+                            	<td class="hidden">${board.boardNo }</td>
+                        		<td class="hidden">${board.boardCode }</td>
                                 <td>
                                 	<c:choose>
 										<c:when test="${board.boardCode == 1}">자유게시판</c:when>
@@ -333,7 +339,7 @@
                     </span>
 
 
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="list-table2">
                         <thead>
                             <tr>
                                 <th>게시판</th>
@@ -352,6 +358,8 @@
 		                  	<c:forEach var="myBoard" items="${myBoardList}" varStatus="vs">
 
                             <tr>
+                            	<td class="hidden">${myBoard.boardNo }</td>
+                        		<td class="hidden">${myBoard.boardCode }</td>
                                 <td>
                                 	<c:choose>
 										<c:when test="${myBoard.boardCode == 1}">자유게시판</c:when>
@@ -438,7 +446,7 @@
                     </span>
 
 
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="list-table3">
                         <thead>
                             <tr>
                                 <th>게시판</th>
@@ -457,6 +465,8 @@
 		                  	<c:forEach var="reply" items="${myReplyList}" varStatus="vs">
 
                             <tr>
+                           		<td class="hidden">${reply.parentBoardNo }</td>
+                        		<td class="hidden">${reply.boardCd }</td>
                                 <td>
                                 	<c:choose>
 										<c:when test="${reply.boardCd == 1}">자유게시판</c:when>
@@ -553,6 +563,61 @@
 	/* 내가 선택한 메뉴에 색 고정하기 */
     $(function(){
 			$("#myPage").attr('class','nav-link px-4 active text-white shadow-sm rounded-pill maincolor');
+	});
+	
+
+	$("#list-table1 td").on("click",function(){
+			var boardNo = $(this).parent().children().eq(0).text();
+			
+			var boardCode = $(this).parent().children().eq(1).text();
+			
+		  var boardViewURL = null;
+		  if(boardCode == 1) boardViewURL = "${contextPath}/board/"+ boardNo;
+		  else if(boardCode == 2) boardViewURL = "${contextPath}/review/"+ boardNo;
+		  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/notice/"+ boardNo;
+		  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/event/"+ boardNo;
+		  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/"+ boardNo;
+		  else if(boardCode == 7) boardViewURL = "${contextPath}/findFriend/"+ boardNo;
+		  else if(boardCode == 8) boardViewURL = "${contextPath}/market/"+ boardNo;
+			
+		location.href = boardViewURL; // 요청 전달
+	
+	});
+	
+	$("#list-table2 td").on("click",function(){
+			var boardNo = $(this).parent().children().eq(0).text();
+			
+			var boardCode = $(this).parent().children().eq(1).text();
+			
+		  var boardViewURL = null;
+		  if(boardCode == 1) boardViewURL = "${contextPath}/board/"+ boardNo;
+		  else if(boardCode == 2) boardViewURL = "${contextPath}/review/"+ boardNo;
+		  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/notice/"+ boardNo;
+		  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/event/"+ boardNo;
+		  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/"+ boardNo;
+		  else if(boardCode == 7) boardViewURL = "${contextPath}/findFriend/"+ boardNo;
+		  else if(boardCode == 8) boardViewURL = "${contextPath}/market/"+ boardNo;
+			
+		location.href = boardViewURL; // 요청 전달
+	
+	});
+	
+	$("#list-table3 td").on("click",function(){
+			var boardNo = $(this).parent().children().eq(0).text();
+			
+			var boardCode = $(this).parent().children().eq(1).text();
+			
+		  var boardViewURL = null;
+		  if(boardCode == 1) boardViewURL = "${contextPath}/board/"+ boardNo;
+		  else if(boardCode == 2) boardViewURL = "${contextPath}/review/"+ boardNo;
+		  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/notice/"+ boardNo;
+		  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/event/"+ boardNo;
+		  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/"+ boardNo;
+		  else if(boardCode == 7) boardViewURL = "${contextPath}/findFriend/"+ boardNo;
+		  else if(boardCode == 8) boardViewURL = "${contextPath}/market/"+ boardNo;
+			
+		location.href = boardViewURL; // 요청 전달
+	
 	});
 </script>
 </body>

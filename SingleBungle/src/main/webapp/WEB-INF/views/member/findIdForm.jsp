@@ -100,7 +100,6 @@ a:hover {
 			<div class="col-md-4">
 
 
-				<h3 class="text-center">로고,,ㄱ-</h3>
 				<br> <br>
 
 
@@ -123,8 +122,10 @@ a:hover {
 
 				<br>
 				<form action="findIdResultForm" method="post" name="">
+				
 					<div class="form-group" id="name-group">
-						<label for="name"><span class="requiredInput">*</span> 이름</label> <input type="text" class="form-control" name="memberName" id="name" placeholder="이름을 입력하세요.">
+						<label for="name"><span class="requiredInput">*</span> 이름</label>
+						<input type="text" class="form-control" name="memberName" id="name" placeholder="이름을 입력하세요.">
 					</div>
 
 					<div class="form-group">
@@ -139,8 +140,8 @@ a:hover {
 								<select class="form-control email" id="email2" name="email2">
 									<option id="mailSelect">이메일 선택</option>
 									<option>naver.com</option>
-									<option>daum.com</option>
-									<option>hanmail.com</option>
+									<option>daum.net</option>
+									<option>hanmail.net</option>
 									<option>gmail.com</option>
 									<option>nate.com</option>
 								</select>
@@ -156,7 +157,7 @@ a:hover {
 						<!--  -->
 						<div class="form-row">
 							<div class="col-md-5 verifyBtn">
-								<button type="button" class="btn btn-primary form-control maincolor" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
+								<button type="button" class="btn form-control maincolor" id="sendMailBtn" name="sendMailBtn">인증번호 전송</button>
 							</div>
 							<div class="col-md-7">
 								<input type="text" class="form-control email" id="verifyEmail" placeholder="인증번호 입력" required>
@@ -170,7 +171,8 @@ a:hover {
 
 
 					<hr>
-					<button type="submit" class="btn btn-block maincolor" id="nextBtn">다음</button>
+					<button type="submit" id="nextBtn" class="btn btn-block maincolor" >다음</button>
+					<br><br>
 				</form>
 			</div>
 
@@ -182,11 +184,7 @@ a:hover {
 	<jsp:include page="../common/footer.jsp" />
 
 <script>
-	
-
 // ajax를 이용한 실시간 이름-이메일 일치 검사 ----------------------------------------------------
-
-// ----------------메일 인증 AJAX(잔산) -------------------------
 var key;
 
 $("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
@@ -195,8 +193,8 @@ $("#sendMailBtn").click(function() {// 메일 입력 유효성 검사
 	var mailId =$("#email1").val(); // 이메일 아이디
 	var mailSelect =$("#email2").val(); // 이메일 뒷주소
 	
-	//console.log("mailId : " + mail);
 	//console.log("mail : " + mail);
+	//console.log("mailId : " + mailId);
 	//console.log("mailSelect : " + mailSelect);
 	
 	if (mailId == "" || mailSelect =="이메일 선택") { // 아이디 또는 메일 주소가 입력되지 않았다면

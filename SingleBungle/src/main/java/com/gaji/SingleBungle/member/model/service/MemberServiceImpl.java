@@ -105,6 +105,7 @@ public class MemberServiceImpl implements MemberService {
 
 		// 해당 서비스 메소드에서 예외가 발생하지 않으면 마지막에 commit이 수행됨.
 	}
+	
 
 	// 이름, 메일 일치 검사 Service
 	@Override
@@ -112,12 +113,52 @@ public class MemberServiceImpl implements MemberService {
 		return dao.nameMailCheck(map);
 	}
 	
-	
 	// 아이디 찾기 Service 
 	@Override
 	public Member findIdResult(Member member) {
 		return dao.findIdResult(member);
 	}
+	
+	// 아이디, 메일 일치 검사 Service 
+	@Override
+	public int idMailCheck(Map<String, Object> map) {
+		return dao.idMailCheck(map);
+	}
+	
+	// 비밀번호 찾기 Service
+	@Override
+	public Member findPw(Member member) {
+		return dao.findPw(member);
+	}
+	
+	// 비번 설정 Service 
+	@Override
+	public int findPwUpdate(Map<String, Object> map) {
+		// 1. 현재 비밀번호가 일치하는지 확인(본인 확인)
+		// bcrypt 암호화가 적용되어 있기 때문에
+
+			// 비밀번호 확인
+			// map은 Object라 String으로 형변환
+			
+				// 비밀번호가 일치할 경우
+
+				// 2. 현재 비밀번호 일치 확인 시 새 비밀번호로 변경
+				// == 비밀번호를 수정할 dao 필요
+
+				// 새 비밀번호 암호화 진행
+				String encPwd = enc.encode((String) map.get("newPwd"));
+
+				// 암호화된 비밀번호를 다시 map에 세팅
+				map.put("newPwd", encPwd);
+
+				// 비밀번호 수정 DAO 호출
+				int result = dao.findPwUpdate(map);
+			
+		
+		return result;
+//		return dao.findPwUpdate(map);
+	}
+
 	
 	
 	// 마이페이지 좋아요 페이징 Service 
@@ -231,6 +272,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
+	
+	
+	
 
 	
 	

@@ -280,21 +280,21 @@ public class memberController {
 	// 아이디 찾기 동작
 	@RequestMapping("findIdResultForm") // 결과화면으로 
 	public String findIdFormAction(@ModelAttribute("member") Member member,
-								HttpServletRequest request, Model model) { 
+			HttpServletRequest request, Model model) { 
 		
 //		String memberName = request.getParameter("memberName"); String memberEmail =
 //		request.getParameter("memberEmail");
 		
-		// System.out.println(member);
 		
 //		 Member member = new Member(); 
 //		 member.setMemberName(memberName);
 //		 member.setMemberEmail(memberEmail);
 		
 	    Member findMember = service.findIdResult(member);
+	    System.out.println(findMember);
+	    
 	    String memberId = findMember.getMemberId();
-		
-	//	System.out.println("findMember : " + findMember.getMemberId());
+		System.out.println("findMember : " + findMember.getMemberId());
 		
 		if(findMember!=null) {
 			model.addAttribute("memberId", memberId);
@@ -380,24 +380,65 @@ public class memberController {
 
 	// 비밀번호 찾기 ------------------------------------------------------------------------
 	
-	// 비밀번호 찾기 화면 전환 Controller 
+	// 비밀번호 찾기 화면 
 	@RequestMapping("findPwForm")
-	public String findPwForm() {
+	public String findPwFormView() {
 		return "member/findPwForm";
 	}
 	
-	// 비밀번호 찾기 조회 Controller 
-	@RequestMapping("findPwReady")
-	public String findPwReady() {
+	// 비밀번호 찾기 동작
+	@RequestMapping("findPwChangeForm")
+	public String findPwFormAction(@ModelAttribute("member") Member member,
+			HttpServletRequest request, Model model) {
+		
+		Member findMember = service.findPw(member);
+		System.out.println("member : " + member);
+		System.out.println("findMember" + findMember);
+	    String memberPwd = findMember.getMemberPwd();
+	    int memberNo = findMember.getMemberNo();
+		
+	    //	System.out.println("findMember : " + findMember.getMemberId());
+		
+		if(findMember!=null) {
+			model.addAttribute("memberPwd", memberPwd);
+			model.addAttribute("memberNo", memberNo);
+		}else {
+			System.out.println("실패 ");
+		}
+		
 		return "member/findPwChangeForm";
+	}
+	
+	// ---------------------------------------------------
+	// 아이디, 메일 일치 검사 Controller (AJAX)
+	// ---------------------------------------------------
+	@RequestMapping("idMailCheck")
+	@ResponseBody
+	public int idMailCheck(@RequestParam("memberId") String memberId,
+							@RequestParam("mail") String mail) {
+		// System.out.println(memberId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		map.put("mail", mail);
+		
+		System.out.println(memberId);
+		System.out.println(mail);
+		
+		int result = service.idMailCheck(map);
+		
+		System.out.println(result);
+		
+		return result;
 	}
 	
 	// ---------------------------------------------------
 	// 비밀번호 찾기 인증(이메일 발송) Controller (ajax) 
 	// ---------------------------------------------------
-	@RequestMapping("CheckPwMail")
 	@ResponseBody
-	public String CheckPwMail(HttpServletRequest request) {
+	@RequestMapping("FindPwMail")
+	public String FindPwMail(HttpServletRequest request) {
 		
 		String setfrom = "singlebungle.dev@gmail.com";
 		String tomail = request.getParameter("mail"); // 받는 사람 이메일
@@ -438,9 +479,44 @@ public class memberController {
 	}
 	
 	// 비밀번호 찾기 변경(?) Controller
-	@RequestMapping("findPwChangeForm")
-	public String findPwChangeForm() {
-		return "member/findPwChangeForm";
+	@RequestMapping(value="findPwChangeAction", method=RequestMethod.POST) // 비밀번호와 관련된 것은 POST로 
+	public String findPwChangeAction(@RequestParam("memberNo") int memberNo, @RequestParam("newPwd") String newPwd,
+			RedirectAttributes ra ) {
+		
+		// Map을 이용하여 필요한 데이터를 하나로 묶어둠
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("newPwd", newPwd);
+		map.put("memberNo", memberNo);
+		
+		// 비밀번호 변경 Service 호출
+		int result = service.findPwUpdate(map);
+		System.out.println("result : " + result);
+		
+		// 재요청할 주소 저장 변수 선언
+		String returnUrl = null; 
+		
+		// 비밀번호 수정 성공 시
+		// success, 비밀번호 수정 성공, 마이페이지 재요청
+		if(result > 0) {
+		swalIcon = "success";
+		swalTitle = "비밀번호 수정 성공";
+		returnUrl = "findPwResultForm";
+		}
+		// 비밀번호 변경 실패 시
+		// error, 비밀번호 수정 실패, 비밀번호 수정 페이지 재요청
+		else {
+		swalIcon = "error";
+		swalTitle = "비밀 번호 수정 실패";
+		returnUrl = "findPwChangeForm";
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		
+		
+		return "redirect:" + returnUrl;
 	}
 	
 	// 비밀번호 찾기 변경 Controller

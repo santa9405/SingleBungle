@@ -73,6 +73,31 @@ public class MemberDAO {
 	public Member findIdResult(Member member) {
 		return sqlSession.selectOne("memberMapper.findIdResult", member);
 	}
+	
+	/** 아이디, 메일 일치 검사 DAO 
+	 * @param map
+	 * @return
+	 */
+	public int idMailCheck(Map<String, Object> map) {
+		return sqlSession.selectOne("memberMapper.idMailCheck", map);
+	}
+	
+	/** 비밀번호 찾기 DAO
+	 * @param member
+	 * @return
+	 */
+	public Member findPw(Member member) {
+		return sqlSession.selectOne("memberMapper.findPw", member);
+	}
+	
+	/** 비번 설정 DAO 
+	 * @param map
+	 * @return
+	 */
+	public int findPwUpdate(Map<String, Object> map) {
+		return sqlSession.update("memberMapper.findPwUpdate", map);
+	}
+
 
 
 	/** 내 정보 수정 DAO 
@@ -172,6 +197,14 @@ public class MemberDAO {
 	    RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		return sqlSession.selectList("memberMapper.selectMyReply", memberNo, rowBounds);
 	}
+
+
+	
+
+	
+
+
+	
 
 
 	

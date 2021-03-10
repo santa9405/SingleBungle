@@ -35,12 +35,39 @@ public interface MemberService {
 	 */
 	public abstract int signUp(Member signUpMember);
 
+	
 	/** 이름, 메일 일치 검사 Service
 	 * @param map
 	 * @return result
 	 */
 	public abstract int nameMailCheck(Map<String, Object> map);
+	
+	/** 아이디 찾기 Service 
+	 * @param member
+	 * @return
+	 */
+	public abstract Member findIdResult(Member member);
 
+	/** 아이디, 메일 일치 검사 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int idMailCheck(Map<String, Object> map);
+	
+	/** 비밀번호 찾기 Service 
+	 * @param member
+	 * @return
+	 */
+	public abstract Member findPw(Member member);
+	
+	/** 비번 설정 Service 
+	 * @param map
+	 * @return
+	 */
+	public abstract int findPwUpdate(Map<String, Object> map);
+	
+	
+	
 	/** 내 정보 수정 Service
 	 * @param updateMember
 	 * @return result
@@ -102,11 +129,9 @@ public interface MemberService {
 	 */
 	public abstract List<MReply> selectMyReply(APageInfo pInfo, int memberNo);
 
-	/** 아이디 찾기 Service 
-	 * @param member
-	 * @return
-	 */
-	public abstract Member findIdResult(Member member);
+	
+
+	
 
 
 }
