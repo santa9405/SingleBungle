@@ -23,6 +23,35 @@
 
  
         <style>
+        
+        /* --------------------------------- 푸터 아래 고정용 ------------------------------- */
+        html {
+		    position: relative; 
+		    min-height: 100%;
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		body {
+		    min-height: 100%;
+		}
+		
+		#footer { /* 푸터 바닥에 고정시키기 !!! hmtl에 어쩌고도 해줘야함 */
+		    position: absolute;
+		    left: 0;
+		    bottom: 0;
+		    width: 100%;
+		    /* padding: 15px 0; */
+		    text-align: center;
+		    color: white;
+		}
+		/* --------------------------------- 푸터 아래 고정용 ------------------------------- */
+        
+        
+        
+        
+        
+        
             .flex {
          -webkit-box-flex: 1;
          -ms-flex: 1 1 auto;
@@ -138,7 +167,9 @@
         </script>
 </head>
 <body>
+
 <jsp:include page="../common/header.jsp"/>
+
     <div class="container">
         <div class="row">
   <jsp:include page="sideMenu.jsp" />
@@ -147,7 +178,7 @@
     
                     <!-- 게시판 이름/카테고리 -->
                     <div class="row py-5">
-                          <h1 class="boardName float-left">신고 게시글 관리</h1>
+                          <h1 class="boardName float-left">신고 댓글 관리</h1>
                 </div>     
                 </div>
 
@@ -267,7 +298,14 @@
 
         </div>
     </div>
-    <jsp:include page="../common/footer.jsp"/>
+    
+    <div id="footer">
+	    <jsp:include page="../common/footer.jsp"/>
+    </div>
+    
+    
+    
+    
      <script>
     $(function(){
 			$("#replyReport").attr('class','nav-link px-4 active bg-primary text-white shadow-sm rounded-pill');
