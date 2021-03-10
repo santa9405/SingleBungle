@@ -157,7 +157,6 @@ body {
     border: none !important;
     cursor : pointer;
 }
-
 </style>
 </head>
 <body>
@@ -227,7 +226,7 @@ body {
 								<div class="text-center" style="display : inline-block">
 									<!-- Button HTML (to Trigger Modal) -->
 									<button id="send" class="btn" data-toggle="modal" data-backdrop="static" data-target="#sendMessage" style="padding:0px; margin-bottom : 4px;">
-										<img src="${contextPath}/resources/images/message1.png" width="25" height="25">&nbsp;<span>쪽지</span>
+										<img src="${contextPath}/resources/images/message1.png" width="25" height="25">&nbsp;<span>쪽지보내기</span>
 									</button>
 								</div>
 							</c:if>		

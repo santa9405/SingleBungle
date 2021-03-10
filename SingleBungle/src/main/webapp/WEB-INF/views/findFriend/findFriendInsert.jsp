@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>친구찾기 게시판 글작성</title>
 <style>
+
 </style>
 
 <!-- summernote 사용 시 필요한 css 파일 추가 -->

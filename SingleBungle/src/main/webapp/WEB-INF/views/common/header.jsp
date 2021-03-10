@@ -104,6 +104,9 @@
     */
     /* 세컨드 (파랑)--------------------------------------- */
 	
+		.navbar {
+			background-color: #ffaf18;
+		}
    	</style>
    	
 </head>
@@ -117,35 +120,69 @@
 		</script>
 	</c:if>
 	
-	<%-- ---------------------- 로그인(임시) ---------------------- --%>
-	<c:choose>
-		<%-- 로그인이 되어있지 않은 경우 --%>
-		<c:when test="${empty sessionScope.loginMember }">
-     		<a class="nav-link" href="${contextPath}/member/login">Login</a>
-		</c:when>
-		
-		<%-- 관리자로 로그인할 경우 --%>
-		<c:when test="${loginMember.memberGrade == 'G'}">
-     		<a class="nav-link" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberNickname}</a>
-	      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
-		</c:when>
-		
-		<%-- 회원으로 로그인할 경우 --%>
-		<c:otherwise>
-			${loginMember.memberGrade} 등급
-			<br>
+	<!--Navbar -->
+	<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
+		<a class="navbar-brand" href="${contextPath}"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+			<ul class="navbar-nav mr-auto">
+
+				<li class="nav-item active"><a class="nav-link" href="#">자유게시판</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/findFriend/list">친구찾기</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/cafe/list">맛집</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/review/list">내돈내산</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/market/list">사고팔고</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/noticeList">공지사항</a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/faqView">고객센터</a></li>
+
+			</ul>
+			<ul class="navbar-nav ml-auto nav-flex-icons">
 			
-	      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
-	      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
-		</c:otherwise>
-	</c:choose>
+				<c:choose>
+					<%-- 로그인이 되어있지 않은 경우 --%>
+					<c:when test="${empty sessionScope.loginMember }">
+			     		<a class="nav-link" href="${contextPath}/member/login">Login</a>
+					</c:when>
+					
+					<%-- 관리자로 로그인할 경우 --%>
+					<c:when test="${loginMember.memberGrade == 'G'}">
+			     		<a class="nav-link" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberNickname}</a>
+				      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
+					</c:when>
+					
+					<%-- 회원으로 로그인할 경우 --%>
+					<c:otherwise>
+						${loginMember.memberGrade} 등급
+						<br>
+						
+				      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
+				      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
+					</c:otherwise>
+				</c:choose>
+			
+				<!-- <li class="nav-item"><a class="nav-link waves-effect waves-light">1 <i class="fas fa-envelope"></i>
+				</a></li>
+				<li class="nav-item avatar dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0" alt="avatar image">
+				</a>
+					<div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">
+						<a class="dropdown-item" href="#">마이페이지</a> <a class="dropdown-item" href="#">쪽지함</a> <a class="dropdown-item" href="#">로그아웃</a>
+					</div></li> -->
+			</ul>
+		</div>
+	</nav>
+	<!--Navbar -->
+	
+	<%-- ---------------------- 로그인(임시) ---------------------- --%>
+	
 	
 	~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~
 	<br>
 	<%-- ---------------------- 로그인(임시) ---------------------- --%>
 	
 	
-	<a class="nav-link" href="${contextPath}/findFriend/insert">친구찾기 게시글 작성</a>
+	<%-- <a class="nav-link" href="${contextPath}/findFriend/insert">친구찾기 게시글 작성</a>
 	<a class="nav-link" href="${contextPath}/findFriend/list">친구찾기 목록 조회</a>
 	
 	<a class="nav-link" href="${contextPath}/board/list" style="color:navy;">자유게시판 목록 조회</a>
@@ -175,7 +212,7 @@
 	<a class="nav-link" href="${contextPath}/member/mypageFindPw2">비밀번호찾기2</a>
 	<a class="nav-link" href="${contextPath}/member/mypageFindPw3">비밀번호찾기3</a>
 	<a class="nav-link" href="${contextPath}/member/mypageInfoUpdate">내 정보 수정</a>
-	<a class="nav-link" href="${contextPath}/member/mypagePwUpdate">비밀번호 수정</a>
+	<a class="nav-link" href="${contextPath}/member/mypagePwUpdate">비밀번호 수정</a> --%>
 	
 	
     
