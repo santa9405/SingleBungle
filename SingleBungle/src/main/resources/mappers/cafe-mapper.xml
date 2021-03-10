@@ -20,6 +20,7 @@
 		<result property="likeCount" column="LIKE_COUNT" />
 		<result property="memberNo" column="MEM_NO" />
 		<result property="cafeAddress" column="CAFE_ADDRESS" />
+		<result property="memberGrade" column="MEM_GRADE" />
 	</resultMap>
 	
 	<resultMap type="CafeAttachment" id="attachment_rm">

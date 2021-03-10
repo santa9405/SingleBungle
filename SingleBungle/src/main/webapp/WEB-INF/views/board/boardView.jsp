@@ -124,10 +124,10 @@
 								<div class="row no">
 									<div class="col-md-12">
 										<div class="boardInfo" id="writer">
-											<c:if test="${board.memberGrade == 'F'}"><img class="nickname" src="${contextPath}/resources/images/g1copy.png"></c:if>
-											<c:if test="${board.memberGrade == 'S'}"><img class="nickname" src="${contextPath}/resources/images/g2.png"></c:if>
-											<c:if test="${board.memberGrade == 'T'}"><img class="nickname" src="${contextPath}/resources/images/g3.png"></c:if>
-											<c:if test="${board.memberGrade == 'G'}"><img class="nickname" src="${contextPath}/resources/images/profile.png"></c:if>
+											<c:if test="${board.memberGrade == 'F'}"><img class="nickname" src="${contextPath}/resources/images/grade1.png"></c:if>
+											<c:if test="${board.memberGrade == 'S'}"><img class="nickname" src="${contextPath}/resources/images/grade2.png"></c:if>
+											<c:if test="${board.memberGrade == 'T'}"><img class="nickname" src="${contextPath}/resources/images/grade3.png"></c:if>
+											<c:if test="${board.memberGrade == 'G'}"><img class="nickname" src="${contextPath}/resources/images/gradeG.png"></c:if>
 											<%-- <img class="image" id="nickname" src="${contextPath}/resources/images/profile.png" /> --%>${board.nickname}
 										</div>
 										<div class="boardInfo" id="createDt" style="color: gray">${board.createDate}</div>
