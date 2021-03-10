@@ -309,6 +309,8 @@ public class FindFriendController {
 		// 1) 게시글 상세 조회
 		FindFriend findFriend = service.selectBoard(friendNo);
 		
+		System.out.println(findFriend);
+		
 		// 2) 해당 게시글에 포함된 이미지 목록 조회
 		if(findFriend != null) {
 			
@@ -332,7 +334,7 @@ public class FindFriendController {
 		// friendNo을 updateFriend에 세팅
 		updateBoard.setFriendNo(friendNo);
 		
-		System.out.println(updateBoard);
+		//System.out.println(updateBoard);
 		
 		// 파일 저장 경로 얻어오기
 		String savePath = request.getSession().getServletContext().getRealPath("resources/findFriendImages");

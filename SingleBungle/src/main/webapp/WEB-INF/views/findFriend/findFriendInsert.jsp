@@ -151,8 +151,8 @@
 						<textarea class="form-control" id="summernote" name="friendContent" rows="10" style="resize: none;" required></textarea>
 					</div>
 					<div class="text-center">
-						<button type="submit" class="btn btn-secondary mb-3 btn-warning">등록</button>
-						<button type="button" class="btn btn-secondary mb-3">취소</button>
+						<button type="submit" class="btn maincolor mb-3">등록</button>
+						<button type="button" class="btn maincolor-re mb-3" id="cancel">취소</button>
 					</div>
 				</form>
 
@@ -182,7 +182,14 @@ function meetingDateValidate(){
 		return false;
 	}
 	
-}
+};
+
+// 작성 취소
+$("#cancel").on("click", function(){
+	if(confirm("게시글 작성을 취소하시겠습니까?"))	{
+		location.href = "${sessionScope.returnURL}";
+	}
+});
 	
 </script>
 </body>

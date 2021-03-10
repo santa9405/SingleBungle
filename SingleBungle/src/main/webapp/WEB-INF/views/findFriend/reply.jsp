@@ -129,7 +129,7 @@
 			// 댓글 List 반복 접근
 			$.each(rList, function(index, item){
 				
-				var media = $("<div>").addClass("media mt-2 replyBorder").css({"border-bottom-color" : "lightgray", "border-bottom-style" : "solid", "border-bottom-width" : "thin"});
+				var media = $("<div>").addClass("media mt-2 replyBorder");
 				
 				// 이미지
 				var img = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/profile.png")
@@ -177,7 +177,7 @@
 					mediaBody.append(row);
 					mediaBody.append(replyText);
 					media.append(img).append(mediaBody);
-					replyListArea.append(media);
+					replyListArea.append(media).append(hr);
 			
 				// 현재 댓글의 작성자와 로그인한 멤버의 아이디가 같을 때 수정/삭제 버튼 추가
 				}else if(item.memNo == memNo){
@@ -188,7 +188,7 @@
 					floatRight2.append(replyUpdate).append(replyDelete);
 					mediaBody.append(floatRight2);
 					media.append(img).append(mediaBody);
-					replyListArea.append(media);
+					replyListArea.append(media).append(hr);
 
 				}
 				

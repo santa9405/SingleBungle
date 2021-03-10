@@ -186,15 +186,15 @@
 			<div class="col-lg-12 mx-auto">
 				<div class="text-black banner">
 					<h1 class="boardName float-left">친구찾기</h1>
-					<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a>
-					<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">맛집</a>
-					<a class="category" id="2" href="search?ct=2&${sort}${sk}${sv}">문화생활</a>
+					<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a>  |&nbsp;
+					<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">맛집</a>  |&nbsp;
+					<a class="category" id="2" href="search?ct=2&${sort}${sk}${sv}">문화생활</a>  |&nbsp;
 					<a class="category" id="3" href="search?ct=3&${sort}${sk}${sv}">동네친구</a>
 
-					<div class="listTest float-right">
+					<%-- <div class="listTest float-right">
 						<a class="array" id="newSort" href="search?${category}sort=new&${sk}${sv}">최신순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
 						<a class="array" id="likeSort" href="search?${category}sort=like&${sk}${sv}">좋아요순<img class="icon" src="${contextPath}/resources/images/arrow.png" /></a>
-					</div>
+					</div> --%>
 					<hr>
 				</div>
 			</div>
@@ -208,6 +208,7 @@
 						<th>게시글 번호</th>
 						<th>지역</th>
 						<th>카테고리</th>
+						<th>모집성별</th>
 						<th>제목</th>
 						<th>모집인원</th>
 						<th>닉네임</th>
@@ -235,14 +236,22 @@
 									<%-- 카테고리 --%>
 									<td>
 										<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='	
-										<c:if test="${friend.categoryNm == '맛집'}">background-color: burlywood;</c:if>	
-										<c:if test="${friend.categoryNm == '문화생활'}">background-color: skyblue;</c:if>	
-										<c:if test="${friend.categoryNm == '동네친구'}">background-color: coral;</c:if> '>${friend.categoryNm}</div>
+											<c:if test="${friend.categoryNm == '맛집'}">background-color: #d2add9;</c:if>	
+											<c:if test="${friend.categoryNm == '문화생활'}">background-color: #ef8694;</c:if>	
+											<c:if test="${friend.categoryNm == '동네친구'}">background-color: #f6b06b;</c:if> '>${friend.categoryNm}</div>
+									</td>
+									<%-- 성별 --%>
+									<td>
+										<div class='badge badge-danger px-3 rounded-pill font-weight-normal' style='background-color: #787878;'>	
+											<c:if test="${friend.gender == 'W'}">여</c:if>	
+											<c:if test="${friend.gender == 'M'}">남</c:if>	
+											<c:if test="${friend.gender == 'F'}">무관</c:if>	
+										</div>
 									</td>
 									<%-- 제목 --%>
 									<td>${friend.friendTitle}</td>
 									<%-- 모집인원 --%>
-									<td>${friend.capacity}</td>
+									<td>${friend.apply}/${friend.capacity}</td>
 									<%-- 닉네임 --%>
 									<td>${friend.nickname}</td>
 									<%-- 작성일 --%>
