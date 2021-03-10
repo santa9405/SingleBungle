@@ -9,12 +9,19 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <style>
+	body{
+		min-width: 1200px;
+	}
 	.container{
     min-width: 1080px;
 	}
 	
   .boardName {
     margin-right: 40px;
+  }
+  
+  .boardName:hover {
+    color : #ff8500;
   }
 
 	.category {
@@ -230,9 +237,9 @@
 		width: auto;
 	}
 	
-	#submitBtn{
+	#submitBtn, #listBtn{
 		width : 20%;
-		margin : 40px 0 137px 0;
+		margin : 40px 20px 137px 0;
 		outline: none;
 		float: right;
 	}
@@ -256,16 +263,10 @@
 	.priceArea label {
 		margin-top : 8px;
 	}
-
-	.itemImage{
-		margin-bottom : 8px;
-		width: 202px;
-		height: 202px;
-		border: 1px solid rgb(230, 229, 239);
-		margin-right: 12px;
-		list-style-type: none;
-		position : relative;
-		display: flex;
+	
+	.itemImage img {
+		width : 100%;
+		height : 100%;
 	}
 </style>
 </head>
@@ -703,7 +704,7 @@
 		
       //--------------------------------------------------------------------------------------------------------------------------------------------
       
-      var locate;
+            var locate;
      	var inputLocate = "none";
      	var check = false;
     

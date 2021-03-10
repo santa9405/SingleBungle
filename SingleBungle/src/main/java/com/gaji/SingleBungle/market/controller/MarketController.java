@@ -323,7 +323,7 @@ public class MarketController {
 			@RequestParam(value="ct",required = false) String ct,
 			@RequestParam(value="sort",required = false) String sort, 
 			@ModelAttribute("mSearch") MarketSearch mSearch,
-			Model model) {
+			Model model, @ModelAttribute("loginMember") Member loginMember) {
 		
 		mSearch.setSv(sv);
 		mSearch.setCt(ct);
@@ -343,6 +343,10 @@ public class MarketController {
 			model.addAttribute("thList",thList);
 		}
 		
+		if(loginMember != null) {
+			List<MarketLike> likeInfo = service.selectLike(loginMember.getMemberNo());
+			model.addAttribute("likeInfo", likeInfo);
+		}
 		model.addAttribute("mList", mList);
 		model.addAttribute("mpInfo",mpInfo);
 		model.addAttribute("mSearch", mSearch);
@@ -458,11 +462,12 @@ public class MarketController {
 	@ResponseBody
 	@RequestMapping("locateCertification")
 	public String locateCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
+										@ModelAttribute(name="market", binding=false) Member market,
 								  	@RequestParam("locate") String locate) {
 		
 		
 		String certificationCheck = loginMember.getMemberCertifiedFl();
-		
+		System.out.println(market);
 		//System.out.println(certificationCheck);
 		
 		String lResult = null;
@@ -507,7 +512,7 @@ public class MarketController {
 	
 	// 노 인증 위치 검색 Controller
 	@ResponseBody
-	@RequestMapping("locateNoCertification")
+	@RequestMapping(value="locateNoCertification", produces ="application/text; charset=utf8")
 	public String locateNoCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
 		  								@RequestParam("locate") String locate) {
 		String certificationCheck = loginMember.getMemberCertifiedFl();
@@ -525,6 +530,7 @@ public class MarketController {
 				lResult = locate;
 				loginMember.setAddress(locate);
 				loginMember.setMemberCertifiedFl("N");
+				System.out.println("테스트 2" + lResult);
 				return lResult;
 			}
 		} else {
@@ -541,9 +547,10 @@ public class MarketController {
 				if (result > 0) {
 					lResult = locate;
 					loginMember.setAddress(locate);
+					System.out.println("테스트3 " + lResult);
+					return lResult;
 				}
 
-				return lResult;
 			}
 		}
 
@@ -551,7 +558,7 @@ public class MarketController {
 	}
 	
 	
-	
+
 	
 	
 	// ------------------------------------------------------------------------------------------------------

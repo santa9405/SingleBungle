@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 - 판매글 작성</title>
+<title>벙글장터 - 게시글 작성</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <style>
@@ -279,7 +279,7 @@
 					<div class="row py-5 no-gutters">
 						<div class="col-lg-12 mx-auto">
 							<div class="text-black banner">
-								<a class="ListGo" href="../market/list"><h1 class="boardName">사고팔고</h1></a>
+								<a class="ListGo" href="../market/list"><h1 class="boardName">벙글장터</h1></a>
 								<hr>
 							</div>
 						</div>
@@ -335,7 +335,7 @@
 							
 							<div class="formContent titleFlex">
 								<div class="titleArea ">
-									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="marketTitle" required maxlength="40" minlength="2" required>
+									<input type="text" placeholder="상품 제목을 입력해주세요." class="titleInput" id="title" name="marketTitle" required maxlength="40" minlength="2" required autocomplete="off">
 									<button id="cancelBtn" type="button"></button>
 									<div class="titleCnt">
 									<span id="currCnt">0</span>
@@ -391,10 +391,10 @@
 									
 										<c:if test="${loginMember.memberCertifiedFl != 'Y'}">
 										<button type="button" id="searchLocation" class="LBtn btn btn-info">주소 검색</button>
-										<button type="button" id="researchLocation" class="LBtn btn btn-info">재 검색</button>
+										<button type="button" id="researchLocation" class="LBtn btn btn-info" onclick="research();">재 검색</button>
 									</c:if>
 								</div>
-								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput" name="address" class="location" required
+								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput"  name="address" class="location" required
 								<c:if test="${loginMember.address != null}">value="${loginMember.address}" readonly style="background-color : #f1f1f0bd; cursor : not-allowed"</c:if>
 								>
 								<span class="errorMsg" id="locationMsg"></span>
@@ -436,7 +436,7 @@
 
 							<div class="formContent">
 								<div class="priceArea">
-									<input type="text" name="price" id="itemPrice" class="priceInput itemInputs" placeholder="숫자만 입력해주세요." required> 원
+									<input type="text" name="price" id="itemPrice" class="priceInput itemInputs" placeholder="숫자만 입력해주세요." required autocomplete="off"> 원
 										<span class="errorMsg" id="priceMsg"></span>
 									<input type="radio" name="deliveryCharge" value="F" class="itemRadio" id="including" checked> <label for="including" class="radioM" >택배비 포함</label>
 									<input type="radio" name="deliveryCharge" value="N" class="itemRadio" id="noincluding"> <label for="noincluding" class="radioM">택배비 미포함</label>
@@ -468,7 +468,7 @@
 
 							<div class="formContent">
 								<div class="priceArea">
-									<input type="text" name="itemCount" id="itemCount" class="countInput itemInputs"  required /> 개
+									<input type="text" name="itemCount" id="itemCount" class="countInput itemInputs"  required  autocomplete="off"/> 개
 									<span class="errorMsg" id="countMsgq"></span>
 								</div>
 							</div>
@@ -494,7 +494,7 @@
 	
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74&libraries=services,clusterer"></script>
 	<script>
-	
+    var locationCheck = false;
 	
 	// 취소
 	$("#listBtn").on("click", function(){
@@ -631,13 +631,17 @@
            $(".itemCount").focus();
            return false;
         }
+        
+        if(!locationCheck){
+        	alert("위치 인증이나 주소 검색을 통해 거래 지역을 입력해주세요.");
+        		return false;
+        }
      }
 	
       //-------------------------------------------------------------------------------------------------------------------------------
   
       var locate;
      	var inputLocate = "none";
-     	var check = false;
     
         
      function getLocation(getLoc) {
@@ -652,7 +656,7 @@
 									//locate = result[0].address_name;
 									getLoc(result[0].address_name);
 					        console.log('지역 명칭 : ' + locate);
-					        check = true;
+					    
 					    }
 					} 
 
@@ -686,6 +690,7 @@
 								console.log("테스트2" + locate);
 								$("#locationInput").val(locate).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
 								$("#searchLocation, #researchLocation").css("display", "none");
+							  locationCheck = true;
 							} else{
 								swal({ icon : "error", title : "위치 인증이 정상적으로 이루어지지 않았습니다." });
 							}
@@ -697,37 +702,11 @@
       });
 		});
 		
-		
-		
-		
-/* 	$("#locationInput").on("input", function(){
-		var geocoder = new kakao.maps.services.Geocoder();
 
-		var callback = function(result, status) {
-		    if (status === kakao.maps.services.Status.OK) {
-		     if(result[0].hasOwnProperty('address_name')) {
-		    			inputLocate = result[0].address_name;
-		    			console.log(result);
-		    			$("#locationInput").css("border",  "1px solid #ffaf18");
-		    			$("#locationMsg").text("올바른 주소입니다. 만약 원하는 주소가 아닐 시 구 주소부터 다시 입력해주세요.");
-		    			$("#locationInput").val(inputLocate);
-		    		}
-		    }else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-
-		    	$("#locationInput").css("border",  "1px solid red");
-		        return;
-
-		    }
-		};
-
-		geocoder.addressSearch($("#locationInput").val(), callback);
-	}); */
 	
 
 		$("#searchLocation").on("click", function(){
 	
-		var values = $("#locationInput").val();
-
 		
 		if($("#locationInput").val()==""){
 			alert("검색어를 입력해주세요.");
@@ -741,27 +720,19 @@
 			type : "get",
 			data : {'query' : $("#locationInput").val()},
 			success : function(r) {
+				
 				if(r.documents.length != 0 ){ // 값이 있으면
-					if(check == false){
-						$("#searchAddr").empty();
-					}
+
 					$("#searchAddr").empty();
 					for(var i= 0; i<r.documents.length; i++){
 						
 						 console.log(r.documents[i].address_name);
 						 
-						 var li = '<li class="valAddr"><button type="button" class="btn addr">' + r.documents[i].address_name + '</button></li>'
+						 var li = '<li class="valAddr"><button type="button" class="btn addr" onclick="addrBtnClick(\''+r.documents[i].address_name+'\');">' + r.documents[i].address_name + '</button></li>'
 							
 						 $("#searchAddr").append(li);
 						}
-					
-					
 				}
-
-
-			/* 	$.each(r, function(i, search){
-					console.log(i);
-				}) */
 			}, error : function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 
@@ -770,21 +741,23 @@
 	});
 	
 	
-	$(".addr").on("click", function(){
-		console.log($(this).text());
-		$("#locationInput").val($(this).text());
-		console.log("테스트1 :" + $("#locationInput").val());
-	//	$("#searchAddr").empty();
+	
+	function addrBtnClick(temp){
 		
+		console.log(temp);
+		$("#locationInput").val(temp);
+		console.log("테스트1 :" + $("#locationInput").val());
+		$("#searchAddr").empty();
 		
 		$.ajax({
 			url : "locateNoCertification",
-			type : "post",
-			data : {"locate" : $("#locationInput").val()},
-			success : function(result){
-				if(result != null){
-					console.log("테스트 3 : " + result)
-					$("#locationInput").val(result).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
+			type : "get",
+			data : {"locate" : temp},
+			success : function(r){
+				if(r != null){
+					console.log("테스트 3 : " + r);
+					$("#locationInput").val(r).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
+				    locationCheck = true;
 				} else{
 					$("#locationInput").remove("readonly, backgroundColor");
 				}
@@ -792,11 +765,14 @@
 				console.log("ajax 통신 오류 발생!");
 			}
 		});
-	});
-	//$("#locationInput").val(locate).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
-/* 	$("#researchLocation").on("click", function(){
-		$("#locationInput").empty();
-	}); */
+	}; 
+	
+	function research(){
+		$("#locationInput").removeAttr('readonly').css('backgroundColor', '').css('cursor', 'auto').val('');
+	  locationCheck = false;
+	}
+	
+	
 	</script>
 
 </body>

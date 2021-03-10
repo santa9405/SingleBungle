@@ -338,45 +338,30 @@
 						  
 						<div>
 
-
+		        
+		        <jsp:useBean id="today" class="java.util.Date" /> 
+		        <c:set var="now" value="<%=new java.util.Date()%>"/>
+	       
+		        <fmt:formatDate var="createDt" value="${market.createDt}" pattern="yyyy-MM-dd HH:mm:ss.S" />  
+		        <c:set var="createDt2" value="${createDt}"/>
+		        <fmt:parseDate var="createDt3" value="${createDt2 }" pattern="yyyy-MM-dd HH:mm:ss.S" />
+        
+	        	<fmt:parseNumber value="${createDt3.time / (1000*60*60*24)}" integerOnly="true" var="end" scope="request" />
+						<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="str" scope="request" />  
 						
-							
-			        <%-- <jsp:useBean id="toDay_B" class="java.util.Date" /> ${toDay_B}, 
-			        <c:set var="now" value="<%=new java.util.Date()%>"/> ${toDay_C},
-			        <fmt:parseDate var="createDt" value="${market.createDt}" pattern="yyyy-MM-dd HH:mm:ss" />
-								
-							
-							
-								<fmt:formatDate value="createDt" pattern="yyyy.MM.dd HH:mm:ss" />
-								<fmt:formatDate value="now" pattern="yyyy.MM.dd HH:mm:ss" />
-								<fmt:parseNumber value="${createDt.time / (1000*60*60*24)}" integerOnly="true" var="end" scope="request" />
-								<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="str" scope="request" /> --%>
-								
-								 <!-- 날짜 객체생성 방법 -->
-<%--         <%request.setAttribute("toDay_A", new java.util.Date());%> ${toDay_A}, 
-        <jsp:useBean id="toDay_B" class="java.util.Date" /> ${toDay_B}, 
-        <c:set var="now" value="<%=new java.util.Date()%>"/> ${toDay_C},
-        <fmt:parseDate var="createDt" value="${market.createDt}" pattern="yyyy.MM.dd" />
-							
-							
-							  <!-- 날짜 포맷 방법 -->
-        <fmt:formatDate value="${now}" pattern="yyyy.MM.dd" />, 
-        <fmt:formatDate value="${toDay_B}" pattern="yyyy-MM-dd HH:mm:ss"/>, 
-        <fmt:formatDate value="${toDay_C}" pattern="E"/> 요일, 
-        <fmt:formatDate value="${toDay_D}" pattern="yyyy-MM-dd"/>
-        
-        
-        <fmt:parseDate var="sDate" value="${now}" pattern="yyyyMMdd" />
-        <fmt:parseNumber value="${sDate.matchTime / (1000*60*60*24)}" integerOnly="true" var="isDate" scope="request" />
-        <fmt:parseDate var="tDate" value="${createDt}" pattern="yyyyMMdd" />
-        <fmt:parseNumber value="${tDate.matchTime / (1000*60*60*24)}" integerOnly="true" var="itDate" scope="request" />
-        ${itDate - isDate} 일 지남
-         --%>
-        
-        <%-- <fmt:formDate value="${market.createDt}" type="both" pattern="yyyy-MM-ss"/> --%>
-        
+						<c:set var="day" value="${str - end}"/>
+						
+						<c:choose>
+							<c:when test="${day == 0 }">
+								오늘
+							</c:when>
+							<c:otherwise>
+								${day}일 전
+							</c:otherwise>
+						</c:choose>
+					
 						 <img class="float-left clockImg smallImages" width="20" height="20" src="${contextPath}/resources/images/clock.png"> 
-						 <h5 class="clock float-left cnt">${now - createDt}</h5> 
+						 <h5 class="clock float-left cnt"></h5> 
 						 </div> 
 						 
 						 
@@ -415,8 +400,11 @@
 								</li>
 								
 								<li class="sellerLocation ">
-									<label>거래지역</label> <span>${market.address}</span>
+									<label>거래지역</label> <span>${market.address}</span> 
+									<c:if test='${market.certifiedFl == "Y"}'><i class="fas fa-map-marker-alt" title="동네인증한 회원입니다!"></i></c:if>
 								</li>
+								
+								${market}
 							</ul>
 						</div>
 						
