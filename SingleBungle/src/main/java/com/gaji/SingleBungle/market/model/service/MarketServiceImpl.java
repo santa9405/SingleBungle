@@ -432,6 +432,21 @@ public class MarketServiceImpl implements MarketService {
 	public int locateInsert(Map<String, Object> map) {
 		return dao.locateInsert(map);
 	}
+
+	
+	// 노인증 주소 검색 insert service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int NoCertificationInsert(Map<String, Object> map) {
+		return dao.NoCertificationInsert(map);
+	}
+
+	// 노인증 주소 검색 update service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int NoCertificationUpdate(Map<String, Object> map) {
+		return  dao.NoCertificationUpdate(map);
+	}
 	
 	
 	

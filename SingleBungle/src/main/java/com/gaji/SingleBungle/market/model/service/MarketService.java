@@ -161,6 +161,18 @@ public interface MarketService {
 	 */
 	int locateInsert(Map<String, Object> map);
 
+	/** 노인증 주소 검색 insert service
+	 * @param map
+	 * @return result
+	 */
+	int NoCertificationInsert(Map<String, Object> map);
+
+	/** 노인증 주소 검색 update Service
+	 * @param map 
+	 * @return result
+	 */
+	int NoCertificationUpdate(Map<String, Object> map);
+
 	
 
 
