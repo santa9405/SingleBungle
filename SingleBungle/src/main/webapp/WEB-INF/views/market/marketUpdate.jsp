@@ -277,32 +277,17 @@
 			<div class="col-md-12">
 				<div class="px-lg-5">
 				
-				
-					<form action="#" method="GET" >
-						<div class="input-group mb-4 col-md-8 searchArea">
-							<input id="searchInput" type="search" placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control" >
-							<div class="input-group-append">
-								<button id="searchBtn" type="submit" class="btn btn-info">
-									<i class="fa fa-search"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 
 
 					<!-- 게시판 이름/카테고리 -->
 					<div class="row py-5 no-gutters">
 						<div class="col-lg-12 mx-auto">
 							<div class="text-black banner">
-								<h1 class="boardName float-left">사고팔고</h1>
-								<a class="category" href="#">전체</a> <span>|</span> <a class="category" href="#">팝니다</a> <span>|</span> <a class="category" href="#">삽니다</a>
-
-								<div class="listTest float-right">
-									<a class="category" href="#">최신순</a> <span>|</span> <a class="category" href="#">좋아요순</a> <span>|</span> <a class="category" href="#">저가순</a> <span>|</span> <a class="category" href="#">고가순</a>
-								</div>
+								<a class="ListGo" href="../market/list"><h1 class="boardName">사고팔고</h1></a>
 								<hr>
 							</div>
 						</div>
+							
 					</div>
 					<!-- End -->
 					
@@ -405,7 +390,13 @@
 							</div>
 						</li>
 						
-						<!-- 거래지역 -->
+						
+						
+						
+						
+						
+						
+						<!------------------------------------------------------------------ 거래지역  ---------------------------------------------------------------------->
 						<li class="formRow row">
 							<div class="formList">
 								<span>거래지역<span class="star">*</span></span>
@@ -413,12 +404,31 @@
 							
 							<div class="formContent titleFlex">
 								<div class="locationBtnArea mb-20">
-									<button type="button" id="currLocation" class="LBtn btn btn-info" onclick="getLocation();">내 위치</button>
+									
+									
+										<button type="button" id="currLocation" class="LBtn btn btn-info" >내 위치</button>
+									
+										<c:if test="${loginMember.memberCertifiedFl != 'Y'}">
+										<button type="button" id="searchLocation" class="LBtn btn btn-info">주소 검색</button>
+										<button type="button" id="researchLocation" class="LBtn btn btn-info">재 검색</button>
+									</c:if>
 								</div>
-								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(시군구)" id="locationInput" name="address" class="location" required>
+								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput" name="address" class="location" required
+								<c:if test="${loginMember.address != null}">value="${loginMember.address}" readonly style="background-color : #f1f1f0bd; cursor : not-allowed"</c:if>
+								>
 								<span class="errorMsg" id="locationMsg"></span>
+								<ul id="searchAddr" style="padding : 0px;">
+									
+								</ul>
 							</div>
 						</li>
+						
+						
+						
+						
+						
+						
+						
 						
 						<!-- 상태 -->
 						<li class="formRow row">
@@ -483,8 +493,9 @@
 							</div>
 						</li>
 						</ul>
-						<div id="sumbitArea">
-								<button id="submitBtn" type="submit" class="btn-lg btn-info" >수정하기</button>
+						<div id="btnArea">
+								<button id="submitBtn" type="submit" class="btn-lg btn-info">등록하기</button>
+								<button id="listBtn" type="button" class="btn-lg btn-info">등록취소</button>
 						</div>
 					</form>
 
@@ -497,10 +508,17 @@
 
 	<script>
 	
+	// 취소
+	$("#listBtn").on("click", function(){
+		if(confirm("목록으로 돌아가시겠습니까?")){
+	         location.href = "${sessionScope.returnListURL}";
+	  }
+	});
+	
 	// 이전 이미지의 fileNo를 하나의 배열에 모아둠
 	var beforeImages = [];
 	<c:forEach items="${at}" var="image">
-		beforeImages.push(${image.fileNo});
+		beforeImages.push(${image.fileNo} );
 	</c:forEach>
 	
 	
@@ -683,6 +701,139 @@
      }
       
 		
+      //--------------------------------------------------------------------------------------------------------------------------------------------
+      
+      var locate;
+     	var inputLocate = "none";
+     	var check = false;
+    
+        
+     function getLocation(getLoc) {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(pos) {
+					var latitude = pos.coords.latitude;
+					var longitude = pos.coords.longitude;
+					var geocoder = new kakao.maps.services.Geocoder();
+
+					var callback = function(result, status){
+					    if (status === kakao.maps.services.Status.OK) {
+									//locate = result[0].address_name;
+									getLoc(result[0].address_name);
+					        console.log('지역 명칭 : ' + locate);
+					        check = true;
+					    }
+					} 
+
+					geocoder.coord2RegionCode( longitude, latitude, callback);
+					
+					
+				}, function(error) {
+					alert(error);
+				})
+			} else {
+				alert("이 브라우저에서는 위치 정보를 얻어올 수 없습니다.");
+			}
+		}
+  
+      
+
+		$("#currLocation").on("click", function() {
+			getLocation(function(loc){
+       	console.log(loc);
+       	locate = loc;
+      	
+				$.ajax({
+					url : "locateCertification",
+					type : "post",
+					data : {
+						"locate" : locate
+					},
+					success : function(result) {
+							if(result != null){
+								swal({ icon : "success", title : "위치 인증이 완료되었습니다." });
+								console.log("테스트2" + locate);
+								$("#locationInput").val(locate).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
+								$("#searchLocation, #researchLocation").css("display", "none");
+							} else{
+								swal({ icon : "error", title : "위치 인증이 정상적으로 이루어지지 않았습니다." });
+							}
+					},
+					error : function(result) {
+						console.log("ajax 통신 오류 발생!");
+					}
+				});
+      });
+		});
+		
+		
+		
+
+
+		$("#searchLocation").on("click", function(){
+	
+		var values = $("locationInput").val();
+
+		
+		if($("#locationInput").val()==""){
+			alert("검색어를 입력해주세요.");
+		}
+		
+		$.ajax({
+			url : "https://dapi.kakao.com/v2/local/search/address.json",
+			dataType : "json",
+			headers : { 'Authorization' : 'KakaoAK d8940af8d4ab80783457f43b81159f84'},
+			async : false,
+			type : "get",
+			data : {'query' : $("#locationInput").val()},
+			success : function(r) {
+				if(r.documents.length != 0 ){ // 값이 있으면
+					if(check == false){
+						$("#searchAddr").empty();
+					}
+					$("#searchAddr").empty();
+					for(var i= 0; i<r.documents.length; i++){
+						
+						 console.log(r.documents[i].address_name);
+						 
+						 var li = '<li class="valAddr"><button type="button" class="btn addr">' + r.documents[i].address_name + '</button></li>'
+							
+						 $("#searchAddr").append(li);
+						}
+					
+					$(".addr").on("click", function(){
+						console.log($(this).text());
+						$("#locationInput").val($(this).text());
+						console.log("테스트1 :" + $("#locationInput").val());
+					//	$("#searchAddr").empty();
+						
+						
+						$.ajax({
+							url : "locateNoCertification",
+							type : "post",
+							data : {"locate" : $("#locationInput").val()},
+							success : function(result){
+								if(result != null){
+									console.log("테스트 3 : " + result)
+									$("#locationInput").val(result).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
+								} else{
+									$("#locationInput").remove("readonly, backgroundColor");
+								}
+							}, error : function(){
+								console.log("ajax 통신 오류 발생!");
+							}
+						});
+					});
+				}
+
+
+			}, error : function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+			}
+		})
+	});
+
+      
 		
 		
       
