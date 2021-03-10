@@ -371,6 +371,12 @@
 							</div>
 						</li>
 						
+						
+						
+						
+						
+						
+						
 						<!-- 거래지역 -->
 						<li class="formRow row">
 							<div class="formList">
@@ -397,6 +403,16 @@
 								</ul>
 							</div>
 						</li>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						
 						<!-- 상태 -->
 						<li class="formRow row">
