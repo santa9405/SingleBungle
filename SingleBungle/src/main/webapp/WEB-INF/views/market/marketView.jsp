@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사고팔고 - 상세 조회</title>
+<title>벙글장터 - 상세 조회</title>
 <link rel='stylesheet' href='https://sachinchoolur.github.io/lightslider/dist/css/lightslider.css'>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
@@ -20,6 +20,11 @@
  .boardName {
    margin-right: 40px;
  }
+ 
+   .boardName:hover {
+    color : #ff8500;
+  }
+ 
 
  .category {
    text-decoration: none;
@@ -69,6 +74,7 @@
 	.btnBadge {
 		border : 1px solid #ffc0cb00;
 		margin-top : 10px;
+		margin-bottom:8px;
 	}
 	
 	.itemTitle{
@@ -259,7 +265,7 @@
         <div class="col-lg-12 mx-auto">
         	      
           <div class="text-black  banner">
-								<h1 class="boardName ">사고팔고</h1>
+								<a class="ListGo" href="../market/list" style="text-decoration: none"><h1 class="boardName">벙글장터</h1></a>
 								<hr>
           </div>
         </div>
@@ -403,8 +409,7 @@
 									<label>거래지역</label> <span>${market.address}</span> 
 									<c:if test='${market.certifiedFl == "Y"}'><i class="fas fa-map-marker-alt" title="동네인증한 회원입니다!"></i></c:if>
 								</li>
-								
-								${market}
+
 							</ul>
 						</div>
 						

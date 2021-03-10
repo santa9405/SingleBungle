@@ -263,11 +263,12 @@
 	.priceArea label {
 		margin-top : 8px;
 	}
-	
+
 	.itemImage img {
 		width : 100%;
-		height : 100%;
+		height: 100%;
 	}
+
 </style>
 </head>
 <body>
@@ -398,6 +399,7 @@
 						
 						
 						<!------------------------------------------------------------------ 거래지역  ---------------------------------------------------------------------->
+						<!-- 거래지역 -->
 						<li class="formRow row">
 							<div class="formList">
 								<span>거래지역<span class="star">*</span></span>
@@ -411,10 +413,10 @@
 									
 										<c:if test="${loginMember.memberCertifiedFl != 'Y'}">
 										<button type="button" id="searchLocation" class="LBtn btn btn-info">주소 검색</button>
-										<button type="button" id="researchLocation" class="LBtn btn btn-info">재 검색</button>
+										<button type="button" id="researchLocation" class="LBtn btn btn-info" onclick="research();">재 검색</button>
 									</c:if>
 								</div>
-								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput" name="address" class="location" required
+								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput"  name="address" class="location" required
 								<c:if test="${loginMember.address != null}">value="${loginMember.address}" readonly style="background-color : #f1f1f0bd; cursor : not-allowed"</c:if>
 								>
 								<span class="errorMsg" id="locationMsg"></span>
@@ -507,7 +509,9 @@
 	<jsp:include page="../common/footer.jsp"/>
 	
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fab5ca51af8a6a11814c512e4f78d74&libraries=services,clusterer"></script>
 	<script>
+    var locationCheck = false;
 	
 	// 취소
 	$("#listBtn").on("click", function(){
@@ -516,14 +520,14 @@
 	  }
 	});
 	
+	
 	// 이전 이미지의 fileNo를 하나의 배열에 모아둠
 	var beforeImages = [];
 	<c:forEach items="${at}" var="image">
-		beforeImages.push(${image.fileNo} );
+		beforeImages.push(${image.fileNo});
 	</c:forEach>
 	
 	
-
 	
 	(function() {
         if("${market.transactionCategory}" == '1')
@@ -561,7 +565,6 @@
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
 				reader.readAsDataURL(value.files[0]);
-
 				imgId++;
 				
 				reader.onload = function(e) {
@@ -616,10 +619,8 @@
     	$("#title").val("");
     });
     
-
     $("#itemPrice").on("input", function(){
     	var regexp = /^[0-9]*$/;
-
     	if($("#itemPrice").val() < 100) {
     			$("#priceMsg").text("100원 이상 입력해주세요.");
     	} else if(!regexp.test($("#itemPrice").val())){
@@ -630,11 +631,9 @@
     		$("#priceMsg").text("");
     	}
     });
-
     $(".itemInfoText").on("input", function() {
         var cnt = $(this).val();
         $("#ContentCurrCnt").text(cnt.length);
-
         if (cnt.length >= 2000) {
            $("#ContentCurrCnt").css("color", "red");
         }
@@ -702,11 +701,11 @@
      }
       
 		
-      //--------------------------------------------------------------------------------------------------------------------------------------------
       
-            var locate;
+		//----------------------------------------------------------------------------
+		
+		  var locate="";
      	var inputLocate = "none";
-     	var check = false;
     
         
      function getLocation(getLoc) {
@@ -721,7 +720,7 @@
 									//locate = result[0].address_name;
 									getLoc(result[0].address_name);
 					        console.log('지역 명칭 : ' + locate);
-					        check = true;
+					    
 					    }
 					} 
 
@@ -739,6 +738,7 @@
       
 
 		$("#currLocation").on("click", function() {
+			
 			getLocation(function(loc){
        	console.log(loc);
        	locate = loc;
@@ -755,6 +755,7 @@
 								console.log("테스트2" + locate);
 								$("#locationInput").val(locate).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
 								$("#searchLocation, #researchLocation").css("display", "none");
+							  locationCheck = true;
 							} else{
 								swal({ icon : "error", title : "위치 인증이 정상적으로 이루어지지 않았습니다." });
 							}
@@ -766,19 +767,16 @@
       });
 		});
 		
-		
-		
 
+	
 
 		$("#searchLocation").on("click", function(){
 	
-		var values = $("locationInput").val();
-
 		
 		if($("#locationInput").val()==""){
 			alert("검색어를 입력해주세요.");
 		}
-		
+		console.log($("#locationInput").val());
 		$.ajax({
 			url : "https://dapi.kakao.com/v2/local/search/address.json",
 			dataType : "json",
@@ -787,58 +785,64 @@
 			type : "get",
 			data : {'query' : $("#locationInput").val()},
 			success : function(r) {
+				
 				if(r.documents.length != 0 ){ // 값이 있으면
-					if(check == false){
-						$("#searchAddr").empty();
-					}
+
 					$("#searchAddr").empty();
 					for(var i= 0; i<r.documents.length; i++){
 						
 						 console.log(r.documents[i].address_name);
 						 
-						 var li = '<li class="valAddr"><button type="button" class="btn addr">' + r.documents[i].address_name + '</button></li>'
+						 var li = '<li class="valAddr"><button type="button" class="btn addr" onclick="addrBtnClick(\''+r.documents[i].address_name+'\');">' + r.documents[i].address_name + '</button></li>'
 							
 						 $("#searchAddr").append(li);
 						}
-					
-					$(".addr").on("click", function(){
-						console.log($(this).text());
-						$("#locationInput").val($(this).text());
-						console.log("테스트1 :" + $("#locationInput").val());
-					//	$("#searchAddr").empty();
-						
-						
-						$.ajax({
-							url : "locateNoCertification",
-							type : "post",
-							data : {"locate" : $("#locationInput").val()},
-							success : function(result){
-								if(result != null){
-									console.log("테스트 3 : " + result)
-									$("#locationInput").val(result).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
-								} else{
-									$("#locationInput").remove("readonly, backgroundColor");
-								}
-							}, error : function(){
-								console.log("ajax 통신 오류 발생!");
-							}
-						});
-					});
 				}
-
-
 			}, error : function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 
 			}
 		})
 	});
-
-      
+	
+	
+	
+	function addrBtnClick(temp){
 		
+		console.log(temp);
+		$("#locationInput").val(temp);
+		console.log("테스트1 :" + $("#locationInput").val());
+		$("#searchAddr").empty();
 		
+		$.ajax({
+			url : "locateNoCertification",
+			type : "get",
+			data : {"locate" : temp},
+			success : function(r){
+				if(r != null){
+					console.log("테스트 3 : " + r);
+					$("#locationInput").val(r).attr("readonly", "readonly").css("backgroundColor", "#f1f1f0bd").css("cursor", "not-allowed");
+				    locationCheck = true;
+				} else{
+					$("#locationInput").remove("readonly, backgroundColor");
+				}
+			}, error : function(){
+				console.log("ajax 통신 오류 발생!");
+			}
+		});
+	}; 
+	
+	function research() {
+		$("#locationInput").removeAttr('readonly').css('backgroundColor', '').css('cursor', 'auto').val('');
+		if (loginMember.memberCertifiedFl != null) {
+			locationCheck = true;
+		} else {
+			locationCheck = false;
+		}
+	} 
       
 	</script>
+
 
 </body>
 </html>

@@ -279,7 +279,8 @@ public class MarketController {
 	public String marketUpdateAction(@PathVariable("marketNo") int marketNo, Model model, RedirectAttributes ra,
 									@ModelAttribute Market market, HttpServletRequest request,
 									@RequestParam("beforeImages") int[] beforeImages,
-									@RequestParam(value="images", required=true) List<MultipartFile> images) {
+									@RequestParam(value="images", required=true) List<MultipartFile> images
+									) {
 		
 		// marketNo를 market에 세팅
 		market.setMarketNo(marketNo);
@@ -296,6 +297,8 @@ public class MarketController {
 			swalIcon = "success";
 			swalTitle = "사고팔고 수정 성공";
 			url = "redirect:../" + marketNo;
+			
+			request.getSession().setAttribute("returnListURL", "../list");
 		}else {
 			swalIcon = "error";
 			swalTitle = "사고팔고 수정 실패";
@@ -460,7 +463,7 @@ public class MarketController {
 	
 	// 동네인증 Controller
 	@ResponseBody
-	@RequestMapping("locateCertification")
+	@RequestMapping("*/locateCertification")
 	public String locateCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
 										@ModelAttribute(name="market", binding=false) Member market,
 								  	@RequestParam("locate") String locate) {
@@ -512,7 +515,7 @@ public class MarketController {
 	
 	// 노 인증 위치 검색 Controller
 	@ResponseBody
-	@RequestMapping(value="locateNoCertification", produces ="application/text; charset=utf8")
+	@RequestMapping(value="*/locateNoCertification", produces ="application/text; charset=utf8")
 	public String locateNoCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
 		  								@RequestParam("locate") String locate) {
 		String certificationCheck = loginMember.getMemberCertifiedFl();
