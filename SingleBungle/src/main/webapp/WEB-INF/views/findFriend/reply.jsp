@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>친구찾기 게시판 댓글</title>
+<title>만남의 광장 게시판 댓글</title>
 <style>
 
 /* 댓글 */

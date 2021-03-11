@@ -49,9 +49,9 @@ public class FindFriendController {
 		
 		if(loginMember != null) {
 			
-			if(loginMember.getMemberGrade().charAt(0) == 'T') {
+			if(loginMember.getMemberGrade().charAt(0) != 'F') {
 				swalIcon = "error";
-				swalTitle = "친구찾기게시판은 2등급부터 이용할 수 있습니다.";
+				swalTitle = "만남의 광장은 2등급부터 이용할 수 있습니다.";
 				url = "redirect:/";
 			}else {
 				
@@ -113,7 +113,7 @@ public class FindFriendController {
 	// 친구찾기 상세 조회 Controller
 	@RequestMapping("{friendNo}")
 	public String friendView(@PathVariable("friendNo") int friendNo, Model model,
-							 @ModelAttribute("loginMember") Member loginMember,
+							 @ModelAttribute(name = "loginMember", binding = false) Member loginMember,
 							 @RequestHeader(value = "referer", required = false) String referer,
 							 RedirectAttributes ra) {
 		

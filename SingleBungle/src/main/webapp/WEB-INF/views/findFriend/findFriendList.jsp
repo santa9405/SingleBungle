@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>친구찾기 게시판 목록조회</title>
+<title>만남의 광장 게시판 목록조회</title>
 <style>
 .boardName {
 	margin-right: 10px;
@@ -185,7 +185,7 @@
 		<div class="row py-5">
 			<div class="col-lg-12 mx-auto">
 				<div class="text-black banner">
-					<h1 class="boardName float-left">친구찾기</h1>
+					<h1 class="boardName float-left">만남의 광장</h1>
 					<a class="category" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a>  |&nbsp;
 					<a class="category" id="1" href="search?ct=1&${sort}${sk}${sv}">맛집</a>  |&nbsp;
 					<a class="category" id="2" href="search?ct=2&${sort}${sk}${sv}">문화생활</a>  |&nbsp;
