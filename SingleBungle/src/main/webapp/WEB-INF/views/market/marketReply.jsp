@@ -86,24 +86,24 @@
 					<!-- 댓글 작성창 -->
 					<div class="p-2">
 						<div class="d-flex flex-row align-items-start">
-							                     <c:if test="${loginMember.memberGrade=='F' }">
-                        <img class="image" src="${contextPath}/resources/images/grade1.png" width="40" />
-                     </c:if>
-                     <c:if test="${loginMember.memberGrade=='S' }">
-                        <img class="image" src="${contextPath}/resources/images/grade2.png" width="40" />
-                     </c:if>
-                     <c:if test="${loginMember.memberGrade=='T' }">
-                        <img class="image" src="${contextPath}/resources/images/grade3.png" width="40" />
-                     </c:if>
-                     <c:if test="${loginMember.memberGrade=='G' }">
-                        <img class="image" src="${contextPath}/resources/images/gradeG.png" width="40" />
-                     </c:if>
+							<c:if test="${loginMember.memberGrade=='F' }">
+								<img class="image" src="${contextPath}/resources/images/grade1.png" width="40" />
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='S' }">
+								<img class="image" src="${contextPath}/resources/images/grade2.png" width="40" />
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='T' }">
+								<img class="image" src="${contextPath}/resources/images/grade3.png" width="40" />
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='G' }">
+								<img class="image" src="${contextPath}/resources/images/gradeG.png" width="40" />
+							</c:if>
 
 							<textarea class="form-control ml-1 shadow-none textarea" id="replyContent" style="resize: none"> </textarea>
 						</div>
 						<div class="mt-2 text-right">
-							<button class="btn btn-primary btn-sm shadow-none" id="addReply">등록</button>
-							<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" id="cancelBtn" type="button">취소</button>
+							<button class="btn maincolor btn-sm shadow-none" id="addReply">등록</button>
+							<button class="btn maincolor-re btn-sm ml-1 shadow-none" id="cancelBtn" type="button">취소</button>
 						</div>
 					</div>
 					

@@ -268,6 +268,10 @@
 		width : 100%;
 		height: 100%;
 	}
+	
+	.maincolor{
+		margin-right: 8px;
+	}
 
 </style>
 </head>
@@ -409,11 +413,11 @@
 								<div class="locationBtnArea mb-20">
 									
 									
-										<button type="button" id="currLocation" class="LBtn btn btn-info" >내 위치</button>
+										<button type="button" id="currLocation" class="LBtn btn maincolor" >내 위치</button>
 									
 										<c:if test="${loginMember.memberCertifiedFl != 'Y'}">
-										<button type="button" id="searchLocation" class="LBtn btn btn-info">주소 검색</button>
-										<button type="button" id="researchLocation" class="LBtn btn btn-info" onclick="research();">재 검색</button>
+										<button type="button" id="searchLocation" class="LBtn btn maincolor">주소 검색</button>
+										<button type="button" id="researchLocation" class="LBtn btn maincolor" onclick="research();">재 검색</button>
 									</c:if>
 								</div>
 								<input type="text" placeholder="선호 거래 지역을 입력해주세요.(읍/면/동)" id="locationInput"  name="address" class="location" required
@@ -497,8 +501,8 @@
 						</li>
 						</ul>
 						<div id="btnArea">
-								<button id="submitBtn" type="submit" class="btn-lg btn-info">등록하기</button>
-								<button id="listBtn" type="button" class="btn-lg btn-info">등록취소</button>
+								<button id="submitBtn" type="submit" class="btn-lg maincolor">등록하기</button>
+								<button id="listBtn" type="button" class="btn-lg maincolor-re ">등록취소</button>
 						</div>
 					</form>
 

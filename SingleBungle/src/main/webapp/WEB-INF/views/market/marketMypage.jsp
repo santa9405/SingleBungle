@@ -227,7 +227,7 @@
 				<div class="col-md-8">
 					 <header class="main-header">
     <div class="container">
-     <a href="${sessionScope.returnListURL}" class="btn">이전 상세 게시글로 이동</a>
+     <a href="${sessionScope.returnListURL}" class="btn maincolor-re" style="margin-bottom : 5px;">이전 상세 게시글로 이동</a>
       <nav class="navbar navbar-expand-lg main-nav px-0">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar icon-bar-1"></span>

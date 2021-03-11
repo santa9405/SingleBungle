@@ -306,7 +306,7 @@ body {
 			</div>
 
 			<c:if test="${loginMember != null}">
-				<button type="button" class="btn btn-info float-right"><a  class="writeBtn" onclick="gradeCheck();">글쓰기</a></button>
+				<button type="button" class="btn maincolor float-right"><a  class="writeBtn" onclick="gradeCheck();">글쓰기</a></button>
 			</c:if>
 
 
