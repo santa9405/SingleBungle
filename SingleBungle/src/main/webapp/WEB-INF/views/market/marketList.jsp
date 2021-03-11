@@ -20,6 +20,7 @@ body {
 
 .boardName {
 	margin-right: 40px;
+	float : left;
 }
 
   .boardName:hover {
