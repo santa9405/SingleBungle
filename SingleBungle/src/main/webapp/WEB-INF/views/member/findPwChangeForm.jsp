@@ -92,7 +92,7 @@
                     <br><br>
                     
                     <h3 class="text-center">비밀번호 찾기</h3>
-                    <br>
+                    <%-- <br>
                     
                     <div class="form-row" id="idpw-area">
                         <div class="form-group col-md-6" id="id-area">
@@ -105,7 +105,7 @@
 	                            <button type="button" class="btn btn-outline-primary btn-block maincolor-re">비밀번호 찾기</button>
 	                        </a>
                         </div>
-                    </div>
+                    </div> --%>
                     <hr>
                     
                     <br>
@@ -122,13 +122,13 @@
 
 					<input type="hidden" id="memberNo" name="memberNo" value="${memberNo }">
                     <div class="form-group">
-						<label for="newPw1" class="textBold">새 비밀번호</label>
+						<label for="newPw1" class="textBold500">새 비밀번호</label>
 						<input type="password" class="form-control" id="newPwd" name="newPwd"
 							placeholder="새로운 비밀번호를 입력하세요." required>
 					</div>		
 									
 					<div class="form-group" >
-						<label for="newPw2" class="textBold">새 비밀번호 확인</label>
+						<label for="newPw2" class="textBold500">새 비밀번호 확인</label>
 						<input type="password" class="form-control" id="newPwd2" name="newPwd2"
 							placeholder="새로운 비밀번호를 한번 더 입력하세요." required>
 					</div>

@@ -98,8 +98,20 @@ body {
 	border-radius: 0.25rem
 }
 
+/* 페이징 글씨 */		
 .page-link {
-	color: black
+    color: black !important; 
+}
+
+/* 페이징 선택된 글씨 */
+.page-item.active .page-link{
+	color: white !important;
+}
+
+/* 페이징 선택된 배경색(초록) */
+.pagination-success .page-item.active .page-link {
+    background: #00c689;
+    border-color: #00c689
 }
 
 .pagination.pagination-rounded-flat .page-item {

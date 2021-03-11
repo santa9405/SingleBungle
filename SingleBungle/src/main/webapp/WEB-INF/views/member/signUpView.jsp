@@ -45,6 +45,21 @@
         }
         
         /* ---------------------------------------------------------------------- */
+        
+        /* 소제목 글씨 굵기 */
+		.textBold300 {
+			font-weight: 300;
+		}
+
+		.textBold400 {
+			font-weight: 400;
+		}
+		
+		.textBold500 {
+			font-weight: 500;
+		}
+        
+        /* ---------------------------------------------------------------------- */
         /* sns ---------------------------------------------------------------------- */
         #sns_signUp {
             margin-top: 50px;
@@ -131,7 +146,7 @@
 
                 <div class="text-center">
 
-                    <h3 style="margin-bottom:50px;">로고,,ㄱ-</h3>
+                    <!-- <h3 style="margin-bottom:50px;">로고,,ㄱ-</h3> -->
 
                     <h3>회원가입</h3>
 
@@ -151,7 +166,7 @@
                 <form action="signUpAction" method="post" name="signUpForm" onsubmit="return memberJoinvalidate();">
                     <!-- required : 필수 입력 속성 -->
                     <div class="form-group">
-                        <label for="userId"><span class="requiredInput">*</span> 아이디</label>
+                        <label for="userId" class="textBold500"><span class="requiredInput">*</span> 아이디</label>
                         <div>
                             <small>첫 글자는 영어 소문자, 나머지 글자는 영어 대, 소문자 + 숫자 (총 6~12글자)</small>
                         </div>
@@ -163,7 +178,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="pwd1"><span class="requiredInput">*</span> 비밀번호</label>
+                        <label for="pwd1" class="textBold500"><span class="requiredInput">*</span> 비밀번호</label>
                         <div>
                             <small>영어 대, 소문자 + 숫자 (총 6~12글자)</small>
                         </div>
@@ -174,7 +189,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="pwd2"><span class="requiredInput">*</span> 비밀번호 확인</label>
+                        <label for="pwd2" class="textBold500"><span class="requiredInput">*</span> 비밀번호 확인</label>
                         <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="비밀번호를 한번 더 입력하세요." required>
                         <div> <!-- 비밀번호 확인 유효성 검사 -->
                             <small id="checkPwd2" >&nbsp;</small>
@@ -183,7 +198,7 @@
 					
 					<!-- 이름 -->
                     <div class="form-group">
-                        <label for="name"><span class="requiredInput">*</span> 이름</label>
+                        <label for="name" class="textBold500"><span class="requiredInput">*</span> 이름</label>
                         <div>
                             <small>한글 입력 (2자 이상)</small>
                         </div>
@@ -195,7 +210,7 @@
 					
 					<!-- 닉네임 -->
                     <div class="form-group">
-                        <label for="nickname"><span class="requiredInput">*</span> 닉네임</label>
+                        <label for="nickname" class="textBold500"><span class="requiredInput">*</span> 닉네임</label>
                         <div>
                             <small>한글 또는 영문 입력 (총 2~8글자)</small>
                         </div>
@@ -208,7 +223,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="phone"><span class="requiredInput">*</span> 전화번호</label>
+                        <label for="phone" class="textBold500"><span class="requiredInput">*</span> 전화번호</label>
                         <div class="input-group"><!-- ph-area -->
                             <div class="ph">
                                 <select class="form-control phone" id="phone1" name="phone1">
@@ -232,7 +247,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email"><span class="requiredInput">*</span> 이메일</label>
+                        <label for="email" class="textBold500"><span class="requiredInput">*</span> 이메일</label>
                         <div class="input-group">
                             <div class="em email-1">
                                 <input type="text" class="form-control email" id="email1" name="email1" placeholder="이메일" required>
@@ -274,22 +289,22 @@
 
 
                     <div class="form-group">
-                        <label for="gender"><span class="requiredInput">*</span> 성별</label>
+                        <label for="gender" class="textBold500"><span class="requiredInput">*</span> 성별</label>
                         <br>
 
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="m" name="memberGender" value="M" class="custom-control-input" required>
-                            <label class="custom-control-label" for="m">남자</label>
+                            <label class="custom-control-label textBold400" for="m">남자</label>
                           </div>
                           <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="w" name="memberGender" value="W" class="custom-control-input">
-                            <label class="custom-control-label" for="w">여자</label>
+                            <label class="custom-control-label textBold400" for="w">여자</label>
                           </div>
                     </div>
 
                     <hr>
 
-                    <label for="agree"><span class="requiredInput">*</span> 약관동의</label>
+                    <label for="agree" class="textBold500"><span class="requiredInput">*</span> 약관동의</label>
                     <div class="form-group agree">
                             <!-- id, for끼리는 이름이 같으면 안된다! -->
                             <div class="custom-control custom-checkbox mb-3">
@@ -301,19 +316,19 @@
 
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input ck_box" id="customCheck1" required>
-                                <label class="custom-control-label" for="customCheck1">만 14세 이상입니다. <small class="requiredInput">(필수)</small></label>
+                                <label class="custom-control-label textBold400" for="customCheck1">만 14세 이상입니다. <small class="requiredInput">(필수)</small></label>
                             </div>
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input ck_box" id="customCheck2" required>
-                                <label class="custom-control-label" for="customCheck2">이용약관 <small class="requiredInput">(필수)</small></label>
+                                <label class="custom-control-label textBold400" for="customCheck2">이용약관 <small class="requiredInput">(필수)</small></label>
                             </div>
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input ck_box" id="customCheck3" required>
-                                <label class="custom-control-label" for="customCheck3">개인정보처리방침 <small class="requiredInput">(필수)</small></label>
+                                <label class="custom-control-label textBold400" for="customCheck3">개인정보처리방침 <small class="requiredInput">(필수)</small></label>
                             </div>
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input ck_box" id="customCheck4">
-                                <label class="custom-control-label" for="customCheck4">
+                                <label class="custom-control-label textBold400" for="customCheck4">
                                     이벤트,프로모션 알림 메일 및 SMS 수신 <small>(선택)</small>
                                 </label>
                             </div>
