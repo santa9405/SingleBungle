@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<title>login</title>
+<title>로그인</title>
 
 <!-- 구글 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -48,6 +48,10 @@ body {
     color: white;
 }
 
+/* #login-container {
+    margin: 150px 0 171px 0;
+} */
+
 /* ---------------------------------------------------------------- */
 
 a:hover {
@@ -69,8 +73,12 @@ a:hover {
 }
 
 /* 글씨 굵기 */
-.textBold {
+.textBold400 {
 	font-weight: 400;
+}
+
+.textBold500 {
+	font-weight: 500;
 }
 
 
@@ -122,13 +130,21 @@ a:hover {
 		<jsp:include page="../common/header.jsp" />
 	</div>
 
-	<div class="container" id="login-container">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-4"></div>
 
 			<div class="col-md-4" id="login-container">
 				<!-- <h3 class="login-heading mb-4 text-center">로고,,ㄱ-</h3> -->
 				<form action="loginAction" method="post" class="form-signin">
+					
+					<br><br>
+                    
+                    <h3 class="text-center">로그인</h3>
+					<hr>
+					
+					
+					
 					<div class="form-label-group">
 						<input type="text" id="memberId" name="memberId" placeholder="아이디" class="form-control" value="${cookie.saveId.value}" required autofocus>
 						<!-- 아이디 저장을 누르면, 쿠키 얻어오기 -->
@@ -139,7 +155,7 @@ a:hover {
 					</div>
 
 					<div class="checkbox mb-3">
-						<label> 
+						<label class="textBold500"> 
 							<input type="checkbox" name="saveId"
 							
 							 <c:if test="${!empty cookie.saveId.value}"> checked </c:if>
@@ -148,14 +164,14 @@ a:hover {
 						</label>
 					</div>
 					
-					<button class="btn btn-block btn-login text-uppercase mb-2 maincolor" type="submit">로그인</button>
+					<button class="btn btn-block btn-login text-uppercase mb-2 maincolor textBold500" type="submit">로그인</button>
 					<div>
 						<div class="idpw-left">
-							<a class="id maincolor-font-bk textBold" href="${contextPath}/member/findIdForm">아이디 찾기</a>
-							<a class="pw maincolor-font-bk textBold" href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
+							<a class="id maincolor-font-bk textBold500" href="${contextPath}/member/findIdForm">아이디 찾기</a>
+							<a class="pw maincolor-font-bk textBold500" href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
 						</div>
 						<div class="idpw-right">
-							<a class="signup maincolor-font-bk textBold" href="${contextPath}/member/signUp">회원가입</a>
+							<a class="signup maincolor-font-bk textBold500" href="${contextPath}/member/signUp">회원가입</a>
 						</div>
 
 						<br>

@@ -45,15 +45,23 @@
             list-style: none;
             border-radius: 0.25rem
         }
-
-        .page-link {
-            color: black
-        }
+		
 
         .pagination.pagination-rounded-flat .page-item {
             margin: 0 .25rem
         }
 
+		/* 페이징 글씨 */		
+        .page-link {
+            color: black !important; 
+        }
+        
+        /* 페이징 선택된 글씨 */
+        .page-item.active .page-link{
+        	color: white !important;
+        }
+        
+        /* 페이징 선택된 배경색(초록) */
         .pagination-success .page-item.active .page-link {
             background: #00c689;
             border-color: #00c689
@@ -65,8 +73,7 @@
             border-radius: 50px
         }
 
-        tr>th,
-        tr>td {
+        tr>th, tr>td {
             text-align: center;
         }
 
@@ -74,29 +81,10 @@
             margin-top: 30px;
         }
 
-        span {
+        /* span {
             margin-top: 100px;
-        }
-
-        #sideMenu {
-            margin-top: 50px !important;
-            position: relative;
-            transition: margin-top 1s ease-in-out 0s, right .5s;
-        }
-
-        #sideTitle,
-        #sideText {
-            text-align: center;
-        }
-
-        .nav-link {
-            color: #555;
-        }
-
-        .nav-link:hover {
-            background: #f5f5f5;
-        }
-
+        } */
+       
         .profile {
             width: 100%;
         }
@@ -133,6 +121,11 @@
 			display: none;
 		}
 
+		/* 게시글 목록 마우스 오버시 손가락 모양 커서  */
+		#list-table1,#list-table2,#list-table3 td:hover {
+			cursor: pointer;
+		}
+	
     </style>
 </head>
 
@@ -234,8 +227,6 @@
                                 <th>작성일</th>
                             </tr>
                         </thead>
-                        
-                        
 
                         <tbody>
                         <c:if test="${empty boardList }">
@@ -565,7 +556,7 @@
 			$("#myPage").attr('class','nav-link px-4 active text-white shadow-sm rounded-pill maincolor');
 	});
 	
-
+	/* 테이블 클릭시 해당 게시글로 이동 */
 	$("#list-table1 td").on("click",function(){
 			var boardNo = $(this).parent().children().eq(0).text();
 			

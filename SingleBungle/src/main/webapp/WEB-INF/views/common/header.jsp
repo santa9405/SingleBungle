@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-	<title>Spring Project</title>
+	<title>Header</title>
 	
 	
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
@@ -103,11 +103,31 @@
     */
     /* 세컨드 (파랑)--------------------------------------- */
 	
-		.navbar {
-			background-color: #87ce93ee;
-		/* 	background-color: #ffaf18; */
-			
-		}
+	/* 글씨 굵기 */
+	.textBold300 { font-weight: 300; }
+	.textBold400 { font-weight: 400; }
+	.textBold500 { font-weight: 500; }
+	.textBold700 { font-weight: 700; }
+	
+	
+	
+	.navbar {
+		background-color: #87ce93ee;
+	/* 	background-color: #ffaf18; */
+		
+	}
+	
+	/* 네비 글씨 */
+	.nav-font{
+		color: #ffffff !important;
+		opacity: .6 !important; /* 투명도 */
+	}
+	
+	.nav-font:hover {
+		color:#ffffff !important;
+		opacity: 1 !important; /* 투명도 */
+	}
+	
 
    	#logo { width: 150px; height: 70px; }
 
@@ -134,13 +154,13 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
 			<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/board/list">일상을 말해봐</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/cafe/list">먹보의 하루</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/review/list">싱글이의 영수증</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/findFriend/list">만남의 광장</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/market/list">벙글장터</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/noticeList">공지사항</a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/faqView">고객센터</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/board/list">일상을 말해봐</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/cafe/list">먹보의 하루</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/review/list">싱글이의 영수증</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/findFriend/list">만남의 광장</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/market/list">벙글장터</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/admin/noticeList">공지사항</a></li>
+				<li class="nav-item"><a class="nav-link textBold500 nav-font" href="${contextPath}/admin/faqView">고객센터</a></li>
 
 			</ul>
 			<ul class="navbar-nav ml-auto nav-flex-icons">
@@ -148,13 +168,13 @@
 				<c:choose>
 					<%-- 로그인이 되어있지 않은 경우 --%>
 					<c:when test="${empty sessionScope.loginMember }">
-			     		<a class="nav-link" href="${contextPath}/member/login">Login</a>
+			     		<a class="nav-link textBold500 nav-font" href="${contextPath}/member/login">로그인</a>
 					</c:when>
 					
 					<%-- 관리자로 로그인할 경우 --%>
 					<c:when test="${loginMember.memberGrade == 'G'}">
-			     		<a class="nav-link" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberNickname}</a>
-				      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
+			     		<a class="nav-link textBold500 nav-font" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberNickname}</a>
+				      	<a class="nav-link textBold500 nav-font" href="${contextPath}/member/logout">로그아웃</a>
 					</c:when>
 					
 					<%-- 회원으로 로그인할 경우 --%>
@@ -162,9 +182,9 @@
 							<c:if test="${loginMember.memberGrade == 'F'}">
 								<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;"><i class="far fa-envelope"></i></a>
 							</c:if>
-						<span>${loginMember.memberGrade} 등급</span>
-				      	<a class="nav-link" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
-				      	<a class="nav-link" href="${contextPath}/member/logout">Logout</a>
+						<span class="nav-link textBold500 nav-font">${loginMember.memberGrade}등급</span>
+				      	<a class="nav-link textBold500 nav-font" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
+				      	<a class="nav-link textBold500 nav-font" href="${contextPath}/member/logout">로그아웃</a>
 					</c:otherwise>
 				</c:choose>
 			
@@ -182,8 +202,7 @@
 	
 	<%-- ---------------------- 로그인(임시) ---------------------- --%>
 	
-	
-<!-- 	~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~ -->
+	<%-- 	~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~ ~(˘▾˘~)(~˘▾˘)~ --%>
 	<br>
 	<%-- ---------------------- 로그인(임시) ---------------------- --%>
 	

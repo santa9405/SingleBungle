@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원 관리</title>
+    <title>등업 관리</title>
 
     <!-- 부트스트랩 사용을 위한 css 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -137,7 +137,7 @@
     
                     <!-- 게시판 이름/카테고리 -->
                     <div class="row py-5">
-                          <h1 class="boardName float-left">회원 관리</h1>
+                          <h1 class="boardName float-left">등업 관리</h1>
                 </div>     
                 </div>
 

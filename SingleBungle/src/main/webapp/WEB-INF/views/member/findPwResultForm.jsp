@@ -97,7 +97,7 @@ a:hover {
 				<br>
 
 				<h3 class="text-center">비밀번호 찾기</h3>
-				<br>
+				<%-- <br>
 
 				<div class="form-row" id="idpw-area">
 					<div class="form-group col-md-6" id="id-area">
@@ -110,7 +110,7 @@ a:hover {
 							<button type="button" class="btn btn-outline-primary btn-block maincolor-re">비밀번호 찾기</button>
 						</a>
 					</div>
-				</div>
+				</div> --%>
 				<hr>
 
 				<br>

@@ -42,12 +42,19 @@
 	border-radius: 0.25rem
 }
 
-.page-link {
-	color: black
-}
 
 .pagination.pagination-rounded-flat .page-item {
 	margin: 0 .25rem
+}
+
+/* 페이징 글씨 */		
+.page-link {
+    color: black !important; 
+}
+
+/* 페이징 선택된 글씨 */
+.page-item.active .page-link{
+	color: white !important;
 }
 
 .pagination-success .page-item.active .page-link {
@@ -68,9 +75,9 @@ tr>th, tr>td {
 	margin-top: 30px;
 }
 
-span {
+/* span {
 	margin-top: 100px;
-}
+} */
 
 #sideMenu {
 	margin-top: 50px !important;
@@ -82,13 +89,9 @@ span {
 	text-align: center;
 }
 
-.nav-link {
-	color: #555;
-}
-
-.nav-link:hover {
+/* .nav-link:hover {
 	background: #f5f5f5;
-}
+} */
 
 .hidden {
 	display: none;

@@ -239,7 +239,7 @@ public class memberController {
 		
 		//String mailId = request.getParameter("mailId"); // 받는 사람 이메일
 		
-		System.out.println("tomail :" + tomail);
+		//System.out.println("tomail :" + tomail);
 		//System.out.println("mailId : " + mailId);
 
 		try {
@@ -567,7 +567,7 @@ public class memberController {
 		model.addAttribute("myReplyList", myReplyList);
 		model.addAttribute("pInfo3", pInfo3);
 		
-		System.out.println(myBoardList);
+		//System.out.println(myBoardList);
 	
 
 		return "member/mypage";

@@ -83,6 +83,16 @@ a:hover {
 .em-end {
 	padding-right: 0;
 }
+
+/* 아이디 찾기, 비밀번호 찾기 왼쪽 정렬 */
+.idpw-left {
+	float: left;
+}
+
+/* 회원가입 오른쪽 정렬 */
+.idpw-right {
+	float: right;
+}
 </style>
 
 </head>
@@ -104,7 +114,7 @@ a:hover {
 
 
 				<h3 class="text-center">아이디 찾기</h3>
-				<br>
+				<%-- <br>
 
 				<div class="form-row" id="idpw-area">
 					<div class="form-group col-md-6" id="id-area">
@@ -117,19 +127,19 @@ a:hover {
 							<button type="button" class="btn btn-outline-primary btn-block maincolor-re">비밀번호 찾기</button>
 						</a>
 					</div>
-				</div>
+				</div> --%>
 				<hr>
 
 				<br>
 				<form action="findIdResultForm" method="post" name="">
 				
 					<div class="form-group" id="name-group">
-						<label for="name"><span class="requiredInput">*</span> 이름</label>
+						<label for="name" class="textBold500"><span class="requiredInput">*</span> 이름</label>
 						<input type="text" class="form-control" name="memberName" id="name" placeholder="이름을 입력하세요.">
 					</div>
 
 					<div class="form-group">
-						<label for="email"><span class="requiredInput">*</span> 이메일</label>
+						<label for="email" class="textBold500"><span class="requiredInput">*</span> 이메일</label>
 						<div class="input-group">
 							<div class="em email-1">
 								<input type="text" class="form-control email" id="email1" name="memberEmail" placeholder="이메일" required>
@@ -172,7 +182,24 @@ a:hover {
 
 					<hr>
 					<button type="submit" id="nextBtn" class="btn btn-block maincolor" >다음</button>
-					<br><br>
+					<br>
+					<div>
+						<div class="idpw-left">
+							<%-- <a class="id maincolor-font-bk textBold500" href="${contextPath}/member/findIdForm">아이디 찾기</a> --%>
+							<a class="pw maincolor-font-bk textBold500" href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
+						</div>
+						<div class="idpw-right">
+							<a class="signup maincolor-font-bk textBold500" href="${contextPath}/member/signUp">회원가입</a>
+						</div>
+
+						<br>
+
+						<!-- <div class="text-center" id="sns_signUp">
+							<div class="sns_text">SNS계정 간편 로그인/회원가입</div>
+							<a href="#"><img class="sns_logo" src="img/sns_naver.jpg"></a>
+							<a href="#"><img class="sns_logo" src="img/sns_kakao.jpg"></a>
+						</div> -->
+					</div>
 				</form>
 			</div>
 
