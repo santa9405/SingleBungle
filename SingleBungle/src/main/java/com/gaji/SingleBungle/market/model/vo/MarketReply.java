@@ -12,9 +12,20 @@ public class MarketReply {
 	private int memNo;				// 댓글 작성 회원 번호
 	private int parentReplyNo;		// 부모 댓글 번호
 	private String nickname;		// 닉네임
+	private String memberGrade;
 
 	 public MarketReply() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getMemberGrade() {
+		return memberGrade;
+	}
+
+
+	public void setMemberGrade(String memberGrade) {
+		this.memberGrade = memberGrade;
 	}
 
 
@@ -90,11 +101,14 @@ public class MarketReply {
 		this.nickname = nickname;
 	}
 
+
 	@Override
 	public String toString() {
 		return "MarketReply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDt=" + replyCreateDt
 				+ ", replyStatus=" + replyStatus + ", replyDepth=" + replyDepth + ", parentMarketNo=" + parentMarketNo
-				+ ", memNo=" + memNo + ", parentReplyNo=" + parentReplyNo + ", nickname=" + nickname + "]";
+				+ ", memNo=" + memNo + ", parentReplyNo=" + parentReplyNo + ", nickname=" + nickname + ", memberGrade="
+				+ memberGrade + "]";
 	}
-	
+
+
 }
