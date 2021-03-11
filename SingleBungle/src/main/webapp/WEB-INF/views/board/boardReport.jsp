@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가지가지 - 자유게시판 신고 페이지</title>
+<title>일상을 말해봐 신고 페이지</title>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
