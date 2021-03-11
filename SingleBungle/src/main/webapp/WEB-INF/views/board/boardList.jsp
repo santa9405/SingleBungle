@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가지가지 - 자유게시판 메인 페이지</title>
+<title>일상을 말해봐</title>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -169,7 +169,7 @@
 				      <div class="row py-5">
 				        <div class="col-lg-12 mx-auto">
 				          <div class="text-black banner">
-				            <h1 class="boardName float-left">자유게시판</h1>
+				            <h1 class="boardName float-left">일상을 말해봐</h1>
 				                  <a class="category maincolor-font-bk" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a> | 
 				                  <a class="category maincolor-font-bk" id="1" href="search?ct=1&${sort}${sk}${sv}">여행</a> | 
 				                  <a class="category maincolor-font-bk" id="2" href="search?ct=2&${sort}${sk}${sv}">영화</a> | 

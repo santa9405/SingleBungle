@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가지가지 - 맛집게시판 메인 페이지</title>
+<title>먹보의 하루</title>
 <!-- Core theme CSS (includes Bootstrap)-->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
@@ -189,7 +189,7 @@
 	      <div class="row py-5">
 	        <div class="col-lg-12 mx-auto">
 	          <div class="text-black banner">
-	            <h1 class="boardName float-left">맛집게시판</h1>
+	            <h1 class="boardName float-left">먹보의 하루</h1>
 	                  <a class="category maincolor-font-bk" id="0" href="search?ct=0&${sort}${sk}${sv}">전체</a> | 
 	                  <a class="category maincolor-font-bk" id="1" href="search?ct=1&${sort}${sk}${sv}">혼밥식당</a> | 
 	                  <a class="category maincolor-font-bk" id="2" href="search?ct=2&${sort}${sk}${sv}">맛집추천</a> | 

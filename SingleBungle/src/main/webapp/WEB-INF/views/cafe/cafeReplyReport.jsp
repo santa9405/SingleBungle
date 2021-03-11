@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가지가지 - 맛집게시판 댓글 신고 페이지</title>
+<title>먹보의 하루 댓글 신고 페이지</title>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="${contextPath}/resources/css/resume-styles.css" rel="stylesheet" />
