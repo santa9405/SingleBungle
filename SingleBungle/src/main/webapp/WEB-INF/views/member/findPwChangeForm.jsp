@@ -24,7 +24,31 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
-    <style>
+   		<style>
+    
+	    html {
+		    position: relative; 
+		    min-height: 100%;
+		    margin: 0;
+		    padding: 0;
+		    /* background: yellow; */
+			}
+			
+		body {
+			    min-height: 100%;
+			}
+			
+		#footer { /* 푸터 바닥에 고정시키기 !!! hmtl에 어쩌고도 해줘야함 */
+		    position: absolute;
+		    left: 0;
+		    bottom: 0;
+		    width: 100%;
+		    /* padding: 15px 0; */
+		    text-align: center;
+		    color: white;
+		}
+		
+		/* ---------------------------------------------------------------- */
 
         a:hover {
             text-decoration: none;
@@ -147,7 +171,9 @@
         </div>
     </div>
     
-    <jsp:include page="../common/footer.jsp"/>
+    <div id="footer">
+		<jsp:include page="../common/footer.jsp" />
+	</div>
     
     <script>
  	// submit 동작

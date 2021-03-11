@@ -24,6 +24,35 @@
 
 <style>
 
+html {
+    position: relative; 
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    /* background: yellow; */
+}
+
+body {
+    min-height: 100%;
+}
+
+#footer { /* 푸터 바닥에 고정시키기 !!! hmtl에 어쩌고도 해줘야함 */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* padding: 15px 0; */
+    text-align: center;
+    color: white;
+}
+
+/* #login-container {
+    margin: 150px 0 171px 0;
+} */
+
+/* ---------------------------------------------------------------- */
+
+
 a:hover {
 	text-decoration: none;
 }
@@ -208,7 +237,9 @@ a:hover {
 		<div class="col-md-4"></div>
 	</div>
 
-	<jsp:include page="../common/footer.jsp" />
+	<div id="footer">
+		<jsp:include page="../common/footer.jsp" />
+	</div>
 
 <script>
 // ajax를 이용한 실시간 이름-이메일 일치 검사 ----------------------------------------------------
