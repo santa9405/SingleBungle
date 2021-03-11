@@ -380,7 +380,7 @@
 			<input type="hidden" name="ct" value="${param.ct }">	<!-- 있으면 값 세팅  -->
 			<input type="hidden" name="sort" value="${param.sort }">
 		</form>
-
+</div>
 
 	<jsp:include page="../common/footer.jsp" />
 
