@@ -112,8 +112,8 @@
 	
 	
 	.navbar {
-		background-color: #87ce93ee;
-	/* 	background-color: #ffaf18; */
+		
+		background-color: #ffaf18; 
 		
 	}
 	
@@ -173,6 +173,7 @@
 					
 					<%-- 관리자로 로그인할 경우 --%>
 					<c:when test="${loginMember.memberGrade == 'G'}">
+							 <img class="image" src="${contextPath}/resources/images/gradeG.png" width="40"/>
 			     		<a class="nav-link textBold500 nav-font" href="${contextPath}/admin/adminMypage" style="display:inline">${loginMember.memberNickname}</a>
 				      	<a class="nav-link textBold500 nav-font" href="${contextPath}/member/logout">로그아웃</a>
 					</c:when>
@@ -180,9 +181,23 @@
 					<%-- 회원으로 로그인할 경우 --%>
 					<c:otherwise>
 							<c:if test="${loginMember.memberGrade == 'F'}">
-								<a class="nav-link" href="${contextPath}/message/messageBoxR" style="color:green;"><i class="far fa-envelope"></i></a>
+								<a class="nav-link" href="${contextPath}/message/messageBoxR"><img src="${contextPath}/resources/images/messageBox.png" style="width : 20px; height 20px; margin-bottom : 5px;"></a>
+								
 							</c:if>
-						<span class="nav-link textBold500 nav-font">${loginMember.memberGrade}등급</span>
+						<span class="nav-link textBold500 " style="display:inline-block; padding-top : 2px;">
+							<c:if test="${loginMember.memberGrade=='F' }">
+									<img class="image" src="${contextPath}/resources/images/grade1.png" width="40"/>
+									1등급
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='S' }">
+									<img class="image" src="${contextPath}/resources/images/grade2.png" width="40" />
+									2등급
+							</c:if>
+							<c:if test="${loginMember.memberGrade=='T' }">
+									<img class="image" src="${contextPath}/resources/images/grade3.png" width="40"/>
+									3등급
+							</c:if>
+						    </span>
 				      	<a class="nav-link textBold500 nav-font" href="${contextPath}/member/mypage" style="display:inline">${loginMember.memberNickname}</a>
 				      	<a class="nav-link textBold500 nav-font" href="${contextPath}/member/logout">로그아웃</a>
 					</c:otherwise>

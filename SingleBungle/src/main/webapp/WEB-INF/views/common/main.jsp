@@ -186,7 +186,7 @@
 
 							<!-- 친구찾기 -->
 								<div class="col-md-4">
-									<h4 style="color:#73b969cc">만남의 광장</h4>
+									<h4>만남의 광장</h4>
 
 									<div class="wrapper p-1" id="findFriend">
 										<table class="table-hover board-table">
