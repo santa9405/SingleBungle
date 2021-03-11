@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>친구찾기 게시판 글작성</title>
+<title>만남의 광장 게시판 글작성</title>
 <style>
 
 </style>
@@ -29,7 +29,7 @@
 				<div class="row py-5 no-gutters">
 						<div class="col-lg-12 mx-auto">
 							<div class="text-black banner">
-								<h1 class="boardName">친구찾기</h1>
+								<h1 class="boardName">만남의 광장</h1>
 								<hr>
 							</div>
 						</div>

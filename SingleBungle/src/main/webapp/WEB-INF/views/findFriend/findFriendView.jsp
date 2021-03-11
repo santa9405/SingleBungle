@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>친구찾기 게시판 상세조회</title>
+<title>만남의 광장 게시판 상세조회</title>
 <style>
 #board-area {
 	margin-bottom: 100px;
