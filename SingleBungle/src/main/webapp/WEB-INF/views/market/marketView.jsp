@@ -257,7 +257,7 @@
 										<c:if test="${referer == contextPath}">
 										 <c:set var="returnListURL" value="list"/>
 										</c:if>
-									<a type="button" class="btn btn-success float-right returnBtn" href="${returnListURL }">목록</a>
+									<a type="button" class="btn maincolor float-right returnBtn" href="${returnListURL }">목록</a>
 							
 							
 			<!-- <button type="button" class="btn btn-success float-right returnBtn">목록</button> -->
@@ -312,8 +312,8 @@
 						
 						 <!-- 본인의 글이면 버튼 나타나게 -->
 						 <c:if test="${market.memNo == loginMember.memberNo}"> 
-							<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge" <c:if test='${market.transactionStatus == 3}'>style='visibility: hidden;'</c:if>>
-								<button class="btnSoldOut reservationBtn" >
+							<div class="badge badge-danger px-1 rounded-pill font-weight-normal btnBadge " <c:if test='${market.transactionStatus == 3}'>style='visibility: hidden;'</c:if>>
+								<button class="btnSoldOut reservationBtn " >
 									<c:if test="${market.transactionStatus == 1}">예약중으로 변경</c:if>
 									<c:if test="${market.transactionStatus == 2}">예약 취소</c:if>
 								</button></div>
@@ -418,22 +418,22 @@
 						
 						<!-- 좋아요(찜하기) -->
  						<div>
-							<a  class="btn btn-primary btn-lg btnW likeBtn active" role="button" aria-pressed="true">
+							<a  class="btn maincolor btn-lg btnW likeBtn active " role="button" aria-pressed="true" >
 								<img src="${contextPath}/resources/images/like1.png" width="20" height="20" id="heart"
 									class='likeImgs <c:if test="${likeCheck == 1}">like2</c:if>'>
-								<span class="likeCnt cnt">
+								<span class="likeCnt cnt" style="color:white; font-size : 16px; font-weight: 400;">
 									<c:if test="${likeCheck == 1}">찜하기 취소</c:if>
 									<c:if test="${likeCheck != 1}">찜하기</c:if>
 								</span>
 							</a>
 							
 							
-							<a data-toggle="modal" <c:if test="${loginMember.memberNo != market.memNo }">href='#sendMessage'</c:if> class="btn btn-info btn-lg btnW active" role="button" aria-pressed="true"
+							<a data-toggle="modal" <c:if test="${loginMember.memberNo != market.memNo }">href='#sendMessage'</c:if> class="btn maincolor btn-lg btnW active" role="button" aria-pressed="true"
 							<c:if test="${loginMember.memberNo == market.memNo }">style="cursor: no-drop;" title="본인 게시글에는 쪽지를 보낼 수 없습니다!" </c:if>
 							>
 							
 								<img src="${contextPath}/resources/images/message.png" width="20" height="20" id="message"> 
-								<span class="messageText">쪽지</span>
+								<span class="messageText" style="color:white; font-size : 16px; font-weight: 400;">쪽지</span>
 							</a>
 	
 
@@ -441,13 +441,13 @@
 						
 						<c:if test="${market.memNo == loginMember.memberNo}"> 
 						<div style="margin-top : 10px;">
-							<a class="btn btn-warning btn-lg btnW active" role="button" aria-pressed="true"
+							<a class="btn maincolor btn-lg btnW active" role="button" aria-pressed="true"
 								 href="${contextPath}/market/update/${market.marketNo}">
-								<span>수정</span>
+								<span style="color:white; font-size : 16px; font-weight: 400;">수정</span>
 							</a>
 							
-							<a  class="btn btn-danger btn-lg btnW active MdeleteBtn" role="button" aria-pressed="true">
-								<span>삭제</span>
+							<a  class="btn maincolor btn-lg btnW active MdeleteBtn" role="button" aria-pressed="true">
+								<span style="color:white; font-size : 16px; font-weight: 400;">삭제</span>
 							</a>
 						</div>
 						</c:if>
@@ -474,8 +474,8 @@
 				<div class="row">
 					<div class="col-md-12">
 					<c:if test="${market.memNo == loginMember.memberNo}"> 
-						<button type="button" class="btn btn-success updateBtn">수정</button>
-						<button type="button" class="btn btn-danger MdeleteBtn">삭제</button>
+						<button type="button" class="btn maincolor-re updateBtn">수정</button>
+						<button type="button" class="btn maincolor MdeleteBtn">삭제</button>
 					</c:if>
 					</div>
 				</div>
@@ -488,7 +488,7 @@
 				<c:if test="${empty sessionScope.returnListURL}"> 
 					<c:set var="returnListURL" value="/list" scope="session"/>
 				</c:if>   
-				<a type="button" class="btn btn-success returnBtn" href="${returnListURL }">목록</a>
+				<a type="button" class="btn maincolor returnBtn" href="${returnListURL }">목록</a>
 				<!-- <button type="button" class="btn btn-success returnBtn">목록으로</button> -->
 				
 			</div>
