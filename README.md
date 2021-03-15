@@ -5,22 +5,18 @@
   <summary>Contents</summary>
   <ol>
     <li>
-      <a href="#content1">개요</a>
+      <a href="#개요">개요</a>
     </li>
     <li>
       <a href="#내용">내용</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
     </li>
-    <li><a href="#구현 기능">구현 기능</a>
+    <li><a href="#구현-기능">구현 기능</a>
       <ul>
-        <li><a href="#만남의 광장 게시글 등록">만남의 광장 게시글 등록</a></li>
-        <li><a href="#만남의 광장 게시글 수정">만남의 광장 게시글 수정</a></li>
-        <li><a href="#만남의 광장 게시글 삭제">만남의 광장 게시글 삭제</a></li>
+        <li><a href="#만남의-광장-게시글-등록">만남의 광장 게시글 등록</a></li>
+        <li><a href="#만남의-광장-게시글-수정">만남의 광장 게시글 수정</a></li>
+        <li><a href="#만남의-광장-게시글-삭제">만남의 광장 게시글 삭제</a></li>
         <li><a href="#검색(카테고리)">검색(카테고리)</a></li>
-        <li><a href="#댓글/답글 작성, 수정, 삭제, 신고">댓글/답글 작성, 수정, 삭제, 신고</a></li>
+        <li><a href="#댓글/답글-작성,-수정,-삭제,-신고">댓글/답글 작성, 수정, 삭제, 신고</a></li>
         <li><a href="#참여신청">참여신청</a></li>
         <li><a href="#채팅">채팅</a></li>
       </ul>
@@ -29,7 +25,7 @@
 </details>
 
 
-<h3 id="content1">개요</h3>
+# 개요
 
 * 프로젝트 명 : SingleBungle
 
@@ -68,8 +64,8 @@
   - 벙글장터 게시판 글 작성시 작성자의 동네 위치를 인증할 것.
   - 만남의 광장 게시판 참여회원간의 채팅이 가능할 수 있도록 할 것.
   - 원활한 소통을 위해 회원 간의 쪽지 보내기/받기가 가능하게 할 것.
-
 <br>
+
 * DB 설계
 ![singlebungle](https://user-images.githubusercontent.com/72387870/111110444-e7c9fa00-859f-11eb-926b-ac04e8e5d0ab.png)
 <br>
