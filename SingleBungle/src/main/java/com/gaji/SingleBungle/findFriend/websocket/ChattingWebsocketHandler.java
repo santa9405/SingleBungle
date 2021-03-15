@@ -56,6 +56,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler {
 		logger.info("게시글 번호 : " + obj.get("friendNo").toString());
 		logger.info("회원 번호 : " + obj.get("memberNo").toString());
 		logger.info("채팅 내용 : " + obj.get("chat").toString());
+		logger.info("회원 등급 : " + obj.get("memberGrade").toString());
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();

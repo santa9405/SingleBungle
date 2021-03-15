@@ -98,7 +98,7 @@
 								</div>
 								<label for="meetingTime" class="input-group-addon col-sm-1 col-form-label">모임시간</label>
 								<div class="col-md-4">
-									<select class="form-control div smal" id="meetingTime" name="meetingTime" style="width: 80px; height: 40px;" required>
+									<select class="form-control div smal" id="meetingTime" name="meetingTime" style="width: 90px; height: 40px;" required>
 										<option value="6시">6시</option>
 										<option value="7시">7시</option>
 										<option value="8시">8시</option>
