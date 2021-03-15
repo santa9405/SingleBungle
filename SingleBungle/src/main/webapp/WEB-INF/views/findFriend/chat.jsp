@@ -294,6 +294,7 @@
 					obj.friendNo = friendNo;
 					obj.memberNo = loginMemberNo;
 					obj.nickname = nickname;
+					obj.memberGrade = loginMemberGrade;
 					obj.chat = chat.replace(/\n/g, "<br>");
 					
 					var date = new Date();
@@ -359,13 +360,13 @@
 			
 		  var image = null;
              
-      if(loginMemberGrade == 'F'){
+		  if(obj.memberGrade == 'F'){
     	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade1.png").css({"width": "30px;","height": "30px;"});
-      }else if(loginMemberGrade == 'S'){
+      }else if(obj.memberGrade == 'S'){
     	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade2.png").css({"width": "30px;","height": "30px;"});                   
-      }else if(loginMemberGrade == 'T'){
+      }else if(obj.memberGrade == 'T'){
     	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/grade3.png").css({"width": "30px;","height": "30px;"});                   
-      }else{
+      }else{ㄴ
     	  image = $("<img>").addClass("mr-3 rounded-circle").attr("src", "${contextPath}/resources/images/gradeG.png").css({"width": "30px;","height": "30px;"});                      
       }
 			
