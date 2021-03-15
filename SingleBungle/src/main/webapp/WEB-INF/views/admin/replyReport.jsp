@@ -407,7 +407,7 @@
  			//$(this).prop("selected", true);
  			$("#categorySearch > option[value="+$(item).val()+"]").attr("selected","selected");
  			}
- 	});
+ 	}); 
  });
      
      
