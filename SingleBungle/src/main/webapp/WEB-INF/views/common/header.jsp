@@ -186,15 +186,15 @@
 							</c:if>
 						<span class="nav-link textBold500 " style="display:inline-block; padding-top : 2px;">
 							<c:if test="${loginMember.memberGrade=='F' }">
-									<img class="image" src="${contextPath}/resources/images/grade1.png" width="40"/>
+									<img class="userImage" src="${contextPath}/resources/images/grade1.png" width="40"/>
 									1등급
 							</c:if>
 							<c:if test="${loginMember.memberGrade=='S' }">
-									<img class="image" src="${contextPath}/resources/images/grade2.png" width="40" />
+									<img class="userImage" src="${contextPath}/resources/images/grade2.png" width="40" />
 									2등급
 							</c:if>
 							<c:if test="${loginMember.memberGrade=='T' }">
-									<img class="image" src="${contextPath}/resources/images/grade3.png" width="40"/>
+									<img class="userImage" src="${contextPath}/resources/images/grade3.png" width="40"/>
 									3등급
 							</c:if>
 						    </span>
