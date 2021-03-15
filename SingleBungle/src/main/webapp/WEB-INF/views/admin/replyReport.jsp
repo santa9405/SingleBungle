@@ -407,7 +407,7 @@
  			//$(this).prop("selected", true);
  			$("#categorySearch > option[value="+$(item).val()+"]").attr("selected","selected");
  			}
- 	});
+ 	}); 
  });
      
      
@@ -417,7 +417,7 @@
  		
  	  var boardViewURL = null;
  	  if(boardCode == 1) boardViewURL = "${contextPath}/board/"+ boardNo;
- 	  else if(boardCode == 2) boardViewURL = "${contextPath}/review/view/"+ boardNo;
+ 	  else if(boardCode == 2) boardViewURL = "${contextPath}/review/"+ boardNo;
  	  else if(boardCode == 3) boardViewURL = "${contextPath}/admin/notice/"+ boardNo;
  	  else if(boardCode == 4) boardViewURL = "${contextPath}/admin/event/"+ boardNo;
  	  else if(boardCode == 6) boardViewURL = "${contextPath}/cafe/"+ boardNo;
