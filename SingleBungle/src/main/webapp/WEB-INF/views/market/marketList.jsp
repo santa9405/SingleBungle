@@ -199,7 +199,7 @@ body {
 				
 				<form action="search" method="GET" id="searchForm">
           <div class="input-group mb-4 col-md-8 searchArea">
-            <input type="text" id="searchInput" name="sv"  placeholder="상품명 혹은 지역명을 입력하세요." aria-describedby="button-addon6" class="form-control" autocomplete="off">
+            <input type="text" id="searchInput" name="sv"  placeholder="상품명을 입력하세요." aria-describedby="button-addon6" class="form-control" autocomplete="off">
             <div class="input-group-append">
               <button id="searchBtn" type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
             </div>
@@ -383,7 +383,7 @@ body {
 		var marketViewURL = "${contextPath}/market/"+marketNo;
 		location.href = marketViewURL; 
 	});
-
+ 
 	
 	// 좋아요 
 	$(".likeBtns").on("click", function(){
@@ -429,7 +429,7 @@ body {
 				}
 			});
 		}
-	});
+	}); 
 	
 	// 검색 파라미터 유지
 	$(function(){
@@ -442,7 +442,7 @@ body {
 		}else{ // 선택 안된 경우,,
 			$("#0").css({"color":"#ffc823", "font-weight":"bold"});
 		}
-		
+		    
 		// 정렬
 		if(${param.sort == 'like'}){
 			$("#likeSort").css({"color":"#ffc823", "font-weight":"bold"});

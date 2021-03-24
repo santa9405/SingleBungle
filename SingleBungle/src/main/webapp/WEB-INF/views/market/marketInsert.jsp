@@ -647,7 +647,7 @@
 
 		//-------------------------------------------------------------------------------------------------------------------------------
 
-		var locate;
+		var locate="";
 		var inputLocate = "none";
 
 		function getLocation(getLoc) {
@@ -744,14 +744,10 @@
 												$("#searchAddr").empty();
 												for (var i = 0; i < r.documents.length; i++) {
 
-													console
-															.log(r.documents[i].address_name);
+													console.log(r.documents[i].address_name);
 
-													var li = '<li class="valAddr"><button type="button" class="btn addr" onclick="addrBtnClick(\''
-															+ r.documents[i].address_name
-															+ '\');">'
-															+ r.documents[i].address_name
-															+ '</button></li>'
+													var li = '<li class="valAddr"><button type="button" class="btn addr" onclick="addrBtnClick(\'' + r.documents[i].address_name + '\');">'
+															+ r.documents[i].address_name + '</button></li>'
 
 													$("#searchAddr").append(li);
 												}
