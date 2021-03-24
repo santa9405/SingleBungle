@@ -467,7 +467,7 @@ public class MarketController {
 	
 	// 동네인증 Controller
 	@ResponseBody
-	@RequestMapping("*/locateCertification")
+	@RequestMapping(value="locateCertification", produces ="application/text; charset=utf8") 
 	public String locateCertification(@ModelAttribute(name="loginMember", binding=false) Member loginMember,
 										@ModelAttribute(name="market", binding=false) Member market,
 								  	@RequestParam("locate") String locate) {

@@ -496,7 +496,7 @@
 		
 		
 		
-		<h5 class="popularItemTitle">사고팔고 인기 게시글</h5>
+		<h5 class="popularItemTitle">벙글장터 인기 게시글</h5>
 		<hr>
 
 
