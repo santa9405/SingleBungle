@@ -249,7 +249,7 @@
 					BOARD_TITLE like #{val}
 				</when>
 				<when test="sk == 'writer'">
-					BOARD_CONTENT like #{val}
+					NICKNAME like #{val}
 				</when>
 				<when test="sk == 'titcont'">
 					(BOARD_TITLE like #{val} OR BOARD_CONTENT like #{val})
@@ -299,7 +299,7 @@
 				</when>
 
 				<when test="sk == 'writer'">
-					BOARD_CONTENT like #{val}
+					NICKNAME like #{val}
 				</when>
 
 				<when test="sk == 'titcont'">

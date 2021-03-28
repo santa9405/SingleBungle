@@ -231,7 +231,7 @@ public class ReviewDAO {
 
 
 
-	/** 좋아요 여부
+	/**
 	 * @param map
 	 * @return
 	 */

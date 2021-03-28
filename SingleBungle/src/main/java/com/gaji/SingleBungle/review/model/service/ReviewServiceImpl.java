@@ -108,6 +108,8 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.decreaseLike(map);
 	}
 	
+	
+	// 좋아요 여부
 	@Override
 	public int selectLikePushed(Map<String, Integer> map) {
 		return dao.selectLikePushed(map);
@@ -142,21 +144,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 				String filePath = "/resources/reviewBoardImages";
 
-				/*
-				 * for(int i=0; i<images.size(); i++) {
-				 * if(!images.get(i).getOriginalFilename().equals("")) {
-				 * 
-				 * String fileName = rename(images.get(i).getOriginalFilename());
-				 * 
-				 * ReviewAttachment at = new ReviewAttachment(filePath, fileName, i, boardNo);
-				 * 
-				 * uploadImages.add(at); } }
-				 */
-
-				// boardContent 내부에 업로드된 이미지 정보 (filePath, fileName)이 들어있음
-				// -> boardContent에서 <img> 태그만을 골라내어 img 태그의 src 속성값을 추출 후 filePath, fileName을
-				// 얻어냄.
-
 				Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
 
 				// SummerNote에 작성된 내용 중 img태그의 src속성의 값을 검사하여 매칭되는 값을 Matcher객체에 저장함.
@@ -187,20 +174,6 @@ public class ReviewServiceImpl implements ReviewService {
 					if (result == uploadImages.size()) {
 
 						result = boardNo;
-
-						/*
-						 * int size = 0;
-						 * 
-						 * if (!images.get(0).getOriginalFilename().equals("")) { size = images.size();
-						 * }
-						 * 
-						 * for (int i = 0; i < size; i++) { try {
-						 * images.get(uploadImages.get(i).getFileLevel()) .transferTo(new File(savePath
-						 * + "/" + uploadImages.get(i).getFileName())); } catch (Exception e) {
-						 * e.printStackTrace();
-						 * 
-						 * throw new InsertAttachmentFailException("파일 서버 저장 실패"); } }
-						 */
 
 					} else { // 파일 정보를 DB에 삽입 실패
 						throw new InsertAttachmentFailException("파일 정보 DB삽입 실패");
