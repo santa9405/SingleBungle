@@ -96,14 +96,14 @@
 		// 유효성 검사
 		function validate(){
 			if($(".titleArea").val().trim().length ==0){
-				alert("제목을 입력해 주세요.");
+				swal("제목을 입력해 주세요.");
 				$(".titleArea").focus();
 				return false;
 			}
 			
 			
 			if($("#summernote").val().trim().length ==0){
-				alert("내용을 입력해 주세요.");
+				swal("내용을 입력해 주세요.");
 				$(".summernote").focus();
 				return false;
 			}
