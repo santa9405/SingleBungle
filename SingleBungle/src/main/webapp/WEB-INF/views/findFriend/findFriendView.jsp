@@ -594,9 +594,9 @@ body {
 		// 메세지 유효성 검사
 		function messageValidate(){
 			
-			if($("#messageText").val().trim().length ==0){
+			if($("#writeMessage").val().trim().length ==0){
 				swal("내용을 입력해 주세요");
-				$("#messageText").focus();
+				$("#writeMessage").focus();
 				return false;
 			}
 		}
