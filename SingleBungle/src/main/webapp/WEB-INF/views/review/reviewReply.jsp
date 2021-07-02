@@ -579,14 +579,6 @@
 
 
 
-
-
-//------------------------------------------------------------------------------------	
-
-	/* 댓글 신고 */
-		$(".replyReport").on("click", function(){
-				window.open('${contextPath}/reviewReport/replyReport', "popup", "width=550, height=650, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
-		});
 	
 	</script>
 	

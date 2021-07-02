@@ -242,12 +242,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 		if (result > 0) {
 			
-			// 수정 전 파일을 모아두는 list
-			List<ReviewAttachment> oldFiles = dao.selectAttachmentList(updateReview.getBoardNo());
-			
-			// 삭제 되어야할 파일 정보를 담을 리스트
-			List<ReviewAttachment> removeFileList = new ArrayList<ReviewAttachment>();
-
 
 			// DB에 저장할 웹 상 이미지 접근 경로
 			String filePath = "/resources/reviewBoardImages";
@@ -269,6 +263,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 			// DB에 새로 추가할 이미지파일 정보를 모아둘 List생성
 			List<ReviewAttachment> newAttachmentList = new ArrayList<ReviewAttachment>();
+			
+			// 수정 전 파일을 모아두는 list
+			List<ReviewAttachment> oldFiles = dao.selectAttachmentList(updateReview.getBoardNo());
 
 			// DB에서 삭제할 이미지파일 번호를 모아둘 List 생성
 			List<Integer> deleteFileNoList = new ArrayList<Integer>();

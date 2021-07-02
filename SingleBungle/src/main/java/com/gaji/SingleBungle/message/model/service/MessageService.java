@@ -17,6 +17,7 @@ public interface MessageService {
 
 	/** 보낸 쪽지 목록 조회
 	 * @param map
+	 * @param pInfo 
 	 * @return
 	 */
 	List<Message> selectSendList(Map<String, Object> map);

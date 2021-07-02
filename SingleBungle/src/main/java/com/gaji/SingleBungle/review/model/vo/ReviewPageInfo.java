@@ -28,7 +28,16 @@ public class ReviewPageInfo {
 	}
 	
 	
-	
+	public ReviewPageInfo(int currentPage, int listCount, int limit, int pagingBarSize, int boardType) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+		this.pageSize = pagingBarSize;
+		this.boardType = boardType;
+		
+		makePageInfo();
+	}
 	
 
 	public ReviewPageInfo(int currentPage, int listCount) {
@@ -46,16 +55,7 @@ public class ReviewPageInfo {
 		this.boardType = boardType;
 	}
 
-	public ReviewPageInfo(int currentPage, int listCount, int limit, int pagingBarSize, int boardType) {
-		super();
-		this.currentPage = currentPage;
-		this.listCount = listCount;
-		this.limit = limit;
-		this.pageSize = pagingBarSize;
-		this.boardType = boardType;
-		
-		makePageInfo();
-	}
+
 
 
 	public int getListCount() {
